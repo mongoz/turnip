@@ -112,7 +112,7 @@
 - (void) queryForAllPostsNearLocation: (CLLocation *) currentLocation
                    withNearbyDistance:(CLLocationAccuracy)nearbyDistance {
     
-    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+    PFQuery *query = [PFQuery queryWithClassName:@"MapMarkers"];
     
     if([self.markers count] == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
@@ -120,19 +120,15 @@
     
     PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
                                                longitude:currentLocation.coordinate.longitude];
-    
-    [query whereKey:TurnipParsePostLocationKey
+    [query includeKey:@"neighbourhood"];
+    [query whereKey:@"location"
         nearGeoPoint:point
         withinMiles:TurnipPostMaximumSearchDistance];
-    
-    query.limit = TurnipPostSearchLimit;
-    [query selectKeys:@[TurnipParsePostLocationKey, TurnipParsePostTitleKey, TurnipParsePostTextKey]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
             NSLog(@"Error in geo query!: %@", error);
         } else {
-
             [self createMarkerObject:objects];
             
             dispatch_async(dispatch_get_main_queue(), ^ {
@@ -142,21 +138,24 @@
     }];
 }
 
+- (void) queryForAllEventsOnScreen: (CLLocation *) currentLocation {
+    
+}
+
 - (void) createMarkerObject: (NSArray *) objects {
     NSMutableSet *mutableSet = [[NSMutableSet alloc] initWithCapacity: [objects count]];
     
     for (NSDictionary *object in objects) {
         MapMarker *newMarker = [[MapMarker alloc] init];
         
-        newMarker.objectId = [object valueForKey:TurnipParsePostIdKey];
-        newMarker.title = [object valueForKey:TurnipParsePostTitleKey];
-        newMarker.snippet = [object valueForKey:TurnipParsePostTextKey];
+        newMarker.objectId = object[TurnipParsePostIdKey];
+        newMarker.title = [object[@"neighbourhood"] objectForKey:@"name"];
+        newMarker.snippet = @"Private: 4 Public: 2 ";
         
         PFGeoPoint *geoPoint = object[TurnipParsePostLocationKey];
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
         newMarker.position = coordinate;
         newMarker.appearAnimation = 1;
-        newMarker.draggable = YES;
         newMarker.map = nil;
         
         [mutableSet addObject: newMarker];

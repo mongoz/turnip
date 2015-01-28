@@ -63,6 +63,8 @@
 		1AFD40441A74F9B800B2EABE /* Venice.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD403F1A74F9B700B2EABE /* Venice.gpx */; };
 		1AFD40451A74F9B800B2EABE /* Westwood.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD40401A74F9B800B2EABE /* Westwood.gpx */; };
 		1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD40481A751F2200B2EABE /* MBProgressHUD.m */; };
+		1AFD404B1A76F66500B2EABE /* delRey.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD404A1A76F66500B2EABE /* delRey.gpx */; };
+		1AFD404F1A76F81600B2EABE /* MarVista.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD404E1A76F81600B2EABE /* MarVista.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,8 @@
 		1AFD40401A74F9B800B2EABE /* Westwood.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Westwood.gpx; sourceTree = "<group>"; };
 		1AFD40471A751F2200B2EABE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		1AFD40481A751F2200B2EABE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		1AFD404A1A76F66500B2EABE /* delRey.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = delRey.gpx; sourceTree = "<group>"; };
+		1AFD404E1A76F81600B2EABE /* MarVista.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MarVista.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +355,8 @@
 				1AFD403E1A74F9B700B2EABE /* SantaMonica.gpx */,
 				1AFD403F1A74F9B700B2EABE /* Venice.gpx */,
 				1AFD40401A74F9B800B2EABE /* Westwood.gpx */,
+				1AFD404A1A76F66500B2EABE /* delRey.gpx */,
+				1AFD404E1A76F81600B2EABE /* MarVista.gpx */,
 			);
 			name = Locations;
 			sourceTree = "<group>";
@@ -444,9 +450,11 @@
 				1AFD40441A74F9B800B2EABE /* Venice.gpx in Resources */,
 				1AFD40421A74F9B800B2EABE /* Palisades.gpx in Resources */,
 				1AFD3FE01A74ED9E00B2EABE /* checkBoxMarked@2x.png in Resources */,
+				1AFD404F1A76F81600B2EABE /* MarVista.gpx in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
 				1AFD3FDF1A74ED9E00B2EABE /* checkBoxMarked.png in Resources */,
+				1AFD404B1A76F66500B2EABE /* delRey.gpx in Resources */,
 				1AFD3FDD1A74ED9E00B2EABE /* checkBox.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
 				1AFD3FDE1A74ED9E00B2EABE /* checkBox@2x.png in Resources */,

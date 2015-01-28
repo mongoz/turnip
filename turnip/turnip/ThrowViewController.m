@@ -1,6 +1,6 @@
 //
-//  SecondViewController.m
-//  partay
+//  ThrowViewController.m
+//  turnip
 //
 //  Created by Per on 1/4/15.
 //  Copyright (c) 2015 Per. All rights reserved.
@@ -174,128 +174,170 @@
 
 - (IBAction) createButtonHandler:(id)sender {
     [self.titleField resignFirstResponder];
-    
-    self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview: self.HUD];
-    
-    // Set determinate mode
-    self.HUD.mode = MBProgressHUDModeIndeterminate;
-    self.HUD.delegate = self;
-    self.HUD.labelText = @"Uploading...";
-    [self.HUD show:YES];
-    
-    CLLocation *currentLocation = [self.dataSource currentLocationForThrowViewController:self];
-    CLPlacemark *currentPlacemark = [self.dataSource currentPlacemarkForThrowViewController:self];
-    CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
-    
-    NSMutableArray *image = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < [self.images count]; i++) {
-        NSData *imageData = UIImageJPEGRepresentation(self.images[i], 0.7);
-        NSString *imageName = [NSString stringWithFormat:@"%@.jpg", self.titleField.text];
-        imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-        NSLog(@"%@", imageName);
+    if (![self checkInput]) {
         
-        PFFile *file = [PFFile fileWithName: imageName  data:imageData];
+        self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview: self.HUD];
         
-        [image addObject:file];
-    }
-    
-    PFGeoPoint *currentPoint =
-    [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude
-                           longitude: currentCoordinate.longitude
-     ];
-    
-    PFObject *postObject = [PFObject objectWithClassName: PartayParsePostClassName];
-    postObject[PartayParsePostUserKey] = [PFUser currentUser];
-    postObject[PartayParsePostTitleKey] = self.titleField.text;
-    postObject[PartayParsePostLocationKey] = currentPoint;
-    postObject[PartayParsePostTextKey] = self.aboutField.text;
-    postObject[PartayParsePostLocalityKey] = currentPlacemark.locality;
-    postObject[PartayParsePostStartDateKey] = self.dateInputField.text;
-    postObject[PartayParsePostPrivateKey] = (self.publicChecked) ? @"False" : @"True";
-    postObject[PartayParsePostPublicKey] = (self.privateChecked) ? @"False" : @"True";
-    postObject[PartayParsePostPaidKey] = (self.paidChecked) ? @"False" : @"True";
-    
-    if ([image count] > 0) {
-        postObject[PartayParsePostImageOneKey] = [image objectAtIndex: 0];
-       
-    }
-    if ([image count] > 1) {
-        postObject[PartayParsePostImageTwoKey] = [image objectAtIndex: 1];
-    }
-    if ([image count] > 2) {
-        postObject[PartayParsePostImageThreeKey] = [image objectAtIndex: 2];
-    }
-    
-    //This needs to be redone in a much smarter way.
-    if(self.imageOne.image != nil) {
-        NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageOne.image], 0.7);
-        NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
-        imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-        PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-        postObject[PartayParsePostThumbnailKey] = thumb;
+        // Set determinate mode
+        self.HUD.mode = MBProgressHUDModeIndeterminate;
+        self.HUD.delegate = self;
+        self.HUD.labelText = @"Uploading...";
+        [self.HUD show:YES];
         
-    } else if(self.imageTwo.image != nil) {
-        NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageTwo.image], 0.7);
-        NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
-        imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-        PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-        postObject[PartayParsePostThumbnailKey] = thumb;
-
-    } else if(self.imageThree.image != nil) {
-        NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageThree.image], 0.7);
-        NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
-        imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-        PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-        postObject[PartayParsePostThumbnailKey] = thumb;
-    }
-    
-    PFACL *readOnlyACL = [PFACL ACL];
-    [readOnlyACL setPublicReadAccess:YES];
-    [readOnlyACL setPublicWriteAccess:NO];
-       postObject.ACL = readOnlyACL;
-    
-    [postObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) {  // Failed to save, show an alert view with the error message
-            UIAlertView *alertView =
-            [[UIAlertView alloc] initWithTitle:[error userInfo][@"error"]
-                                       message:nil
-                                      delegate:self
-                             cancelButtonTitle:nil
-                             otherButtonTitles:@"Ok", nil];
-            [alertView show];
-            [self.HUD hide:YES];
-            return;
+        CLLocation *currentLocation = [self.dataSource currentLocationForThrowViewController:self];
+        CLPlacemark *currentPlacemark = [self.dataSource currentPlacemarkForThrowViewController:self];
+        CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
+        
+        NSMutableArray *image = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < [self.images count]; i++) {
+            NSData *imageData = UIImageJPEGRepresentation(self.images[i], 0.7);
+            NSString *imageName = [NSString stringWithFormat:@"%@.jpg", self.titleField.text];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            NSLog(@"%@", imageName);
+            
+            PFFile *file = [PFFile fileWithName: imageName  data:imageData];
+            
+            [image addObject:file];
         }
-        if (succeeded) {  // Successfully saved, post a notification to tell other view controllers
-            dispatch_async(dispatch_get_main_queue(), ^{
+        
+        PFGeoPoint *currentPoint =
+        [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude
+                               longitude: currentCoordinate.longitude
+         ];
+        
+        PFObject *postObject = [PFObject objectWithClassName: TurnipParsePostClassName];
+        postObject[TurnipParsePostUserKey] = [PFUser currentUser];
+        postObject[TurnipParsePostTitleKey] = self.titleField.text;
+        postObject[TurnipParsePostLocationKey] = currentPoint;
+        postObject[TurnipParsePostTextKey] = self.aboutField.text;
+        postObject[TurnipParsePostLocalityKey] = currentPlacemark.locality;
+        postObject[TurnipParsePostSubLocalityKey] = currentPlacemark.subLocality;
+        postObject[TurnipParsePostZipCodeKey] = currentPlacemark.postalCode;
+        postObject[TurnipParsePostStartDateKey] = self.dateInputField.text;
+        postObject[TurnipParsePostPrivateKey] = (self.publicChecked) ? @"False" : @"True";
+        postObject[TurnipParsePostPublicKey] = (self.privateChecked) ? @"False" : @"True";
+        postObject[TurnipParsePostPaidKey] = (self.paidChecked) ? @"False" : @"True";
+        postObject[TurnipParsePostendDateKey] = self.endTimeDate.text;
+        
+        if ([image count] > 0) {
+            postObject[TurnipParsePostImageOneKey] = [image objectAtIndex: 0];
+            
+        }
+        if ([image count] > 1) {
+            postObject[TurnipParsePostImageTwoKey] = [image objectAtIndex: 1];
+        }
+        if ([image count] > 2) {
+            postObject[TurnipParsePostImageThreeKey] = [image objectAtIndex: 2];
+        }
+        
+        //This needs to be redone in a much smarter way.
+        if(self.imageOne.image != nil) {
+            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageOne.image], 0.7);
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
+            postObject[TurnipParsePostThumbnailKey] = thumb;
+            
+        } else if(self.imageTwo.image != nil) {
+            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageTwo.image], 0.7);
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
+            postObject[TurnipParsePostThumbnailKey] = thumb;
+            
+        } else if(self.imageThree.image != nil) {
+            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageThree.image], 0.7);
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
+            postObject[TurnipParsePostThumbnailKey] = thumb;
+        }
+        
+        PFACL *readOnlyACL = [PFACL ACL];
+        [readOnlyACL setPublicReadAccess:YES];
+        [readOnlyACL setPublicWriteAccess:NO];
+        postObject.ACL = readOnlyACL;
+        
+        [postObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {  // Failed to save, show an alert view with the error message
+                UIAlertView *alertView =
+                [[UIAlertView alloc] initWithTitle:[error userInfo][@"error"]
+                                           message:nil
+                                          delegate:self
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:@"Ok", nil];
+                [alertView show];
                 [self.HUD hide:YES];
+                return;
+            }
+            if (succeeded) {  // Successfully saved, post a notification to tell other view controllers
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.HUD hide:YES];
+                    
+                    // Show checkmark
+                    self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+                    [self.view addSubview: self.HUD];
+                    
+                    self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkBoxMarked.png"]];
+                    
+                    // Set custom view mode
+                    self.HUD.mode = MBProgressHUDModeCustomView;
+                    
+                    self.HUD.labelText = @"Completed!";
+                    
+                    [self.HUD hide:YES afterDelay:5];
+                    self.HUD.delegate = self;
+                    
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:TurnipPartyThrownNotification
+                     object:nil];
+                });
                 
-                // Show checkmark
-                self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
-                [self.view addSubview: self.HUD];
-                
-                self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkBoxMarked.png"]];
-                
-                // Set custom view mode
-                self.HUD.mode = MBProgressHUDModeCustomView;
-                
-                self.HUD.labelText = @"Completed!";
-                
-                [self.HUD hide:YES afterDelay:5];
-                self.HUD.delegate = self;
-                
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:PartayPartyThrownNotification
-                 object:nil];
-            });
-        }
-    }];
+                [self resetView];
+            }
+        }];
+    } else {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"error"
+                                   message:@"You have not filled in all the required fields."
+                                  delegate:self
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"Ok", nil];
+        [alertView show];
+    }
 }
 
 - (void) resetView {
+    self.titleField.text = @"";
+    self.aboutField.text = @"about";
+    self.dateInputField.text = @"";
+    self.endTimeDate.text = @"";
     
+    self.imageOne.image = [UIImage imageNamed: @"placeholder.jpg"];
+    self.imageTwo.image = [UIImage imageNamed: @"placeholder.jpg"];
+    self.imageThree.image = [UIImage imageNamed: @"placeholder.jpg"];
+    
+    self.lastImagePressed = nil;
+    
+    [self.images removeAllObjects];
+    
+    [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
+    [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
+    [self.paidButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
+    
+    self.paidChecked = NO;
+    self.privateChecked = NO;
+    self.publicChecked = NO;
+}
+
+- (BOOL) checkInput {
+    
+    return ([self.titleField.text isEqual: @""] ||
+            [self.aboutField.text isEqual: @""] ||
+            [self.dateInputField.text isEqual:@""] ||
+            [self.endTimeDate.text isEqual:@""]);
 }
 
 #pragma mark - checkbox handlers
@@ -310,7 +352,6 @@
             self.publicChecked = NO;
         }
     }
-    
 }
 
 - (IBAction)privateCheckBoxButtonHandler:(id)sender {

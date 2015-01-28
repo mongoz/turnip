@@ -1,6 +1,6 @@
 //
 //  DetailViewController.m
-//  partay
+//  turnip
 //
 //  Created by Per on 1/14/15.
 //  Copyright (c) 2015 Per. All rights reserved.
@@ -27,7 +27,6 @@
     
     if (event != nil) {
         self.objectId = event.objectId;
-        self.titleLabel.text = event.title;
         self.navigationItem.title = event.title;
     }
     self.imageView1.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
@@ -43,27 +42,28 @@
 }
 
 - (void) downloadDetails {
-    PFQuery *query = [PFQuery queryWithClassName:PartayParsePostClassName];
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
     
+    [query includeKey:TurnipParsePostUserKey];
     [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
         if(error) {
             NSLog(@"Error in query!: %@", error);
         }else {
-           
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self downloadImages : object];
                 [self updateUI : object];
+                
+                NSLog(@"object: %@", object);
             });
         }
     }];
 }
 
-- (void) updateUI : (PFObject *) data {
-    //self.titleLabel.text = [data objectForKey:PartayParsePostTitleKey];
+- (void) updateUI : (PFObject *) data {	
     
-    self.navigationItem.title = [data objectForKey:PartayParsePostTitleKey];
+    self.navigationItem.title = [data objectForKey:TurnipParsePostTitleKey];
     
-    self.aboutLabel.text = [data objectForKey:PartayParsePostTextKey];
+    self.aboutLabel.text = [data objectForKey:TurnipParsePostTextKey];
 }
 
 - (void) downloadImages: (PFObject *) data {

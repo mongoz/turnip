@@ -1,6 +1,6 @@
 //
 //  FindViewController.m
-//  partay
+//  turnip
 //
 //  Created by Per on 1/4/15.
 //  Copyright (c) 2015 Per. All rights reserved.
@@ -37,10 +37,10 @@
     self = [super initWithCoder:aCoder];
     if (self) {
         // The className to query on
-        self.parseClassName = @"Posts";
+        self.parseClassName = TurnipParsePostClassName;
         
         // The key of the PFObject to display in the label of the default cell style
-        self.textKey = @"title";
+        self.textKey = TurnipParsePostTitleKey;
         
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
@@ -60,10 +60,10 @@
     }
     
     CLLocation *currentLocation = [self.dataSource currentLocationForFindViewController:self];
-    [query selectKeys:@[PartayParsePostTitleKey, PartayParsePostLocationKey, PartayParsePostThumbnailKey]];
+    [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey]];
     
     PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude: currentLocation.coordinate.longitude];
-    [query whereKey:PartayParsePostLocationKey nearGeoPoint:point withinMiles: PartayPostMaximumSearchDistance];
+    [query whereKey:TurnipParsePostLocationKey nearGeoPoint:point withinMiles: TurnipPostMaximumSearchDistance];
     
     return query;
 }
@@ -86,14 +86,14 @@
     
     
     // Configure the cell
-    PFFile *thumbnail = [object objectForKey: PartayParsePostThumbnailKey];
+    PFFile *thumbnail = [object objectForKey: TurnipParsePostThumbnailKey];
     UIImage *placeholder = [UIImage imageNamed:@"placeholder.jpg"];
     
     //Use a placeholder image before we have downloaded the real one.
     cell.eventImageView.image = placeholder;
     cell.eventImageView.file = thumbnail;
     
-    cell.titleLabel.text = [object objectForKey: PartayParsePostTitleKey];
+    cell.titleLabel.text = [object objectForKey: TurnipParsePostTitleKey];
     cell.distanceLabel.text = [self distanceFromCurrLocation: [object objectForKey: @"location" ]];
     
     [cell.eventImageView loadInBackground];
@@ -127,7 +127,7 @@
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
     [fmt setPositiveFormat:@"0.#"];
     
-    NSNumber *mile = [NSNumber numberWithDouble: PartayMetersToMiles(meters)];
+    NSNumber *mile = [NSNumber numberWithDouble: TurnipMetersToMiles(meters)];
     
     NSString *stringMile = [fmt stringFromNumber:mile];
     

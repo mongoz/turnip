@@ -1,6 +1,6 @@
 //
 //  LoginViewController.m
-//  partay
+//  turnip
 //
 //  Created by Per on 1/18/15.
 //  Copyright (c) 2015 Per. All rights reserved.

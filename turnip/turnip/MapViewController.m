@@ -1,6 +1,6 @@
 //
 //  MapViewController.m
-//  partay
+//  turnip
 //
 //  Created by Per on 1/4/15.
 //  Copyright (c) 2015 Per. All rights reserved.
@@ -112,7 +112,7 @@
 - (void) queryForAllPostsNearLocation: (CLLocation *) currentLocation
                    withNearbyDistance:(CLLocationAccuracy)nearbyDistance {
     
-    PFQuery *query = [PFQuery queryWithClassName:PartayParsePostClassName];
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
     
     if([self.markers count] == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
@@ -121,12 +121,12 @@
     PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
                                                longitude:currentLocation.coordinate.longitude];
     
-    [query whereKey:PartayParsePostLocationKey
+    [query whereKey:TurnipParsePostLocationKey
         nearGeoPoint:point
-        withinMiles:PartayPostMaximumSearchDistance];
+        withinMiles:TurnipPostMaximumSearchDistance];
     
-    query.limit = PartayPostSearchLimit;
-    [query selectKeys:@[PartayParsePostLocationKey, PartayParsePostTitleKey, PartayParsePostTextKey]];
+    query.limit = TurnipPostSearchLimit;
+    [query selectKeys:@[TurnipParsePostLocationKey, TurnipParsePostTitleKey, TurnipParsePostTextKey]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
@@ -148,11 +148,11 @@
     for (NSDictionary *object in objects) {
         MapMarker *newMarker = [[MapMarker alloc] init];
         
-        newMarker.objectId = [object valueForKey:PartayParsePostIdKey];
-        newMarker.title = [object valueForKey:PartayParsePostTitleKey];
-        newMarker.snippet = [object valueForKey:PartayParsePostTextKey];
+        newMarker.objectId = [object valueForKey:TurnipParsePostIdKey];
+        newMarker.title = [object valueForKey:TurnipParsePostTitleKey];
+        newMarker.snippet = [object valueForKey:TurnipParsePostTextKey];
         
-        PFGeoPoint *geoPoint = object[PartayParsePostLocationKey];
+        PFGeoPoint *geoPoint = object[TurnipParsePostLocationKey];
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
         newMarker.position = coordinate;
         newMarker.appearAnimation = 1;
@@ -225,6 +225,7 @@
             NSLog(@"Error %@", error.description);
         } else {
            self.placemark = [placemarks lastObject];
+            NSLog(@"placemark: %@", [placemarks lastObject]);
         }
     }];
 }
@@ -294,6 +295,7 @@
 - (IBAction)updateButtonHandler:(id)sender {
     NSLog(@"update");
     [self.mapView clear];
+    [self reverseGeocode:self.currentLocation];
     [self queryForAllPostsNearLocation: self.currentLocation withNearbyDistance: 100.0];
 }
 @end

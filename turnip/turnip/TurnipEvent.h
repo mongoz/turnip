@@ -1,6 +1,6 @@
 //
-//  Partay.h
-//  partay
+//  TurnipEvent.h
+//  turnip
 //
 //  Created by Per on 1/11/15.
 //  Copyright (c) 2015 Per. All rights reserved.

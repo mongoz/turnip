@@ -1,44 +1,46 @@
 //
-//  PartayConstants.h
-//  partay
+//  Constants.h
+//  turnip
 //
 //  Created by Per on 1/10/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#ifndef partay_Constants_h
-#define partay_Constants_h
+#ifndef turnip_Constants_h
+#define turnip_Constants_h
 
-static double PartayMetersToMiles(double meters) {
+static double TurnipMetersToMiles(double meters) {
     return meters * 0.000621371;
 }
 
 // Parse API key constants:
-static NSString * const PartayParsePostClassName = @"Posts";
-static NSString * const PartayParsePostUserKey = @"user";
-static NSString * const PartayParsePostUsernameKey = @"username";
-static NSString * const PartayParsePostTextKey = @"text";
-static NSString * const PartayParsePostTitleKey = @"title";
-static NSString * const PartayParsePostLocationKey = @"location";
-static NSString * const PartayParsePostLocalityKey = @"locality";
-static NSString * const PartayParsePostThumbnailKey = @"thumbnail";
-static NSString * const PartayParsePostImageOneKey = @"image1";
-static NSString * const PartayParsePostImageTwoKey = @"image1";
-static NSString * const PartayParsePostImageThreeKey = @"image1";
-static NSString * const PartayParsePostPrivateKey = @"private";
-static NSString * const PartayParsePostPublicKey = @"public";
-static NSString * const PartayParsePostPaidKey = @"paid";
-static NSString * const PartayParsePostStartDateKey = @"startDate";
-static NSString * const PartayParsePostendDateKey = @"endDate";
+static NSString * const TurnipParsePostClassName = @"Events";
+static NSString * const TurnipParsePostUserKey = @"user";
+static NSString * const TurnipParsePostUsernameKey = @"username";
+static NSString * const TurnipParsePostTextKey = @"text";
+static NSString * const TurnipParsePostTitleKey = @"title";
+static NSString * const TurnipParsePostLocationKey = @"location";
+static NSString * const TurnipParsePostLocalityKey = @"locality";
+static NSString * const TurnipParsePostSubLocalityKey = @"subLocality";
+static NSString * const TurnipParsePostThumbnailKey = @"thumbnail";
+static NSString * const TurnipParsePostImageOneKey = @"image1";
+static NSString * const TurnipParsePostImageTwoKey = @"image2";
+static NSString * const TurnipParsePostImageThreeKey = @"image3";
+static NSString * const TurnipParsePostPrivateKey = @"private";
+static NSString * const TurnipParsePostPublicKey = @"public";
+static NSString * const TurnipParsePostPaidKey = @"paid";
+static NSString * const TurnipParsePostStartDateKey = @"startDate";
+static NSString * const TurnipParsePostendDateKey = @"endDate";
+static NSString * const TurnipParsePostZipCodeKey = @"zipCode";
 
-static NSString * const PartayParsePostIdKey = @"objectId";
+static NSString * const TurnipParsePostIdKey = @"objectId";
 
 // Global Notifications
-static NSString * const PartayPartyThrownNotification = @"PartayPartyThrownNotification";
+static NSString * const TurnipPartyThrownNotification = @"PartayPartyThrownNotification";
 
-static double const PartayDefaultFilterDistance = 1000.0;
-static double const PartayPostMaximumSearchDistance = 20.0;
+static double const TurnipDefaultFilterDistance = 1000.0;
+static double const TurnipPostMaximumSearchDistance = 20.0;
 
-static NSUInteger const PartayPostSearchLimit = 20;
+static NSUInteger const TurnipPostSearchLimit = 20;
 
 #endif

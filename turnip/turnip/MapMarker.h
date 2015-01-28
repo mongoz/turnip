@@ -1,6 +1,6 @@
 //
-//  PMarker.h
-//  partay
+//  MapMarker.h
+//  turnip
 //
 //  Created by Per on 1/15/15.
 //  Copyright (c) 2015 Per. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  DetailViewController.h
-//  partay
+//  turnip
 //
 //  Created by Per on 1/14/15.
 //  Copyright (c) 2015 Per. All rights reserved.
@@ -16,7 +16,7 @@
 @property (nonatomic, strong) TurnipEvent *event;
 @property (nonatomic, strong) NSString *objectId;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
 @property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
 
 @property (strong, nonatomic) IBOutlet PFImageView *imageView1;

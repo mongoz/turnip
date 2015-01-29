@@ -20,6 +20,12 @@
 
 @implementation FindViewController
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -37,7 +43,7 @@
     self = [super initWithCoder:aCoder];
     if (self) {
         // The className to query on
-        self.parseClassName = TurnipParsePostClassName;
+        self.parseClassName = @"Events";
         
         // The key of the PFObject to display in the label of the default cell style
         self.textKey = TurnipParsePostTitleKey;
@@ -60,10 +66,13 @@
     }
     
     CLLocation *currentLocation = [self.dataSource currentLocationForFindViewController:self];
+    
+    
     [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey]];
     
     PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude: currentLocation.coordinate.longitude];
     [query whereKey:TurnipParsePostLocationKey nearGeoPoint:point withinMiles: TurnipPostMaximumSearchDistance];
+    
     
     return query;
 }
@@ -77,13 +86,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
-    static NSString *simpleTableIdentifier = @"PartayCell";
+    static NSString *simpleTableIdentifier = @"eventCell";
     
     FindTableCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil) {
         cell = [[FindTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    
     
     // Configure the cell
     PFFile *thumbnail = [object objectForKey: TurnipParsePostThumbnailKey];

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
+		1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
@@ -65,6 +67,7 @@
 		1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD40481A751F2200B2EABE /* MBProgressHUD.m */; };
 		1AFD404B1A76F66500B2EABE /* delRey.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD404A1A76F66500B2EABE /* delRey.gpx */; };
 		1AFD404F1A76F81600B2EABE /* MarVista.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD404E1A76F81600B2EABE /* MarVista.gpx */; };
+		1AFD406B1A7A1DBB00B2EABE /* simpleMenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A8626161A7A321700AF63B9 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarTableViewController.h; path = ../SidebarTableViewController.h; sourceTree = "<group>"; };
+		1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SidebarTableViewController.m; path = ../SidebarTableViewController.m; sourceTree = "<group>"; };
 		1AA179EE1A74E3D30061CA3E /* turnip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = turnip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA179F31A74E3D30061CA3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +160,7 @@
 		1AFD40481A751F2200B2EABE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1AFD404A1A76F66500B2EABE /* delRey.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = delRey.gpx; sourceTree = "<group>"; };
 		1AFD404E1A76F81600B2EABE /* MarVista.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MarVista.gpx; sourceTree = "<group>"; };
+		1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simpleMenuButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +257,8 @@
 				1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */,
 				1AFD3FD91A74ED9E00B2EABE /* ThrowViewController.h */,
 				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
+				1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */,
+				1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
@@ -258,6 +268,8 @@
 		1AA179F11A74E3D30061CA3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1A8626161A7A321700AF63B9 /* SWRevealViewController.h */,
+				1A8626171A7A321700AF63B9 /* SWRevealViewController.m */,
 				1AFD40471A751F2200B2EABE /* MBProgressHUD.h */,
 				1AFD40481A751F2200B2EABE /* MBProgressHUD.m */,
 				1AFD403B1A74F94900B2EABE /* Info.plist */,
@@ -303,6 +315,7 @@
 		1AFD3FF01A74EDA200B2EABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */,
 				1AFD3FD41A74ED9E00B2EABE /* Placeholder.jpg */,
 				1AFD3FBA1A74ED9E00B2EABE /* checkBox.png */,
 				1AFD3FBB1A74ED9E00B2EABE /* checkBox@2x.png */,
@@ -455,6 +468,7 @@
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
 				1AFD3FDF1A74ED9E00B2EABE /* checkBoxMarked.png in Resources */,
 				1AFD404B1A76F66500B2EABE /* delRey.gpx in Resources */,
+				1AFD406B1A7A1DBB00B2EABE /* simpleMenuButton.png in Resources */,
 				1AFD3FDD1A74ED9E00B2EABE /* checkBox.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
 				1AFD3FDE1A74ED9E00B2EABE /* checkBox@2x.png in Resources */,
@@ -484,6 +498,8 @@
 				1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */,
 				1AFD3FEB1A74ED9E00B2EABE /* TurnipEvent.m in Sources */,
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
+				1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */,
+				1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,

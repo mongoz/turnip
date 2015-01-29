@@ -26,6 +26,7 @@
 
 
 @property (nonatomic, strong) NSSet *markers;
+@property (nonatomic, strong) NSSet *publicMarkers;
 
 @property (nonatomic, assign) BOOL firstTimeLocation;
 
@@ -109,8 +110,7 @@
 
 #pragma mark -
 #pragma mark Fetch all parties
-- (void) queryForAllPostsNearLocation: (CLLocation *) currentLocation
-                   withNearbyDistance:(CLLocationAccuracy)nearbyDistance {
+- (void) queryForAllEventsNearLocation: (CLLocation *) currentLocation {
     
     PFQuery *query = [PFQuery queryWithClassName:@"MapMarkers"];
     
@@ -138,8 +138,73 @@
     }];
 }
 
-- (void) queryForAllEventsOnScreen: (CLLocation *) currentLocation {
+- (void) queryForAllPublicEventsOnScreen: (CLLocationCoordinate2D) northEast andSouthWest: (CLLocationCoordinate2D) southWest {
     
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+    
+    PFGeoPoint *NE = [PFGeoPoint geoPointWithLatitude:northEast.latitude longitude:northEast.longitude];
+    PFGeoPoint *SW = [PFGeoPoint geoPointWithLatitude:southWest.latitude longitude:southWest.longitude];
+    
+    [query whereKey:@"location" withinGeoBoxFromSouthwest:SW toNortheast:NE];
+    [query whereKey:@"public" equalTo:@"True"];
+    
+    [query selectKeys:@[TurnipParsePostLocationKey,TurnipParsePostIdKey, TurnipParsePostTitleKey, TurnipParsePostTextKey]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(error) {
+            NSLog(@"Error in geo query!: %@", error);
+        } else {
+           [self createPublicMarkerObject:objects];
+        }
+    }];
+}
+
+- (void) queryForAllNearbyPublicEvents: (CLLocation *) currentLocation {
+    
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+    
+    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
+                                               longitude:currentLocation.coordinate.longitude];
+    
+    [query whereKey:TurnipParsePostLocationKey
+       nearGeoPoint:point
+        withinMiles:TurnipPostMaximumSearchDistance];
+    
+    [query whereKey:@"public" equalTo:@"True"];
+    [query selectKeys:@[TurnipParsePostLocationKey,TurnipParsePostIdKey, TurnipParsePostTitleKey, TurnipParsePostTextKey]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(error) {
+            NSLog(@"Error in geo query!: %@", error);
+        } else {
+            [self createPublicMarkerObject:objects];
+        }
+    }];
+    
+}
+
+- (void) createPublicMarkerObject: (NSArray *) objects {
+    NSMutableSet *mutableSet = [[NSMutableSet alloc] init];
+    
+    for (NSDictionary *object in objects) {
+        MapMarker *public = [[MapMarker alloc] init];
+        
+        public.objectId = [object valueForKey:@"objectId"];
+        public.title = object[TurnipParsePostTitleKey];
+        public.snippet = object[TurnipParsePostTextKey];
+        
+        PFGeoPoint *geoPoint = object[TurnipParsePostLocationKey];
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
+        public.position = coordinate;
+        public.appearAnimation = 1;
+        public.map = nil;
+        public.draggable = YES;
+
+        [mutableSet addObject: public];
+    }
+    self.publicMarkers = [mutableSet copy];
+    [self drawPublicMarkers];
+
 }
 
 - (void) createMarkerObject: (NSArray *) objects {
@@ -150,20 +215,30 @@
         
         newMarker.objectId = object[TurnipParsePostIdKey];
         newMarker.title = [object[@"neighbourhood"] objectForKey:@"name"];
-        newMarker.snippet = @"Private: 4 Public: 2 ";
+        
+        NSString *snippet = [NSString stringWithFormat:@"Private: %@ Public %@", object[@"nrOfPrivate"], object[@"nrOfPublic"]];
+        newMarker.snippet = snippet;
         
         PFGeoPoint *geoPoint = object[TurnipParsePostLocationKey];
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
         newMarker.position = coordinate;
         newMarker.appearAnimation = 1;
         newMarker.map = nil;
+        newMarker.draggable = YES;
         
         [mutableSet addObject: newMarker];
     }
     
     self.markers = [mutableSet copy];
-    [self drawMarkers];
 
+}
+
+- (void) drawPublicMarkers {
+    for (MapMarker *marker in self.publicMarkers) {
+        if(marker.map == nil) {
+            marker.map = self.mapView;
+        }
+    }
 }
 
 - (void) drawMarkers {
@@ -175,13 +250,34 @@
     }
 }
 
+-(void) mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
+    GMSVisibleRegion visibleRegion = self.mapView.projection.visibleRegion;
+    CGFloat currentZoom = self.mapView.camera.zoom;
+    
+    NSLog(@"zoom: %f", currentZoom);
+    
+    GMSCoordinateBounds *bounds =
+    [[GMSCoordinateBounds alloc] initWithRegion: visibleRegion];
+    
+    if (currentZoom >= 13) {
+        
+        [self.mapView clear];
+        [self queryForAllPublicEventsOnScreen: bounds.northEast andSouthWest: bounds.southWest];
+
+    } else {
+        [self drawMarkers];
+    }
+    
+    
+}
+
 //- (UIView *) mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
 //    UIView *infoWindow =[[UIView alloc] init];
-//    
+//
 //    //info window setup
 //    //title label setup
 //    //snippet label setup
-//    
+//
 //    return infoWindow;
 //}
 
@@ -190,6 +286,7 @@
  */
 - (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(MapMarker *)marker {
     
+    NSLog(@"markerID: %@", marker.objectId);
     [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker.objectId];
 }
 
@@ -202,17 +299,16 @@
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.currentLocation = [locations lastObject];
     
-    GMSCameraUpdate *updateCamera = [GMSCameraUpdate setTarget: CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude)  zoom:12];
+    GMSCameraUpdate *updateCamera = [GMSCameraUpdate setTarget: CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude)  zoom:11.5];
     
     [self.mapView animateWithCameraUpdate:updateCamera];
     
     
     if (self.firstTimeLocation == YES) {
         self.firstTimeLocation = NO;
-        NSLog(@"updating location");
         [self presentThrowViewController];
         [self reverseGeocode:[locations lastObject]];
-        [self queryForAllPostsNearLocation:self.currentLocation withNearbyDistance: 100.0];
+        [self queryForAllEventsNearLocation:self.currentLocation];
     }
 }
 
@@ -224,7 +320,7 @@
             NSLog(@"Error %@", error.description);
         } else {
            self.placemark = [placemarks lastObject];
-            NSLog(@"placemark: %@", [placemarks lastObject]);
+            //NSLog(@"placemark: %@", [placemarks lastObject]);
         }
     }];
 }
@@ -292,9 +388,9 @@
 
 // Look for new Events
 - (IBAction)updateButtonHandler:(id)sender {
-    NSLog(@"update");
     [self.mapView clear];
     [self reverseGeocode:self.currentLocation];
-    [self queryForAllPostsNearLocation: self.currentLocation withNearbyDistance: 100.0];
+    [self queryForAllEventsNearLocation: self.currentLocation];
+    [self drawMarkers];
 }
 @end

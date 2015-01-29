@@ -95,7 +95,6 @@
 
 - (void)presentLoginViewController {
     // Go to the welcome screen and have them log in or create an account.
-    NSLog(@"go to loginScreen");
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loginView"];
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
@@ -106,7 +105,6 @@
 #pragma mark WallViewController
 
 - (void)presentMapViewControllerAnimated:(BOOL)animated {
-    NSLog(@"go to map");
     
     FBRequest *request = [FBRequest requestForMe];
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {

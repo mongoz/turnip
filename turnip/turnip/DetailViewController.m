@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/Parse.h>
 #import "Constants.h"
 
@@ -21,6 +22,12 @@
 @synthesize event;
 @synthesize objectId;
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -29,6 +36,8 @@
         self.objectId = event.objectId;
         self.navigationItem.title = event.title;
     }
+    self.profileImage.userInteractionEnabled = YES;
+    
     self.imageView1.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
     self.imageView2.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
     self.imageView3.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
@@ -50,10 +59,10 @@
             NSLog(@"Error in query!: %@", error);
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
+                self.data = [[TurnipEvent alloc] initWithPFObject:object];
                 [self downloadImages : object];
                 [self updateUI : object];
                 
-                NSLog(@"object: %@", object);
             });
         }
     }];
@@ -82,6 +91,34 @@
         self.imageView3.file = (PFFile *)[data objectForKey:@"image3"];; // remote image
         [self.imageView3 loadInBackground];
     }
+    
+    // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [data[@"user"] objectForKey:@"facebookId"]]];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+    
+    // Run network request asynchronously
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         if (connectionError == nil && data != nil) {
+             // Set the image in the header imageView
+             self.profileImage.image = [UIImage imageWithData:data];
+         }
+     }];
 }
 
+- (IBAction)profileImageTapHandler:(UITapGestureRecognizer *)sender {
+
+    [self performSegueWithIdentifier:@"profileSegue" sender: self.data.user];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"profileSegue"]) {
+        ProfileViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.user = sender;
+    }
+}
 @end

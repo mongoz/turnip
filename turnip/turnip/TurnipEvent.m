@@ -55,7 +55,7 @@
     self = [self initWithCoordinate:coordinate andTitle:title andText:text andId:objectId];
     if(self) {
         self.object = object;
-        //self.user = object[PartayParsePostUserKey];
+        self.user = object[TurnipParsePostUserKey];
     }
     return self;
 }

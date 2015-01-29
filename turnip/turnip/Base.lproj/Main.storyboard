@@ -32,6 +32,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Turnip" id="KeP-8f-Gp5">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="w5e-qk-3IF"/>
                         <barButtonItem key="rightBarButtonItem" id="FeM-Wo-TsO">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="S06-5F-tuN">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -308,7 +309,9 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Throw Partay" id="S5p-GE-yKi"/>
+                    <navigationItem key="navigationItem" title="Throw Partay" id="S5p-GE-yKi">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="gsb-Gx-ptv"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="aboutField" destination="fNZ-yA-fQR" id="hXg-qc-wQH"/>
                         <outlet property="backButton" destination="R97-tm-poq" id="aGb-T8-3io"/>
@@ -403,7 +406,7 @@
                     <connections>
                         <segue destination="Jc9-5Y-Lmj" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="LrB-fs-e7R" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="z1C-Xa-OeB" kind="relationship" relationship="viewControllers" id="0S7-k2-AkJ"/>
+                        <segue destination="5vm-uZ-QD9" kind="relationship" relationship="viewControllers" id="y6B-2i-V5z"/>
                         <segue destination="cwJ-7g-60d" kind="relationship" relationship="viewControllers" id="0Qe-AM-VFf"/>
                     </connections>
                 </tabBarController>
@@ -420,20 +423,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PartayCell" rowHeight="75" id="FVw-pV-YdX" customClass="FindTableCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="75" id="FVw-pV-YdX" customClass="FindTableCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FVw-pV-YdX" id="Zko-Dm-bPD">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgW-KW-JIc">
-                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="86" y="8" width="157" height="21"/>
-                                            </variation>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R44-Oa-Qs8">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -443,12 +438,6 @@
                                                 <rect key="frame" x="86" y="33" width="69" height="21"/>
                                             </variation>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mll-hN-PQ2" customClass="PFImageView">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="8" y="0.0" width="70" height="70"/>
-                                            </variation>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icG-gP-giF">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -458,29 +447,42 @@
                                                 <rect key="frame" x="152" y="33" width="41" height="21"/>
                                             </variation>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mll-hN-PQ2" customClass="PFImageView">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="8" y="0.0" width="70" height="70"/>
+                                            </variation>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgW-KW-JIc">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="86" y="8" width="157" height="21"/>
+                                            </variation>
+                                        </label>
                                     </subviews>
                                     <variation key="default">
                                         <mask key="subviews">
-                                            <exclude reference="lgW-KW-JIc"/>
                                             <exclude reference="R44-Oa-Qs8"/>
-                                            <exclude reference="Mll-hN-PQ2"/>
                                             <exclude reference="icG-gP-giF"/>
+                                            <exclude reference="Mll-hN-PQ2"/>
+                                            <exclude reference="lgW-KW-JIc"/>
                                         </mask>
                                     </variation>
                                     <variation key="widthClass=compact">
                                         <mask key="subviews">
-                                            <include reference="lgW-KW-JIc"/>
                                             <include reference="R44-Oa-Qs8"/>
-                                            <include reference="Mll-hN-PQ2"/>
                                             <include reference="icG-gP-giF"/>
+                                            <include reference="Mll-hN-PQ2"/>
+                                            <include reference="lgW-KW-JIc"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="distanceLabel" destination="R44-Oa-Qs8" id="LoU-dm-RHE"/>
+                                    <outlet property="distanceLabel" destination="R44-Oa-Qs8" id="G1g-Db-W3i"/>
                                     <outlet property="eventImageView" destination="Mll-hN-PQ2" id="2Cy-4A-0QV"/>
-                                    <outlet property="partayImageView" destination="Mll-hN-PQ2" id="gVu-e5-UgX"/>
-                                    <outlet property="titleLabel" destination="lgW-KW-JIc" id="OzY-oJ-YcR"/>
+                                    <outlet property="titleLabel" destination="lgW-KW-JIc" id="9eQ-G0-MEm"/>
                                     <segue destination="spu-ar-JnD" kind="show" identifier="showPartayDetails" id="3sN-cn-5SC"/>
                                 </connections>
                             </tableViewCell>
@@ -490,7 +492,9 @@
                             <outlet property="delegate" destination="EnW-aL-faH" id="dmu-T6-2Jq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Find" id="av7-a1-UPl"/>
+                    <navigationItem key="navigationItem" title="Find" id="av7-a1-UPl">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Ls4-ZH-ovj"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2H-VJ-Qlg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -535,12 +539,6 @@
                                     <rect key="frame" x="242" y="218" width="100" height="100"/>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AwV-PT-KLp">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="72" width="125" height="125"/>
-                                </variation>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nc-ar-wud">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -550,6 +548,16 @@
                                     <rect key="frame" x="153" y="80" width="42" height="21"/>
                                 </variation>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AwV-PT-KLp" customClass="PFImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <gestureRecognizers/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="72" width="125" height="125"/>
+                                </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="wcC-mv-LHx" appends="YES" id="lQ8-C1-FHO"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -558,8 +566,8 @@
                                 <exclude reference="pnR-Hc-Ond"/>
                                 <exclude reference="lUx-bK-WlH"/>
                                 <exclude reference="rDq-Ib-WWW"/>
-                                <exclude reference="AwV-PT-KLp"/>
                                 <exclude reference="0nc-ar-wud"/>
+                                <exclude reference="AwV-PT-KLp"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -568,8 +576,8 @@
                                 <include reference="pnR-Hc-Ond"/>
                                 <include reference="lUx-bK-WlH"/>
                                 <include reference="rDq-Ib-WWW"/>
-                                <include reference="AwV-PT-KLp"/>
                                 <include reference="0nc-ar-wud"/>
+                                <include reference="AwV-PT-KLp"/>
                             </mask>
                         </variation>
                     </view>
@@ -578,9 +586,16 @@
                         <outlet property="imageView1" destination="pnR-Hc-Ond" id="1kl-9w-tka"/>
                         <outlet property="imageView2" destination="lUx-bK-WlH" id="nWp-4P-O7L"/>
                         <outlet property="imageView3" destination="rDq-Ib-WWW" id="iSx-VZ-urU"/>
+                        <outlet property="profileImage" destination="AwV-PT-KLp" id="xPX-B3-JGo"/>
+                        <segue destination="qJi-dl-hfz" kind="show" identifier="profileSegue" id="hYu-wC-nnF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qlW-22-FvB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="wcC-mv-LHx">
+                    <connections>
+                        <action selector="profileImageTapHandler:" destination="spu-ar-JnD" id="hjw-wi-raW"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-13.5" y="2229"/>
         </scene>
@@ -613,15 +628,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcA-Li-3hU">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wXv-nR-DQ6">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="232" width="26" height="21"/>
+                                    <rect key="frame" x="0.0" y="64" width="125" height="125"/>
                                 </variation>
-                            </label>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swag:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTC-Jx-0jb">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -631,49 +643,200 @@
                                     <rect key="frame" x="152" y="84" width="48" height="21"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1w-fx-DYb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1w-fx-DYb">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="152" y="141" width="42" height="21"/>
+                                    <rect key="frame" x="152" y="116" width="31" height="21"/>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wXv-nR-DQ6">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nT3-y8-B53">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="64" width="125" height="125"/>
+                                    <rect key="frame" x="186" y="116" width="42" height="21"/>
                                 </variation>
-                            </imageView>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="mcA-Li-3hU"/>
+                                <exclude reference="wXv-nR-DQ6"/>
                                 <exclude reference="JTC-Jx-0jb"/>
                                 <exclude reference="S1w-fx-DYb"/>
-                                <exclude reference="wXv-nR-DQ6"/>
+                                <exclude reference="nT3-y8-B53"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
-                                <include reference="mcA-Li-3hU"/>
+                                <include reference="wXv-nR-DQ6"/>
                                 <include reference="JTC-Jx-0jb"/>
                                 <include reference="S1w-fx-DYb"/>
-                                <include reference="wXv-nR-DQ6"/>
+                                <include reference="nT3-y8-B53"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Edw-rN-VkK"/>
+                    <navigationItem key="navigationItem" id="Edw-rN-VkK">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="vch-pc-BRy"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="dht-h7-POk"/>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="ageLabel" destination="nT3-y8-B53" id="CiH-nE-FiL"/>
                         <outlet property="profileImage" destination="wXv-nR-DQ6" id="WGY-yf-WVx"/>
+                        <outlet property="sidebarButton" destination="dht-h7-POk" id="gaw-6p-4W0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQc-Sv-3We" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="861" y="1384"/>
+            <point key="canvasLocation" x="825" y="2229"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="q7g-4V-XSh">
+            <objects>
+                <viewController id="5vm-uZ-QD9" customClass="SWRevealViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CbL-ha-0lY"/>
+                        <viewControllerLayoutGuide type="bottom" id="tIe-TO-2Lv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2ex-fb-t3s">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="first" id="Ju2-Nc-uOq"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="Dnl-T1-gfS" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegueSetController" id="Rf4-RN-zDH"/>
+                        <segue destination="Ta1-41-kdh" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="Bms-a7-Suh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2sy-t7-LeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="626"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="tZ4-rV-cx7">
+            <objects>
+                <tableViewController id="Dnl-T1-gfS" customClass="SidebarTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NkZ-B6-jOl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editProfile" id="lsE-F8-aq8">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lsE-F8-aq8" id="7fc-cc-cHq">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2z-Xb-aeQ">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="20" y="9" width="96" height="21"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="j2z-Xb-aeQ"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="j2z-Xb-aeQ"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editEvent" id="EQs-Gk-OdQ">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EQs-Gk-OdQ" id="4SD-h0-xiN">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tkh-ri-G4Z">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="20" y="15" width="85" height="21"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="Tkh-ri-G4Z"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="Tkh-ri-G4Z"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="logout" id="Hrn-pw-mDA">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hrn-pw-mDA" id="18h-SY-fkL">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RV-20-cgb">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="25" y="11" width="54" height="21"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="3RV-20-cgb"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="3RV-20-cgb"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Dnl-T1-gfS" id="hT3-JU-GLm"/>
+                            <outlet property="delegate" destination="Dnl-T1-gfS" id="QjQ-9Z-SCr"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="Pjz-ep-dAt"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bfB-cC-ian" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1657.5" y="624"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RJ0-rK-Oe5">
+            <objects>
+                <navigationController id="Ta1-41-kdh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lEK-nR-AfF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="qJi-dl-hfz" kind="relationship" relationship="rootViewController" id="ngV-fL-QMZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NMI-NO-Mea" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="1384"/>
         </scene>
         <!--Map-->
         <scene sceneID="GgU-O5-KZr">
@@ -693,25 +856,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lLr-by-Kd1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-789" y="620"/>
-        </scene>
-        <!--Profile-->
-        <scene sceneID="D6B-Gy-Hqn">
-            <objects>
-                <navigationController storyboardIdentifier="ProfileNavigation" automaticallyAdjustsScrollViewInsets="NO" id="z1C-Xa-OeB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="first" id="bSF-9t-QYG"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sgJ-6f-MbF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="qJi-dl-hfz" kind="relationship" relationship="rootViewController" id="wKA-ch-MQg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Wx-2g-jsT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="861" y="626"/>
         </scene>
         <!--Throw-->
         <scene sceneID="MSw-wC-wdv">
@@ -739,6 +883,7 @@
         <image name="first" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3sN-cn-5SC"/>
+        <segue reference="qQ6-T8-g9z"/>
+        <segue reference="hYu-wC-nnF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -14,6 +14,7 @@
 @interface ThrowViewController ()
 
 @property (nonatomic, strong) NSDate *selectedDate;
+@property (nonatomic, strong) NSDate *selectedTime;
 @property (nonatomic, strong) DateTimePicker *datePicker;
 @property (nonatomic, strong) DateTimePicker *endTimePicker;
 @property (nonatomic, assign) BOOL privateChecked;
@@ -30,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.selectedDate = [NSDate new];
     
     self.images = [[NSMutableArray alloc] init];
     
@@ -39,7 +41,6 @@
     self.imageTwo.userInteractionEnabled = YES;
     self.imageThree.userInteractionEnabled = YES;
     
-    self.selectedDate = [NSDate new];
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
     dayComponent.day = 30;
     NSCalendar *theCalendar = [NSCalendar currentCalendar];
@@ -81,22 +82,26 @@
     self.endTimeDate.inputView = dummyView;
 }
 
--(void)pickerChanged:(id)sender {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MM/dd hh:mm a";
-    self.selectedDate = [sender date];
-
-    self.dateInputField.text = [dateFormatter stringFromDate: self.selectedDate];
-}
-
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
     if (textField == self.dateInputField) {
+        self.selectedDate = [NSDate new];
         self.datePicker.hidden = NO;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM/dd hh:mm a";
+        
+        self.dateInputField.text = [dateFormatter stringFromDate: self.selectedDate];
     }
     else if (textField == self.endTimeDate) {
         self.endTimePicker.hidden = NO;
+        
+        self.selectedTime = [NSDate date];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        dateFormatter.dateFormat = @"hh:mm a";
+        
+        self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
     }
-    
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
@@ -109,15 +114,39 @@
         self.endTimePicker.hidden = YES;
         [self.endTimePicker resignFirstResponder];
     }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    if(range.length + range.location > self.aboutField.text.length)
+    {
+        return NO;
+    }
     
+    NSUInteger newLength = [self.aboutField.text length] + [string length] - range.length;
+    return (newLength > 140) ? NO : YES;
 }
 
 #pragma mark - Date/Time picker delegates
 
+-(void)pickerChanged:(id)sender {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MM/dd hh:mm a";
+    self.selectedDate = [sender date];
+    
+    self.dateInputField.text = [dateFormatter stringFromDate: self.selectedDate];
+}
+
 - (void) timePickerChanged: (id) sender {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     dateFormatter.dateFormat = @"hh:mm a";
-    self.endTimeDate.text = [dateFormatter stringFromDate: [sender date]];
+    self.selectedTime = [sender date];
+    self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
+    
+    self.selectedTime = [dateFormatter dateFromString: self.endTimeDate.text];
+    
+    NSLog(@"%@", self.selectedTime);
 }
 
 - (void) timeDonePressed {
@@ -195,7 +224,6 @@
             NSData *imageData = UIImageJPEGRepresentation(self.images[i], 0.7);
             NSString *imageName = [NSString stringWithFormat:@"%@.jpg", self.titleField.text];
             imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-            NSLog(@"%@", imageName);
             
             PFFile *file = [PFFile fileWithName: imageName  data:imageData];
             
@@ -215,11 +243,11 @@
         postObject[TurnipParsePostLocalityKey] = currentPlacemark.locality;
         postObject[TurnipParsePostSubLocalityKey] = currentPlacemark.subLocality;
         postObject[TurnipParsePostZipCodeKey] = currentPlacemark.postalCode;
-        postObject[TurnipParsePostStartDateKey] = self.dateInputField.text;
         postObject[TurnipParsePostPrivateKey] = (self.publicChecked) ? @"False" : @"True";
         postObject[TurnipParsePostPublicKey] = (self.privateChecked) ? @"False" : @"True";
         postObject[TurnipParsePostPaidKey] = (self.paidChecked) ? @"False" : @"True";
-        postObject[TurnipParsePostendDateKey] = self.endTimeDate.text;
+        postObject[@"date"] = self.selectedDate;
+        postObject[@"endTime"] = self.endTimeDate.text;
         
         if ([image count] > 0) {
             postObject[TurnipParsePostImageOneKey] = [image objectAtIndex: 0];

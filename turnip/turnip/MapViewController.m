@@ -287,7 +287,12 @@
 - (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(MapMarker *)marker {
     
     NSLog(@"markerID: %@", marker.objectId);
-    [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker.objectId];
+    
+    if (marker.objectId == nil) {
+       [self performSegueWithIdentifier:@"mapToListSegue" sender: nil];
+    } else {
+        [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker.objectId];
+    }
 }
 
 #pragma mark -

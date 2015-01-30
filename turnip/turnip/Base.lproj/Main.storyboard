@@ -50,6 +50,7 @@
                     <connections>
                         <outlet property="updateButton" destination="S06-5F-tuN" id="Yp7-7B-4HQ"/>
                         <segue destination="spu-ar-JnD" kind="show" identifier="mapToDetailsSegue" id="qQ6-T8-g9z"/>
+                        <segue destination="EnW-aL-faH" kind="show" identifier="mapToListSegue" id="tiM-6A-tU9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -358,15 +359,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSG-fj-B6c">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSG-fj-B6c">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.078838116689853743" green="0.068531424380834371" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Sign in with Facebook">
+                                <color key="backgroundColor" red="0.078838116689853743" green="0.068531424380834371" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="ZW4QC.png">
                                     <color key="titleColor" red="0.94919721838152371" green="0.94681126665085946" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                    <rect key="frame" x="80" y="391" width="218" height="30"/>
+                                    <rect key="frame" x="85" y="426" width="203" height="43"/>
                                 </variation>
                                 <connections>
                                     <action selector="facebookLoginButton:" destination="pvT-sh-b0B" eventType="touchUpInside" id="y2R-id-o6t"/>
@@ -417,6 +417,7 @@
         <!--Find-->
         <scene sceneID="X9m-J7-te2">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x2H-VJ-Qlg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="FindView" id="EnW-aL-faH" customClass="FindViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" id="Rci-tj-ZzQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -461,6 +462,12 @@
                                                 <rect key="frame" x="86" y="8" width="157" height="21"/>
                                             </variation>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RdT-x3-6ZY">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="201" y="17" width="40" height="40"/>
+                                            </variation>
+                                        </imageView>
                                     </subviews>
                                     <variation key="default">
                                         <mask key="subviews">
@@ -468,6 +475,7 @@
                                             <exclude reference="icG-gP-giF"/>
                                             <exclude reference="Mll-hN-PQ2"/>
                                             <exclude reference="lgW-KW-JIc"/>
+                                            <exclude reference="RdT-x3-6ZY"/>
                                         </mask>
                                     </variation>
                                     <variation key="widthClass=compact">
@@ -476,12 +484,14 @@
                                             <include reference="icG-gP-giF"/>
                                             <include reference="Mll-hN-PQ2"/>
                                             <include reference="lgW-KW-JIc"/>
+                                            <include reference="RdT-x3-6ZY"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="distanceLabel" destination="R44-Oa-Qs8" id="G1g-Db-W3i"/>
                                     <outlet property="eventImageView" destination="Mll-hN-PQ2" id="2Cy-4A-0QV"/>
+                                    <outlet property="statusImage" destination="RdT-x3-6ZY" id="3Ta-Bk-5uG"/>
                                     <outlet property="titleLabel" destination="lgW-KW-JIc" id="9eQ-G0-MEm"/>
                                     <segue destination="spu-ar-JnD" kind="show" identifier="showPartayDetails" id="3sN-cn-5SC"/>
                                 </connections>
@@ -496,9 +506,8 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="Ls4-ZH-ovj"/>
                     </navigationItem>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x2H-VJ-Qlg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-13.5" y="1384"/>
+            <point key="canvasLocation" x="-13.5" y="1381"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="BfA-ca-zen">
@@ -817,6 +826,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="Pjz-ep-dAt"/>
+                    <connections>
+                        <segue destination="pvT-sh-b0B" kind="show" identifier="logoutSegue" id="MPX-bt-Ote"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfB-cC-ian" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -879,11 +891,13 @@
     </scenes>
     <resources>
         <image name="Placeholder.jpg" width="300" height="300"/>
+        <image name="ZW4QC.png" width="202" height="46"/>
         <image name="checkBox.png" width="20" height="20"/>
         <image name="first" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qQ6-T8-g9z"/>
-        <segue reference="hYu-wC-nnF"/>
+        <segue reference="tiM-6A-tU9"/>
+        <segue reference="ngV-fL-QMZ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -21,7 +21,6 @@
 @implementation FindViewController
 
 - (void) viewWillAppear:(BOOL)animated {
-    
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
 }
@@ -68,7 +67,7 @@
     CLLocation *currentLocation = [self.dataSource currentLocationForFindViewController:self];
     
     
-    [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey]];
+    [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey, TurnipParsePostPrivateKey, TurnipParsePostPublicKey]];
     
     PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude: currentLocation.coordinate.longitude];
     [query whereKey:TurnipParsePostLocationKey nearGeoPoint:point withinMiles: TurnipPostMaximumSearchDistance];
@@ -103,6 +102,13 @@
     
     cell.titleLabel.text = [object objectForKey: TurnipParsePostTitleKey];
     cell.distanceLabel.text = [self distanceFromCurrLocation: [object objectForKey: @"location" ]];
+    
+    if ([[object objectForKey:TurnipParsePostPublicKey] isEqualToString:@"True"]) {
+        cell.statusImage.image = [UIImage imageNamed:@"WX_circle_green.png"];
+    }
+    if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"True"]) {
+        cell.statusImage.image = [UIImage imageNamed:@"red.png"];
+    }
     
     [cell.eventImageView loadInBackground];
     

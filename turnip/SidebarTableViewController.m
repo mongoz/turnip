@@ -65,8 +65,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%ld", (long)indexPath.row);
     
     if (indexPath.row == 2) {
-        NSLog(@"logout!");
         [PFUser logOut];
+        [self performSegueWithIdentifier: @"logoutSegue" sender: self];
     }
 }
 

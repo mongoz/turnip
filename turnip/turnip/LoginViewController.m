@@ -93,10 +93,14 @@
                     completion();
                 } else {
                     // Save the name on Parse
+                    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
+                    [[PFInstallation currentInstallation] saveEventually];
+                    
                     [PFUser currentUser][@"name"] = user.name;
                     [PFUser currentUser][@"facebookId"] = user.objectID;
                     [PFUser currentUser][@"TOS"] = @"True";
                     [PFUser currentUser][@"birthday"] = user.birthday;
+                    
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         completion();
                     }];

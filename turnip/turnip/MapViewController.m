@@ -66,11 +66,20 @@
     if (_locationManager == nil) {
         _locationManager = [[CLLocationManager alloc] init];
         // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+       
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+        // Being compiled with a Base SDK of iOS 8 or later
+        // Now do a runtime check to be sure the method is supported
         if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
         {
             [_locationManager requestWhenInUseAuthorization];
             [_locationManager startUpdatingLocation];
         }
+#else
+        // Being compiled with a Base SDK of iOS 7.x or earlier
+        // No such method - do something else as needed
+#endif
         
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -265,6 +274,7 @@
         [self queryForAllPublicEventsOnScreen: bounds.northEast andSouthWest: bounds.southWest];
 
     } else {
+        [self.mapView clear];
         [self drawMarkers];
     }
     

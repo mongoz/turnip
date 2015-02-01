@@ -53,6 +53,20 @@
         [self presentLoginViewController];
     }
     
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
+        // iOS 8 Notifications
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        
+        [application registerForRemoteNotifications];
+    }
+    else
+    {
+        // iOS < 8 Notifications
+        [application registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+    }
+    
     return YES;
 }
 
@@ -80,6 +94,38 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [[PFFacebookUtils session] close];
 }
+
+#pragma mark push notifications
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation.channels = @[ @"global" ];
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+    
+    // Create empty photo object
+    NSString *userId = [userInfo objectForKey:@"fromUser"];
+    NSString *type = [userInfo objectForKey:@"type"];
+    
+    if ([type isEqualToString:@"eventRequest"]) {
+        //Query for information about the user
+        
+        //Download the information
+        
+        //Save to file
+    }
+    
+    NSLog(@"push recived from %@", userId);
+
+}
+
+#pragma mark facebook url open
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url

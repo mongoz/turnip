@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>ACAEB6FD-F7D0-4B3C-AC8A-328D615F1D24</string>
+	<key>IDESourceControlProjectName</key>
+	<string>turnip</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>699C91856015BCE12C0845C854E85FB4912C3924</key>
+		<string>https://github.com/mongoz/turnip.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>turnip/turnip.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>699C91856015BCE12C0845C854E85FB4912C3924</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/mongoz/turnip.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>699C91856015BCE12C0845C854E85FB4912C3924</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>699C91856015BCE12C0845C854E85FB4912C3924</string>
+			<key>IDESourceControlWCCName</key>
+			<string>turnip</string>
+		</dict>
+	</array>
+</dict>
+</plist>

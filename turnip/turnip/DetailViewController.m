@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.requestButton.enabled = NO;
     
     if (event != nil) {
         self.objectId = event.objectId;
@@ -54,11 +55,22 @@
     PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
     
     [query includeKey:TurnipParsePostUserKey];
+    [query whereKey:@"requests" equalTo:[PFUser currentUser]];
     [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
         if(error) {
             NSLog(@"Error in query!: %@", error);
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
+                PFRelation *relation = [object relationForKey:@"requests"];
+                PFQuery *query = [relation query];
+                [query whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    NSLog(@"relations: %lu", (unsigned long)[objects count]);
+                    if([objects count] == 0) {
+                        self.requestButton.enabled = YES;
+                    }
+                }];
+                
                 self.data = [[TurnipEvent alloc] initWithPFObject:object];
                 [self downloadImages : object];
                 [self updateUI : object];
@@ -66,6 +78,7 @@
             });
         }
     }];
+    
 }
 
 - (void) updateUI : (PFObject *) data {	
@@ -120,5 +133,19 @@
         
         destViewController.user = sender;
     }
+}
+- (IBAction)requestButtonHandler:(id)sender {
+    
+    NSString *host = self.data.user.objectId;
+    NSString *message = @"Hi I'd like to go to your event";
+    
+    self.requestButton.enabled = NO; 
+    
+    [PFCloud callFunctionInBackground:@"requestEventPush"
+                       withParameters:@{@"recipientId": host, @"message": message, @"eventId": self.data.objectId}
+                                block:^(NSString *success, NSError *error) {
+                                    if (!error) {
+                                        NSLog(@"push sent");                                   }
+                                }];
 }
 @end

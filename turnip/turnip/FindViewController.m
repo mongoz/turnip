@@ -23,12 +23,13 @@
 - (void) viewWillAppear:(BOOL)animated {
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-
     
 }
 

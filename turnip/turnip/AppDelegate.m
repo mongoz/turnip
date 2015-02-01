@@ -13,9 +13,13 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <GoogleMaps/GoogleMaps.h>
 
+#import "TurnipUser.h"
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) UIStoryboard *storyboard;
+@property (nonatomic, strong) TurnipUser *user;
+@property (nonatomic, strong) NSMutableSet *requestingUser;
 
 @end
 
@@ -24,6 +28,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageFinishedDownload:) name:@"facebookImageDownloaded" object:nil];
+    
+    self.requests = NO;
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
@@ -114,15 +124,22 @@
     NSString *type = [userInfo objectForKey:@"type"];
     
     if ([type isEqualToString:@"eventRequest"]) {
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestPush"
+         object:self];
+        
+        self.requests = YES;
+        
+        NSLog(@"push recived from %@", userId);
+        
         //Query for information about the user
+        PFQuery *query = [PFUser query];
         
-        //Download the information
-        
-        //Save to file
+        [query getObjectInBackgroundWithId:userId block:^(PFObject *object, NSError *error) {
+             self.user = [[TurnipUser alloc] initWithPFObject: object];
+        }];
     }
-    
-    NSLog(@"push recived from %@", userId);
-
 }
 
 #pragma mark facebook url open
@@ -148,7 +165,7 @@
 }
 
 #pragma mark -
-#pragma mark WallViewController
+#pragma mark MapViewController
 
 - (void)presentMapViewControllerAnimated:(BOOL)animated {
     
@@ -167,6 +184,11 @@
             NSLog(@"Some other error: %@", error);
         }
     }];
+}
+
+- (void) imageFinishedDownload:(NSNotification *)note {
+    NSLog(@"user: %@", self.user);
+    //save to file
 }
 
 

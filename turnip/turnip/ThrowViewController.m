@@ -33,6 +33,8 @@
     [super viewDidLoad];
     self.selectedDate = [NSDate new];
     
+    NSLog(@"loaded");
+    
     self.images = [[NSMutableArray alloc] init];
     
     UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -80,6 +82,7 @@
     
     self.endTimeDate.delegate = self;
     self.endTimeDate.inputView = dummyView;
+    NSLog(@"loaded2");
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -308,7 +311,7 @@
                     self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
                     [self.view addSubview: self.HUD];
                     
-                    self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkBoxMarked.png"]];
+                    self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yesButton"]];
                     
                     // Set custom view mode
                     self.HUD.mode = MBProgressHUDModeCustomView;
@@ -317,10 +320,6 @@
                     
                     [self.HUD hide:YES afterDelay:5];
                     self.HUD.delegate = self;
-                    
-                    [[NSNotificationCenter defaultCenter]
-                     postNotificationName:TurnipPartyThrownNotification
-                     object:nil];
                 });
                 
                 [self resetView];
@@ -351,9 +350,9 @@
     
     [self.images removeAllObjects];
     
-    [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
-    [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
-    [self.paidButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
+    [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
+    [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
+    [self.paidButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
     
     self.paidChecked = NO;
     self.privateChecked = NO;
@@ -373,10 +372,10 @@
 - (IBAction)publicCheckBoxButtonHandler:(id)sender {
     if (!self.privateChecked) {
         if(!self.publicChecked) {
-            [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBoxMarked.png"] forState: UIControlStateNormal];
+            [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBoxMarked"] forState: UIControlStateNormal];
             self.publicChecked = YES;
         } else if (self.publicChecked){
-            [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
+            [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
             self.publicChecked = NO;
         }
     }
@@ -385,10 +384,10 @@
 - (IBAction)privateCheckBoxButtonHandler:(id)sender {
     if (!self.publicChecked) {
         if(!self.privateChecked) {
-            [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBoxMarked.png"] forState: UIControlStateNormal];
+            [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBoxMarked"] forState: UIControlStateNormal];
             self.privateChecked = YES;
         } else if (self.privateChecked){
-            [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
+            [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
             self.privateChecked = NO;
         }
     }
@@ -396,10 +395,10 @@
 
 - (IBAction)paidButtonHandler:(id)sender {
     if(!self.paidChecked) {
-        [self.paidButton setImage:[UIImage imageNamed:@"checkBoxMarked.png"] forState: UIControlStateNormal];
+        [self.paidButton setImage:[UIImage imageNamed:@"checkBoxMarked"] forState: UIControlStateNormal];
         self.paidChecked = YES;
     } else if (self.paidChecked){
-        [self.paidButton setImage:[UIImage imageNamed:@"checkBox.png"] forState: UIControlStateNormal];
+        [self.paidButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
         self.paidChecked = NO;
     }
 }

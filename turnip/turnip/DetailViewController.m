@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     // Do any additional setup after loading the view.
     self.requestButton.enabled = NO;
     
@@ -54,6 +55,8 @@
 - (void) downloadDetails {
     PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
     
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+ 
     [query includeKey:TurnipParsePostUserKey];
     [query whereKey:@"requests" equalTo:[PFUser currentUser]];
     [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
@@ -65,7 +68,6 @@
                 PFQuery *query = [relation query];
                 [query whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    NSLog(@"relations: %lu", (unsigned long)[objects count]);
                     if([objects count] == 0) {
                         self.requestButton.enabled = YES;
                     }
@@ -130,7 +132,7 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"profileSegue"]) {
         ProfileViewController *destViewController = segue.destinationViewController;
-        
+    
         destViewController.user = sender;
     }
 }
@@ -145,7 +147,8 @@
                        withParameters:@{@"recipientId": host, @"message": message, @"eventId": self.data.objectId}
                                 block:^(NSString *success, NSError *error) {
                                     if (!error) {
-                                        NSLog(@"push sent");                                   }
+                                        NSLog(@"push sent");
+                                    }
                                 }];
 }
 @end

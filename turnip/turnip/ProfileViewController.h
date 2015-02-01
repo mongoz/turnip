@@ -18,5 +18,9 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @property (strong, nonatomic) IBOutlet UILabel *ageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
+@property (strong, nonatomic) IBOutlet UIButton *sideMenuButton;
+
+- (IBAction)sideMenuButtonHandler:(id)sender;
 @end

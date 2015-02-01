@@ -35,14 +35,14 @@
 @implementation MapViewController
 
 - (void)presentThrowViewController {
-    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 1];
+    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 2];
     ThrowViewController *viewController = [navController.viewControllers objectAtIndex:0];
     viewController.dataSource = self;
 
 }
 
 - (void)presentFindViewController {
-    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex:3];
+    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex:1];
     FindViewController *viewController = [navController.viewControllers objectAtIndex: 0];
     
     viewController.dataSource = self;

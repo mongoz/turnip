@@ -21,26 +21,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.sideMenuButton.hidden = YES;
+    
     SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
     {
-        [self.sidebarButton setTarget: self.revealViewController];
-        [self.sidebarButton setAction: @selector( rightRevealToggle: )];
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
     
     if ([user.objectId isEqual:[PFUser currentUser].objectId]) {
         [self loadFacebookData];
         
-        [self hideAndDisableRightNavigationItem];
+        self.sideMenuButton.hidden = NO;
+        
     }
     else if (user == nil) {
         [self loadFacebookData];
+        self.sideMenuButton.hidden = NO;
     }
     else {
         [self drawFacebookData];
-        
-        [self hideAndDisableRightNavigationItem];
     }
 }
 
@@ -57,7 +57,7 @@
            //NSString *gender = userData[@"gender"];
             NSString *birthday = userData[@"birthday"];
             
-            self.navigationItem.title = name;
+            self.nameLabel.text = name;
             
             self.ageLabel.text = @([self calculateAge:birthday]).stringValue;
             
@@ -89,7 +89,7 @@
     
     self.ageLabel.text = @([self calculateAge:[user objectForKey:@"birthday"]]).stringValue;
     
-    self.navigationItem.title = [name objectAtIndex: 0];
+    self.nameLabel.text = [name objectAtIndex:0];
     
     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
@@ -121,17 +121,8 @@
     return  years;
 }
 
--(void) hideAndDisableRightNavigationItem
-{
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor clearColor]];
-    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+- (IBAction)sideMenuButtonHandler:(id)sender {
+    SWRevealViewController *revealViewController = self.revealViewController;
+    [revealViewController rightRevealToggleAnimated:YES];
 }
-
--(void) showAndEnableRightNavigationItem
-{
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor blackColor]];
-    [self.navigationItem.rightBarButtonItem setEnabled:YES];
-}
-
-
 @end

@@ -6,9 +6,12 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
+#import <Parse/Parse.h>
+#import "AppDelegate.h"
+
 #import "RequestViewController.h"
 #import "DraggableViewBackground.h"
-#import <Parse/Parse.h>
 #import "Constants.h"
 
 @interface RequestViewController ()
@@ -18,6 +21,9 @@
 @end
 
 @implementation RequestViewController
+
+NSArray *fetchedObjects;
+NSManagedObject *selectedObject;
 
 - (id) init
 {
@@ -40,33 +46,35 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"UserInfo" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    
+    if([fetchedObjects count] > 0) {
+        DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc] initWithFrame:self.view.frame userData: fetchedObjects];
+        [self.view addSubview:draggableBackground];
+    } else {
+       self.requestLabel.text = @"you got no requests";
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if(self.loadData) {
-    
-        NSArray *test = [[NSArray alloc]initWithObjects:@"Taylor",@"second",@"third",@"fourth",@"last", nil];
-        
-        DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc]initWithFrame:self.view.frame userData: test];
-        [self.view addSubview:draggableBackground];
-        
-    } else {
-        NSLog(@"No requests");
-    }
+    UIView *statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
+    statusBarView.backgroundColor  =  [UIColor blackColor];
+    [self.view addSubview:statusBarView];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void) downloadUserData {
-    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
-    
-    [query whereKey:@"user" equalTo:[PFUser currentUser]];
-
 }
 
 /*

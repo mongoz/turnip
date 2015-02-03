@@ -62,6 +62,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     if (_locationManager == nil) {
         _locationManager = [[CLLocationManager alloc] init];
@@ -274,7 +275,7 @@
         [self queryForAllPublicEventsOnScreen: bounds.northEast andSouthWest: bounds.southWest];
 
     } else {
-        [self.mapView clear];
+       // [self.mapView clear];
         [self drawMarkers];
     }
     
@@ -295,8 +296,6 @@
  *   Called after a marker's info window has been tapped.
  */
 - (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(MapMarker *)marker {
-    
-    NSLog(@"markerID: %@", marker.objectId);
     
     if (marker.objectId == nil) {
        [self performSegueWithIdentifier:@"mapToListSegue" sender: nil];
@@ -335,7 +334,7 @@
             NSLog(@"Error %@", error.description);
         } else {
            self.placemark = [placemarks lastObject];
-            //NSLog(@"placemark: %@", [placemarks lastObject]);
+            NSLog(@"placemark: %@", [placemarks lastObject]);
         }
     }];
 }

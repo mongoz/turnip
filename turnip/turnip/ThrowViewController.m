@@ -28,9 +28,21 @@
 
 @implementation ThrowViewController
 
+- (void) viewWillAppear:(BOOL)animated {
+    [self.tabBarController.tabBar setHidden:YES];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [self.tabBarController.tabBar setHidden:NO];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIView *statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
+    statusBarView.backgroundColor  =  [UIColor blackColor];
+    [self.view addSubview:statusBarView];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     self.selectedDate = [NSDate new];
     
     NSLog(@"loaded");
@@ -149,7 +161,6 @@
     
     self.selectedTime = [dateFormatter dateFromString: self.endTimeDate.text];
     
-    NSLog(@"%@", self.selectedTime);
 }
 
 - (void) timeDonePressed {
@@ -178,14 +189,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void) viewWillAppear:(BOOL)animated {
-    [self.tabBarController.tabBar setHidden:YES];
-}
-
-- (void) viewWillDisappear:(BOOL)animated {
-    [self.tabBarController.tabBar setHidden:NO];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

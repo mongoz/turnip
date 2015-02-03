@@ -9,15 +9,16 @@
 /* Begin PBXBuildFile section */
 		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
 		1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */; };
-		1A8626231A7B15A800AF63B9 /* WX_circle_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626211A7B15A800AF63B9 /* WX_circle_green.png */; };
 		1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */; };
 		1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626251A7B15B400AF63B9 /* ZW4QC.png */; };
-		1A8626291A7B179000AF63B9 /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626281A7B179000AF63B9 /* red.png */; };
 		1A9AE4BA1A7DEFB100AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4B91A7DEFB100AADDAA /* RequestViewController.m */; };
 		1A9AE4C71A7E007200AADDAA /* DraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4C11A7E007200AADDAA /* DraggableViewBackground.m */; };
 		1A9AE4C81A7E007200AADDAA /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4C31A7E007200AADDAA /* DraggableView.m */; };
 		1A9AE4C91A7E007200AADDAA /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4C61A7E007200AADDAA /* OverlayView.m */; };
 		1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4CB1A7E281400AADDAA /* TurnipUser.m */; };
+		1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */; };
+		1A9AE4D51A8052D200AADDAA /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D31A8052D200AADDAA /* green.png */; };
+		1A9AE4D61A8052D200AADDAA /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D41A8052D200AADDAA /* red.png */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
@@ -77,10 +78,8 @@
 		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarTableViewController.h; path = ../SidebarTableViewController.h; sourceTree = "<group>"; };
 		1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SidebarTableViewController.m; path = ../SidebarTableViewController.m; sourceTree = "<group>"; };
-		1A8626211A7B15A800AF63B9 /* WX_circle_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WX_circle_green.png; sourceTree = "<group>"; };
 		1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_icon_325x325.png; sourceTree = "<group>"; };
 		1A8626251A7B15B400AF63B9 /* ZW4QC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZW4QC.png; sourceTree = "<group>"; };
-		1A8626281A7B179000AF63B9 /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
 		1A9AE4B81A7DEFB100AADDAA /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestViewController.h; sourceTree = "<group>"; };
 		1A9AE4B91A7DEFB100AADDAA /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
 		1A9AE4C11A7E007200AADDAA /* DraggableViewBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableViewBackground.m; sourceTree = "<group>"; };
@@ -91,6 +90,9 @@
 		1A9AE4C61A7E007200AADDAA /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		1A9AE4CA1A7E281400AADDAA /* TurnipUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipUser.h; sourceTree = "<group>"; };
 		1A9AE4CB1A7E281400AADDAA /* TurnipUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnipUser.m; sourceTree = "<group>"; };
+		1A9AE4CE1A7F787F00AADDAA /* TurnipDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TurnipDataModel.xcdatamodel; sourceTree = "<group>"; };
+		1A9AE4D31A8052D200AADDAA /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		1A9AE4D41A8052D200AADDAA /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
 		1AA179EE1A74E3D30061CA3E /* turnip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = turnip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA179F31A74E3D30061CA3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,10 +251,10 @@
 				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
 				1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */,
 				1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */,
-				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
-				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 				1A9AE4B81A7DEFB100AADDAA /* RequestViewController.h */,
 				1A9AE4B91A7DEFB100AADDAA /* RequestViewController.m */,
+				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
+				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
 			path = turnip;
 			sourceTree = "<group>";
@@ -260,6 +262,7 @@
 		1AA179F11A74E3D30061CA3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */,
 				1A8626161A7A321700AF63B9 /* SWRevealViewController.h */,
 				1A8626171A7A321700AF63B9 /* SWRevealViewController.m */,
 				1AFD40471A751F2200B2EABE /* MBProgressHUD.h */,
@@ -307,10 +310,10 @@
 		1AFD3FF01A74EDA200B2EABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1A8626281A7B179000AF63B9 /* red.png */,
+				1A9AE4D31A8052D200AADDAA /* green.png */,
+				1A9AE4D41A8052D200AADDAA /* red.png */,
 				1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */,
 				1A8626251A7B15B400AF63B9 /* ZW4QC.png */,
-				1A8626211A7B15A800AF63B9 /* WX_circle_green.png */,
 				1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */,
 				1AFD3FD41A74ED9E00B2EABE /* Placeholder.jpg */,
 				1AFD3FBA1A74ED9E00B2EABE /* checkBox.png */,
@@ -449,11 +452,11 @@
 				1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */,
 				1AFD3FDF1A74ED9E00B2EABE /* checkBoxMarked.png in Resources */,
 				1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */,
-				1A8626231A7B15A800AF63B9 /* WX_circle_green.png in Resources */,
 				1AFD404B1A76F66500B2EABE /* delRey.gpx in Resources */,
 				1AFD406B1A7A1DBB00B2EABE /* simpleMenuButton.png in Resources */,
 				1AFD3FDD1A74ED9E00B2EABE /* checkBox.png in Resources */,
-				1A8626291A7B179000AF63B9 /* red.png in Resources */,
+				1A9AE4D51A8052D200AADDAA /* green.png in Resources */,
+				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
 				1AFD3FDE1A74ED9E00B2EABE /* checkBox@2x.png in Resources */,
 			);
@@ -520,6 +523,7 @@
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
 				1A9AE4C71A7E007200AADDAA /* DraggableViewBackground.m in Sources */,
 				1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */,
+				1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */,
 				1A9AE4BA1A7DEFB100AADDAA /* RequestViewController.m in Sources */,
 				1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
@@ -675,6 +679,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -701,6 +706,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
@@ -770,6 +776,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1A9AE4CE1A7F787F00AADDAA /* TurnipDataModel.xcdatamodel */,
+			);
+			currentVersion = 1A9AE4CE1A7F787F00AADDAA /* TurnipDataModel.xcdatamodel */;
+			path = TurnipDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1AA179E61A74E3D30061CA3E /* Project object */;
 }

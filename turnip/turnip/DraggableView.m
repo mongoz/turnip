@@ -35,18 +35,18 @@
     if (self) {
         [self setupView];
         
-        _name = [[UILabel alloc]initWithFrame:CGRectMake(0, 225, self.frame.size.width, 100)];
+        _name = [[UILabel alloc]initWithFrame:CGRectMake(30, 225, self.frame.size.width, 100)];
         _name.text = @"no info given";
         [_name setTextAlignment:NSTextAlignmentLeft];
         _name.textColor = [UIColor blackColor];
         
-        _age = [[UILabel alloc] initWithFrame:CGRectMake(0, 225, self.frame.size.width, 100)];
-        _age.text = @"25";
+        _age = [[UILabel alloc] initWithFrame:CGRectMake(-40, 225, self.frame.size.width, 100)];
+        _age.text = @"24";
         [_age setTextAlignment:NSTextAlignmentCenter];
         _age.textColor = [UIColor blackColor];
         
-        _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 50, 200, 200)];
-        _profileImageView.image = [UIImage imageNamed:@"Placholder.png"];
+        _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(25, 50, 200, 200)];
+        _profileImageView.image = [UIImage imageNamed:@"Placholder.jpg"];
         
         //self.backgroundColor = [UIColor whiteColor];
     
@@ -57,7 +57,7 @@
         [self addSubview: _age];
         [self addSubview: _profileImageView];
         
-        overlayView = [[OverlayView alloc] initWithFrame:CGRectMake(self.frame.size.width/2-100, 0, 100, 100)];
+        overlayView = [[OverlayView alloc] initWithFrame:CGRectMake(self.frame.size.width/2-110, 40, 220, 220)];
         overlayView.alpha = 0;
         [self addSubview: overlayView];
     }

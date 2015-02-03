@@ -20,8 +20,9 @@
 
 @end
 
-@interface FindViewController : PFQueryTableViewController
+@interface FindViewController : PFQueryTableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) id<FindViewControllerDataSource> dataSource;
+
 
 @end

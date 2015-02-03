@@ -11,5 +11,8 @@
 
 @interface RequestViewController : UIViewController
 
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+
+@property (strong, nonatomic) IBOutlet UILabel *requestLabel;
 
 @end

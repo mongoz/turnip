@@ -51,6 +51,7 @@
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *age;
 @property (nonatomic, strong) UIImageView *profileImageView;
+@property (nonatomic, strong) NSString *userId;
 
 -(void)leftClickAction;
 -(void)rightClickAction;

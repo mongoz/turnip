@@ -31,6 +31,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,7 +107,7 @@
     cell.distanceLabel.text = [self distanceFromCurrLocation: [object objectForKey: @"location" ]];
     
     if ([[object objectForKey:TurnipParsePostPublicKey] isEqualToString:@"True"]) {
-        cell.statusImage.image = [UIImage imageNamed:@"WX_circle_green.png"];
+        cell.statusImage.image = [UIImage imageNamed:@"green.png"];
     }
     if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"True"]) {
         cell.statusImage.image = [UIImage imageNamed:@"red.png"];

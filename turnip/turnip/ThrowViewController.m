@@ -8,6 +8,8 @@
 
 #import "ThrowViewController.h"
 #import "DateTimePicker.h"
+#import "AppDelegate.h"
+#import <CoreData/CoreData.h>
 #import <Parse/Parse.h>
 #import "Constants.h"
 
@@ -44,8 +46,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.selectedDate = [NSDate new];
-    
-    NSLog(@"loaded");
     
     self.images = [[NSMutableArray alloc] init];
     
@@ -94,7 +94,6 @@
     
     self.endTimeDate.delegate = self;
     self.endTimeDate.inputView = dummyView;
-    NSLog(@"loaded2");
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -257,7 +256,6 @@
         
         if ([image count] > 0) {
             postObject[TurnipParsePostImageOneKey] = [image objectAtIndex: 0];
-            
         }
         if ([image count] > 1) {
             postObject[TurnipParsePostImageTwoKey] = [image objectAtIndex: 1];
@@ -324,7 +322,7 @@
                     [self.HUD hide:YES afterDelay:5];
                     self.HUD.delegate = self;
                 });
-                
+                [self saveToCoreData:postObject];
                 [self resetView];
             }
         }];
@@ -345,9 +343,9 @@
     self.dateInputField.text = @"";
     self.endTimeDate.text = @"";
     
-    self.imageOne.image = [UIImage imageNamed: @"placeholder.jpg"];
-    self.imageTwo.image = [UIImage imageNamed: @"placeholder.jpg"];
-    self.imageThree.image = [UIImage imageNamed: @"placeholder.jpg"];
+    self.imageOne.image = [UIImage imageNamed: @"Placeholder.jpg"];
+    self.imageTwo.image = [UIImage imageNamed: @"Placeholder.jpg"];
+    self.imageThree.image = [UIImage imageNamed: @"Placeholder.jpg"];
     
     self.lastImagePressed = nil;
     
@@ -368,6 +366,36 @@
             [self.aboutField.text isEqual: @""] ||
             [self.dateInputField.text isEqual:@""] ||
             [self.endTimeDate.text isEqual:@""]);
+}
+
+- (void) saveToCoreData :(PFObject *) postObject {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+
+    NSManagedObject *dataRecord = [NSEntityDescription
+                                   insertNewObjectForEntityForName:@"YourEvents"
+                                   inManagedObjectContext: context];
+    
+    NSLog(@"image1 %@", self.imageOne.image);
+    NSLog(@"image2 %@", self.imageTwo.image);
+    NSLog(@"image3 %@", self.imageThree.image);
+    
+    NSLog(@"images: %@", self.images);
+    
+    [dataRecord setValue: self.titleField.text forKey:@"title"];
+    [dataRecord setValue: postObject.objectId forKey:@"objectId"];
+    [dataRecord setValue: self.aboutField.text forKey:@"text"];
+    [dataRecord setValue: self.selectedDate forKey:@"date"];
+    [dataRecord setValue: self.endTimeDate.text forKey:@"endTime"];
+    [dataRecord setValue: self.imageOne.image forKey:@"image1"];
+    [dataRecord setValue: self.imageTwo.image forKey:@"image2"];
+    [dataRecord setValue: self.imageThree.image forKey:@"image3"];
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Event saved");
+
 }
 
 #pragma mark - checkbox handlers

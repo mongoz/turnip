@@ -6,7 +6,8 @@
 //  Modified by Per Schmidt on 1/31/2015
 //  Copyright (c) 2014 Richard Kim. All rights reserved.
 //
-
+#import "AppDelegate.h"
+#import <CoreData/CoreData.h>
 #import "DraggableViewBackground.h"
 #import <Parse/Parse.h>
 
@@ -21,12 +22,13 @@
     NSMutableArray *nameLabels;
     NSMutableArray *ageLabels;
     NSMutableArray *profileImages;
+    NSString *event;
 }
 //this makes it so only two cards are loaded at a time to
 //avoid performance and memory costs
-static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any given time, must be greater than 1
-static const float CARD_HEIGHT = 300; //%%% height of the draggable card
-static const float CARD_WIDTH = 250; //%%% width of the draggable card
+static const int MAX_BUFFER_SIZE = 2; //max number of cards loaded at any given time, must be greater than 1
+static const float CARD_HEIGHT = 300; //height of the draggable card
+static const float CARD_WIDTH = 250; //width of the draggable card
 
 @synthesize allCards;
 
@@ -123,9 +125,9 @@ static const float CARD_WIDTH = 250; //%%% width of the draggable card
 // action called when the card goes to the left.
 -(void)cardSwipedLeft:(UIView *)card; {
 
-    [loadedCards removeObjectAtIndex:0]; //%%% card was swiped, so it's no longer a "loaded card"
-    
     //remove from core data
+    [self deleteObjectFromCoreData: [loadedCards objectAtIndex:0]];
+    [loadedCards removeObjectAtIndex:0];
     
     if (cardsLoadedIndex < [allCards count]) { //%%% if we haven't reached the end of all cards, put another into the loaded cards
         [loadedCards addObject:[allCards objectAtIndex:cardsLoadedIndex]];
@@ -134,25 +136,23 @@ static const float CARD_WIDTH = 250; //%%% width of the draggable card
     }
 }
 
-#warning left to do remove from core data
 // action called when the card goes to the right.
 -(void)cardSwipedRight:(UIView *)card {
 
     NSString *user = [loadedCards valueForKey:@"userId"];
     NSString *message = @"sure thing brah";
     
-    [loadedCards removeObjectAtIndex:0]; //%%% card was swiped, so it's no longer a "loaded card"
+    [self deleteObjectFromCoreData: [loadedCards objectAtIndex:0]];
+    [loadedCards removeObjectAtIndex:0];
     
     //send push to current user
-    
-    [PFCloud callFunctionInBackground:@"requestEventPush"
-                       withParameters:@{@"recipientId": user, @"message": message, @"eventId": @""}
+    [PFCloud callFunctionInBackground:@"acceptEventPush"
+                       withParameters:@{@"recipientId": user, @"message": message, @"eventId": event}
                                 block:^(NSString *success, NSError *error) {
                                     if (!error) {
                                         NSLog(@"push sent");
                                     }
                                 }];
-
     
     if (cardsLoadedIndex < [allCards count]) { //%%% if we haven't reached the end of all cards, put another into the loaded cards
         [loadedCards addObject:[allCards objectAtIndex:cardsLoadedIndex]];
@@ -186,13 +186,36 @@ static const float CARD_WIDTH = 250; //%%% width of the draggable card
     
     NSDate *todayDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthday]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-    int years = (allDays-days)/365;
+    [dateFormatter setDateFormat: @"MM/dd/yyyy"];
+    int time = [todayDate timeIntervalSinceDate: [dateFormatter dateFromString: birthday]];
+    int allDays = (((time / 60) / 60) / 24);
+    int days = allDays % 365;
+    int years = (allDays - days) / 365;
     
     return  years;
+}
+
+- (void) deleteObjectFromCoreData: (NSMutableArray * ) user {
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"RequesterInfo" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"eventId = %@", event];
+    [fetchRequest setPredicate: searchFilter];
+
+    NSError *error;
+    NSArray *array = [context executeFetchRequest:fetchRequest error: &error];
+    
+    for (NSManagedObject *managedObject in array) {
+        [context deleteObject:managedObject];
+    }
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Data updated");
 }
 
 @end

@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) TurnipEvent *event;
 @property (nonatomic, strong) NSString *objectId;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
 

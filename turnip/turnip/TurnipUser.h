@@ -12,6 +12,7 @@
 @interface TurnipUser : NSObject
 
 @property (nonatomic, copy) NSString *objectId;
+@property (nonatomic, copy) NSString *eventId;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *facebookId;

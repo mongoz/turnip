@@ -47,25 +47,4 @@
      }];
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    //Encode properties, other class variables, etc
-    [encoder encodeObject: self.objectId forKey:@"objectId"];
-    [encoder encodeObject: self.name forKey:@"name"];
-    [encoder encodeObject: self.birthday forKey:@"birthday"];
-    [encoder encodeObject: self.facebookId forKey:@"facebookId"];
-    [encoder encodeObject: self.profileImage forKey:@"image"];
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    if((self = [super init])) {
-        //decode properties, other class vars
-        self.objectId = [decoder decodeObjectForKey:@"objectId"];
-        self.name = [decoder decodeObjectForKey:@"name"];
-        self.birthday = [decoder decodeObjectForKey:@"birthday"];
-        self.facebookId = [decoder decodeObjectForKey:@"facebookId"];
-        self.profileImage = [decoder decodeObjectForKey:@"image"];
-    }
-    return self;
-}
-
 @end

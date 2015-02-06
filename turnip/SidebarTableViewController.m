@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menuItems = @[@"editProfile", @"editEvent", @"logout"];
+    menuItems = @[@"editProfile", @"editEvent",@"card" ,@"invite", @"tos", @"contact" ,@"signout"];
 }
 
 - (void)didReceiveMemoryWarning {

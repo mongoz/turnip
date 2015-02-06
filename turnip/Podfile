@@ -9,6 +9,7 @@ pod 'ParseCrashReporting'
 pod 'ParseUI'
 pod 'Facebook-iOS-SDK'
 pod 'Google-Maps-iOS-SDK', '~> 1.9'
+pod 'MCSwipeTableViewCell', '~> 2.1.2'
 
 end
 

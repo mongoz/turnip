@@ -37,6 +37,8 @@
     
     self.requestingUser = [[NSMutableArray alloc] init];
     
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageFinishedDownload:) name:@"facebookImageDownloaded" object:nil];
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
@@ -70,9 +72,10 @@
     if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
     {
         // iOS 8 Notifications
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         
-        [application registerForRemoteNotifications];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil];
+        
+        [application registerUserNotificationSettings:settings];
     }
     else
     {
@@ -80,9 +83,23 @@
         [application registerForRemoteNotificationTypes:
          (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
     }
-    
     return YES;
 }
+
+#ifdef __IPHONE_8_0
+- (void) application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [application registerForRemoteNotifications];
+}
+
+- (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    if([identifier isEqualToString:@"declineAction"]) {
+        
+    } else if([identifier isEqualToString:@"answerAction"]) {
+        
+    }
+}
+
+#endif
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -115,6 +132,7 @@
     // Store the deviceToken in the current installation and save it to Parse.
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    NSLog(@"current Installation: %@", currentInstallation);
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation.channels = @[ @"global" ];
     [currentInstallation saveInBackground];
@@ -126,22 +144,46 @@
     // Create empty photo object
     NSString *userId = [userInfo objectForKey:@"fromUser"];
     NSString *type = [userInfo objectForKey:@"type"];
+    NSString *eventId = [userInfo objectForKey:@"eventId"];
     
     if ([type isEqualToString:@"eventRequest"]) {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
         
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestPush"
          object:self];
         
-        NSLog(@"push recived from %@", userId);
+        NSLog(@"push recived for %@", eventId);
         
         //Query for information about the user
         PFQuery *query = [PFUser query];
         
         [query getObjectInBackgroundWithId:userId block:^(PFObject *object, NSError *error) {
-             self.user = [[TurnipUser alloc] initWithPFObject: object];
+            self.user = [[TurnipUser alloc] initWithPFObject: object];
+            self.user.eventId = eventId;
         }];
     }
+}
+
+- (void) imageFinishedDownload:(NSNotification *)note {
+    //save to file
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObject *dataRecord = [NSEntityDescription
+                                   insertNewObjectForEntityForName:@"RequesterInfo"
+                                   inManagedObjectContext: context];
+    
+    [dataRecord setValue: self.user.name forKey:@"name"];
+    [dataRecord setValue: self.user.objectId forKey:@"objectId"];
+    [dataRecord setValue: self.user.birthday forKey:@"birthday"];
+    [dataRecord setValue: self.user.facebookId forKey:@"facebookId"];
+    [dataRecord setValue: self.user.profileImage forKey:@"profileImage"];
+    [dataRecord setValue: self.user.eventId forKey:@"eventId"];
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Data saved");
+    
 }
 
 #pragma mark facebook url open
@@ -186,26 +228,6 @@
             NSLog(@"Some other error: %@", error);
         }
     }];
-}
-
-- (void) imageFinishedDownload:(NSNotification *)note {
-    //save to file
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSManagedObject *dataRecord = [NSEntityDescription
-                                   insertNewObjectForEntityForName:@"UserInfo"
-                                   inManagedObjectContext: context];
-    
-    [dataRecord setValue: self.user.name forKey:@"name"];
-    [dataRecord setValue: self.user.objectId forKey:@"objectId"];
-    [dataRecord setValue: self.user.birthday forKey:@"birthday"];
-    [dataRecord setValue: self.user.facebookId forKey:@"facebookId"];
-    [dataRecord setValue: self.user.profileImage forKey:@"profileImage"];
-    NSError *error;
-    if (![context save:&error]) {
-        NSLog(@"Error:%@", error);
-    }
-    NSLog(@"Data saved");
-    
 }
 
 - (void)saveContext {

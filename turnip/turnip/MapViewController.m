@@ -298,7 +298,7 @@
 - (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(MapMarker *)marker {
     
     if (marker.objectId == nil) {
-       [self performSegueWithIdentifier:@"mapToListSegue" sender: nil];
+       [self performSegueWithIdentifier:@"mapToListSegue" sender: self];
     } else {
         [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker.objectId];
     }
@@ -343,7 +343,6 @@
     switch (status) {
         case kCLAuthorizationStatusAuthorizedAlways:
         {
-            NSLog(@"kCLAuthorizationStatusAuthorized");
             [_locationManager startUpdatingLocation];
         }
             break;
@@ -366,7 +365,6 @@
             break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         {
-            NSLog(@"kCLAuthorizationStatusAuthorizedWhenInUse");
             [_locationManager startUpdatingLocation];
         }
             break;

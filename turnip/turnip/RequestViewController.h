@@ -2,17 +2,16 @@
 //  RequestViewController.h
 //  turnip
 //
-//  Created by Per on 1/31/15.
+//  Created by Per on 2/3/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import "MCSwipeTableViewCell.h"
 
-@interface RequestViewController : UIViewController
+@interface RequestViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MCSwipeTableViewCellDelegate>
 
-@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) IBOutlet UILabel *requestLabel;
 
 @end

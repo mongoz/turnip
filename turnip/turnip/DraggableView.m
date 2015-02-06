@@ -48,7 +48,7 @@
         _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(25, 50, 200, 200)];
         _profileImageView.image = [UIImage imageNamed:@"Placholder.jpg"];
         
-        //self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor magentaColor];
     
         panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(beingDragged:)];
         

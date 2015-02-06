@@ -88,6 +88,7 @@
     
     self.navigationItem.title = [data objectForKey:TurnipParsePostTitleKey];
     
+    self.titleLabel.text = [data objectForKey:TurnipParsePostTitleKey];
     self.aboutLabel.text = [data objectForKey:TurnipParsePostTextKey];
 }
 
@@ -140,7 +141,10 @@
 - (IBAction)requestButtonHandler:(id)sender {
     
     NSString *host = self.data.user.objectId;
-    NSString *message = @"Hi I'd like to go to your event";
+    
+    NSArray *name = [[[PFUser currentUser] objectForKey:@"name"] componentsSeparatedByString: @" "];
+
+    NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [name objectAtIndex:0]];
     
     self.requestButton.enabled = NO; 
     

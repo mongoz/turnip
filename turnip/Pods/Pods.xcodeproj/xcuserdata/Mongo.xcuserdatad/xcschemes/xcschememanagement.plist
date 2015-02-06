@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-turnip-MCSwipeTableViewCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-turnip-Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,42 +52,47 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0B27DBBC82803A1EB6033CC3</key>
+		<key>0B9D6463EDBF0708585D2AF4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0F864D935431B89701598A46</key>
+		<key>30CE9CA0ABB28FF87287A3F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1CAFD0D25B1425B5C161BA88</key>
+		<key>68BD75ECBC41A94AA901E191</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>20E6D6C63813FB13B3428AD8</key>
+		<key>84261787695DBFA160064EA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3C102B7B6A91AE5AC12B51DD</key>
+		<key>8A95A3C90529A45278FB047E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>453C3DAB5F161B9303AA9608</key>
+		<key>935C3E1BD471805FA6E503D2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>598F7CB59DFF793D4795CA18</key>
+		<key>A4F358EC081070D707A663CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DB94FF336EA1020ECE222D82</key>
+		<key>DB4A21B4C41E2AFF2103A852</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEF7FD59F6680280357F65F6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

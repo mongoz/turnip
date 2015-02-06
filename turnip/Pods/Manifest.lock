@@ -1,8 +1,9 @@
 PODS:
   - Bolts (1.1.3)
-  - Facebook-iOS-SDK (3.22.0):
+  - Facebook-iOS-SDK (3.23.0):
     - Bolts (~> 1.0)
   - Google-Maps-iOS-SDK (1.9.1)
+  - MCSwipeTableViewCell (2.1.2)
   - Parse (1.6.2):
     - Bolts (~> 1.1)
   - ParseCrashReporting (1.6.2):
@@ -17,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - Facebook-iOS-SDK
   - Google-Maps-iOS-SDK (~> 1.9)
+  - MCSwipeTableViewCell (~> 2.1.2)
   - Parse
   - ParseCrashReporting
   - ParseFacebookUtils
@@ -24,8 +26,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
-  Facebook-iOS-SDK: 0eda8ff7120aada0a9c5f98552f7625da6c3440a
+  Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
   Google-Maps-iOS-SDK: 25fa3c054c74a7dcb82e3ef38224cfa6b66c9344
+  MCSwipeTableViewCell: 8e78ff197ab06ba7bfd5c938a00149de8a33afa9
   Parse: 60d65108fe39da77ec16c9e51d74b4d296b21424
   ParseCrashReporting: eb150f792ea987456f9ae4ccca4bbf9236c8ddd0
   ParseFacebookUtils: 0b86cd67283c60d10e3ddc8427f989f5e60ebbd7

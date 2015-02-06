@@ -98,6 +98,8 @@
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveEventually];
                     
+                    NSLog(@"%@", [PFInstallation currentInstallation]);
+                    
                     [PFUser currentUser][@"name"] = user.name;
                     [PFUser currentUser][@"facebookId"] = user.objectID;
                     [PFUser currentUser][@"TOS"] = @"True";

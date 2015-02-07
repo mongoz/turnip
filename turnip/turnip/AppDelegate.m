@@ -13,14 +13,14 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <GoogleMaps/GoogleMaps.h>
-
+#import "Constants.h"
 #import "TurnipUser.h"
 
 @interface AppDelegate ()
 
 @property (nonatomic, strong) UIStoryboard *storyboard;
 @property (nonatomic, strong) TurnipUser *user;
-@property (nonatomic, strong) NSMutableArray *requestingUser;
+@property (nonatomic, assign) NSInteger notificationCount;
 
 @end
 
@@ -34,10 +34,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self managedObjectContext];
-    
-    self.requestingUser = [[NSMutableArray alloc] init];
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageFinishedDownload:) name:@"facebookImageDownloaded" object:nil];
     
@@ -60,7 +56,6 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     [PFFacebookUtils initializeFacebook];
     
-    
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         // Present wall straight-away
         [self presentMapViewControllerAnimated:NO];
@@ -72,7 +67,6 @@
     if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
     {
         // iOS 8 Notifications
-        
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil];
         
         [application registerUserNotificationSettings:settings];
@@ -93,12 +87,11 @@
 
 - (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     if([identifier isEqualToString:@"declineAction"]) {
-        
+        NSLog(@"declined");
     } else if([identifier isEqualToString:@"answerAction"]) {
-        
+        NSLog(@"accepted");
     }
 }
-
 #endif
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -132,7 +125,6 @@
     // Store the deviceToken in the current installation and save it to Parse.
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    NSLog(@"current Installation: %@", currentInstallation);
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation.channels = @[ @"global" ];
     [currentInstallation saveInBackground];
@@ -140,6 +132,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+     UITabBarController *tabController = (UITabBarController *)self.window.rootViewController;
     
     // Create empty photo object
     NSString *userId = [userInfo objectForKey:@"fromUser"];
@@ -147,13 +140,13 @@
     NSString *eventId = [userInfo objectForKey:@"eventId"];
     
     if ([type isEqualToString:@"eventRequest"]) {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-        
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestPush"
          object:self];
         
-        NSLog(@"push recived for %@", eventId);
+        self.notificationCount += 1;
+        
+        [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
         
         //Query for information about the user
         PFQuery *query = [PFUser query];
@@ -163,6 +156,42 @@
             self.user.eventId = eventId;
         }];
     }
+    
+    if([type isEqualToString:@"eventAccepted"]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName: TurnipAcceptedRequestNotification
+         object:self];
+        
+        self.notificationCount += 1;
+        
+        PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+        
+        [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostIdKey, @"address", @"date"]];
+        
+        [query getObjectInBackgroundWithId:eventId block:^(PFObject *object, NSError *error) {
+            [self saveTicketInfo: object];
+        }];
+        
+        [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
+    }
+}
+
+- (void) saveTicketInfo: (PFObject *) object {
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObject *dataRecord = [NSEntityDescription
+                                   insertNewObjectForEntityForName:@"TicketInfo"
+                                   inManagedObjectContext: context];
+    
+    [dataRecord setValue: [object objectForKey: @"title"] forKey:@"title"];
+    [dataRecord setValue: [object objectId] forKey:@"objectId"];
+    [dataRecord setValue: [object objectForKey: @"address"] forKey:@"address"];
+    [dataRecord setValue: [object objectForKey: @"date"] forKey:@"date"];
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Data saved");
 }
 
 - (void) imageFinishedDownload:(NSNotification *)note {

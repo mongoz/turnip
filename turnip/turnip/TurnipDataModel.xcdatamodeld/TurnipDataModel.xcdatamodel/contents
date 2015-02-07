@@ -8,6 +8,12 @@
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImage" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
+    <entity name="TicketInfo" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="UserSettings" syncable="YES">
         <attribute name="searchRadius" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
     </entity>
@@ -25,5 +31,6 @@
         <element name="RequesterInfo" positionX="23317" positionY="-2403" width="128" height="133"/>
         <element name="UserSettings" positionX="23560" positionY="-2403" width="128" height="58"/>
         <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="163"/>
+        <element name="TicketInfo" positionX="23292" positionY="-2340" width="128" height="105"/>
     </elements>
 </model>

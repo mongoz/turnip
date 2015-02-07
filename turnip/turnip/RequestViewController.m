@@ -27,7 +27,6 @@ NSArray *fetchedObjects;
 
 - (void) receiveRequestPush:(NSNotification *) notification
 {
-    NSLog(@"note: %@", notification);
     if ([[notification name] isEqualToString:@"requestPush"])
         NSLog (@"Successfully received the test notification!");
 }
@@ -49,11 +48,9 @@ NSArray *fetchedObjects;
     
     NSError *error;
     fetchedObjects = [context executeFetchRequest:fetchRequest error: &error];
-    
-    NSLog(@"objects: %@", [fetchedObjects valueForKey:@"name"]);
 
     if([fetchedObjects count] > 0) {
-        NSLog(@"found some shit");
+        _nbItems = [fetchedObjects count];
     } else {
         NSLog(@"derp");
     }
@@ -77,7 +74,7 @@ NSArray *fetchedObjects;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-      return [fetchedObjects count];
+      return _nbItems;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -111,9 +108,6 @@ NSArray *fetchedObjects;
     UIView *checkView = [self viewWithImageName:@"check"];
     UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
     
-    UIView *crossView = [self viewWithImageName:@"cross"];
-    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
-    
     // Setting the default inactive state color to the tableView background color
     [cell setDefaultColor:self.tableView.backgroundView.backgroundColor];
     
@@ -122,14 +116,15 @@ NSArray *fetchedObjects;
     NSArray *name = [[[fetchedObjects valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
     NSString *age = @([self calculateAge:[[fetchedObjects valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
     
-    NSString *label = [NSString stringWithFormat:@"%@     %@", [name objectAtIndex:0], age];
+    NSString *label = [NSString stringWithFormat:@"%@  %@", [name objectAtIndex:0], age];
     
     cell.imageView.image = [[fetchedObjects valueForKey:@"profileImage"] objectAtIndex:indexPath.row];
     cell.textLabel.text = label;
     
     [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        NSLog(@"Did swipe \"Checkmark\" cell");
+        [self deleteCell:cell];
         [self acceptUserRequest: [fetchedObjects objectAtIndex: indexPath.row]];
+        [self deleteObjectFromCoreData: [fetchedObjects objectAtIndex: indexPath.row]];
     }];
 }
 
@@ -148,16 +143,14 @@ NSArray *fetchedObjects;
     NSString *userEvent = [user valueForKey:@"eventId"];
     NSString *message = @"sure thing brah";
     
-    NSLog(@"userid: %@", userId);
-    NSLog(@"userId %@", userEvent);
+    [PFCloud callFunctionInBackground:@"acceptEventPush"
+                       withParameters:@{@"recipientId": userId, @"message": message, @"eventId": userEvent}
+                                block:^(NSString *success, NSError *error) {
+                                    if (!error) {
+                                        NSLog(@"push sent");
+                                    }
+                                }];
     
-//    [PFCloud callFunctionInBackground:@"acceptEventPush"
-//                       withParameters:@{@"recipientId": user, @"message": message, @"eventId": event}
-//                                block:^(NSString *success, NSError *error) {
-//                                    if (!error) {
-//                                        NSLog(@"push sent");
-//                                    }
-//                                }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -169,10 +162,10 @@ NSArray *fetchedObjects;
     NSDate *todayDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthday]];
-    int allDays = (((time/60)/60)/24);
+    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString: birthday]];
+    int allDays = (((time / 60) / 60) / 24);
     int days = allDays % 365;
-    int years = (allDays-days)/365;
+    int years = (allDays - days) / 365;
     
     return  years;
 }
@@ -191,4 +184,29 @@ NSArray *fetchedObjects;
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
 }
+
+- (void) deleteObjectFromCoreData: (NSMutableArray * ) user {
+
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"RequesterInfo" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"objectId = %@", [user valueForKey:@"objectId"]];
+    [fetchRequest setPredicate: searchFilter];
+    
+    NSError *error;
+    NSArray *array = [context executeFetchRequest:fetchRequest error: &error];
+    
+    for (NSManagedObject *managedObject in array) {
+        [context deleteObject:managedObject];
+    }
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Data updated");
+}
+
 @end

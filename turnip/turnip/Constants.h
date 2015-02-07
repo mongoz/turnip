@@ -36,7 +36,8 @@ static NSString * const TurnipParsePostZipCodeKey = @"zipCode";
 static NSString * const TurnipParsePostIdKey = @"objectId";
 
 // Global Notifications
-static NSString * const TurnipPartyThrownNotification = @"PartayPartyThrownNotification";
+static NSString * const TurnipPartyThrownNotification = @"TurnipPartyThrownNotification";
+static NSString * const TurnipAcceptedRequestNotification = @"TurnipAcceptedRequestNotification";
 
 static double const TurnipDefaultFilterDistance = 1000.0;
 static double const TurnipPostMaximumSearchDistance = 20.0;

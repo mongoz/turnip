@@ -20,23 +20,25 @@
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
-@property (nonatomic,strong)  CLPlacemark *placemark;
 @property (strong)            CLGeocoder *geocoder;
 @property (strong, nonatomic) GMSMapView *mapView;
 
+@property (nonatomic, assign) CGFloat currentZoom;
+@property (nonatomic, assign) CGFloat oldZoom;
 
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) NSSet *publicMarkers;
 
 @property (nonatomic, assign) BOOL firstTimeLocation;
+@property (nonatomic, assign) BOOL queryPublicEvents;
 
 @end
 
 @implementation MapViewController
 
 - (void)presentThrowViewController {
-    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 2];
-    ThrowViewController *viewController = [navController.viewControllers objectAtIndex:0];
+   // UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 2];
+    ThrowViewController *viewController = [self.tabBarController.viewControllers objectAtIndex:2];
     viewController.dataSource = self;
 
 }
@@ -56,13 +58,11 @@
     return self.currentLocation;
 }
 
-- (CLPlacemark *) currentPlacemarkForThrowViewController:(ThrowViewController *)controller {
-    return self.placemark;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     if (_locationManager == nil) {
         _locationManager = [[CLLocationManager alloc] init];
@@ -90,14 +90,13 @@
     }
     
     self.firstTimeLocation = YES;
+    self.queryPublicEvents = YES;
     
     [self InitGoogleMaps];
     
 }
 
 - (void) InitGoogleMaps {
-    
-    UIEdgeInsets mapInsects = UIEdgeInsetsMake(0, 0, 40, 0);
     
     // create a GMSCameraPosition to display coordinates
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:39.5678118 longitude:-100.926294 zoom:5];
@@ -106,7 +105,6 @@
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMinZoom:3 maxZoom:14];
-    self.mapView.padding = mapInsects;
     self.mapView.delegate = self;
     self.view = self.mapView;
 }
@@ -156,7 +154,7 @@
     PFGeoPoint *SW = [PFGeoPoint geoPointWithLatitude:southWest.latitude longitude:southWest.longitude];
     
     [query whereKey:@"location" withinGeoBoxFromSouthwest:SW toNortheast:NE];
-    [query whereKey:@"public" equalTo:@"True"];
+    [query whereKey:@"private" equalTo:@"False"];
     
     [query selectKeys:@[TurnipParsePostLocationKey,TurnipParsePostIdKey, TurnipParsePostTitleKey, TurnipParsePostTextKey]];
     
@@ -180,7 +178,7 @@
        nearGeoPoint:point
         withinMiles:TurnipPostMaximumSearchDistance];
     
-    [query whereKey:@"public" equalTo:@"True"];
+    [query whereKey:@"private" equalTo:@"False"];
     [query selectKeys:@[TurnipParsePostLocationKey,TurnipParsePostIdKey, TurnipParsePostTitleKey, TurnipParsePostTextKey]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -240,6 +238,7 @@
     }
     
     self.markers = [mutableSet copy];
+    [self drawMarkers];
 
 }
 
@@ -260,37 +259,26 @@
     }
 }
 
--(void) mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
-    GMSVisibleRegion visibleRegion = self.mapView.projection.visibleRegion;
-    CGFloat currentZoom = self.mapView.camera.zoom;
+- (void) mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
     
-    NSLog(@"zoom: %f", currentZoom);
+    self.currentZoom = self.mapView.camera.zoom;
     
-    GMSCoordinateBounds *bounds =
-    [[GMSCoordinateBounds alloc] initWithRegion: visibleRegion];
-    
-    if (currentZoom >= 13) {
-        
+    if (self.oldZoom > self.currentZoom && self.currentZoom < 13) {
         [self.mapView clear];
-        [self queryForAllPublicEventsOnScreen: bounds.northEast andSouthWest: bounds.southWest];
-
-    } else {
-       // [self.mapView clear];
         [self drawMarkers];
+    }else if (self.oldZoom < self.currentZoom && self.currentZoom >= 13) {
+        [self.mapView clear];
+        if (self.queryPublicEvents) {
+            
+            [self queryForAllNearbyPublicEvents: self.currentLocation];
+            self.queryPublicEvents = NO;
+        } else {
+            [self drawPublicMarkers];
+        }
     }
-    
-    
+    self.oldZoom = self.currentZoom;
 }
 
-//- (UIView *) mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
-//    UIView *infoWindow =[[UIView alloc] init];
-//
-//    //info window setup
-//    //title label setup
-//    //snippet label setup
-//
-//    return infoWindow;
-//}
 
 /*
  *   Called after a marker's info window has been tapped.
@@ -321,22 +309,8 @@
     if (self.firstTimeLocation == YES) {
         self.firstTimeLocation = NO;
         [self presentThrowViewController];
-        [self reverseGeocode:[locations lastObject]];
         [self queryForAllEventsNearLocation:self.currentLocation];
     }
-}
-
-
-- (void)reverseGeocode:(CLLocation *)location {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (error) {
-            NSLog(@"Error %@", error.description);
-        } else {
-           self.placemark = [placemarks lastObject];
-            NSLog(@"placemark: %@", [placemarks lastObject]);
-        }
-    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -400,9 +374,8 @@
 
 // Look for new Events
 - (IBAction)updateButtonHandler:(id)sender {
+    
     [self.mapView clear];
-    [self reverseGeocode:self.currentLocation];
     [self queryForAllEventsNearLocation: self.currentLocation];
-    [self drawMarkers];
 }
 @end

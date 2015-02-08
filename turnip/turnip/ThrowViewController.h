@@ -15,7 +15,6 @@
 @protocol ThrowViewControllerDataSource <NSObject>
 
 - (CLLocation *)currentLocationForThrowViewController:(ThrowViewController *) controller;
-- (CLPlacemark *)currentPlacemarkForThrowViewController:(ThrowViewController *) controller;
 
 @end
 
@@ -49,12 +48,9 @@
 
 @property (strong, nonatomic) MBProgressHUD * HUD;
 
-
-- (IBAction)privateCheckBoxButtonHandler:(id)sender;
 - (IBAction)backButtonHandler:(id)sender;
 - (IBAction)createButtonHandler:(id)sender;
-- (IBAction)publicCheckBoxButtonHandler:(id)sender;
-- (IBAction)paidButtonHandler:(id)sender;
+
 
 
 

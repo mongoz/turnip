@@ -19,12 +19,12 @@
 @property (nonatomic, strong) NSDate *selectedTime;
 @property (nonatomic, strong) DateTimePicker *datePicker;
 @property (nonatomic, strong) DateTimePicker *endTimePicker;
-@property (nonatomic, assign) BOOL privateChecked;
-@property (nonatomic, assign) BOOL publicChecked;
-@property (nonatomic, assign) BOOL paidChecked;
 
 @property (nonatomic, strong) UIImageView *lastImagePressed;
 @property (nonatomic, strong) NSMutableArray *images;
+
+@property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic, strong) CLPlacemark *placemark;
 
 @end
 
@@ -49,55 +49,66 @@
     
     self.images = [[NSMutableArray alloc] init];
     
-    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    
     self.imageOne.userInteractionEnabled = YES;
     self.imageTwo.userInteractionEnabled = YES;
     self.imageThree.userInteractionEnabled = YES;
+    
+    self.aboutField.text = @"About";
+    self.aboutField.textColor = [UIColor blackColor];
+    self.aboutField.delegate = self;
+    
+    self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
+    [self reverseGeocode: self.currentLocation];
+    
+    [self setupPickerViews];
+}
+
+- (void) setupPickerViews {
+    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
     dayComponent.day = 30;
     NSCalendar *theCalendar = [NSCalendar currentCalendar];
     NSDate *maxDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
     
-    self.aboutField.text = @"About";
-    self.aboutField.textColor = [UIColor blackColor];
-    self.aboutField.delegate = self;
-    
-    self.privateChecked = NO;
-    self.paidChecked = NO;
-    self.publicChecked = NO;
-    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
-    self.datePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
-    [self.datePicker addTargetForDoneButton:self action:@selector(donePressed)];
-    [self.datePicker addTargetForCancelButton:self action:@selector(cancelPressed)];
-    [self.view addSubview: self.datePicker];
-    self.datePicker.hidden = YES;
-    [self.datePicker setMode: UIDatePickerModeDateAndTime];
-    [self.datePicker.picker addTarget:self action:@selector(pickerChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.datePicker minimumDate: self.selectedDate];
-    [self.datePicker maximumDate: maxDate];
     
-    self.dateInputField.delegate = self;
-    self.dateInputField.inputView = dummyView;
     
-    self.endTimePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
-    [self.endTimePicker addTargetForDoneButton:self action:@selector(timeDonePressed)];
-    [self.endTimePicker addTargetForCancelButton:self action:@selector(timeCancelPressed)];
-    [self.view addSubview: self.endTimePicker];
-    self.endTimePicker.hidden = YES;
-    [self.endTimePicker setMode: UIDatePickerModeTime];
-    [self.endTimePicker.picker addTarget:self action:@selector(timePickerChanged:) forControlEvents:UIControlEventValueChanged];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.datePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
+        [self.datePicker addTargetForDoneButton:self action:@selector(donePressed)];
+        [self.datePicker addTargetForCancelButton:self action:@selector(cancelPressed)];
+        [self.view addSubview: self.datePicker];
+        self.datePicker.hidden = YES;
+        [self.datePicker setMode: UIDatePickerModeDateAndTime];
+        [self.datePicker.picker addTarget:self action:@selector(pickerChanged:) forControlEvents:UIControlEventValueChanged];
+        [self.datePicker minimumDate: self.selectedDate];
+        [self.datePicker maximumDate: maxDate];
+        
+        self.dateInputField.delegate = self;
+        self.dateInputField.inputView = dummyView;
+        
+        self.endTimePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
+        [self.endTimePicker addTargetForDoneButton:self action:@selector(timeDonePressed)];
+        [self.endTimePicker addTargetForCancelButton:self action:@selector(timeCancelPressed)];
+        [self.view addSubview: self.endTimePicker];
+        self.endTimePicker.hidden = YES;
+        [self.endTimePicker setMode: UIDatePickerModeTime];
+        [self.endTimePicker.picker addTarget:self action:@selector(timePickerChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        self.endTimeDate.delegate = self;
+        self.endTimeDate.inputView = dummyView;
+
+    });
     
-    self.endTimeDate.delegate = self;
-    self.endTimeDate.inputView = dummyView;
+
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField {
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
     if (textField == self.dateInputField) {
+        
         self.selectedDate = [NSDate new];
         self.datePicker.hidden = NO;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -219,15 +230,17 @@
         self.HUD.labelText = @"Uploading...";
         [self.HUD show:YES];
         
-        CLLocation *currentLocation = [self.dataSource currentLocationForThrowViewController:self];
-        CLPlacemark *currentPlacemark = [self.dataSource currentPlacemarkForThrowViewController:self];
-        CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
+        CLLocationCoordinate2D currentCoordinate = self.currentLocation.coordinate;
         
         NSMutableArray *image = [[NSMutableArray alloc] init];
         
         for (int i = 0; i < [self.images count]; i++) {
             NSData *imageData = UIImageJPEGRepresentation(self.images[i], 0.7);
-            NSString *imageName = [NSString stringWithFormat:@"%@.jpg", self.titleField.text];
+            NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+            NSString *filtered = [self.titleField.text stringByTrimmingCharactersInSet:special];
+            
+            NSString *imageName = [NSString stringWithFormat:@"%@.jpg", filtered];
+            NSLog(@"imageName: %@", imageName);
             imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
             
             PFFile *file = [PFFile fileWithName: imageName  data:imageData];
@@ -245,12 +258,9 @@
         postObject[TurnipParsePostTitleKey] = self.titleField.text;
         postObject[TurnipParsePostLocationKey] = currentPoint;
         postObject[TurnipParsePostTextKey] = self.aboutField.text;
-        postObject[TurnipParsePostLocalityKey] = currentPlacemark.locality;
-        postObject[TurnipParsePostSubLocalityKey] = currentPlacemark.subLocality;
-        postObject[TurnipParsePostZipCodeKey] = currentPlacemark.postalCode;
-        postObject[TurnipParsePostPrivateKey] = (self.publicChecked) ? @"False" : @"True";
-        postObject[TurnipParsePostPublicKey] = (self.privateChecked) ? @"False" : @"True";
-        postObject[TurnipParsePostPaidKey] = (self.paidChecked) ? @"False" : @"True";
+        postObject[TurnipParsePostLocalityKey] = self.placemark.locality;
+        postObject[TurnipParsePostSubLocalityKey] = self.placemark.subLocality;
+        postObject[TurnipParsePostZipCodeKey] = self.placemark.postalCode;
         postObject[@"date"] = self.selectedDate;
         postObject[@"endTime"] = self.endTimeDate.text;
         
@@ -267,21 +277,31 @@
         //This needs to be redone in a much smarter way.
         if(self.imageOne.image != nil) {
             NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageOne.image], 0.7);
-            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
+            NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+            NSString *filtered = [self.titleField.text stringByTrimmingCharactersInSet:special];
+            
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
             imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
             PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
             postObject[TurnipParsePostThumbnailKey] = thumb;
             
         } else if(self.imageTwo.image != nil) {
             NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageTwo.image], 0.7);
-            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
+            NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+            NSString *filtered = [self.titleField.text stringByTrimmingCharactersInSet:special];
+            
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
             imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
             PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
             postObject[TurnipParsePostThumbnailKey] = thumb;
             
         } else if(self.imageThree.image != nil) {
             NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageThree.image], 0.7);
-            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", self.titleField.text];
+            
+            NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+            NSString *filtered = [self.titleField.text stringByTrimmingCharactersInSet:special];
+            
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
             imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
             PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
             postObject[TurnipParsePostThumbnailKey] = thumb;
@@ -306,6 +326,7 @@
             }
             if (succeeded) {  // Successfully saved, post a notification to tell other view controllers
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
                     [self.HUD hide:YES];
                     
                     // Show checkmark
@@ -350,14 +371,6 @@
     self.lastImagePressed = nil;
     
     [self.images removeAllObjects];
-    
-    [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
-    [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
-    [self.paidButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
-    
-    self.paidChecked = NO;
-    self.privateChecked = NO;
-    self.publicChecked = NO;
 }
 
 - (BOOL) checkInput {
@@ -375,12 +388,6 @@
     NSManagedObject *dataRecord = [NSEntityDescription
                                    insertNewObjectForEntityForName:@"YourEvents"
                                    inManagedObjectContext: context];
-    
-    NSLog(@"image1 %@", self.imageOne.image);
-    NSLog(@"image2 %@", self.imageTwo.image);
-    NSLog(@"image3 %@", self.imageThree.image);
-    
-    NSLog(@"images: %@", self.images);
     
     [dataRecord setValue: self.titleField.text forKey:@"title"];
     [dataRecord setValue: postObject.objectId forKey:@"objectId"];
@@ -400,39 +407,6 @@
 
 #pragma mark - checkbox handlers
 
-- (IBAction)publicCheckBoxButtonHandler:(id)sender {
-    if (!self.privateChecked) {
-        if(!self.publicChecked) {
-            [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBoxMarked"] forState: UIControlStateNormal];
-            self.publicChecked = YES;
-        } else if (self.publicChecked){
-            [self.publicCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
-            self.publicChecked = NO;
-        }
-    }
-}
-
-- (IBAction)privateCheckBoxButtonHandler:(id)sender {
-    if (!self.publicChecked) {
-        if(!self.privateChecked) {
-            [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBoxMarked"] forState: UIControlStateNormal];
-            self.privateChecked = YES;
-        } else if (self.privateChecked){
-            [self.privateCheckBoxButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
-            self.privateChecked = NO;
-        }
-    }
-}
-
-- (IBAction)paidButtonHandler:(id)sender {
-    if(!self.paidChecked) {
-        [self.paidButton setImage:[UIImage imageNamed:@"checkBoxMarked"] forState: UIControlStateNormal];
-        self.paidChecked = YES;
-    } else if (self.paidChecked){
-        [self.paidButton setImage:[UIImage imageNamed:@"checkBox"] forState: UIControlStateNormal];
-        self.paidChecked = NO;
-    }
-}
 
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
@@ -492,7 +466,6 @@
 {
     switch (buttonIndex) {
         case 0:
-            
             [self choosePhotoFromExistingImages];
             break;
         case 1:
@@ -510,7 +483,7 @@
         controller.allowsEditing = YES;
         controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
         controller.delegate = self;
-        [self.navigationController presentViewController: controller animated: YES completion: nil];
+        [self.tabBarController presentViewController: controller animated: YES completion: nil];
     } else {
         UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
                                                               message:@"Device has no camera"
@@ -530,7 +503,7 @@
         controller.allowsEditing = YES;
         controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
         controller.delegate = self;
-        [self.navigationController presentViewController: controller animated: YES completion: nil];
+        [self.tabBarController presentViewController: controller animated: YES completion: nil];
     }
 }
 
@@ -587,6 +560,19 @@
     // Remove HUD from screen when the HUD was hidded
     [self.HUD removeFromSuperview];
     self.HUD = nil;
+}
+
+
+- (void)reverseGeocode:(CLLocation *)location {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error) {
+            NSLog(@"Error %@", error.description);
+        } else {
+            self.placemark = [placemarks lastObject];
+            NSLog(@"placemark: %@", [self.placemark.addressDictionary valueForKey:@"Street"]);
+        }
+    }];
 }
 
 @end

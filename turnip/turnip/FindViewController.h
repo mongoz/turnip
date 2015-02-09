@@ -13,16 +13,9 @@
 
 @class FindViewController;
 
-// Protocol to get the users currentlocation from the MapViewController.
-@protocol FindViewControllerDataSource <NSObject>
-
-- (CLLocation *) currentLocationForFindViewController: (FindViewController *) controller;
-
-@end
-
 @interface FindViewController : PFQueryTableViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, weak) id<FindViewControllerDataSource> dataSource;
+@property (nonatomic, strong) CLLocation *currentLocation;
 
 
 @end

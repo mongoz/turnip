@@ -1,13 +1,13 @@
 // This is an auto-generated file.
 #import <Foundation/Foundation.h>
 @interface PFResources : NSObject
-+ (NSData *)facebook_icon_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)facebook_icon2x_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)facebook_icon3x_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)parse_logo_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)parse_logo2x_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)parse_logo3x_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)twitter_icon_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)twitter_icon2x_png;//modified:2015-01-30 17:37:54 -0800
-+ (NSData *)twitter_icon3x_png;//modified:2015-01-30 17:37:54 -0800
++ (NSData *)facebook_icon_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)facebook_icon2x_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)facebook_icon3x_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)parse_logo_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)parse_logo2x_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)parse_logo3x_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)twitter_icon_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)twitter_icon2x_png;//modified:2015-02-08 23:37:43 -0800
++ (NSData *)twitter_icon3x_png;//modified:2015-02-08 23:37:43 -0800
 @end

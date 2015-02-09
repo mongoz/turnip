@@ -26,6 +26,9 @@
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) CLPlacemark *placemark;
 
+@property (nonatomic, assign) BOOL isPrivate;
+@property (nonatomic, assign) BOOL isPublic;
+
 @end
 
 @implementation ThrowViewController
@@ -43,7 +46,6 @@
     UIView *statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
     statusBarView.backgroundColor  =  [UIColor blackColor];
     [self.view addSubview:statusBarView];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.selectedDate = [NSDate new];
     
@@ -261,6 +263,7 @@
         postObject[TurnipParsePostLocalityKey] = self.placemark.locality;
         postObject[TurnipParsePostSubLocalityKey] = self.placemark.subLocality;
         postObject[TurnipParsePostZipCodeKey] = self.placemark.postalCode;
+        postObject[@"address"] = [self.placemark.addressDictionary valueForKey:@"Street"];
         postObject[@"date"] = self.selectedDate;
         postObject[@"endTime"] = self.endTimeDate.text;
         
@@ -570,7 +573,6 @@
             NSLog(@"Error %@", error.description);
         } else {
             self.placemark = [placemarks lastObject];
-            NSLog(@"placemark: %@", [self.placemark.addressDictionary valueForKey:@"Street"]);
         }
     }];
 }

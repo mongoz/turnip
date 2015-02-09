@@ -31,6 +31,10 @@ NSArray *fetchedObjects;
         NSLog (@"Successfully received the test notification!");
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [self.tabBarItem setBadgeValue: nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -55,9 +59,6 @@ NSArray *fetchedObjects;
         NSLog(@"derp");
     }
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:227.0 /225.0 green:227.0/255.0 blue:227.0 / 255.0 alpha:1.0]];
-    [self.tableView setBackgroundView: backgroundView];
 }
 
 - (void)didReceiveMemoryWarning {

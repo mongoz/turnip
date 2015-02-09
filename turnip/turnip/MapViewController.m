@@ -16,7 +16,7 @@
 #import <Parse/Parse.h>
 
 @interface MapViewController ()
-<ThrowViewControllerDataSource, FindViewControllerDataSource>
+<ThrowViewControllerDataSource>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
@@ -37,21 +37,9 @@
 @implementation MapViewController
 
 - (void)presentThrowViewController {
-   // UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 2];
-    ThrowViewController *viewController = [self.tabBarController.viewControllers objectAtIndex:2];
+    ThrowViewController *viewController = [self.tabBarController.viewControllers objectAtIndex:1];
     viewController.dataSource = self;
 
-}
-
-- (void)presentFindViewController {
-    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex:1];
-    FindViewController *viewController = [navController.viewControllers objectAtIndex: 0];
-    
-    viewController.dataSource = self;
-}
-
-- (CLLocation *) currentLocationForFindViewController:(FindViewController *)controller {
-    return self.currentLocation;
 }
 
 - (CLLocation *) currentLocationForThrowViewController:(ThrowViewController *)controller {
@@ -61,8 +49,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     if (_locationManager == nil) {
         _locationManager = [[CLLocationManager alloc] init];
@@ -137,10 +123,8 @@
         if(error) {
             NSLog(@"Error in geo query!: %@", error);
         } else {
-            [self createMarkerObject:objects];
-            
             dispatch_async(dispatch_get_main_queue(), ^ {
-                [self presentFindViewController];
+                 [self createMarkerObject:objects];
             });
         }
     }];
@@ -368,6 +352,11 @@
         
          DetailViewController *destViewController = segue.destinationViewController;
         destViewController.objectId = id;
+    }
+    
+    if ([segue.identifier isEqualToString:@"mapToListSegue"]) {
+        FindViewController *destViewController = [segue destinationViewController];
+        destViewController.currentLocation = self.currentLocation;
     }
 
 }

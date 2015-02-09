@@ -23,15 +23,13 @@
 - (void) viewWillAppear:(BOOL)animated {
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
 }
 
@@ -67,14 +65,10 @@
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
     
-    CLLocation *currentLocation = [self.dataSource currentLocationForFindViewController:self];
+    [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey, TurnipParsePostPrivateKey, TurnipParsePostPublicKey, @"date"]];
     
-    
-    [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey, TurnipParsePostPrivateKey, TurnipParsePostPublicKey]];
-    
-    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude: currentLocation.coordinate.longitude];
+    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude: self.currentLocation.coordinate.latitude longitude: self.currentLocation.coordinate.longitude];
     [query whereKey:TurnipParsePostLocationKey nearGeoPoint:point withinMiles: TurnipPostMaximumSearchDistance];
-    
     
     return query;
 }
@@ -95,6 +89,9 @@
         cell = [[FindTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MM/dd hh:mm a";
+    
     // Configure the cell
     PFFile *thumbnail = [object objectForKey: TurnipParsePostThumbnailKey];
     UIImage *placeholder = [UIImage imageNamed:@"Placeholder.jpg"];
@@ -105,6 +102,7 @@
     
     cell.titleLabel.text = [object objectForKey: TurnipParsePostTitleKey];
     cell.distanceLabel.text = [self distanceFromCurrLocation: [object objectForKey: @"location" ]];
+    cell.dateLabel.text = [dateFormatter stringFromDate: [object objectForKey:@"date"]];
     
     if ([[object objectForKey:TurnipParsePostPublicKey] isEqualToString:@"True"]) {
         cell.statusImage.image = [UIImage imageNamed:@"green.png"];
@@ -136,10 +134,9 @@
 //Returns a NSString
 - (NSString *) distanceFromCurrLocation : (PFGeoPoint *) point {
     
-    CLLocation *currentLocation = [self.dataSource currentLocationForFindViewController:self];
     CLLocation *destinationLocation = [[CLLocation alloc] initWithLatitude:point.latitude longitude:point.longitude];
     
-    CLLocationDistance meters = [currentLocation distanceFromLocation: destinationLocation];
+    CLLocationDistance meters = [self.currentLocation distanceFromLocation: destinationLocation];
     
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
     [fmt setPositiveFormat:@"0.#"];

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "30CE9CA0ABB28FF87287A3F7"
+               BlueprintIdentifier = "C6FE0FC6AFC7D7E3821B833A"
                BuildableName = "libPods-turnip-Google-Maps-iOS-SDK.a"
                BlueprintName = "Pods-turnip-Google-Maps-iOS-SDK"
                ReferencedContainer = "container:Pods.xcodeproj">

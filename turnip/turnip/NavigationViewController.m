@@ -24,6 +24,7 @@ NSArray *fetchedObjects;
 
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.tabBarItem setBadgeValue: nil];
 }
 
 - (void)viewDidLoad {

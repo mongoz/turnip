@@ -35,6 +35,8 @@
     // Override point for customization after application launch.
     [self managedObjectContext];
     
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageFinishedDownload:) name:@"facebookImageDownloaded" object:nil];
     

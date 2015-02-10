@@ -89,6 +89,7 @@
     
     self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     self.mapView.myLocationEnabled = YES;
+    self.mapView.settings.compassButton = YES;
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMinZoom:3 maxZoom:14];
     self.mapView.delegate = self;

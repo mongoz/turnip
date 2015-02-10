@@ -27,7 +27,7 @@
 @property (nonatomic, strong) CLPlacemark *placemark;
 
 @property (nonatomic, assign) BOOL isPrivate;
-@property (nonatomic, assign) BOOL isPublic;
+@property (nonatomic, assign) BOOL isFree;
 
 @end
 
@@ -61,6 +61,9 @@
     
     self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
     [self reverseGeocode: self.currentLocation];
+    
+    [self.privateSwitch addTarget:self action:@selector(privateSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.freeSwitch addTarget:self action:@selector(freeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     
     [self setupPickerViews];
 }
@@ -263,6 +266,8 @@
         postObject[TurnipParsePostLocalityKey] = self.placemark.locality;
         postObject[TurnipParsePostSubLocalityKey] = self.placemark.subLocality;
         postObject[TurnipParsePostZipCodeKey] = self.placemark.postalCode;
+        postObject[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"False" : @"True";
+        postObject[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
         postObject[@"address"] = [self.placemark.addressDictionary valueForKey:@"Street"];
         postObject[@"date"] = self.selectedDate;
         postObject[@"endTime"] = self.endTimeDate.text;
@@ -408,8 +413,25 @@
 
 }
 
-#pragma mark - checkbox handlers
+#pragma mark - switch handlers
 
+- (void) privateSwitchChanged: (UISwitch *) switchState {
+    if ([switchState isOn]) {
+        self.isPrivate = YES;
+    } else {
+        self.isPrivate = NO;
+    }
+}
+
+- (void) freeSwitchChanged: (UISwitch *) switchState {
+    if ([switchState isOn]) {
+        self.isFree = YES;
+    } else {
+        self.isFree = NO;
+    }
+}
+
+#pragma mark - textfield handlers
 
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {

@@ -42,15 +42,14 @@
 @property (strong, nonatomic) IBOutlet UITextView *aboutField;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic) IBOutlet UIButton *createButton;
-@property (strong, nonatomic) IBOutlet UIButton *privateCheckBoxButton;
-@property (strong, nonatomic) IBOutlet UIButton *publicCheckBoxButton;
-@property (strong, nonatomic) IBOutlet UIButton *paidButton;
 
 @property (strong, nonatomic) MBProgressHUD * HUD;
 
 - (IBAction)backButtonHandler:(id)sender;
 - (IBAction)createButtonHandler:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UISwitch *privateSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *freeSwitch;
 
 
 

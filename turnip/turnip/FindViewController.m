@@ -28,9 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -158,7 +155,6 @@
         TurnipEvent *event = [[TurnipEvent alloc] initWithPFObject:object];
         
         destViewController.event = event;
-        
     }
 }
 

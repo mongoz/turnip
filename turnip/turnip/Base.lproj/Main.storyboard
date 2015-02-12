@@ -137,18 +137,6 @@
                                     <action selector="backButtonHandler:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="he7-x8-VaR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuc-fo-OEQ">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Create">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="211" y="420" width="46" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="createButtonHandler:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="apI-dv-HWc"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ojg-Tp-Bbd">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -178,6 +166,12 @@
                                     <rect key="frame" x="50" y="236" width="232" height="31"/>
                                 </variation>
                             </slider>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BGe-aI-1Ld">
+                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="241" y="292" width="51" height="31"/>
+                                </variation>
+                            </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZc-Ov-v54">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -231,12 +225,18 @@
                                     <rect key="frame" x="99" y="388" width="181" height="30"/>
                                 </variation>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BGe-aI-1Ld">
-                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuc-fo-OEQ">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Create">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="241" y="292" width="51" height="31"/>
+                                    <rect key="frame" x="202" y="420" width="70" height="30"/>
                                 </variation>
-                            </switch>
+                                <connections>
+                                    <action selector="createButtonHandler:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="apI-dv-HWc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -246,18 +246,18 @@
                                 <exclude reference="4DF-RU-ob6"/>
                                 <exclude reference="fNZ-yA-fQR"/>
                                 <exclude reference="R97-tm-poq"/>
-                                <exclude reference="iuc-fo-OEQ"/>
                                 <exclude reference="Ojg-Tp-Bbd"/>
                                 <exclude reference="Ja3-SI-Wae"/>
                                 <exclude reference="u08-5g-era"/>
                                 <exclude reference="IrH-Hd-yBm"/>
+                                <exclude reference="BGe-aI-1Ld"/>
                                 <exclude reference="GZc-Ov-v54"/>
                                 <exclude reference="lnk-pA-FXP"/>
                                 <exclude reference="Ukh-U9-5iT"/>
                                 <exclude reference="80E-dx-B5M"/>
                                 <exclude reference="weU-Tu-LkT"/>
                                 <exclude reference="Shs-8s-76I"/>
-                                <exclude reference="BGe-aI-1Ld"/>
+                                <exclude reference="iuc-fo-OEQ"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -267,18 +267,18 @@
                                 <include reference="4DF-RU-ob6"/>
                                 <include reference="fNZ-yA-fQR"/>
                                 <include reference="R97-tm-poq"/>
-                                <include reference="iuc-fo-OEQ"/>
                                 <include reference="Ojg-Tp-Bbd"/>
                                 <include reference="Ja3-SI-Wae"/>
                                 <include reference="u08-5g-era"/>
                                 <include reference="IrH-Hd-yBm"/>
+                                <include reference="BGe-aI-1Ld"/>
                                 <include reference="GZc-Ov-v54"/>
                                 <include reference="lnk-pA-FXP"/>
                                 <include reference="Ukh-U9-5iT"/>
                                 <include reference="80E-dx-B5M"/>
                                 <include reference="weU-Tu-LkT"/>
                                 <include reference="Shs-8s-76I"/>
-                                <include reference="BGe-aI-1Ld"/>
+                                <include reference="iuc-fo-OEQ"/>
                             </mask>
                         </variation>
                     </view>
@@ -1045,7 +1045,28 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E3n-Hc-zSL" id="9X8-Bx-DrT">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mrR-Tz-xYJ">
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <variation key="widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="23" y="25" width="20" height="20"/>
+                                                    </variation>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="mrR-Tz-xYJ"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="mrR-Tz-xYJ"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="imageSpinner" destination="mrR-Tz-xYJ" id="urQ-MV-Baf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -1078,6 +1099,7 @@
                     <navigationItem key="navigationItem" id="3Kj-l2-jqH"/>
                     <connections>
                         <outlet property="tableView" destination="kWc-wt-kwk" id="Ee7-jT-0TT"/>
+                        <segue destination="qJi-dl-hfz" kind="show" identifier="requestToProfileSegue" id="hkF-mK-PDa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tNm-a6-Xzz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1308,6 +1330,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="AUY-QM-v0n" kind="show" identifier="ticketScannerSegue" id="v8g-ia-N6n"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="signout" id="E1V-i7-J4t">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1351,6 +1376,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfB-cC-ian" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1824" y="-187"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vMk-l3-sCh">
+            <objects>
+                <viewController id="AUY-QM-v0n" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9t3-Jx-srQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="EGS-eX-6nb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iap-cm-0HB">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="al6-42-Wyz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2692.5" y="-187"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GgU-O5-KZr">
@@ -1417,7 +1459,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qQ6-T8-g9z"/>
-        <segue reference="hYu-wC-nnF"/>
-        <segue reference="gtm-Sk-oAF"/>
+        <segue reference="hkF-mK-PDa"/>
+        <segue reference="Jjk-3g-G75"/>
     </inferredMetricsTieBreakers>
 </document>

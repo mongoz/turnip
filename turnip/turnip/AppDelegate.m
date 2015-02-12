@@ -67,35 +67,44 @@
         [self presentLoginViewController];
     }
     
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
-        // iOS 8 Notifications
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         
-        [application registerUserNotificationSettings:settings];
     }
     else
     {
-        // iOS < 8 Notifications
-        [application registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
+    
+    
+    if(application.applicationState != UIApplicationStateBackground) {
+        BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
+        BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
+        BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
+            NSLog(@"app opens");
+            [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+        }
+    }
+    
+    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    
+    if (notificationPayload) {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Push payload"
+                                   message: [notificationPayload objectForKey:@"eventId"]
+                                  delegate:self
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"Ok", nil];
+        [alertView show];
+
+    }
+    
     return YES;
 }
-
-#ifdef __IPHONE_8_0
-- (void) application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    [application registerForRemoteNotifications];
-}
-
-- (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    if([identifier isEqualToString:@"declineAction"]) {
-        NSLog(@"declined");
-    } else if([identifier isEqualToString:@"answerAction"]) {
-        NSLog(@"accepted");
-    }
-}
-#endif
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -133,14 +142,25 @@
     [currentInstallation saveInBackground];
 }
 
+
+-(void) application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"Push registration error: %@", error);
+}
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    //[PFPush handlePush:userInfo];
-     UITabBarController *tabController = (UITabBarController *)self.window.rootViewController;
+    
+    if (application.applicationState == UIApplicationStateActive) {
+        NSLog(@"log this");
+        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    }
+    
+     UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
     
     // Create empty photo object
-    NSString *userId = [userInfo objectForKey:@"fromUser"];
+//    NSString *userId = [userInfo objectForKey:@"fromUser"];
     NSString *type = [userInfo objectForKey:@"type"];
     NSString *eventId = [userInfo objectForKey:@"eventId"];
+    
+    NSLog(@"id: %@", userInfo);
     
     if ([type isEqualToString:@"eventRequest"]) {
         [[NSNotificationCenter defaultCenter]
@@ -151,13 +171,13 @@
         
         [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
         
-        //Query for information about the user
-        PFQuery *query = [PFUser query];
-        
-        [query getObjectInBackgroundWithId:userId block:^(PFObject *object, NSError *error) {
-            self.user = [[TurnipUser alloc] initWithPFObject: object];
-            self.user.eventId = eventId;
-        }];
+//        //Query for information about the user
+//        PFQuery *query = [PFUser query];
+//        
+//        [query getObjectInBackgroundWithId:userId block:^(PFObject *object, NSError *error) {
+//            self.user = [[TurnipUser alloc] initWithPFObject: object];
+//            self.user.eventId = eventId;
+//        }];
     }
     
     if([type isEqualToString:@"eventAccepted"]) {
@@ -178,6 +198,39 @@
         [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
 }
+
+- (BOOL) pushNotificationOnOrOff
+{
+    if ([UIApplication instancesRespondToSelector:@selector(isRegisteredForRemoteNotifications)]) {
+        return ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]);
+    } else {
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        return (types & UIRemoteNotificationTypeAlert);
+    }
+}
+
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings: (UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    
+    NSLog(@"user info %@", userInfo);
+    //handle the actions
+    if ([identifier isEqualToString:@"declineAction"]){
+        NSLog(@"decline");
+    }
+    else if ([identifier isEqualToString:@"answerAction"]){
+        NSLog(@"accept");
+    }
+}
+#endif
+
+#pragma mark save to coreData
 
 - (void) saveTicketInfo: (PFObject *) object {
     
@@ -237,7 +290,6 @@
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loginView"];
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
-    
 }
 
 #pragma mark -

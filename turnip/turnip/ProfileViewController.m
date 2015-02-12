@@ -36,7 +36,7 @@
     if ([user.objectId isEqual:[PFUser currentUser].objectId]) {
         [self loadFacebookData];
         
-        self.sideMenuButton.hidden = NO;
+        self.sideMenuButton.hidden = YES;
         
     }
     else if (user == nil) {
@@ -58,7 +58,6 @@
             
             NSString *facebookID = userData[@"id"];
             NSString *name = userData[@"name"];
-           //NSString *gender = userData[@"gender"];
             NSString *birthday = userData[@"birthday"];
             
             self.nameLabel.text = name;

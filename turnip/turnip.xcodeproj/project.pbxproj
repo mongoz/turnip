@@ -41,7 +41,6 @@
 		1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */; };
 		1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FFC1A74EEC700B2EABE /* Main.storyboard */; };
 		1AFD400A1A74F17000B2EABE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40051A74F17000B2EABE /* CoreData.framework */; };
-		1AFD40121A74F18C00B2EABE /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40111A74F18C00B2EABE /* GLKit.framework */; };
 		1AFD40141A74F19300B2EABE /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40131A74F19300B2EABE /* ImageIO.framework */; };
 		1AFD40161A74F1A300B2EABE /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40151A74F1A300B2EABE /* libc++.dylib */; };
 		1AFD40181A74F1B200B2EABE /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40171A74F1B200B2EABE /* libicucore.dylib */; };
@@ -128,7 +127,6 @@
 		1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThrowViewController.m; sourceTree = "<group>"; };
 		1AFD3FFD1A74EEC700B2EABE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		1AFD40051A74F17000B2EABE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		1AFD40111A74F18C00B2EABE /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		1AFD40131A74F19300B2EABE /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		1AFD40151A74F1A300B2EABE /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		1AFD40171A74F1B200B2EABE /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -163,7 +161,6 @@
 				1AFD40181A74F1B200B2EABE /* libicucore.dylib in Frameworks */,
 				1AFD40161A74F1A300B2EABE /* libc++.dylib in Frameworks */,
 				1AFD40141A74F19300B2EABE /* ImageIO.framework in Frameworks */,
-				1AFD40121A74F18C00B2EABE /* GLKit.framework in Frameworks */,
 				1AFD400A1A74F17000B2EABE /* CoreData.framework in Frameworks */,
 				AB78C0845A009A5F3A9EF209 /* libPods-turnip.a in Frameworks */,
 			);
@@ -329,7 +326,6 @@
 				1AFD40171A74F1B200B2EABE /* libicucore.dylib */,
 				1AFD40151A74F1A300B2EABE /* libc++.dylib */,
 				1AFD40131A74F19300B2EABE /* ImageIO.framework */,
-				1AFD40111A74F18C00B2EABE /* GLKit.framework */,
 				1AFD40051A74F17000B2EABE /* CoreData.framework */,
 				D397F68C3BE458359F6CA901 /* libPods-turnip.a */,
 			);

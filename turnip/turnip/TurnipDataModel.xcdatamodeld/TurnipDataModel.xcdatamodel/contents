@@ -20,17 +20,19 @@
     <entity name="YourEvents" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="free" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="image1" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="image2" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="image3" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="private" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="RequesterInfo" positionX="23317" positionY="-2403" width="128" height="133"/>
-        <element name="UserSettings" positionX="23560" positionY="-2403" width="128" height="58"/>
-        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="163"/>
         <element name="TicketInfo" positionX="23292" positionY="-2340" width="128" height="105"/>
+        <element name="UserSettings" positionX="23560" positionY="-2403" width="128" height="58"/>
+        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="195"/>
     </elements>
 </model>

@@ -55,6 +55,7 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 @protocol MCSwipeTableViewCellDelegate;
 
 @interface MCSwipeTableViewCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *imageSpinner;
 
 /** Delegate of `MCSwipeTableViewCell` */
 @property (nonatomic, assign) id <MCSwipeTableViewCellDelegate> delegate;

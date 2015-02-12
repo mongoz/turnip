@@ -7,6 +7,7 @@
 //
 
 #import "RequestViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
@@ -16,54 +17,100 @@
 @interface RequestViewController ()
 
 @property (nonatomic, strong) NSArray *events;
+@property (nonatomic, strong) NSString *eventId;
+@property (nonatomic, strong) NSArray *requesters;
 @property (nonatomic, assign) NSUInteger nbItems;
 @property (nonatomic, strong) MCSwipeTableViewCell *cellToDelete;
+@property (nonatomic, strong) NSMutableArray *userDelete;
 
 @end
 
 @implementation RequestViewController
 
+@synthesize tableView;
+
 NSArray *fetchedObjects;
 
-- (void) receiveRequestPush:(NSNotification *) notification
-{
-    if ([[notification name] isEqualToString:@"requestPush"])
-        NSLog (@"Successfully received the test notification!");
+- (void) receiveRequestPush:(NSNotification *) notification {
+    if ([[notification name] isEqualToString:@"requestPush"]){
+        NSLog(@"reload page");
+       // [self loadCoreData];
+        [self.tableView reloadData];
+    }
+       
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [self.tabBarItem setBadgeValue: nil];
+- (void) viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
+
+//- (void) viewWillDisappear:(BOOL)animated {
+//    
+//    NSLog(@"delete: %@", self.userDelete);
+//    
+//    [PFCloud callFunctionInBackground:@"deleteRelatedUsers"
+//                       withParameters:@{@"deleteArray": self.userDelete}
+//                                block:^(NSString *success, NSError *error) {
+//                                    if (!error) {
+//                                        NSLog(@"user Deleted");
+//                                    }
+//                                }];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.requesters = [[NSMutableArray alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveRequestPush:)
                                                  name:@"requestPush"
                                                object:nil];
+    [self queryRequesters];
     
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *context = [delegate managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"RequesterInfo" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    fetchedObjects = [context executeFetchRequest:fetchRequest error: &error];
-
-    if([fetchedObjects count] > 0) {
-        _nbItems = [fetchedObjects count];
-    } else {
-        NSLog(@"derp");
-    }
+    self.userDelete = [[NSMutableArray alloc] init];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) queryRequesters {
+    
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+    
+    if ([self.requesters count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    [query whereKey:TurnipParsePostUserKey equalTo: [PFUser currentUser]];
+    
+    [query selectKeys:@[TurnipParsePostIdKey, @"requests"]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(error) {
+            NSLog(@"Error in geo query!: %@", error);
+        } else {
+            self.eventId = [objects[0] objectId];
+            for (PFObject *object in objects) {
+                PFRelation *relation = [object relationForKey:@"requests"];
+                PFQuery *query = [relation query];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if([objects count] == 0) {
+                            NSLog(@"no requests");
+                        } else {
+                            self.requesters = [[NSArray alloc] initWithArray:objects];
+                            self.nbItems = [self.requesters count];
+                            [[self tableView] reloadData];
+                        }
+                    });
+                }];
+            }
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -75,13 +122,13 @@ NSArray *fetchedObjects;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-      return _nbItems;
+    return self.nbItems;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"requestCell";
     
-    MCSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MCSwipeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
         cell = [[MCSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
@@ -114,19 +161,58 @@ NSArray *fetchedObjects;
     
     [cell setDelegate:self];
     
-    NSArray *name = [[[fetchedObjects valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
-    NSString *age = @([self calculateAge:[[fetchedObjects valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
-    
+    NSArray *name = [[[self.requesters valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
+    NSString *age = @([self calculateAge:[[self.requesters valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
     NSString *label = [NSString stringWithFormat:@"%@  %@", [name objectAtIndex:0], age];
     
-    cell.imageView.image = [[fetchedObjects valueForKey:@"profileImage"] objectAtIndex:indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:@"Placeholder.jpg"];
+    
+    [cell.imageSpinner setHidden:NO];
+    [cell.imageSpinner startAnimating];
+    
+   //Download facebook image
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.requesters valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+    
+    // Run network request asynchronously
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         if (connectionError == nil && data != nil) {
+             // Set the image in the header imageView
+             NSLog(@"image");
+             [cell.imageSpinner setHidden:YES];
+             [cell.imageSpinner stopAnimating];
+             cell.imageView.image = [UIImage imageWithData:data];
+         } else {
+             NSLog(@"connectionError: %@", connectionError);
+         }
+     }];
+
+    
     cell.textLabel.text = label;
     
     [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         [self deleteCell:cell];
-        [self acceptUserRequest: [fetchedObjects objectAtIndex: indexPath.row]];
-        [self deleteObjectFromCoreData: [fetchedObjects objectAtIndex: indexPath.row]];
+        [self acceptUserRequest: [self.requesters objectAtIndex: indexPath.row]];
+        [self.userDelete addObject: [self.requesters objectAtIndex:indexPath.row]];
     }];
+    
+    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+    tapped.numberOfTapsRequired = 1;
+    [cell.imageView addGestureRecognizer:tapped];
+    cell.imageView.userInteractionEnabled = YES;
+}
+
+
+- (void) imageTapped: (UITapGestureRecognizer *) gesture {
+    CGPoint point = [gesture locationInView:self.tableView];
+    
+    NSIndexPath *path = [self.tableView indexPathForRowAtPoint:point];
+    [self performSegueWithIdentifier:@"requestToProfileSegue" sender: [self.requesters objectAtIndex:path.row]];
+    
 }
 
 - (void) deleteCell: (MCSwipeTableViewCell *) cell {
@@ -141,7 +227,7 @@ NSArray *fetchedObjects;
     //send push to current user
     
     NSString *userId = [user valueForKey:@"objectId"];
-    NSString *userEvent = [user valueForKey:@"eventId"];
+    NSString *userEvent = self.eventId;
     NSString *message = @"sure thing brah";
     
     [PFCloud callFunctionInBackground:@"acceptEventPush"
@@ -152,10 +238,6 @@ NSArray *fetchedObjects;
                                     }
                                 }];
     
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // call super because we're a custom subclass.
 }
 
 - (int) calculateAge: (NSString *) birthday {
@@ -186,6 +268,27 @@ NSArray *fetchedObjects;
     return imageView;
 }
 
+#pragma mark core data handlers.
+
+- (void) loadCoreData {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"RequesterInfo" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    fetchedObjects = [context executeFetchRequest:fetchRequest error: &error];
+    
+    if([fetchedObjects count] > 0) {
+        _nbItems = [fetchedObjects count];
+    } else {
+        
+    }
+}
+
+
 - (void) deleteObjectFromCoreData: (NSMutableArray * ) user {
 
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -209,5 +312,16 @@ NSArray *fetchedObjects;
     }
     NSLog(@"Data updated");
 }
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"requestToProfileSegue"]) {
+        ProfileViewController *destViewController = segue.destinationViewController;
+        
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        destViewController.user = sender;
+    }
+}
+
+
 
 @end

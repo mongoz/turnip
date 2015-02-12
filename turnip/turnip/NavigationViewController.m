@@ -24,7 +24,7 @@ NSArray *fetchedObjects;
 
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.tabBarItem setBadgeValue: nil];
+    [[[[[self tabBarController] tabBar]items]objectAtIndex:3]setBadgeValue:0];
 }
 
 - (void)viewDidLoad {
@@ -43,7 +43,7 @@ NSArray *fetchedObjects;
     if([fetchedObjects count] > 0) {
         self.notifications = [fetchedObjects copy];
     } else {
-        NSLog(@"derp");
+       
     }
 }
 

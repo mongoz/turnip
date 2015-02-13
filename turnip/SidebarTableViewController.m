@@ -9,6 +9,8 @@
 #import "SidebarTableViewController.h"
 #import "SWRevealViewController.h"
 
+#import "ScannerViewController.h"
+
 #import <Parse/Parse.h>
 
 @interface SidebarTableViewController ()
@@ -22,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menuItems = @[@"editProfile", @"editEvent",@"card" ,@"invite", @"tos", @"contact", @"scanner" ,@"signout"];
+    menuItems = @[@"editProfile", @"card" ,@"invite", @"tos", @"contact", @"scanner" ,@"signout"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,13 +84,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
  #pragma mark - Navigation
  
-// // In a storyboard-based application, you will often want to do a little preparation before navigation
-// - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-// // Get the new view controller using [segue destinationViewController].
-// // Pass the selected object to the new view controller.
-//     
-//     
-// }
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+     UINavigationController *destViewController = (UINavigationController *) segue.destinationViewController;
+     destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
+     
+     if ([segue.identifier isEqualToString:@"ticketScannerSegue"]) {
+         UINavigationController *navController = segue.destinationViewController;
+         ScannerViewController *scanView = [navController childViewControllers].firstObject;
+         
+     }
+     
+ }
 
 
 @end

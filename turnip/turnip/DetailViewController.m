@@ -40,9 +40,9 @@
     }
     self.profileImage.userInteractionEnabled = YES;
     
-    self.imageView1.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
-    self.imageView2.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
-    self.imageView3.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
+//    self.imageView1.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
+//    self.imageView2.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
+//    self.imageView3.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
     
     [self downloadDetails];
 }

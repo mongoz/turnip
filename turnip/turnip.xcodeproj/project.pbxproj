@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */; };
 		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
 		1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */; };
 		1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */; };
@@ -72,6 +73,8 @@
 
 /* Begin PBXFileReference section */
 		128F4766B166E2108280E1E6 /* Pods-turnip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.debug.xcconfig"; sourceTree = "<group>"; };
+		1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScannerViewController.h; path = ../ScannerViewController.h; sourceTree = "<group>"; };
+		1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScannerViewController.m; path = ../ScannerViewController.m; sourceTree = "<group>"; };
 		1A8626161A7A321700AF63B9 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarTableViewController.h; path = ../SidebarTableViewController.h; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				1ABABC1A1A839BFB00C0A617 /* NavigationViewController.m */,
 				1ABABC1C1A860CD100C0A617 /* TicketViewController.h */,
 				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
+				1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */,
+				1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
@@ -516,6 +521,7 @@
 				1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */,
 				1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
+				1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */,
 				1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */,
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,

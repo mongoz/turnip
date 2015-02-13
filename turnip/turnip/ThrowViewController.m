@@ -26,7 +26,7 @@
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) CLPlacemark *placemark;
 
-
+@property (nonatomic, strong) NSArray *currentEvent;
 @property (nonatomic, strong) NSString *currentEventId;
 @property (nonatomic, assign) BOOL isPrivate;
 @property (nonatomic, assign) BOOL isFree;
@@ -50,13 +50,13 @@
     statusBarView.backgroundColor  =  [UIColor blackColor];
     [self.view addSubview:statusBarView];
     
-    NSArray *currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
+    self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
 
     [self setupView];
     [self setupPickerViews];
     
-    if ([currentEvent count] > 0) {
-        [self setupViewWithCurrentEventData: currentEvent];
+    if ([self.currentEvent count] > 0) {
+        [self setupViewWithCurrentEventData: self.currentEvent];
         self.update = YES;
     }
     
@@ -87,6 +87,9 @@
 }
 
 - (void) setupViewWithCurrentEventData: (NSArray *) currEvent {
+    self.imageTwo.hidden = NO;
+    self.imageThree.hidden = NO;
+    
     self.currentEventId = [[currEvent valueForKey:@"objectId"] objectAtIndex:0];
     self.titleField.text = [[currEvent valueForKey:@"title"] objectAtIndex:0];
     self.imageOne.image = [[currEvent valueForKey:@"image1"] objectAtIndex:0];
@@ -143,8 +146,6 @@
         self.endTimeDate.inputView = dummyView;
 
     });
-    
-
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -255,14 +256,98 @@
 # pragma mark - button controll handlers
 
 - (void) updateObject {
+    
+    // Set determinate mode
+    self.HUD.mode = MBProgressHUDModeIndeterminate;
+    self.HUD.delegate = self;
+    self.HUD.labelText = @"Uploading...";
+    [self.HUD show:YES];
+    
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+    
+    [query getObjectInBackgroundWithId: self.currentEventId block:^(PFObject *eventData, NSError *error) {
+        if(!error) {
+            self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview: self.HUD];
+            
+            [eventData setObject:self.titleField.text forKey:TurnipParsePostTitleKey];
+            eventData[TurnipParsePostTextKey] = self.aboutField.text;
+            
+            eventData[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"False" : @"True";
+            eventData[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
+ 
+            eventData[@"endTime"] = self.endTimeDate.text;
+            
+         
+            NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+            NSString *filtered = [self.titleField.text stringByTrimmingCharactersInSet:special];
+            NSString *imageName = [NSString stringWithFormat:@"%@.jpg", filtered];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            
+            if (self.imageOne.image == nil) {
+                [eventData removeObjectForKey:@"image1"];
+            } else {
+                NSData *imageData = UIImageJPEGRepresentation(self.imageOne.image, 0.7);
+                PFFile *file = [PFFile fileWithName: imageName  data:imageData];
+                eventData[TurnipParsePostImageOneKey] = file;
+            }
+            if (self.imageTwo.image == nil) {
+                [eventData removeObjectForKey:@"image2"];
+            } else {
+                NSData *image2Data = UIImageJPEGRepresentation(self.imageTwo.image, 0.7);
+                PFFile *file2 = [PFFile fileWithName: imageName  data:image2Data];
+                eventData[TurnipParsePostImageTwoKey] = file2;
 
-    NSLog(@"update");
-//    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
-//    
-//    [query getObjectInBackgroundWithId:self.currentEventId block:^(PFObject *object, NSError *error) {
-//        
-//        
-//    }];
+            }
+            if (self.imageThree.image == nil) {
+                [eventData removeObjectForKey:@"image3"];
+            } else {
+                NSData *image3Data = UIImageJPEGRepresentation(self.imageTwo.image, 0.7);
+                PFFile *file3 = [PFFile fileWithName: imageName  data:image3Data];
+                eventData[TurnipParsePostImageThreeKey] = file3;
+            }
+            
+            [eventData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) {  // Failed to save, show an alert view with the error message
+                    UIAlertView *alertView =
+                    [[UIAlertView alloc] initWithTitle:[error userInfo][@"error"]
+                                               message:nil
+                                              delegate:self
+                                     cancelButtonTitle:nil
+                                     otherButtonTitles:@"Ok", nil];
+                    [alertView show];
+                    [self.HUD hide:YES];
+                    return;
+                }
+                if (succeeded) {  // Successfully saved, post a notification to tell other view controllers
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
+                        [self.HUD hide:YES];
+                        
+                        // Show checkmark
+                        self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+                        [self.view addSubview: self.HUD];
+                        
+                        self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yesButton"]];
+                        
+                        // Set custom view mode
+                        self.HUD.mode = MBProgressHUDModeCustomView;
+                        
+                        self.HUD.labelText = @"Completed!";
+                        
+                        [self.HUD hide:YES afterDelay:5];
+                        self.HUD.delegate = self;
+                    });
+                    [self saveToCoreData:eventData];
+                    // [self resetView];
+                //    self.update = YES;
+                }
+            }];
+        } else {
+            NSLog(@"error: %@", error);
+        }
+        
+    }];
 }
 
 - (IBAction) backButtonHandler:(id)sender {
@@ -367,7 +452,7 @@
             
             PFACL *readOnlyACL = [PFACL ACL];
             [readOnlyACL setPublicReadAccess:YES];
-            [readOnlyACL setPublicWriteAccess:NO];
+            [readOnlyACL setWriteAccess:YES forUser:[PFUser currentUser]];
             postObject.ACL = readOnlyACL;
             
             [postObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -448,32 +533,52 @@
 - (void) saveToCoreData :(PFObject *) postObject {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = [delegate managedObjectContext];
-
-    NSManagedObject *dataRecord = [NSEntityDescription
-                                   insertNewObjectForEntityForName:@"YourEvents"
-                                   inManagedObjectContext: context];
     
-    [dataRecord setValue: self.titleField.text forKey:@"title"];
-    [dataRecord setValue: postObject.objectId forKey:@"objectId"];
-    [dataRecord setValue: self.aboutField.text forKey:@"text"];
-    [dataRecord setValue: self.selectedDate forKey:@"date"];
-    [dataRecord setValue: self.endTimeDate.text forKey:@"endTime"];
-    [dataRecord setValue: self.imageOne.image forKey:@"image1"];
-    [dataRecord setValue: self.imageTwo.image forKey:@"image2"];
-    [dataRecord setValue: self.imageThree.image forKey:@"image3"];
-    
-    NSNumber *privateAsNumber = [NSNumber numberWithBool: self.isPrivate];
-    [dataRecord setValue: privateAsNumber forKey:@"private"];
-    
-    NSNumber *freeAsNumber = [NSNumber numberWithBool: self.isFree];
-    [dataRecord setValue: freeAsNumber forKey:@"free"];
-    
+    if ([self.currentEvent count] > 0) {
+        NSManagedObject *managedObject = [self.currentEvent objectAtIndex:0];
+        
+        [managedObject setValue: self.titleField.text forKey:@"title"];
+        [managedObject setValue: postObject.objectId forKey:@"objectId"];
+        [managedObject setValue: self.aboutField.text forKey:@"text"];
+        [managedObject setValue: self.selectedDate forKey:@"date"];
+        [managedObject setValue: self.endTimeDate.text forKey:@"endTime"];
+        [managedObject setValue: self.imageOne.image forKey:@"image1"];
+        [managedObject setValue: self.imageTwo.image forKey:@"image2"];
+        [managedObject setValue: self.imageThree.image forKey:@"image3"];
+        
+        NSNumber *privateAsNumber = [NSNumber numberWithBool: self.isPrivate];
+        [managedObject setValue: privateAsNumber forKey:@"private"];
+        
+        NSNumber *freeAsNumber = [NSNumber numberWithBool: self.isFree];
+        [managedObject setValue: freeAsNumber forKey:@"free"];
+        
+    } else {
+        
+        NSManagedObject *dataRecord = [NSEntityDescription
+                                       insertNewObjectForEntityForName:@"YourEvents"
+                                       inManagedObjectContext: context];
+        
+        [dataRecord setValue: self.titleField.text forKey:@"title"];
+        [dataRecord setValue: postObject.objectId forKey:@"objectId"];
+        [dataRecord setValue: self.aboutField.text forKey:@"text"];
+        [dataRecord setValue: self.selectedDate forKey:@"date"];
+        [dataRecord setValue: self.endTimeDate.text forKey:@"endTime"];
+        [dataRecord setValue: self.imageOne.image forKey:@"image1"];
+        [dataRecord setValue: self.imageTwo.image forKey:@"image2"];
+        [dataRecord setValue: self.imageThree.image forKey:@"image3"];
+        
+        NSNumber *privateAsNumber = [NSNumber numberWithBool: self.isPrivate];
+        [dataRecord setValue: privateAsNumber forKey:@"private"];
+        
+        NSNumber *freeAsNumber = [NSNumber numberWithBool: self.isFree];
+        [dataRecord setValue: freeAsNumber forKey:@"free"];
+    }
     NSError *error;
     if (![context save:&error]) {
         NSLog(@"Error:%@", error);
     }
     NSLog(@"Event saved");
-
+    
 }
 
 - (NSArray *) loadCoreData {
@@ -490,28 +595,10 @@
     if ([fetchedObjects count] == 0) {
         return nil;
     } else {
+        
         return fetchedObjects;
     }
     
-}
-
-- (int) numberOfContacts {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *context = [delegate managedObjectContext];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"YourEvents" inManagedObjectContext:context];
-    [request setEntity:entity];
-    
-    NSError *error;
-    NSUInteger count = [context countForFetchRequest:request error: &error];
-    
-    if (!error) {
-        return count;
-    } else {
-        return -1;
-    }
 }
 
 #pragma mark - switch handlers
@@ -560,8 +647,10 @@
                                                              delegate: self
                                                     cancelButtonTitle: @"Cancel"
                                                destructiveButtonTitle: nil
-                                                    otherButtonTitles: @"Photo library", @"Camera", nil];
+                                                    otherButtonTitles: @"Photo library", @"Camera",@"Remove Image", nil];
     [actionSheet showInView:self.view];
+    
+    self.imageTwo.hidden = NO;
 }
 
 - (IBAction)imageTwoTapHandler:(UITapGestureRecognizer *)sender {
@@ -570,8 +659,9 @@
                                                              delegate: self
                                                     cancelButtonTitle: @"Cancel"
                                                destructiveButtonTitle: nil
-                                                    otherButtonTitles: @"Photo library", @"Camera", nil];
+                                                    otherButtonTitles: @"Photo library", @"Camera",@"Remove Image", nil];
     [actionSheet showInView:self.view];
+    self.imageThree.hidden = NO;
 
 }
 
@@ -581,7 +671,7 @@
                                                              delegate: self
                                                     cancelButtonTitle: @"Cancel"
                                                destructiveButtonTitle: nil
-                                                    otherButtonTitles: @"Photo library", @"Camera", nil];
+                                                    otherButtonTitles: @"Photo library", @"Camera", @"Remove Image", nil];
     [actionSheet showInView:self.view];
 
 }
@@ -596,6 +686,11 @@
             break;
         case 1:
             [self takeNewPhotoFromCamera];
+            break;
+        case 2:
+            NSLog(@"clear image");
+            self.lastImagePressed.image = nil;
+            break;
         default:
             break;
     }

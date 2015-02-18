@@ -14,9 +14,16 @@
 @interface DetailViewController : UIViewController
 
 @property (nonatomic, strong) TurnipEvent *event;
+@property (nonatomic, strong) TurnipEvent *data;
+
+@property (nonatomic, strong) NSArray *yourEvent;
+
+@property (nonatomic, assign) BOOL host;
 @property (nonatomic, strong) NSString *objectId;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *openLabel;
+@property (strong, nonatomic) IBOutlet UILabel *freePaidLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
 
@@ -28,6 +35,8 @@
 @property (strong, nonatomic) IBOutlet PFImageView *profileImage;
 
 @property (strong, nonatomic) IBOutlet UIButton *requestButton;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 - (IBAction)requestButtonHandler:(id)sender;
 - (IBAction)profileImageTapHandler:(UITapGestureRecognizer *)sender;

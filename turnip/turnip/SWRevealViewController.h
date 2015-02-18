@@ -182,6 +182,8 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 
 /* Basic API */
 
+@property (nonatomic, strong) NSArray *currentEvent;
+
 // Object instance init and rear view setting
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 
@@ -403,6 +405,7 @@ extern NSString* const SWSegueRightIdentifier; // this is @"sw_right"
 
 // Use this along with one of the above segue identifiers to segue to the initial state
 @interface SWRevealViewControllerSegueSetController : UIStoryboardSegue
+
 @end
 
 // Use this to push a view controller

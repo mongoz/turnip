@@ -42,11 +42,13 @@
 @property (strong, nonatomic) IBOutlet UITextView *aboutField;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic) IBOutlet UIButton *createButton;
+@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
 
 @property (strong, nonatomic) MBProgressHUD * HUD;
 
 - (IBAction)backButtonHandler:(id)sender;
 - (IBAction)createButtonHandler:(id)sender;
+- (IBAction)deleteButtonHandler:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UISwitch *privateSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *freeSwitch;

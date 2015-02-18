@@ -182,7 +182,6 @@ NSArray *fetchedObjects;
      ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
          if (connectionError == nil && data != nil) {
              // Set the image in the header imageView
-             NSLog(@"image");
              [cell.imageSpinner setHidden:YES];
              [cell.imageSpinner stopAnimating];
              cell.imageView.image = [UIImage imageWithData:data];

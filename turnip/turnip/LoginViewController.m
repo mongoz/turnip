@@ -86,7 +86,6 @@
                 dispatch_block_t completion = ^{
                     // Hide the activity view
                     // Show the logged in view
-                    NSLog(@"user: %@ ", user.name);
                     
                     [self performSegueWithIdentifier:@"loginSegue" sender:sender];
                 };
@@ -97,8 +96,6 @@
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveEventually];
-                    
-                    NSLog(@"%@", [PFInstallation currentInstallation]);
                     
                     [PFUser currentUser][@"name"] = user.name;
                     [PFUser currentUser][@"facebookId"] = user.objectID;

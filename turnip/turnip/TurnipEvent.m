@@ -60,6 +60,12 @@
     return self;
 }
 
+- (instancetype) initWithArray: (NSArray *) object {
+    
+    
+    return self;
+}
+
 - (BOOL) isEqual:(id)object {
     
     TurnipEvent *event = (TurnipEvent *) object;

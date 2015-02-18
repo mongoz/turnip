@@ -101,7 +101,7 @@
     cell.distanceLabel.text = [self distanceFromCurrLocation: [object objectForKey: @"location" ]];
     cell.dateLabel.text = [dateFormatter stringFromDate: [object objectForKey:@"date"]];
     
-    if ([[object objectForKey:TurnipParsePostPublicKey] isEqualToString:@"True"]) {
+    if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"False"]) {
         cell.statusImage.image = [UIImage imageNamed:@"green.png"];
     }
     if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"True"]) {

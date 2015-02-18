@@ -20,10 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIView *statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
-    statusBarView.backgroundColor  =  [UIColor blackColor];
-    [self.view addSubview:statusBarView];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.sideMenuButton.hidden = YES;
     

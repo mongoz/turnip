@@ -12,6 +12,9 @@
 #import <CoreData/CoreData.h>
 #import <Parse/Parse.h>
 #import "Constants.h"
+#import "DetailViewController.h"
+
+#import "SWRevealViewController.h"
 
 @interface ThrowViewController ()
 
@@ -38,6 +41,10 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [self.tabBarController.tabBar setHidden:YES];
+    self.navigationItem.hidesBackButton = YES;
+    if ([self.currentEvent count] > 0) {
+        [self performSegueWithIdentifier:@"testSegue" sender:self];
+    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -46,18 +53,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIView *statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
-    statusBarView.backgroundColor  =  [UIColor blackColor];
-    [self.view addSubview:statusBarView];
     
     self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
 
     [self setupView];
     [self setupPickerViews];
     
+    self.isPrivate = YES;
+    self.isFree = YES;
+    
     if ([self.currentEvent count] > 0) {
-        [self setupViewWithCurrentEventData: self.currentEvent];
-        self.update = YES;
+        [self performSegueWithIdentifier:@"testSegue" sender:self];
     }
     
 }
@@ -273,7 +279,7 @@
             [eventData setObject:self.titleField.text forKey:TurnipParsePostTitleKey];
             eventData[TurnipParsePostTextKey] = self.aboutField.text;
             
-            eventData[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"False" : @"True";
+            eventData[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"True" : @"False";
             eventData[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
  
             eventData[@"endTime"] = self.endTimeDate.text;
@@ -302,7 +308,7 @@
             if (self.imageThree.image == nil) {
                 [eventData removeObjectForKey:@"image3"];
             } else {
-                NSData *image3Data = UIImageJPEGRepresentation(self.imageTwo.image, 0.7);
+                NSData *image3Data = UIImageJPEGRepresentation(self.imageThree.image, 0.7);
                 PFFile *file3 = [PFFile fileWithName: imageName  data:image3Data];
                 eventData[TurnipParsePostImageThreeKey] = file3;
             }
@@ -401,7 +407,7 @@
             postObject[TurnipParsePostLocalityKey] = self.placemark.locality;
             postObject[TurnipParsePostSubLocalityKey] = self.placemark.subLocality;
             postObject[TurnipParsePostZipCodeKey] = self.placemark.postalCode;
-            postObject[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"False" : @"True";
+            postObject[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"True" : @"False";
             postObject[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
             postObject[@"address"] = [self.placemark.addressDictionary valueForKey:@"Street"];
             postObject[@"date"] = self.selectedDate;
@@ -487,10 +493,11 @@
                         self.HUD.delegate = self;
                     });
                     [self saveToCoreData:postObject];
-                    // [self resetView];
-                    self.update = YES;
-                    [self.createButton setTitle:@"Update" forState:UIControlStateNormal];
+                    [self resetView];
+                    //self.update = YES;
+                    //[self.createButton setTitle:@"Update" forState:UIControlStateNormal];
                     self.currentEventId = postObject.objectId;
+                    [self performSegueWithIdentifier:@"throwToMapSegue" sender:self];
                 }
             }];
         }
@@ -503,6 +510,10 @@
                          otherButtonTitles:@"Ok", nil];
         [alertView show];
     }
+}
+
+- (IBAction)deleteButtonHandler:(id)sender {
+    NSLog(@"delete");
 }
 
 - (void) resetView {
@@ -688,7 +699,6 @@
             [self takeNewPhotoFromCamera];
             break;
         case 2:
-            NSLog(@"clear image");
             self.lastImagePressed.image = nil;
             break;
         default:
@@ -702,7 +712,7 @@
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.sourceType = UIImagePickerControllerSourceTypeCamera;
         controller.allowsEditing = YES;
-        controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
+        //controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
         controller.delegate = self;
         [self.tabBarController presentViewController: controller animated: YES completion: nil];
     } else {
@@ -722,9 +732,10 @@
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         controller.allowsEditing = YES;
-        controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
+        //controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
         controller.delegate = self;
         [self.tabBarController presentViewController: controller animated: YES completion: nil];
+        
     }
 }
 
@@ -793,6 +804,16 @@
             self.placemark = [placemarks lastObject];
         }
     }];
+}
+
+
+#pragma mark - navigation
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"testSegue"]) {
+        SWRevealViewController *destViewController = (SWRevealViewController *) segue.destinationViewController;
+        
+        destViewController.currentEvent = self.currentEvent;
+    }
 }
 
 @end

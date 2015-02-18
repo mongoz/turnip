@@ -37,7 +37,8 @@
 @implementation MapViewController
 
 - (void)presentThrowViewController {
-    ThrowViewController *viewController = [self.tabBarController.viewControllers objectAtIndex:1];
+    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 1];
+    ThrowViewController *viewController = [navController.viewControllers objectAtIndex:0];
     viewController.dataSource = self;
 
 }

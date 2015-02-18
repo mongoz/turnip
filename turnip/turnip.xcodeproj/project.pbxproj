@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */; };
 		1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */; };
+		1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */; };
 		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
 		1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */; };
 		1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */; };
@@ -19,7 +21,7 @@
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
-		1ABABC1B1A839BFB00C0A617 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NavigationViewController.m */; };
+		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
 		1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1D1A860CD100C0A617 /* TicketViewController.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
 		1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB81A74ED9E00B2EABE /* LaunchScreen.xib */; };
@@ -73,8 +75,12 @@
 
 /* Begin PBXFileReference section */
 		128F4766B166E2108280E1E6 /* Pods-turnip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.debug.xcconfig"; sourceTree = "<group>"; };
+		1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerShapeView.h; sourceTree = "<group>"; };
+		1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerShapeView.m; sourceTree = "<group>"; };
 		1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScannerViewController.h; path = ../ScannerViewController.h; sourceTree = "<group>"; };
 		1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScannerViewController.m; path = ../ScannerViewController.m; sourceTree = "<group>"; };
+		1A6B4A261A94A82000DA8928 /* DetailSidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailSidebarTableViewController.h; sourceTree = "<group>"; };
+		1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailSidebarTableViewController.m; sourceTree = "<group>"; };
 		1A8626161A7A321700AF63B9 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarTableViewController.h; path = ../SidebarTableViewController.h; sourceTree = "<group>"; };
@@ -93,8 +99,8 @@
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA17A0F1A74E3D30061CA3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA17A101A74E3D30061CA3E /* turnipTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = turnipTests.m; sourceTree = "<group>"; };
-		1ABABC191A839BFB00C0A617 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
-		1ABABC1A1A839BFB00C0A617 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		1ABABC191A839BFB00C0A617 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		1ABABC1C1A860CD100C0A617 /* TicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketViewController.h; sourceTree = "<group>"; };
 		1ABABC1D1A860CD100C0A617 /* TicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketViewController.m; sourceTree = "<group>"; };
 		1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -242,14 +248,18 @@
 				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
 				1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */,
 				1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */,
+				1A6B4A261A94A82000DA8928 /* DetailSidebarTableViewController.h */,
+				1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */,
 				1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */,
 				1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */,
-				1ABABC191A839BFB00C0A617 /* NavigationViewController.h */,
-				1ABABC1A1A839BFB00C0A617 /* NavigationViewController.m */,
+				1ABABC191A839BFB00C0A617 /* NotificationViewController.h */,
+				1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */,
 				1ABABC1C1A860CD100C0A617 /* TicketViewController.h */,
 				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
 				1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */,
 				1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */,
+				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
+				1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
@@ -506,14 +516,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
+				1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */,
 				1AA179F41A74E3D30061CA3E /* main.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
 				1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
 				1AFD3FEA1A74ED9E00B2EABE /* MapViewController.m in Sources */,
 				1AFD3FE51A74ED9E00B2EABE /* FindViewController.m in Sources */,
+				1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */,
 				1AFD3FED1A74ED9E00B2EABE /* MapMarker.m in Sources */,
-				1ABABC1B1A839BFB00C0A617 /* NavigationViewController.m in Sources */,
+				1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */,
 				1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */,
 				1AFD3FEB1A74ED9E00B2EABE /* TurnipEvent.m in Sources */,
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,

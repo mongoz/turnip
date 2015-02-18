@@ -35,9 +35,6 @@
     // Override point for customization after application launch.
     [self managedObjectContext];
     
-    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageFinishedDownload:) name:@"facebookImageDownloaded" object:nil];
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
@@ -85,7 +82,6 @@
         BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
         BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
-            NSLog(@"app opens");
             [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
@@ -93,13 +89,7 @@
     NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     
     if (notificationPayload) {
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"Push payload"
-                                   message: [notificationPayload objectForKey:@"eventId"]
-                                  delegate:self
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@"Ok", nil];
-        [alertView show];
+        NSLog(@"payload start");
 
     }
     
@@ -149,7 +139,6 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     if (application.applicationState == UIApplicationStateActive) {
-        NSLog(@"log this");
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
     
@@ -159,8 +148,6 @@
 //    NSString *userId = [userInfo objectForKey:@"fromUser"];
     NSString *type = [userInfo objectForKey:@"type"];
     NSString *eventId = [userInfo objectForKey:@"eventId"];
-    
-    NSLog(@"id: %@", userInfo);
     
     if ([type isEqualToString:@"eventRequest"]) {
         [[NSNotificationCenter defaultCenter]
@@ -218,8 +205,6 @@
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
 {
-    
-    NSLog(@"user info %@", userInfo);
     //handle the actions
     if ([identifier isEqualToString:@"declineAction"]){
         NSLog(@"decline");

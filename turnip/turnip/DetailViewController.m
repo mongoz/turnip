@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
+#import "SWRevealViewController.h"
 #import "DetailViewController.h"
 #import "ProfileViewController.h"
 #import <Parse/Parse.h>
@@ -13,38 +14,82 @@
 
 @interface DetailViewController ()
 
-@property (nonatomic, strong) TurnipEvent *data;
-
 @end
 
 @implementation DetailViewController
 
 @synthesize event;
-@synthesize objectId;
-
-- (void) viewWillAppear:(BOOL)animated {
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backButton;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     // Do any additional setup after loading the view.
     self.requestButton.enabled = NO;
     
-    if (event != nil) {
+    if (self.host) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        self.navigationController.navigationBar.topItem.hidesBackButton = YES;
+        
+        SWRevealViewController *revealViewController = self.revealViewController;
+        if ( revealViewController )
+        {
+            UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(toggleSideMenu:)];
+            self.navigationController.navigationBar.topItem.rightBarButtonItem = rightButton;
+            [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        }
+        [self hostDetailSetupView];
+    }
+    
+   else if (event != nil) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
         self.objectId = event.objectId;
         self.navigationItem.title = event.title;
+        [self downloadDetails];
+        self.profileImage.userInteractionEnabled = YES;
+    } else {
+        NSLog(@"nothing found");
     }
-    self.profileImage.userInteractionEnabled = YES;
+}
+
+-(IBAction)toggleSideMenu:(id)sender
+{
+    SWRevealViewController *revealViewController = self.revealViewController;
+    [revealViewController rightRevealToggleAnimated:YES];
+}
+
+- (void) hostDetailSetupView {
+    self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
+    self.requestButton.hidden = YES;
     
-//    self.imageView1.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
-//    self.imageView2.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
-//    self.imageView3.image = [UIImage imageNamed:@"Placeholder.jpg"]; // placeholder image
+    self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
     
-    [self downloadDetails];
+    self.aboutLabel.text = [[self.yourEvent valueForKey:@"text"] objectAtIndex:0];
+    
+    if ([[self.yourEvent valueForKey:@"image1"] objectAtIndex:0] != (id)[NSNull null]) {
+        self.imageView1.image = [[self.yourEvent valueForKey:@"image1"] objectAtIndex:0];
+    }
+    
+    if ([[self.yourEvent valueForKey:@"image2"] objectAtIndex:0] != (id)[NSNull null]) {
+        self.imageView2.image = [[self.yourEvent valueForKey:@"image2"] objectAtIndex:0];
+    }
+    
+    if ([[self.yourEvent valueForKey:@"image3"] objectAtIndex:0] != (id)[NSNull null]) {
+        self.imageView3.image = [[self.yourEvent valueForKey:@"image3"] objectAtIndex:0];
+    }
+    
+    
+    if ([[[self.yourEvent valueForKey:@"private"] objectAtIndex:0] boolValue]) {
+        self.openLabel.text = @"Private";
+    } else {
+        self.openLabel.text = @"Public";
+    }
+
+    if ([[[self.yourEvent valueForKey:@"free"] objectAtIndex:0] boolValue]) {
+        self.freePaidLabel.text = @"Free";
+    } else {
+        self.freePaidLabel.text = @"Paid";
+    }
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,7 +132,7 @@
     
     self.navigationItem.title = [data objectForKey:TurnipParsePostTitleKey];
     
-    self.titleLabel.text = [data objectForKey:TurnipParsePostTitleKey];
+    //self.titleLabel.text = [data objectForKey:TurnipParsePostTitleKey];
     self.aboutLabel.text = [data objectForKey:TurnipParsePostTextKey];
 }
 
@@ -96,16 +141,22 @@
     if([data objectForKey:@"image1"] != nil) {
         self.imageView1.file = (PFFile *)[data objectForKey:@"image1"];; // remote image
         [self.imageView1 loadInBackground];
+    } else {
+        self.imageView1.hidden = YES;
     }
     
     if([data objectForKey:@"image2"] != nil) {
         self.imageView2.file = (PFFile *)[data objectForKey:@"image2"];; // remote image
         [self.imageView2 loadInBackground];
+    } else {
+        self.imageView2.hidden = YES;
     }
     
     if([data objectForKey:@"image3"] != nil) {
         self.imageView3.file = (PFFile *)[data objectForKey:@"image3"];; // remote image
         [self.imageView3 loadInBackground];
+    } else {
+        self.imageView3.hidden = YES;
     }
     
     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
@@ -155,4 +206,5 @@
                                     }
                                 }];
 }
+
 @end

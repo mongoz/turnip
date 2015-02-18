@@ -1,28 +1,25 @@
 //
-//  SidebarTableViewController.m
+//  DetailSidebarTableViewController.m
 //  turnip
 //
-//  Created by Per on 1/29/15.
+//  Created by Per on 2/18/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "SidebarTableViewController.h"
-#import "SWRevealViewController.h"
+#import "DetailSidebarTableViewController.h"
 
-#import <Parse/Parse.h>
-
-@interface SidebarTableViewController ()
+@interface DetailSidebarTableViewController ()
 
 @end
 
-@implementation SidebarTableViewController {
+@implementation DetailSidebarTableViewController {
     NSArray *menuItems;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menuItems = @[@"editProfile", @"card" ,@"invite", @"tos", @"contact", @"scanner" ,@"signout"];
+    menuItems = @[@"edit", @"delete" ,@"teammate", @"scanner"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,23 +67,31 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 2) {
-        [PFUser logOut];
-        [self performSegueWithIdentifier: @"logoutSegue" sender: self];
-    }
+}
+
+
+#pragma mark - Delete methods
+
+- (void) deleteFromParse {
+    
+}
+
+- (void) deleteFromCoreData {
+    
 }
 
 
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-     UINavigationController *destViewController = (UINavigationController *) segue.destinationViewController;
-     destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
-     
- }
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    UINavigationController *destViewController = (UINavigationController *) segue.destinationViewController;
+    destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
+    
+}
+
 
 
 @end

@@ -1,24 +1,26 @@
 //
-//  NavigationViewController.m
+//  NotificationViewController.m
 //  turnip
 //
 //  Created by Per on 2/5/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "NavigationViewController.h"
+#import "NotificationViewController.h"
 #import "TicketViewController.h"
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
+#import "Constants.h"
+#import <Parse/Parse.h>
 
-@interface NavigationViewController ()
+@interface NotificationViewController ()
 
 @property (nonatomic, assign) NSUInteger nbItems;
 @property (nonatomic, strong) NSMutableArray *notifications;
 
 @end
 
-@implementation NavigationViewController
+@implementation NotificationViewController
 
 NSArray *fetchedObjects;
 
@@ -29,6 +31,11 @@ NSArray *fetchedObjects;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if ([[UIApplication sharedApplication] applicationIconBadgeNumber] > 0) {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    }
+    
     // Do any additional setup after loading the view.
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = [delegate managedObjectContext];
@@ -76,6 +83,37 @@ NSArray *fetchedObjects;
     // call super because we're a custom subclass.
     
     [self performSegueWithIdentifier:@"ticketSegue" sender:self];
+}
+
+#pragma mark - Parse queries
+
+- (void) queryForEventTicket {
+    PFQuery *query = [PFQuery queryWithClassName: TurnipParsePostClassName];
+    
+    if ([self.notifications count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(error) {
+            NSLog(@"Error in geo query!: %@", error);
+        } else {
+            
+            for (PFObject *object in objects) {
+                PFRelation *relation = [object relationForKey:@"requests"];
+                PFQuery *query = [relation query];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if([objects count] == 0) {
+                            NSLog(@"no requests");
+                        } else {
+                            NSLog(@"object: %@", objects);
+                        }
+                    });
+                }];
+            }
+        }
+    }];
 }
 
 

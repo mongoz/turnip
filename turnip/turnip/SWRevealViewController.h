@@ -405,7 +405,6 @@ extern NSString* const SWSegueRightIdentifier; // this is @"sw_right"
 
 // Use this along with one of the above segue identifiers to segue to the initial state
 @interface SWRevealViewControllerSegueSetController : UIStoryboardSegue
-
 @end
 
 // Use this to push a view controller

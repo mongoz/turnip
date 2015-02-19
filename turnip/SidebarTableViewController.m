@@ -8,12 +8,12 @@
 
 #import "SidebarTableViewController.h"
 #import "SWRevealViewController.h"
-
 #import <Parse/Parse.h>
 
 @interface SidebarTableViewController ()
 
 @end
+
 
 @implementation SidebarTableViewController {
     NSArray *menuItems;

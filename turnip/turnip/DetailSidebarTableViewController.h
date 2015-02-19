@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class DetailSidebarTableViewController;
+
 @interface DetailSidebarTableViewController : UITableViewController
+
+@property (nonatomic) NSString *eventId;
+
+@property (nonatomic, strong) NSArray *event;
 
 @end

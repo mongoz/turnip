@@ -11,6 +11,7 @@
 #import <ParseUI/ParseUI.h>
 #import "TurnipEvent.h"
 
+
 @interface DetailViewController : UIViewController
 
 @property (nonatomic, strong) TurnipEvent *event;
@@ -19,8 +20,10 @@
 @property (nonatomic, strong) NSArray *yourEvent;
 
 @property (nonatomic, assign) BOOL host;
-@property (nonatomic, strong) NSString *objectId;
 
+@property (nonatomic, copy) NSString *objectId;
+
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *openLabel;
 @property (strong, nonatomic) IBOutlet UILabel *freePaidLabel;
@@ -36,8 +39,10 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *requestButton;
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
+@property (strong, nonatomic) IBOutlet UIButton *sidemenuButton;
+
+- (IBAction)sidemenuButtonHandler:(id)sender;
 - (IBAction)requestButtonHandler:(id)sender;
 - (IBAction)profileImageTapHandler:(UITapGestureRecognizer *)sender;
 @end

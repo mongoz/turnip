@@ -7,6 +7,7 @@
 //
 
 #import "DetailSidebarTableViewController.h"
+#import "ScannerViewController.h"
 
 @interface DetailSidebarTableViewController ()
 
@@ -16,10 +17,22 @@
     NSArray *menuItems;
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBar.hidden = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menuItems = @[@"edit", @"delete" ,@"teammate", @"scanner"];
+    NSLog(@"event: %@", self.event);
+    
+    menuItems = @[@"title" , @"edit", @"delete" ,@"teammate", @"scanner"];
+    
+    [self.tableView setContentInset:UIEdgeInsetsMake(50, 0, 0, 0)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,6 +102,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     UINavigationController *destViewController = (UINavigationController *) segue.destinationViewController;
     destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
+    
+    if ([segue.identifier isEqualToString:@"scannerSegue"]) {
+        UINavigationController *navController = segue.destinationViewController;
+        ScannerViewController *scannerController = [navController childViewControllers].firstObject;
+        scannerController.eventId = [[self.event valueForKey:@"objectId"] objectAtIndex:0];
+        
+
+    }
     
 }
 

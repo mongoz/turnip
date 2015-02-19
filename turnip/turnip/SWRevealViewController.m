@@ -29,6 +29,7 @@
 #import "SWRevealViewController.h"
 
 #import "DetailViewController.h"
+#import "DetailSidebarTableViewController.h"
 
 
 #pragma mark - StatusBar Helper Function
@@ -1828,15 +1829,19 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
         if ([rvc.currentEvent count] > 0) {
             DetailViewController *details = self.destinationViewController;
             details.host = YES;
-        
             details.yourEvent = rvc.currentEvent;
         }
     }
     else if ( [identifier isEqualToString:SWSegueRearIdentifier] )
         operation = SWRevealControllerOperationReplaceRearController;
     
-    else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
+    else if ( [identifier isEqualToString:SWSegueRightIdentifier] ) {
         operation = SWRevealControllerOperationReplaceRightController;
+        if ([rvc.currentEvent count] > 0) {
+            DetailSidebarTableViewController *detailSide = self.destinationViewController;
+            detailSide.event = rvc.currentEvent;
+        }
+    }
     
     if ( operation != SWRevealControllerOperationNone )
         [rvc _performTransitionOperation:operation withViewController:dvc animated:NO];

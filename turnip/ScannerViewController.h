@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailViewController.h"
+
 @import AVFoundation;
 
 @interface ScannerViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
+
+@property (nonatomic, strong) NSString *eventId;
 
 @end

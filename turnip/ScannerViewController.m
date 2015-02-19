@@ -5,7 +5,7 @@
 //  Created by Per on 2/13/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
-
+#import "DetailViewController.h"
 #import "ScannerViewController.h"
 #import "ScannerShapeView.h"
 @import AVFoundation;
@@ -26,10 +26,13 @@
 
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     
@@ -66,7 +69,7 @@
     [self.view addSubview:self.boundingBox];
     
     // Message box on Screen.
-    self.message = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 130, CGRectGetWidth(self.view.bounds), 75)];
+    self.message = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 75, CGRectGetWidth(self.view.bounds), 75)];
     self.message.numberOfLines = 0;
     self.message.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.9];\
     self.message.textColor = [UIColor blackColor];
@@ -111,7 +114,11 @@
             _boundingBox.corners = translatedCorners;
             
             // Update the view with the decoded text
-            _message.text = [transformed stringValue];
+            if ([[transformed stringValue] isEqualToString: self.eventId]) {
+                _message.text = @"Accepted";
+            } else {
+                _message.text = @"Denied";
+            }
             
             // Start the timer which will hide the overlay
             [self startOverlayHideTimer];

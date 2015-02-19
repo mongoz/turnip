@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
+#import "ScannerViewController.h"
 #import "SWRevealViewController.h"
 #import "DetailViewController.h"
 #import "ProfileViewController.h"
@@ -26,15 +27,13 @@
     self.requestButton.enabled = NO;
     
     if (self.host) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-        self.navigationController.navigationBar.topItem.hidesBackButton = YES;
-        
         SWRevealViewController *revealViewController = self.revealViewController;
         if ( revealViewController )
         {
             UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(toggleSideMenu:)];
             self.navigationController.navigationBar.topItem.rightBarButtonItem = rightButton;
             [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+            
         }
         [self hostDetailSetupView];
     }
@@ -60,6 +59,7 @@
     self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.requestButton.hidden = YES;
     
+    self.titleLabel.text = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
     
     self.aboutLabel.text = [[self.yourEvent valueForKey:@"text"] objectAtIndex:0];
@@ -188,6 +188,11 @@
         destViewController.user = sender;
     }
 }
+- (IBAction)sidemenuButtonHandler:(id)sender {
+    SWRevealViewController *revealViewController = self.revealViewController;
+    [revealViewController rightRevealToggleAnimated:YES];
+}
+
 - (IBAction)requestButtonHandler:(id)sender {
     
     NSString *host = self.data.user.objectId;

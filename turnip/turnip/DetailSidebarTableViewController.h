@@ -10,7 +10,7 @@
 
 @class DetailSidebarTableViewController;
 
-@interface DetailSidebarTableViewController : UITableViewController
+@interface DetailSidebarTableViewController : UITableViewController <UIAlertViewDelegate>
 
 @property (nonatomic) NSString *eventId;
 

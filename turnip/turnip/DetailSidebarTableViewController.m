@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
+#import "AppDelegate.h"
 #import "DetailSidebarTableViewController.h"
 #import "ScannerViewController.h"
 
@@ -28,11 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"event: %@", self.event);
-    
-    menuItems = @[@"title" , @"edit", @"delete" ,@"teammate", @"scanner"];
-    
-    [self.tableView setContentInset:UIEdgeInsetsMake(50, 0, 0, 0)];
+    menuItems = @[@"edit", @"delete" ,@"teammate", @"scanner"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,21 +77,35 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (indexPath.row == 1) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait" message:@"Are you sure you want to delete this.  This action cannot be undone" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
+        [alert show];
+    }
 }
-
 
 #pragma mark - Delete methods
 
 - (void) deleteFromParse {
-    
+    PFObject *object = [PFObject objectWithoutDataWithClassName:@"Events" objectId: [[self.event valueForKey:@"objectId"] objectAtIndex:0]];
+    [object deleteInBackground];
 }
 
 - (void) deleteFromCoreData {
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
     
+    NSError *error;
+    for (NSManagedObject *managedObject in self.event) {
+        [context deleteObject:managedObject];
+    }
+    
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Event Deleted");
+   
 }
-
-
 
 #pragma mark - Navigation
 
@@ -107,10 +119,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         UINavigationController *navController = segue.destinationViewController;
         ScannerViewController *scannerController = [navController childViewControllers].firstObject;
         scannerController.eventId = [[self.event valueForKey:@"objectId"] objectAtIndex:0];
-        
-
     }
     
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0){
+        //delete it
+        [self deleteFromParse];
+        [self deleteFromCoreData];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"eventDeletedNotification" object:nil];
+    }
 }
 
 

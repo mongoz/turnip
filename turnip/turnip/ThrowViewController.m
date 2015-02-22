@@ -42,6 +42,8 @@
 - (void) viewWillAppear:(BOOL)animated {
     [self.tabBarController.tabBar setHidden:YES];
     self.navigationItem.hidesBackButton = YES;
+    
+    self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
     if ([self.currentEvent count] > 0) {
         [self performSegueWithIdentifier:@"testSegue" sender:self];
     }
@@ -54,17 +56,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
-
     [self setupView];
     [self setupPickerViews];
     
     self.isPrivate = YES;
     self.isFree = YES;
-    
-    if ([self.currentEvent count] > 0) {
-        [self performSegueWithIdentifier:@"testSegue" sender:self];
-    }
     
 }
 
@@ -494,10 +490,10 @@
                     });
                     [self saveToCoreData:postObject];
                     [self resetView];
-                    //self.update = YES;
-                    //[self.createButton setTitle:@"Update" forState:UIControlStateNormal];
                     self.currentEventId = postObject.objectId;
-                    [self performSegueWithIdentifier:@"throwToMapSegue" sender:self];
+                    //[self performSegueWithIdentifier:@"throwToMapSegue" sender:self];
+                   // [self.tabBarController setSelectedIndex:0];
+                    [self viewWillAppear:YES];
                 }
             }];
         }
@@ -815,5 +811,24 @@
         destViewController.currentEvent = self.currentEvent;
     }
 }
+
+- (IBAction)unwindToThrow:(UIStoryboardSegue*)sender
+{
+    UIViewController *sourceViewController = sender.sourceViewController;
+    // Pull any data from the view controller which initiated the unwind segue.
+    
+    NSLog(@"source: %@", sourceViewController);
+}
+
+#pragma mark - Notifications
+
+- (void)eventWasDeleted:(NSNotification *)note {
+    NSLog(@"hjere?");
+    self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
+    [self reverseGeocode: self.currentLocation];
+    NSLog(@"loc: %@", self.currentLocation);
+    NSLog(@"geo %@", self.placemark);
+}
+
 
 @end

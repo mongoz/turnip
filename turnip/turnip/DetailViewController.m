@@ -21,12 +21,24 @@
 
 @synthesize event;
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    if(self.deleted) {
+        [self performSegueWithIdentifier:@"unwindToThrow" sender:self];
+    }
+    
+    [self.tabBarController.tabBar setHidden:NO ];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.requestButton.enabled = NO;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasDeleted:) name:@"eventDeletedNotification" object:nil];
+     
     if (self.host) {
+        self.deleted = NO;
         SWRevealViewController *revealViewController = self.revealViewController;
         if ( revealViewController )
         {
@@ -39,6 +51,7 @@
     }
     
    else if (event != nil) {
+       self.deleted = NO;
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         self.objectId = event.objectId;
         self.navigationItem.title = event.title;
@@ -47,6 +60,12 @@
     } else {
         NSLog(@"nothing found");
     }
+}
+
+- (void)eventWasDeleted:(NSNotification *)note {
+    self.deleted = YES;
+    self.host = NO;
+    [self viewWillAppear:YES];
 }
 
 -(IBAction)toggleSideMenu:(id)sender
@@ -58,6 +77,7 @@
 - (void) hostDetailSetupView {
     self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.requestButton.hidden = YES;
+    self.headerView.hidden = NO;
     
     self.titleLabel.text = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
@@ -89,7 +109,7 @@
         self.freePaidLabel.text = @"Paid";
     }
     
-
+    [self downloadFacebookProfilePicture:[[PFUser currentUser] valueForKey:@"facebookId" ]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,6 +145,26 @@
             });
         }
     }];
+}
+
+
+- (void) downloadFacebookProfilePicture: (NSString *) facebookId {
+    
+    // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookId]];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+    
+    // Run network request asynchronously
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         if (connectionError == nil && data != nil) {
+             // Set the image in the header imageView
+             self.profileImage.image = [UIImage imageWithData:data];
+         }
+     }];
     
 }
 
@@ -159,21 +199,8 @@
         self.imageView3.hidden = YES;
     }
     
-    // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
-    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [data[@"user"] objectForKey:@"facebookId"]]];
-    
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-    
-    // Run network request asynchronously
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:
-     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         if (connectionError == nil && data != nil) {
-             // Set the image in the header imageView
-             self.profileImage.image = [UIImage imageWithData:data];
-         }
-     }];
+    [self downloadFacebookProfilePicture:[data[@"user"] objectForKey:@"facebookId"]];
+
 }
 
 - (IBAction)profileImageTapHandler:(UITapGestureRecognizer *)sender {

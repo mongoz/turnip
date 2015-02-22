@@ -64,7 +64,7 @@
         [self presentLoginViewController];
     }
     
-
+    
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
@@ -90,7 +90,7 @@
     
     if (notificationPayload) {
         NSLog(@"payload start");
-
+        
     }
     
     return YES;
@@ -113,7 +113,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     // Logs 'install' and 'app activate' App Events.
-     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -142,10 +142,10 @@
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
     
-     UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
+    UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
     
     // Create empty photo object
-//    NSString *userId = [userInfo objectForKey:@"fromUser"];
+    //    NSString *userId = [userInfo objectForKey:@"fromUser"];
     NSString *type = [userInfo objectForKey:@"type"];
     NSString *eventId = [userInfo objectForKey:@"eventId"];
     
@@ -158,13 +158,13 @@
         
         [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
         
-//        //Query for information about the user
-//        PFQuery *query = [PFUser query];
-//        
-//        [query getObjectInBackgroundWithId:userId block:^(PFObject *object, NSError *error) {
-//            self.user = [[TurnipUser alloc] initWithPFObject: object];
-//            self.user.eventId = eventId;
-//        }];
+        //        //Query for information about the user
+        //        PFQuery *query = [PFUser query];
+        //
+        //        [query getObjectInBackgroundWithId:userId block:^(PFObject *object, NSError *error) {
+        //            self.user = [[TurnipUser alloc] initWithPFObject: object];
+        //            self.user.eventId = eventId;
+        //        }];
     }
     
     if([type isEqualToString:@"eventAccepted"]) {

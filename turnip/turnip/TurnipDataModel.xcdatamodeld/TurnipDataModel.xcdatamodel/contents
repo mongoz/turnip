@@ -33,6 +33,6 @@
         <element name="RequesterInfo" positionX="23317" positionY="-2403" width="128" height="133"/>
         <element name="TicketInfo" positionX="23292" positionY="-2340" width="128" height="105"/>
         <element name="UserSettings" positionX="23560" positionY="-2403" width="128" height="58"/>
-        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="195"/>
+        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="193"/>
     </elements>
 </model>

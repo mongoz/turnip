@@ -19,36 +19,19 @@
 @end
 
 @interface ThrowViewController : UIViewController <UITextViewDelegate,
-                                                    UITextFieldDelegate,
-                                                    UIActionSheetDelegate,
-                                                    UINavigationControllerDelegate,
-                                                    UIImagePickerControllerDelegate,
-                                                    MBProgressHUDDelegate>
-
-@property (strong, nonatomic) IBOutlet UITextField *dateInputField;
-@property (strong, nonatomic) IBOutlet UITextField *endTimeDate;
+                                                    UITextFieldDelegate>
 
 @property (nonatomic, weak) id<ThrowViewControllerDataSource> dataSource;
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageOne;
-@property (strong, nonatomic) IBOutlet UIImageView *imageTwo;
-@property (strong, nonatomic) IBOutlet UIImageView *imageThree;
-
-- (IBAction)imageOneTapHandler:(UITapGestureRecognizer *)sender;
-- (IBAction)imageTwoTapHandler:(UITapGestureRecognizer *)sender;
-- (IBAction)imageThreeTapHandler:(UITapGestureRecognizer *)sender;
-
 @property (strong, nonatomic) IBOutlet UITextField *titleField;
 @property (strong, nonatomic) IBOutlet UITextView *aboutField;
-@property (strong, nonatomic) IBOutlet UIButton *backButton;
-@property (strong, nonatomic) IBOutlet UIButton *createButton;
-@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
+@property (strong, nonatomic) IBOutlet UITextField *locationField;
 
-@property (strong, nonatomic) MBProgressHUD * HUD;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UIButton *nextButton;
 
 - (IBAction)backButtonHandler:(id)sender;
-- (IBAction)createButtonHandler:(id)sender;
-- (IBAction)deleteButtonHandler:(id)sender;
+- (IBAction)nextButtonHandler:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UISwitch *privateSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *freeSwitch;

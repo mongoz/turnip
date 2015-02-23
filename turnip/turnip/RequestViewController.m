@@ -35,7 +35,7 @@ NSArray *fetchedObjects;
     if ([[notification name] isEqualToString:@"requestPush"]){
         NSLog(@"reload page");
        // [self loadCoreData];
-        [self.tableView reloadData];
+        [[self tableView] reloadData];
     }
        
 }
@@ -43,19 +43,6 @@ NSArray *fetchedObjects;
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
-
-//- (void) viewWillDisappear:(BOOL)animated {
-//    
-//    NSLog(@"delete: %@", self.userDelete);
-//    
-//    [PFCloud callFunctionInBackground:@"deleteRelatedUsers"
-//                       withParameters:@{@"deleteArray": self.userDelete}
-//                                block:^(NSString *success, NSError *error) {
-//                                    if (!error) {
-//                                        NSLog(@"user Deleted");
-//                                    }
-//                                }];
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -197,6 +184,8 @@ NSArray *fetchedObjects;
         [self deleteCell:cell];
         [self acceptUserRequest: [self.requesters objectAtIndex: indexPath.row]];
         [self.userDelete addObject: [self.requesters objectAtIndex:indexPath.row]];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"userWasAcceptedNotification" object:nil];
     }];
     
     UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];

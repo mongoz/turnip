@@ -75,7 +75,6 @@ NSArray *fetchedObjects;
     //cell.textLabel.text = [[fetchedObjects valueForKey:@"title"] objectAtIndex: indexPath.row];
     cell.textLabel.text = @"Accepted to event";
     
-    
     return cell;
 }
 

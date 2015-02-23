@@ -15,6 +15,8 @@
 
 @interface DetailViewController ()
 
+@property (nonatomic, strong) NSArray *accepted;
+
 @end
 
 @implementation DetailViewController
@@ -36,18 +38,18 @@
     self.requestButton.enabled = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasDeleted:) name:@"eventDeletedNotification" object:nil];
-     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userWasAccepted:) name:@"userWasAcceptedNotification" object:nil];
+    
     if (self.host) {
         self.deleted = NO;
         SWRevealViewController *revealViewController = self.revealViewController;
         if ( revealViewController )
         {
-            UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(toggleSideMenu:)];
-            self.navigationController.navigationBar.topItem.rightBarButtonItem = rightButton;
             [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
             
         }
         [self hostDetailSetupView];
+        [self queryForAcceptedUsers];
     }
     
    else if (event != nil) {
@@ -57,8 +59,6 @@
         self.navigationItem.title = event.title;
         [self downloadDetails];
         self.profileImage.userInteractionEnabled = YES;
-    } else {
-        NSLog(@"nothing found");
     }
 }
 
@@ -68,16 +68,16 @@
     [self viewWillAppear:YES];
 }
 
--(IBAction)toggleSideMenu:(id)sender
-{
-    SWRevealViewController *revealViewController = self.revealViewController;
-    [revealViewController rightRevealToggleAnimated:YES];
+- (void) userWasAccepted: (NSNotification *) note {
+    [self queryForAcceptedUsers];
 }
 
 - (void) hostDetailSetupView {
     self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
+    self.objectId = [[self.yourEvent valueForKey:@"objectId"] objectAtIndex:0];
     self.requestButton.hidden = YES;
     self.headerView.hidden = NO;
+    self.tableView.hidden = NO;
     
     self.titleLabel.text = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
@@ -237,6 +237,83 @@
                                         NSLog(@"push sent");
                                     }
                                 }];
+}
+
+#pragma mark - TableView Delegates
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return [self.accepted count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *tableIdentifier = @"acceptedCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
+    }
+
+    cell.textLabel.text = [[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:@"profile"];
+    
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.accepted valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+    
+    // Run network request asynchronously
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         if (connectionError == nil && data != nil) {
+             // Set the image in the header imageView
+             cell.imageView.image = [UIImage imageWithData:data];
+         }
+     }];
+
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // call super because we're a custom subclass.
+    
+   // [self performSegueWithIdentifier:@"ticketSegue" sender:self];
+}
+
+#pragma mark - Parse queries
+
+- (void) queryForAcceptedUsers {
+    PFQuery *query = [PFQuery queryWithClassName: TurnipParsePostClassName];
+    
+    if ([self.accepted count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
+        if(error) {
+            NSLog(@"Error in query!: %@", error);
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                PFRelation *relation = [object relationForKey:@"accepted"];
+                PFQuery *query = [relation query];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if([objects count] == 0) {
+                        NSLog(@"no requests");
+                    } else {
+                        self.accepted = [[NSArray alloc] initWithArray:objects];
+                        [[self tableView] reloadData];
+                    }
+                }];
+            });
+        }
+    }];
 }
 
 @end

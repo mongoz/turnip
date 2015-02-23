@@ -2,15 +2,15 @@ PODS:
   - Bolts (1.1.3)
   - Facebook-iOS-SDK (3.23.0):
     - Bolts (~> 1.0)
-  - Google-Maps-iOS-SDK (1.9.1)
+  - Google-Maps-iOS-SDK (1.9.2)
   - MCSwipeTableViewCell (2.1.2)
-  - Parse (1.6.2):
+  - Parse (1.6.3):
     - Bolts (~> 1.1)
-  - ParseCrashReporting (1.6.2):
-    - Parse (~> 1.6.2)
-  - ParseFacebookUtils (1.6.2):
+  - ParseCrashReporting (1.6.3):
+    - Parse (~> 1.6.3)
+  - ParseFacebookUtils (1.6.3):
     - Facebook-iOS-SDK (~> 3.20)
-    - Parse (~> 1.6.2)
+    - Parse (~> 1.6.3)
   - ParseUI (1.1.0):
     - Parse (~> 1.6)
     - ParseFacebookUtils (~> 1.6)
@@ -31,11 +31,11 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
-  Google-Maps-iOS-SDK: 25fa3c054c74a7dcb82e3ef38224cfa6b66c9344
+  Google-Maps-iOS-SDK: 3b89f4c151f8fc3ddb0e70dece9bcab33dbec2ea
   MCSwipeTableViewCell: 8e78ff197ab06ba7bfd5c938a00149de8a33afa9
-  Parse: 60d65108fe39da77ec16c9e51d74b4d296b21424
-  ParseCrashReporting: eb150f792ea987456f9ae4ccca4bbf9236c8ddd0
-  ParseFacebookUtils: 0b86cd67283c60d10e3ddc8427f989f5e60ebbd7
+  Parse: f725f76ef200c5127420690fc6882e57c3813923
+  ParseCrashReporting: ad04b920f597c43a72629c08ecda63ef3525b084
+  ParseFacebookUtils: bb14e63862f920cc3f3864b0e373d6771b765255
   ParseUI: 00c4c39aab3944d88758b55416581650caa37f89
   Stripe: aaa174b50fac40a16958cbc892457a241d0b4b08
 

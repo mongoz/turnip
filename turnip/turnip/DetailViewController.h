@@ -12,7 +12,7 @@
 #import "TurnipEvent.h"
 
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) TurnipEvent *event;
 @property (nonatomic, strong) TurnipEvent *data;
@@ -39,6 +39,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *sidemenuButton;
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 - (IBAction)sidemenuButtonHandler:(id)sender;
 - (IBAction)requestButtonHandler:(id)sender;

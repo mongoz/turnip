@@ -14,9 +14,6 @@ PODS:
   - ParseUI (1.1.0):
     - Parse (~> 1.6)
     - ParseFacebookUtils (~> 1.6)
-  - Stripe (3.1.0):
-    - Stripe/Core (= 3.1.0)
-  - Stripe/Core (3.1.0)
 
 DEPENDENCIES:
   - Facebook-iOS-SDK
@@ -26,17 +23,15 @@ DEPENDENCIES:
   - ParseCrashReporting
   - ParseFacebookUtils
   - ParseUI
-  - Stripe
 
 SPEC CHECKSUMS:
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
-  Google-Maps-iOS-SDK: 3b89f4c151f8fc3ddb0e70dece9bcab33dbec2ea
+  Google-Maps-iOS-SDK: 4c008abdb68e03ae125c7f674be841d369e2b3de
   MCSwipeTableViewCell: 8e78ff197ab06ba7bfd5c938a00149de8a33afa9
   Parse: f725f76ef200c5127420690fc6882e57c3813923
   ParseCrashReporting: ad04b920f597c43a72629c08ecda63ef3525b084
   ParseFacebookUtils: bb14e63862f920cc3f3864b0e373d6771b765255
   ParseUI: 00c4c39aab3944d88758b55416581650caa37f89
-  Stripe: aaa174b50fac40a16958cbc892457a241d0b4b08
 
 COCOAPODS: 0.35.0

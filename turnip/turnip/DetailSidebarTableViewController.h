@@ -12,8 +12,6 @@
 
 @interface DetailSidebarTableViewController : UITableViewController <UIAlertViewDelegate>
 
-@property (nonatomic) NSString *eventId;
-
 @property (nonatomic, strong) NSArray *event;
 
 @end

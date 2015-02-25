@@ -157,14 +157,6 @@
         self.notificationCount += 1;
         
         [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
-        
-        //        //Query for information about the user
-        //        PFQuery *query = [PFUser query];
-        //
-        //        [query getObjectInBackgroundWithId:userId block:^(PFObject *object, NSError *error) {
-        //            self.user = [[TurnipUser alloc] initWithPFObject: object];
-        //            self.user.eventId = eventId;
-        //        }];
     }
     
     if([type isEqualToString:@"eventAccepted"]) {

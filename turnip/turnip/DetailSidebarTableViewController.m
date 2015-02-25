@@ -8,8 +8,10 @@
 
 #import <CoreData/CoreData.h>
 #import "AppDelegate.h"
+#import "Constants.h"
 #import "DetailSidebarTableViewController.h"
 #import "ScannerViewController.h"
+#import "TeammateTableViewController.h"
 
 @interface DetailSidebarTableViewController ()
 
@@ -121,6 +123,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         scannerController.eventId = [[self.event valueForKey:@"objectId"] objectAtIndex:0];
     }
     
+    if ([segue.identifier isEqualToString:@"teammateSegue"]) {
+        TeammateTableViewController *teammateController = segue.destinationViewController;
+        teammateController.eventId = [[self.event valueForKey:@"objectId"] objectAtIndex:0];
+    }
+
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -129,7 +136,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [self deleteFromParse];
         [self deleteFromCoreData];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"eventDeletedNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TurnipEventDeletedNotification object:nil];
     }
 }
 

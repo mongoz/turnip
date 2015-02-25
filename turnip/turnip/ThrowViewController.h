@@ -36,7 +36,8 @@
 @property (strong, nonatomic) IBOutlet UISwitch *privateSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *freeSwitch;
 
-
+@property (strong, nonatomic) IBOutlet UIView *cashView;
+@property (strong, nonatomic) IBOutlet UITextField *cashAmountField;
 
 @end
 

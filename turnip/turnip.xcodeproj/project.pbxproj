@@ -20,16 +20,13 @@
 		1A9AE4D51A8052D200AADDAA /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D31A8052D200AADDAA /* green.png */; };
 		1A9AE4D61A8052D200AADDAA /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D41A8052D200AADDAA /* red.png */; };
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
+		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
 		1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1D1A860CD100C0A617 /* TicketViewController.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
 		1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB81A74ED9E00B2EABE /* LaunchScreen.xib */; };
-		1AFD3FDD1A74ED9E00B2EABE /* checkBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FBA1A74ED9E00B2EABE /* checkBox.png */; };
-		1AFD3FDE1A74ED9E00B2EABE /* checkBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FBB1A74ED9E00B2EABE /* checkBox@2x.png */; };
-		1AFD3FDF1A74ED9E00B2EABE /* checkBoxMarked.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FBC1A74ED9E00B2EABE /* checkBoxMarked.png */; };
-		1AFD3FE01A74ED9E00B2EABE /* checkBoxMarked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FBD1A74ED9E00B2EABE /* checkBoxMarked@2x.png */; };
 		1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */; };
 		1AFD3FE21A74ED9E00B2EABE /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC21A74ED9E00B2EABE /* DetailViewController.m */; };
 		1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC41A74ED9E00B2EABE /* LaunchScreen.strings */; };
@@ -52,14 +49,7 @@
 		1AFD402F1A74F26700B2EABE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD402E1A74F26700B2EABE /* libsqlite3.dylib */; };
 		1AFD40381A74F89100B2EABE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40371A74F89100B2EABE /* Social.framework */; };
 		1AFD403A1A74F89600B2EABE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40391A74F89600B2EABE /* Accounts.framework */; };
-		1AFD40411A74F9B800B2EABE /* Marina.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD403C1A74F9B700B2EABE /* Marina.gpx */; };
-		1AFD40421A74F9B800B2EABE /* Palisades.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD403D1A74F9B700B2EABE /* Palisades.gpx */; };
-		1AFD40431A74F9B800B2EABE /* SantaMonica.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD403E1A74F9B700B2EABE /* SantaMonica.gpx */; };
-		1AFD40441A74F9B800B2EABE /* Venice.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD403F1A74F9B700B2EABE /* Venice.gpx */; };
-		1AFD40451A74F9B800B2EABE /* Westwood.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD40401A74F9B800B2EABE /* Westwood.gpx */; };
 		1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD40481A751F2200B2EABE /* MBProgressHUD.m */; };
-		1AFD404B1A76F66500B2EABE /* delRey.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD404A1A76F66500B2EABE /* delRey.gpx */; };
-		1AFD404F1A76F81600B2EABE /* MarVista.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD404E1A76F81600B2EABE /* MarVista.gpx */; };
 		1AFD406B1A7A1DBB00B2EABE /* simpleMenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */; };
 		AB78C0845A009A5F3A9EF209 /* libPods-turnip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D397F68C3BE458359F6CA901 /* libPods-turnip.a */; };
 /* End PBXBuildFile section */
@@ -97,6 +87,8 @@
 		1A9AE4D41A8052D200AADDAA /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
 		1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestViewController.h; sourceTree = "<group>"; };
 		1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
+		1A9D0D311A9D25020082550C /* TeammateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewController.h; sourceTree = "<group>"; };
+		1A9D0D321A9D25020082550C /* TeammateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewController.m; sourceTree = "<group>"; };
 		1AA179EE1A74E3D30061CA3E /* turnip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = turnip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA179F31A74E3D30061CA3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,10 +101,6 @@
 		1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1AFD3FB91A74ED9E00B2EABE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		1AFD3FBA1A74ED9E00B2EABE /* checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBox.png; sourceTree = "<group>"; };
-		1AFD3FBB1A74ED9E00B2EABE /* checkBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkBox@2x.png"; sourceTree = "<group>"; };
-		1AFD3FBC1A74ED9E00B2EABE /* checkBoxMarked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxMarked.png; sourceTree = "<group>"; };
-		1AFD3FBD1A74ED9E00B2EABE /* checkBoxMarked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkBoxMarked@2x.png"; sourceTree = "<group>"; };
 		1AFD3FBE1A74ED9E00B2EABE /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimePicker.h; sourceTree = "<group>"; };
 		1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimePicker.m; sourceTree = "<group>"; };
@@ -147,15 +135,8 @@
 		1AFD40371A74F89100B2EABE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		1AFD40391A74F89600B2EABE /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		1AFD403B1A74F94900B2EABE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1AFD403C1A74F9B700B2EABE /* Marina.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Marina.gpx; sourceTree = "<group>"; };
-		1AFD403D1A74F9B700B2EABE /* Palisades.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Palisades.gpx; sourceTree = "<group>"; };
-		1AFD403E1A74F9B700B2EABE /* SantaMonica.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SantaMonica.gpx; sourceTree = "<group>"; };
-		1AFD403F1A74F9B700B2EABE /* Venice.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Venice.gpx; sourceTree = "<group>"; };
-		1AFD40401A74F9B800B2EABE /* Westwood.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Westwood.gpx; sourceTree = "<group>"; };
 		1AFD40471A751F2200B2EABE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		1AFD40481A751F2200B2EABE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		1AFD404A1A76F66500B2EABE /* delRey.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = delRey.gpx; sourceTree = "<group>"; };
-		1AFD404E1A76F81600B2EABE /* MarVista.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MarVista.gpx; sourceTree = "<group>"; };
 		1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simpleMenuButton.png; sourceTree = "<group>"; };
 		75F6F5BBAA2AAD5381FEB163 /* Pods-turnip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.release.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.release.xcconfig"; sourceTree = "<group>"; };
 		D397F68C3BE458359F6CA901 /* libPods-turnip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-turnip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,7 +181,6 @@
 		1AA179E51A74E3D30061CA3E = {
 			isa = PBXGroup;
 			children = (
-				1AFD40461A74F9BA00B2EABE /* Locations */,
 				1AFD40301A74F2D600B2EABE /* Frameworks */,
 				1AA179F01A74E3D30061CA3E /* turnip */,
 				1AA17A0D1A74E3D30061CA3E /* turnipTests */,
@@ -261,6 +241,8 @@
 				1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */,
 				1ABABC1C1A860CD100C0A617 /* TicketViewController.h */,
 				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
+				1A9D0D311A9D25020082550C /* TeammateTableViewController.h */,
+				1A9D0D321A9D25020082550C /* TeammateTableViewController.m */,
 				1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */,
 				1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */,
 				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
@@ -328,10 +310,6 @@
 				1A8626251A7B15B400AF63B9 /* ZW4QC.png */,
 				1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */,
 				1AFD3FD41A74ED9E00B2EABE /* Placeholder.jpg */,
-				1AFD3FBA1A74ED9E00B2EABE /* checkBox.png */,
-				1AFD3FBB1A74ED9E00B2EABE /* checkBox@2x.png */,
-				1AFD3FBC1A74ED9E00B2EABE /* checkBoxMarked.png */,
-				1AFD3FBD1A74ED9E00B2EABE /* checkBoxMarked@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -350,20 +328,6 @@
 				D397F68C3BE458359F6CA901 /* libPods-turnip.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1AFD40461A74F9BA00B2EABE /* Locations */ = {
-			isa = PBXGroup;
-			children = (
-				1AFD403C1A74F9B700B2EABE /* Marina.gpx */,
-				1AFD403D1A74F9B700B2EABE /* Palisades.gpx */,
-				1AFD403E1A74F9B700B2EABE /* SantaMonica.gpx */,
-				1AFD403F1A74F9B700B2EABE /* Venice.gpx */,
-				1AFD40401A74F9B800B2EABE /* Westwood.gpx */,
-				1AFD404A1A76F66500B2EABE /* delRey.gpx */,
-				1AFD404E1A76F81600B2EABE /* MarVista.gpx */,
-			);
-			name = Locations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,27 +413,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AFD40431A74F9B800B2EABE /* SantaMonica.gpx in Resources */,
-				1AFD40451A74F9B800B2EABE /* Westwood.gpx in Resources */,
 				1AFD3FEC1A74ED9E00B2EABE /* Placeholder.jpg in Resources */,
-				1AFD40411A74F9B800B2EABE /* Marina.gpx in Resources */,
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
-				1AFD40441A74F9B800B2EABE /* Venice.gpx in Resources */,
-				1AFD40421A74F9B800B2EABE /* Palisades.gpx in Resources */,
-				1AFD3FE01A74ED9E00B2EABE /* checkBoxMarked@2x.png in Resources */,
-				1AFD404F1A76F81600B2EABE /* MarVista.gpx in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
 				1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */,
-				1AFD3FDF1A74ED9E00B2EABE /* checkBoxMarked.png in Resources */,
 				1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */,
-				1AFD404B1A76F66500B2EABE /* delRey.gpx in Resources */,
 				1AFD406B1A7A1DBB00B2EABE /* simpleMenuButton.png in Resources */,
-				1AFD3FDD1A74ED9E00B2EABE /* checkBox.png in Resources */,
 				1A9AE4D51A8052D200AADDAA /* green.png in Resources */,
 				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
-				1AFD3FDE1A74ED9E00B2EABE /* checkBox@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +476,7 @@
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
 				1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */,
 				1AA179F41A74E3D30061CA3E /* main.m in Sources */,
+				1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
 				1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */,

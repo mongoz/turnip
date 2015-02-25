@@ -16,6 +16,14 @@
 @property (nonatomic, copy) NSString *objectId;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy) NSString *endTime;
+@property (nonatomic, copy) NSString *location;
+@property (nonatomic, copy) UIImage *image1;
+@property (nonatomic, copy) UIImage *image2;
+@property (nonatomic, copy) UIImage *image3;
+@property (nonatomic, copy) NSDate *date;
+@property (nonatomic) BOOL isPrivate;
+@property (nonatomic) BOOL isFree;
 
 @property (nonatomic, strong) PFObject *object;
 @property (nonatomic, strong) PFUser *user;

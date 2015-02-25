@@ -12,6 +12,7 @@
 #import "DateTimePicker.h"
 #import <Parse/Parse.h>
 #import "SWRevealViewController.h"
+#import "TurnipEvent.h"
 
 @interface ThrowNextViewController ()
 
@@ -33,7 +34,7 @@
 @implementation ThrowNextViewController
 
 - (void) viewWillAppear:(BOOL)animated {
-   
+    
     // QUick fix change this to TurnipEvent thingy instead
     self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
     if ([self.currentEvent count] > 0) {
@@ -279,7 +280,6 @@
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.sourceType = UIImagePickerControllerSourceTypeCamera;
         controller.allowsEditing = YES;
-        //controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
         controller.delegate = self;
         [self.tabBarController presentViewController: controller animated: YES completion: nil];
     } else {
@@ -299,7 +299,6 @@
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         controller.allowsEditing = YES;
-        //controller.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
         controller.delegate = self;
         [self.tabBarController presentViewController: controller animated: YES completion: nil];
         
@@ -417,9 +416,9 @@
             postObject[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"True" : @"False";
             postObject[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
 //            postObject[@"address"] = [self.placemark.addressDictionary valueForKey:@"Street"];
-            postObject[@"address"] = self.location;
-            postObject[@"date"] = self.selectedDate;
-            postObject[@"endTime"] = self.endTimeDate.text;
+            postObject[TurnipParsePostAddressKey] = self.location;
+            postObject[TurnipParsePostDateKey] = self.selectedDate;
+            postObject[TurnipParsePostEndTimeKey] = self.endTimeDate.text;
             
             if ([image count] > 0) {
                 postObject[TurnipParsePostImageOneKey] = [image objectAtIndex: 0];
@@ -495,6 +494,7 @@
                     });
                     [self saveToCoreData:postObject];
                     self.currentEventId = postObject.objectId;
+                    self.data = [[TurnipEvent alloc] initWithPFObject:postObject];
                     [self viewWillAppear:YES];
                 }
             }];
@@ -521,6 +521,7 @@
         [managedObject setValue: self.name forKey:@"title"];
         [managedObject setValue: postObject.objectId forKey:@"objectId"];
         [managedObject setValue: self.about forKey:@"text"];
+        [managedObject setValue: self.location forKey:@"location"];
         [managedObject setValue: self.selectedDate forKey:@"date"];
         [managedObject setValue: self.endTimeDate.text forKey:@"endTime"];
         [managedObject setValue: self.imageOne.image forKey:@"image1"];

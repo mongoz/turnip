@@ -37,8 +37,8 @@
     // Do any additional setup after loading the view.
     self.requestButton.enabled = NO;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasDeleted:) name:@"eventDeletedNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userWasAccepted:) name:@"userWasAcceptedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasDeleted:) name:TurnipEventDeletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userWasAccepted:) name:TurnipUserWasAcceptedNotification object:nil];
     
     if (self.host) {
         self.deleted = NO;
@@ -283,8 +283,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // call super because we're a custom subclass.
-    
-   // [self performSegueWithIdentifier:@"ticketSegue" sender:self];
 }
 
 #pragma mark - Parse queries
@@ -305,7 +303,7 @@
                 PFQuery *query = [relation query];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if([objects count] == 0) {
-                        NSLog(@"no requests");
+                        NSLog(@"no Accepted");
                     } else {
                         self.accepted = [[NSArray alloc] initWithArray:objects];
                         [[self tableView] reloadData];

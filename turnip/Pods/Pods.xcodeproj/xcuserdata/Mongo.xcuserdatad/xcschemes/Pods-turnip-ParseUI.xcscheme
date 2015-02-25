@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2C37BE992F4E5785FA3681F5"
+               BlueprintIdentifier = "923CF5439C77EAF2DDCBDF05"
                BuildableName = "libPods-turnip-ParseUI.a"
                BlueprintName = "Pods-turnip-ParseUI"
                ReferencedContainer = "container:Pods.xcodeproj">

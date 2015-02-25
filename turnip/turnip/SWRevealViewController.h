@@ -183,6 +183,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 /* Basic API */
 
 @property (nonatomic, strong) NSArray *currentEvent;
+@property (nonatomic, strong) NSString *currentEventId;
 
 // Object instance init and rear view setting
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;

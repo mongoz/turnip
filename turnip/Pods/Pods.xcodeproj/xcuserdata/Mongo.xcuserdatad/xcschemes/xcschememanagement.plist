@@ -44,11 +44,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-turnip-Stripe.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-turnip.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,52 +52,47 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>05775F5F9590FD87A3B259A1</key>
+		<key>2C5D1359A5F0C9CE564C10FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>142F70640F1A6B7ABA0C29E1</key>
+		<key>436F048B985606E805DB1813</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2C37BE992F4E5785FA3681F5</key>
+		<key>5923540C27882DD73C1652C2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E893110839C07A0A091E833</key>
+		<key>78FF8EF5B88B9AF39CD34377</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5378B85EC38384E5D7822746</key>
+		<key>923CF5439C77EAF2DDCBDF05</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7CCE7FBE848370E34B3AE5F7</key>
+		<key>AB992079CFA1B93BBBCC7324</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D3D16692F5A37125F56AD09</key>
+		<key>AE34FEDA7FC36F62E69C08AD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D0005656594028F5EC83697C</key>
+		<key>DBA3280C1D0FE5F8E937460B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D0B54D822681F593C46882E9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F5CBF92DD5CC4DDB574FEA8C</key>
+		<key>FDB242148AFB4495CB081227</key>
 		<dict>
 			<key>primary</key>
 			<true/>

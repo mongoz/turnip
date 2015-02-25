@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TurnipEvent.h"
 #import "MBProgressHUD.h"
 
 @interface ThrowNextViewController : UIViewController <UITextViewDelegate,
@@ -16,6 +16,8 @@ UIActionSheetDelegate,
 UINavigationControllerDelegate,
 UIImagePickerControllerDelegate,
 MBProgressHUDDelegate>
+
+@property (nonatomic, strong) TurnipEvent *data;
 
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) CLLocation *coordinates;

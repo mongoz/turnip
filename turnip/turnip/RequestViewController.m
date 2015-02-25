@@ -43,7 +43,6 @@ NSArray *fetchedObjects;
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -80,7 +79,7 @@ NSArray *fetchedObjects;
         if(error) {
             NSLog(@"Error in geo query!: %@", error);
         } else {
-            self.eventId = [objects[0] objectId];
+            self.eventId = [[objects valueForKey:@"objectId"] objectAtIndex:0];
             for (PFObject *object in objects) {
                 PFRelation *relation = [object relationForKey:@"requests"];
                 PFQuery *query = [relation query];
@@ -185,7 +184,7 @@ NSArray *fetchedObjects;
         [self acceptUserRequest: [self.requesters objectAtIndex: indexPath.row]];
         [self.userDelete addObject: [self.requesters objectAtIndex:indexPath.row]];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"userWasAcceptedNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TurnipUserWasAcceptedNotification object:nil];
     }];
     
     UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];

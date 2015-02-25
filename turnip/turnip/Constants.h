@@ -32,12 +32,19 @@ static NSString * const TurnipParsePostPaidKey = @"free";
 static NSString * const TurnipParsePostStartDateKey = @"startDate";
 static NSString * const TurnipParsePostendDateKey = @"endDate";
 static NSString * const TurnipParsePostZipCodeKey = @"zipCode";
+static NSString * const TurnipParsePostAddressKey = @"address";
+static NSString * const TurnipParsePostDateKey = @"date";
+static NSString * const TurnipParsePostEndTimeKey = @"endTime";
+
 
 static NSString * const TurnipParsePostIdKey = @"objectId";
 
 // Global Notifications
 static NSString * const TurnipPartyThrownNotification = @"TurnipPartyThrownNotification";
 static NSString * const TurnipAcceptedRequestNotification = @"TurnipAcceptedRequestNotification";
+static NSString * const TurnipResetBadgeCountNotification = @"TurnipResetBadgeCountNotification";
+static NSString * const TurnipEventDeletedNotification = @"TurnipEventDeletedNotification";
+static NSString * const TurnipUserWasAcceptedNotification = @"TurnipUserWasAcceptedNotification";
 
 static double const TurnipDefaultFilterDistance = 1000.0;
 static double const TurnipPostMaximumSearchDistance = 20.0;

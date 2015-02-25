@@ -34,9 +34,11 @@
     [self.tabBarController.tabBar setHidden:YES];
     self.navigationItem.hidesBackButton = YES;
     
-    self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
-    if ([self.currentEvent count] > 0) {
-        [self performSegueWithIdentifier:@"revealSegue" sender:self];
+    if ([self.currentEvent count] == 0) {
+        self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
+        if ([self.currentEvent count] > 0) {
+            [self performSegueWithIdentifier:@"revealSegue" sender:self];
+        }
     }
 }
 
@@ -44,7 +46,6 @@
     [super viewDidLoad];
     
     [self setupView];
-    
     self.isPrivate = YES;
     self.isFree = YES;
     
@@ -93,6 +94,7 @@
 
 # pragma mark - button controll handlers
 - (IBAction) backButtonHandler:(id)sender {
+    [self.tabBarController.tabBar setHidden: NO];
     self.tabBarController.selectedIndex = 0;
 }
 
@@ -125,7 +127,6 @@
         
         return fetchedObjects;
     }
-    
 }
 
 #pragma mark - switch handlers
@@ -141,8 +142,10 @@
 - (void) freeSwitchChanged: (UISwitch *) switchState {
     if ([switchState isOn]) {
         self.isFree = NO;
+        self.cashView.hidden = NO;
     } else {
         self.isFree = YES;
+        self.cashView.hidden = YES;
     }
 }
 

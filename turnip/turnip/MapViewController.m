@@ -217,6 +217,7 @@
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
         newMarker.position = coordinate;
         newMarker.appearAnimation = 1;
+        newMarker.icon = [UIImage imageNamed:@"turnip-icon3"];
         newMarker.map = nil;
         newMarker.draggable = YES;
         

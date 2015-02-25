@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 
-@interface TeammateTableViewController : PFQueryTableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TeammateTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSString *eventId;
 @property (nonatomic, strong) NSArray *accepted;

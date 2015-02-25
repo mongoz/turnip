@@ -21,6 +21,7 @@
 		1A9AE4D61A8052D200AADDAA /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D41A8052D200AADDAA /* red.png */; };
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
 		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
+		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
@@ -89,6 +90,8 @@
 		1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
 		1A9D0D311A9D25020082550C /* TeammateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewController.h; sourceTree = "<group>"; };
 		1A9D0D321A9D25020082550C /* TeammateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewController.m; sourceTree = "<group>"; };
+		1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewCell.h; sourceTree = "<group>"; };
+		1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewCell.m; sourceTree = "<group>"; };
 		1AA179EE1A74E3D30061CA3E /* turnip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = turnip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA179F31A74E3D30061CA3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,6 +246,8 @@
 				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
 				1A9D0D311A9D25020082550C /* TeammateTableViewController.h */,
 				1A9D0D321A9D25020082550C /* TeammateTableViewController.m */,
+				1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */,
+				1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */,
 				1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */,
 				1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */,
 				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
@@ -480,6 +485,7 @@
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
 				1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */,
+				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
 				1AFD3FEA1A74ED9E00B2EABE /* MapViewController.m in Sources */,
 				1AFD3FE51A74ED9E00B2EABE /* FindViewController.m in Sources */,

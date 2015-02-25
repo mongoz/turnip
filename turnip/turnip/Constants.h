@@ -9,10 +9,6 @@
 #ifndef turnip_Constants_h
 #define turnip_Constants_h
 
-static double TurnipMetersToMiles(double meters) {
-    return meters * 0.000621371;
-}
-
 // Parse API key constants:
 static NSString * const TurnipParsePostClassName = @"Events";
 static NSString * const TurnipParsePostUserKey = @"user";

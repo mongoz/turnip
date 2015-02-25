@@ -138,7 +138,7 @@
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
     [fmt setPositiveFormat:@"0.#"];
     
-    NSNumber *mile = [NSNumber numberWithDouble: TurnipMetersToMiles(meters)];
+    NSNumber *mile = [NSNumber numberWithDouble: [self metersToMiles:meters]];
     
     NSString *stringMile = [fmt stringFromNumber:mile];
     
@@ -158,5 +158,8 @@
     }
 }
 
+-(double) metersToMiles:(double) meters {
+    return meters * 0.000621371;
+}
 
 @end

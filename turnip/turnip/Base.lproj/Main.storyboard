@@ -570,7 +570,7 @@
                     <navigationItem key="navigationItem" id="FT5-oq-bTk"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" itemPositioning="centered" id="W28-zg-YXA">
+                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1217,6 +1217,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="atl-LG-z84">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="80"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eip-eg-pVL">
+                                        <rect key="frame" x="220" y="33" width="65" height="30"/>
+                                        <state key="normal" title="Requests">
+                                            <color key="titleColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="we9-rN-OKv">
+                                        <rect key="frame" x="31" y="33" width="86" height="30"/>
+                                        <state key="normal" title="Notifications">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="hhb-rC-4AJ" kind="show" identifier="requestToNotification" id="Jjk-3g-G75"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
                             <tableView contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="kWc-wt-kwk">
                                 <rect key="frame" x="0.0" y="75" width="400" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1241,27 +1262,6 @@
                                     <outlet property="delegate" destination="2YI-dC-PVN" id="5cv-M1-PHf"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="atl-LG-z84">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="80"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eip-eg-pVL">
-                                        <rect key="frame" x="220" y="33" width="65" height="30"/>
-                                        <state key="normal" title="Requests">
-                                            <color key="titleColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="we9-rN-OKv">
-                                        <rect key="frame" x="31" y="33" width="86" height="30"/>
-                                        <state key="normal" title="Notifications">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="hhb-rC-4AJ" kind="show" identifier="requestToNotification" id="Jjk-3g-G75"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -1436,30 +1436,61 @@
         <scene sceneID="WBS-Na-REk">
             <objects>
                 <tableViewController id="NQ8-uT-OIE" customClass="TeammateTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="33T-WS-7h2">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" id="33T-WS-7h2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="teammateCell" textLabel="e5o-LQ-SQe" detailTextLabel="mQC-cX-9l7" style="IBUITableViewCellStyleValue1" id="PDK-WR-OTK">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="teammateCell" rowHeight="55" id="PDK-WR-OTK" customClass="TeammateTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PDK-WR-OTK" id="9Ls-dc-Tgp">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5o-LQ-SQe">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Us-zk-yY4">
+                                            <rect key="frame" x="64" y="11" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mQC-cX-9l7">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hIS-32-Ak6">
+                                            <rect key="frame" x="8" y="4" width="45" height="45"/>
+                                        </imageView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oay-Hw-D5I">
+                                            <rect key="frame" x="20" y="17" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ot-sw-sOB">
+                                            <rect key="frame" x="534" y="4" width="45" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="sfD-S8-w1e"/>
+                                            </constraints>
+                                            <state key="normal" image="add-teamate">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="checkButtonHandler:" destination="PDK-WR-OTK" eventType="touchUpInside" id="uvt-mi-edG"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="hIS-32-Ak6" secondAttribute="bottom" constant="-3" id="9gA-EX-DiS"/>
+                                        <constraint firstItem="oay-Hw-D5I" firstAttribute="centerX" secondItem="hIS-32-Ak6" secondAttribute="centerX" id="JL0-Cu-dve"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="5Ot-sw-sOB" secondAttribute="trailing" constant="13" id="MfK-0T-gst"/>
+                                        <constraint firstItem="9Us-zk-yY4" firstAttribute="leading" secondItem="hIS-32-Ak6" secondAttribute="trailing" constant="11" id="Ntk-cq-ReL"/>
+                                        <constraint firstItem="hIS-32-Ak6" firstAttribute="top" secondItem="9Ls-dc-Tgp" secondAttribute="topMargin" constant="-4" id="UJc-44-rzH"/>
+                                        <constraint firstItem="5Ot-sw-sOB" firstAttribute="bottom" secondItem="hIS-32-Ak6" secondAttribute="bottom" id="XEO-wM-vTE"/>
+                                        <constraint firstItem="9Us-zk-yY4" firstAttribute="top" secondItem="9Ls-dc-Tgp" secondAttribute="topMargin" constant="3" id="YK0-AW-nDJ"/>
+                                        <constraint firstItem="5Ot-sw-sOB" firstAttribute="top" secondItem="hIS-32-Ak6" secondAttribute="top" id="gQc-wM-yEe"/>
+                                        <constraint firstItem="hIS-32-Ak6" firstAttribute="leading" secondItem="9Ls-dc-Tgp" secondAttribute="leadingMargin" id="mT6-qF-aKM"/>
+                                        <constraint firstItem="oay-Hw-D5I" firstAttribute="centerY" secondItem="9Ls-dc-Tgp" secondAttribute="centerY" id="rO9-Mu-8ou"/>
+                                        <constraint firstItem="9Us-zk-yY4" firstAttribute="leading" secondItem="oay-Hw-D5I" secondAttribute="trailing" constant="24" id="z0s-be-xUp"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="checkButton" destination="5Ot-sw-sOB" id="QmQ-NN-aoe"/>
+                                    <outlet property="imageSpinner" destination="oay-Hw-D5I" id="XHU-8i-u3D"/>
+                                    <outlet property="nameLabel" destination="9Us-zk-yY4" id="WJz-8I-laT"/>
+                                    <outlet property="profileImage" destination="hIS-32-Ak6" id="eMJ-ip-RBb"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1470,7 +1501,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DgX-tg-1Rh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1692" y="3039"/>
+            <point key="canvasLocation" x="-1692" y="3032"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GgU-O5-KZr">
@@ -1499,11 +1530,11 @@
             </objects>
             <point key="canvasLocation" x="214.49999999999997" y="600"/>
         </scene>
-        <!--Notification-->
+        <!--Navigation Controller-->
         <scene sceneID="8jY-Dq-dxm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="VKp-6u-dsg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notification" image="first" id="C3k-s2-8e1">
+                    <tabBarItem key="tabBarItem" title="" image="notifications" id="C3k-s2-8e1">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -1554,7 +1585,7 @@
         <scene sceneID="Nlf-qm-eh6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="krL-hN-Ark" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Red-Solo-Cup" id="9Qs-mQ-NnM">
+                    <tabBarItem key="tabBarItem" title="" image="host" id="9Qs-mQ-NnM">
                         <inset key="imageInsets" minX="5" minY="5" maxX="-5" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -1578,19 +1609,20 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Red-Solo-Cup" width="50" height="50"/>
         <image name="ZW4QC.png" width="202" height="46"/>
-        <image name="first" width="30" height="30"/>
+        <image name="add-teamate" width="50" height="50"/>
         <image name="geariconblk" width="50" height="50"/>
         <image name="home" width="50" height="50"/>
+        <image name="host" width="50" height="50"/>
+        <image name="notifications" width="50" height="50"/>
         <image name="profile" width="50" height="50"/>
         <image name="refresh" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="k8Z-cM-goU"/>
-        <segue reference="anS-E0-Al2"/>
+        <segue reference="C0F-YY-MBS"/>
         <segue reference="3sN-cn-5SC"/>
-        <segue reference="hYu-wC-nnF"/>
         <segue reference="Jjk-3g-G75"/>
+        <segue reference="hkF-mK-PDa"/>
     </inferredMetricsTieBreakers>
 </document>

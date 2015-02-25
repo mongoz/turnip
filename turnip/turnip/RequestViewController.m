@@ -46,7 +46,7 @@ NSArray *fetchedObjects;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.requesters = [[NSMutableArray alloc] init];
+    self.requesters = [[NSArray alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveRequestPush:)

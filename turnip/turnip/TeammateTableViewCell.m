@@ -17,8 +17,6 @@
 }
 
 - (IBAction)checkButtonHandler:(id)sender {
-    [self.checkButton setImage:[UIImage imageNamed: @"teammate-pressed"] forState:UIControlStateNormal];
-    
-    NSLog(@"pressed");
+    [self.delegate teammateCellAddWasTapped:self];
 }
 @end

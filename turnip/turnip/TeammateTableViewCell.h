@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class TeammateTableViewCell;
+
+@protocol TeammateCellDelegate <NSObject>
+
+- (void) teammateCellAddWasTapped:(TeammateTableViewCell *) cell;
+
+@end
+
 @interface TeammateTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) id <TeammateCellDelegate> delegate;
+
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 
@@ -18,3 +29,4 @@
 
 - (IBAction)checkButtonHandler:(id)sender;
 @end
+  

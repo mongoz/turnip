@@ -12,9 +12,12 @@
 
 #import "TeammateTableViewCell.h"
 
-@interface TeammateTableViewController ()
+@interface TeammateTableViewController () <TeammateCellDelegate>
 
 @property (nonatomic, assign) NSUInteger nbItems;
+@property (nonatomic, strong) PFObject *event;
+
+@property (nonatomic, assign) BOOL isClicked;
 
 @end
 
@@ -47,7 +50,7 @@
     return self.nbItems;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (TeammateTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     static NSString *tableIdentifier = @"teammateCell";
     
@@ -55,7 +58,10 @@
     if (cell == nil) {
         cell = [[TeammateTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
-        NSArray *name = [[[self.accepted valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
+    
+    cell.delegate = self;
+    
+    NSArray *name = [[[self.accepted valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
     NSString *label = [NSString stringWithFormat:@"%@", [name objectAtIndex:0]];
     
     cell.profileImage.image = [UIImage imageNamed:@"Placeholder.jpg"];
@@ -109,6 +115,7 @@
         } else {
             self.eventId = [[objects valueForKey:@"objectId"] objectAtIndex:0];
             for (PFObject *object in objects) {
+                self.event = object;
                 PFRelation *relation = [object relationForKey:@"accepted"];
                 PFQuery *query = [relation query];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -127,5 +134,37 @@
     }];
 }
 
+- (void) teammateCellAddWasTapped:(TeammateTableViewCell*) cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    NSArray *user = [[self.accepted objectAtIndex:indexPath.row] copy];
+    
+    if (!self.isClicked) {
+        self.isClicked = YES;
+        [cell.checkButton setImage:[UIImage imageNamed:@"teammate-pressed"] forState: UIControlStateNormal];
+        
+        [PFCloud callFunctionInBackground:@"teammateCloudCode"
+                           withParameters:@{@"user": user , @"eventId": self.eventId, @"state": @"add"}
+                                    block:^(NSString *success, NSError *error) {
+                                        if (!error) {
+                                            NSLog(@"user Added");
+                                        }
+                                    }];
+        NSLog(@"clicked");
+    } else {
+        self.isClicked = NO;
+        [cell.checkButton setImage:[UIImage imageNamed:@"add-teammate"] forState: UIControlStateNormal];
+        NSLog(@"unclicked");
+        
+        [PFCloud callFunctionInBackground:@"teammateCloudCode"
+                           withParameters:@{@"user": user , @"eventId": self.eventId, @"state": @"remove"}
+                                    block:^(NSString *success, NSError *error) {
+                                        if (!error) {
+                                            NSLog(@"user removed");
+                                        }
+                                    }];
+
+    }
+}
 
 @end

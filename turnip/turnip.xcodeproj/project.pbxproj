@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */; };
 		1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */; };
 		1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */; };
 		1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */; };
@@ -67,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		128F4766B166E2108280E1E6 /* Pods-turnip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.debug.xcconfig"; sourceTree = "<group>"; };
+		1A1B32141A9E76490096F2DF /* TurnipCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipCustomTabBarViewController.h; sourceTree = "<group>"; };
+		1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnipCustomTabBarViewController.m; sourceTree = "<group>"; };
 		1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerShapeView.h; sourceTree = "<group>"; };
 		1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerShapeView.m; sourceTree = "<group>"; };
 		1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScannerViewController.h; path = ../ScannerViewController.h; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				1AFD3FB71A74ED9E00B2EABE /* Base.lproj */,
 				1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */,
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
+				1A1B32141A9E76490096F2DF /* TurnipCustomTabBarViewController.h */,
+				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
 				1A9AE4CA1A7E281400AADDAA /* TurnipUser.h */,
 				1A9AE4CB1A7E281400AADDAA /* TurnipUser.m */,
 				1AFD3FBE1A74ED9E00B2EABE /* Constants.h */,
@@ -497,6 +502,7 @@
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
 				1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */,
 				1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */,
+				1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */,
 				1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
 				1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */,

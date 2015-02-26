@@ -562,10 +562,10 @@
             </objects>
             <point key="canvasLocation" x="-221" y="-185.99999999999997"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Turnip Custom Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController storyboardIdentifier="tabBar" id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" id="49e-Tb-3d3" customClass="TurnipCustomTabBarViewController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="FT5-oq-bTk"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
@@ -579,8 +579,8 @@
                     <connections>
                         <segue destination="Jc9-5Y-Lmj" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="krL-hN-Ark" kind="relationship" relationship="viewControllers" id="dab-ab-4in"/>
-                        <segue destination="PQe-q1-cFb" kind="relationship" relationship="viewControllers" id="y6B-2i-V5z"/>
                         <segue destination="VKp-6u-dsg" kind="relationship" relationship="viewControllers" id="hZm-H4-7bH"/>
+                        <segue destination="PQe-q1-cFb" kind="relationship" relationship="viewControllers" id="y6B-2i-V5z"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -1463,7 +1463,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="sfD-S8-w1e"/>
                                             </constraints>
-                                            <state key="normal" image="add-teamate">
+                                            <state key="normal" image="add-teammate">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -1585,7 +1585,7 @@
         <scene sceneID="Nlf-qm-eh6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="krL-hN-Ark" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="host" id="9Qs-mQ-NnM">
+                    <tabBarItem key="tabBarItem" title="" id="9Qs-mQ-NnM">
                         <inset key="imageInsets" minX="5" minY="5" maxX="-5" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -1610,12 +1610,11 @@
     </scenes>
     <resources>
         <image name="ZW4QC.png" width="202" height="46"/>
-        <image name="add-teamate" width="50" height="50"/>
+        <image name="add-teammate" width="50" height="50"/>
         <image name="geariconblk" width="50" height="50"/>
-        <image name="home" width="50" height="50"/>
-        <image name="host" width="50" height="50"/>
-        <image name="notifications" width="50" height="50"/>
-        <image name="profile" width="50" height="50"/>
+        <image name="home" width="40" height="40"/>
+        <image name="notifications" width="40" height="40"/>
+        <image name="profile" width="40" height="40"/>
         <image name="refresh" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -156,7 +156,7 @@
         
         self.notificationCount += 1;
         
-        [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
+        [[tabController.viewControllers objectAtIndex:2] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
     
     if([type isEqualToString:@"eventAccepted"]) {

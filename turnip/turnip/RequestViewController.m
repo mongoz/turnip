@@ -237,7 +237,7 @@ NSArray *fetchedObjects;
     int days = allDays % 365;
     int years = (allDays - days) / 365;
     
-    return  years;
+    return years;
 }
 
 - (void) swipeTableViewCellDidStartSwiping:(MCSwipeTableViewCell *)cell {

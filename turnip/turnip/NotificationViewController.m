@@ -27,8 +27,8 @@ NSArray *fetchedObjects;
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    if ([[[[[self tabBarController] tabBar]items]objectAtIndex:3]badgeValue] > 0) {
-        [[[[[self tabBarController] tabBar]items]objectAtIndex:3]setBadgeValue:0];
+    if ([[[[[self tabBarController] tabBar]items]objectAtIndex:2]badgeValue] > 0) {
+        [[[[[self tabBarController] tabBar]items]objectAtIndex:2]setBadgeValue:0];
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetBadgeCountNotification object:nil];
         
     }

@@ -107,7 +107,7 @@
     
     [query whereKey:TurnipParsePostUserKey equalTo: [PFUser currentUser]];
     
-    [query selectKeys:@[TurnipParsePostIdKey, @"accepted"]];
+    [query selectKeys:@[TurnipParsePostIdKey, TurnipParsePostTitleKey, @"accepted"]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
@@ -137,33 +137,32 @@
 - (void) teammateCellAddWasTapped:(TeammateTableViewCell*) cell {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    NSArray *user = [[self.accepted objectAtIndex:indexPath.row] copy];
+    NSString *userId = [[self.accepted valueForKey:@"objectId"] objectAtIndex: indexPath.row];
+    NSString *name = [self.event objectForKey:@"title"];
     
     if (!self.isClicked) {
         self.isClicked = YES;
         [cell.checkButton setImage:[UIImage imageNamed:@"teammate-pressed"] forState: UIControlStateNormal];
         
         [PFCloud callFunctionInBackground:@"teammateCloudCode"
-                           withParameters:@{@"user": user , @"eventId": self.eventId, @"state": @"add"}
+                           withParameters:@{@"user": userId, @"eventId": self.eventId, @"eventName": name, @"state": @"add"}
                                     block:^(NSString *success, NSError *error) {
                                         if (!error) {
                                             NSLog(@"user Added");
                                         }
                                     }];
-        NSLog(@"clicked");
     } else {
         self.isClicked = NO;
         [cell.checkButton setImage:[UIImage imageNamed:@"add-teammate"] forState: UIControlStateNormal];
-        NSLog(@"unclicked");
         
         [PFCloud callFunctionInBackground:@"teammateCloudCode"
-                           withParameters:@{@"user": user , @"eventId": self.eventId, @"state": @"remove"}
+                           withParameters:@{@"user": userId, @"eventId": self.eventId, @"state": @"remove"}
                                     block:^(NSString *success, NSError *error) {
                                         if (!error) {
                                             NSLog(@"user removed");
                                         }
                                     }];
-
+        
     }
 }
 

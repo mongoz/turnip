@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */; };
+		1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */; };
 		1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */; };
 		1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */; };
 		1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */; };
@@ -70,6 +71,8 @@
 		128F4766B166E2108280E1E6 /* Pods-turnip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.debug.xcconfig"; sourceTree = "<group>"; };
 		1A1B32141A9E76490096F2DF /* TurnipCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipCustomTabBarViewController.h; sourceTree = "<group>"; };
 		1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnipCustomTabBarViewController.m; sourceTree = "<group>"; };
+		1A1B32171AA05E090096F2DF /* NotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTableViewCell.h; sourceTree = "<group>"; };
+		1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
 		1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerShapeView.h; sourceTree = "<group>"; };
 		1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerShapeView.m; sourceTree = "<group>"; };
 		1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScannerViewController.h; path = ../ScannerViewController.h; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 				1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */,
 				1ABABC191A839BFB00C0A617 /* NotificationViewController.h */,
 				1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */,
+				1A1B32171AA05E090096F2DF /* NotificationTableViewCell.h */,
+				1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */,
 				1ABABC1C1A860CD100C0A617 /* TicketViewController.h */,
 				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
 				1A9D0D311A9D25020082550C /* TeammateTableViewController.h */,
@@ -483,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */,
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
 				1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */,
 				1AA179F41A74E3D30061CA3E /* main.m in Sources */,

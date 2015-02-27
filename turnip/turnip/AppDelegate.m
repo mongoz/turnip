@@ -35,7 +35,8 @@
     // Override point for customization after application launch.
     [self managedObjectContext];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageFinishedDownload:) name:@"facebookImageDownloaded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetBadgeCount:) name:TurnipResetBadgeCountNotification object:nil];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
@@ -174,7 +175,7 @@
             [self saveTicketInfo: object];
         }];
         
-        [[tabController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
+        [[tabController.viewControllers objectAtIndex:2] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
 }
 
@@ -227,25 +228,12 @@
     NSLog(@"Data saved");
 }
 
-- (void) imageFinishedDownload:(NSNotification *)note {
-    //save to file
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSManagedObject *dataRecord = [NSEntityDescription
-                                   insertNewObjectForEntityForName:@"RequesterInfo"
-                                   inManagedObjectContext: context];
+#pragma mark -
+#pragma mark Notification delegates
+
+- (void) resetBadgeCount:(NSNotification *)note {
     
-    [dataRecord setValue: self.user.name forKey:@"name"];
-    [dataRecord setValue: self.user.objectId forKey:@"objectId"];
-    [dataRecord setValue: self.user.birthday forKey:@"birthday"];
-    [dataRecord setValue: self.user.facebookId forKey:@"facebookId"];
-    [dataRecord setValue: self.user.profileImage forKey:@"profileImage"];
-    [dataRecord setValue: self.user.eventId forKey:@"eventId"];
-    NSError *error;
-    if (![context save:&error]) {
-        NSLog(@"Error:%@", error);
-    }
-    NSLog(@"Data saved");
-    
+    self.notificationCount = 0;
 }
 
 #pragma mark facebook url open

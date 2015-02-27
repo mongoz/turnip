@@ -23,6 +23,8 @@
 @property (nonatomic, strong) MCSwipeTableViewCell *cellToDelete;
 @property (nonatomic, strong) NSMutableArray *userDelete;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation RequestViewController
@@ -33,9 +35,9 @@ NSArray *fetchedObjects;
 
 - (void) receiveRequestPush:(NSNotification *) notification {
     if ([[notification name] isEqualToString:@"requestPush"]){
-        NSLog(@"reload page");
        // [self loadCoreData];
-        [[self tableView] reloadData];
+      //  [[self tableView] reloadData];
+        [self queryRequesters];
     }
        
 }
@@ -56,6 +58,14 @@ NSArray *fetchedObjects;
     
     self.userDelete = [[NSMutableArray alloc] init];
     
+    // Initialize the refresh control.
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.tableView;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(queryRequesters) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = self.refreshControl;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,21 +83,23 @@ NSArray *fetchedObjects;
     
     [query whereKey:TurnipParsePostUserKey equalTo: [PFUser currentUser]];
     
-    [query selectKeys:@[TurnipParsePostIdKey, @"requests"]];
+    [query selectKeys:@[TurnipParsePostIdKey, TurnipParsePostTitleKey, @"requests"]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
             NSLog(@"Error in geo query!: %@", error);
         } else {
             self.eventId = [[objects valueForKey:@"objectId"] objectAtIndex:0];
+            self.events = [[objects valueForKey:@"title"] objectAtIndex:0];
             for (PFObject *object in objects) {
                 PFRelation *relation = [object relationForKey:@"requests"];
                 PFQuery *query = [relation query];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if([objects count] == 0) {
-                            NSLog(@"no requests");
+
                         } else {
+                            [self.refreshControl endRefreshing];
                             self.requesters = [[NSArray alloc] initWithArray:objects];
                             self.nbItems = [self.requesters count];
                             [[self tableView] reloadData];
@@ -103,7 +115,26 @@ NSArray *fetchedObjects;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    if([self.requesters count] > 0) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.backgroundView = nil;
+        return 1;
+    } else {
+        // Display a message when the table is empty
+        messageLabel.text = @"No data is currently available. Please pull down to refresh.";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+    }
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -215,7 +246,7 @@ NSArray *fetchedObjects;
     
     NSString *userId = [user valueForKey:@"objectId"];
     NSString *userEvent = self.eventId;
-    NSString *message = @"sure thing brah";
+    NSString *message = [NSString stringWithFormat:@"You have been accepted to %@ (tap to view ticket)", self.events];
     
     [PFCloud callFunctionInBackground:@"acceptEventPush"
                        withParameters:@{@"recipientId": userId, @"message": message, @"eventId": userEvent}

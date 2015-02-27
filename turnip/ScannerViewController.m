@@ -114,10 +114,13 @@
             _boundingBox.corners = translatedCorners;
             
             // Update the view with the decoded text
+            self.message.font = [_message.font fontWithSize:30];
             if ([[transformed stringValue] isEqualToString: self.eventId]) {
-                _message.text = @"Accepted";
+                self.message.text = @"Accepted";
+                self.message.textColor = [UIColor greenColor];
             } else {
-                _message.text = @"Denied";
+                self.message.text = @"Denied";
+                self.message.textColor = [UIColor redColor];
             }
             
             // Start the timer which will hide the overlay
@@ -130,12 +133,12 @@
 - (void)startOverlayHideTimer
 {
     // Cancel it if we're already running
-    if(_boxHideTimer) {
-        [_boxHideTimer invalidate];
+    if(self.boxHideTimer) {
+        [self.boxHideTimer invalidate];
     }
     
     // Restart it to hide the overlay when it fires
-    _boxHideTimer = [NSTimer scheduledTimerWithTimeInterval:0.2
+    self.boxHideTimer = [NSTimer scheduledTimerWithTimeInterval:0.2
                                                      target:self
                                                    selector:@selector(removeBoundingBox:)
                                                    userInfo:nil
@@ -145,8 +148,8 @@
 - (void)removeBoundingBox:(id)sender
 {
     // Hide the box and remove the decoded text
-    _boundingBox.hidden = YES;
-    _message.text = @"";
+    self.boundingBox.hidden = YES;
+    self.message.text = @"";
 }
 
 - (NSArray *)translatePoints:(NSArray *)points fromView:(UIView *)fromView toView:(UIView *)toView

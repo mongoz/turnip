@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     UITabBar *tabBar = self.tabBar;
     
-    UIImage *homeImage = [[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *homeImage = [[UIImage imageNamed:@"homeBlk"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImage *hostImage = [[UIImage imageNamed:@"turnip-icon3"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     UITabBarItem *tabHome = [tabBar.items objectAtIndex:0];

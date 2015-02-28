@@ -68,6 +68,24 @@
     self.imageThree.userInteractionEnabled = YES;
     
     self.capacityInputField.delegate = self;
+    self.capacityInputField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    UIToolbar *numberToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolBar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolBar.items = [NSArray arrayWithObjects: [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelNumberPad)],
+                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)], nil];
+    [numberToolBar sizeToFit];
+    self.capacityInputField.inputAccessoryView = numberToolBar;
+}
+
+- (void) cancelNumberPad {
+    [self.capacityInputField resignFirstResponder];
+    self.capacityInputField.text = @"";
+}
+
+- (void) doneWithNumberPad {
+    [self.capacityInputField resignFirstResponder];
 }
 
 - (void) setupPickerViews {
@@ -373,131 +391,135 @@
 
 - (IBAction) saveButtonHandler:(id)sender {
     if (![self checkInput]) {
-            
-            self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
-            [self.view addSubview: self.HUD];
-            
-            // Set determinate mode
-            self.HUD.mode = MBProgressHUDModeIndeterminate;
-            self.HUD.delegate = self;
-            self.HUD.labelText = @"Uploading...";
-            [self.HUD show:YES];
-            
-            CLLocationCoordinate2D currentCoordinate = self.coordinates.coordinate;
         
-            NSMutableArray *image = [[NSMutableArray alloc] init];
-            NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
-            NSString *filtered = [self.name stringByTrimmingCharactersInSet:special];
+        self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview: self.HUD];
         
-            for (int i = 0; i < [self.images count]; i++) {
-                NSData *imageData = UIImageJPEGRepresentation(self.images[i], 0.7);
-                
-                NSString *imageName = [NSString stringWithFormat:@"%@.jpg", filtered];
-                imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-                
-                PFFile *file = [PFFile fileWithName: imageName  data:imageData];
-                
-                [image addObject:file];
-            }
-            
-            PFGeoPoint *currentPoint =
-            [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude
-                                   longitude: currentCoordinate.longitude
-             ];
+        // Set determinate mode
+        self.HUD.mode = MBProgressHUDModeIndeterminate;
+        self.HUD.delegate = self;
+        self.HUD.labelText = @"Uploading...";
+        [self.HUD show:YES];
         
-            PFObject *postObject = [PFObject objectWithClassName: TurnipParsePostClassName];
-            postObject[TurnipParsePostUserKey] = [PFUser currentUser];
-            postObject[TurnipParsePostTitleKey] = self.name;
-            postObject[TurnipParsePostLocationKey] = currentPoint;
-            postObject[TurnipParsePostTextKey] = self.about;
-            postObject[TurnipParsePostLocalityKey] = self.placemark.locality;
-            postObject[TurnipParsePostSubLocalityKey] = self.placemark.subLocality;
-            postObject[TurnipParsePostZipCodeKey] = self.placemark.postalCode;
-            postObject[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"True" : @"False";
-            postObject[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
-//            postObject[@"address"] = [self.placemark.addressDictionary valueForKey:@"Street"];
-            postObject[TurnipParsePostAddressKey] = self.location;
-            postObject[TurnipParsePostDateKey] = self.selectedDate;
-            postObject[TurnipParsePostEndTimeKey] = self.endTimeDate.text;
-            
-            if ([image count] > 0) {
-                postObject[TurnipParsePostImageOneKey] = [image objectAtIndex: 0];
-            }
-            if ([image count] > 1) {
-                postObject[TurnipParsePostImageTwoKey] = [image objectAtIndex: 1];
-            }
-            if ([image count] > 2) {
-                postObject[TurnipParsePostImageThreeKey] = [image objectAtIndex: 2];
-            }
+        CLLocationCoordinate2D currentCoordinate = self.coordinates.coordinate;
         
-            //This needs to be redone in a much smarter way.
-            if(self.imageOne.image != nil) {
-                NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageOne.image], 0.7);
-                
-                NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
-                imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-                PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-                postObject[TurnipParsePostThumbnailKey] = thumb;
-                
-            } else if(self.imageTwo.image != nil) {
-                NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageTwo.image], 0.7);
-
-                NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
-                imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-                PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-                postObject[TurnipParsePostThumbnailKey] = thumb;
-                
-            } else if(self.imageThree.image != nil) {
-                NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageThree.image], 0.7);
-                
-                NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
-                imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-                PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-                postObject[TurnipParsePostThumbnailKey] = thumb;
+        NSMutableArray *image = [[NSMutableArray alloc] init];
+        NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+        NSString *filtered = [self.name stringByTrimmingCharactersInSet:special];
+        
+        for (int i = 0; i < [self.images count]; i++) {
+            NSData *imageData = UIImageJPEGRepresentation(self.images[i], 0.7);
+            
+            NSString *imageName = [NSString stringWithFormat:@"%@.jpg", filtered];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            
+            PFFile *file = [PFFile fileWithName: imageName  data:imageData];
+            
+            [image addObject:file];
+        }
+        
+        PFGeoPoint *currentPoint =
+        [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude
+                               longitude: currentCoordinate.longitude
+         ];
+        
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        
+        PFObject *postObject = [PFObject objectWithClassName: TurnipParsePostClassName];
+        postObject[TurnipParsePostUserKey] = [PFUser currentUser];
+        postObject[TurnipParsePostTitleKey] = self.name;
+        postObject[TurnipParsePostLocationKey] = currentPoint;
+        postObject[TurnipParsePostTextKey] = self.about;
+        postObject[TurnipParsePostLocalityKey] = self.placemark.locality;
+        postObject[TurnipParsePostSubLocalityKey] = self.placemark.subLocality;
+        postObject[TurnipParsePostZipCodeKey] = self.placemark.postalCode;
+        postObject[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"True" : @"False";
+        postObject[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
+        //            postObject[@"address"] = [self.placemark.addressDictionary valueForKey:@"Street"];
+        postObject[TurnipParsePostAddressKey] = self.location;
+        postObject[TurnipParsePostDateKey] = self.selectedDate;
+        postObject[TurnipParsePostEndTimeKey] = self.endTimeDate.text;
+        postObject[TurnipParsePostCapacityKey] = [numberFormatter numberFromString:self.capacityInputField.text];
+        postObject[TurnipParsePostPriceKey] = self.cost;
+        
+        if ([image count] > 0) {
+            postObject[TurnipParsePostImageOneKey] = [image objectAtIndex: 0];
+        }
+        if ([image count] > 1) {
+            postObject[TurnipParsePostImageTwoKey] = [image objectAtIndex: 1];
+        }
+        if ([image count] > 2) {
+            postObject[TurnipParsePostImageThreeKey] = [image objectAtIndex: 2];
+        }
+        
+        //This needs to be redone in a much smarter way.
+        if(self.imageOne.image != nil) {
+            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageOne.image], 0.7);
+            
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
+            postObject[TurnipParsePostThumbnailKey] = thumb;
+            
+        } else if(self.imageTwo.image != nil) {
+            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageTwo.image], 0.7);
+            
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
+            postObject[TurnipParsePostThumbnailKey] = thumb;
+            
+        } else if(self.imageThree.image != nil) {
+            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageThree.image], 0.7);
+            
+            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
+            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
+            postObject[TurnipParsePostThumbnailKey] = thumb;
+        }
+        
+        PFACL *readOnlyACL = [PFACL ACL];
+        [readOnlyACL setPublicReadAccess:YES];
+        [readOnlyACL setWriteAccess:YES forUser:[PFUser currentUser]];
+        postObject.ACL = readOnlyACL;
+        
+        [postObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {  // Failed to save, show an alert view with the error message
+                UIAlertView *alertView =
+                [[UIAlertView alloc] initWithTitle:[error userInfo][@"error"]
+                                           message:nil
+                                          delegate:self
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:@"Ok", nil];
+                [alertView show];
+                [self.HUD hide:YES];
+                return;
             }
-            
-            PFACL *readOnlyACL = [PFACL ACL];
-            [readOnlyACL setPublicReadAccess:YES];
-            [readOnlyACL setWriteAccess:YES forUser:[PFUser currentUser]];
-            postObject.ACL = readOnlyACL;
-            
-            [postObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (error) {  // Failed to save, show an alert view with the error message
-                    UIAlertView *alertView =
-                    [[UIAlertView alloc] initWithTitle:[error userInfo][@"error"]
-                                               message:nil
-                                              delegate:self
-                                     cancelButtonTitle:nil
-                                     otherButtonTitles:@"Ok", nil];
-                    [alertView show];
+            if (succeeded) {  // Successfully saved, post a notification to tell other view controllers
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
                     [self.HUD hide:YES];
-                    return;
-                }
-                if (succeeded) {  // Successfully saved, post a notification to tell other view controllers
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
-                        [self.HUD hide:YES];
-                        
-                        // Show checkmark
-                        self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
-                        [self.view addSubview: self.HUD];
-                        
-                        self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yesButton"]];
-                        
-                        // Set custom view mode
-                        self.HUD.mode = MBProgressHUDModeCustomView;
-                        
-                        self.HUD.labelText = @"Completed!";
-                        
-                        [self.HUD hide:YES afterDelay:5];
-                        self.HUD.delegate = self;
-                    });
-                    [self saveToCoreData:postObject];
-                    self.currentEventId = postObject.objectId;
-                    self.data = [[TurnipEvent alloc] initWithPFObject:postObject];
-                    [self viewWillAppear:YES];
-                }
-            }];
+                    
+                    // Show checkmark
+                    self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+                    [self.view addSubview: self.HUD];
+                    
+                    self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yesButton"]];
+                    
+                    // Set custom view mode
+                    self.HUD.mode = MBProgressHUDModeCustomView;
+                    
+                    self.HUD.labelText = @"Completed!";
+                    
+                    [self.HUD hide:YES afterDelay:5];
+                    self.HUD.delegate = self;
+                });
+                [self saveToCoreData:postObject];
+                self.currentEventId = postObject.objectId;
+                self.data = [[TurnipEvent alloc] initWithPFObject:postObject];
+                [self viewWillAppear:YES];
+            }
+        }];
     } else {
         UIAlertView *alertView =
         [[UIAlertView alloc] initWithTitle:@"error"

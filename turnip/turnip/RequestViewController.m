@@ -35,8 +35,6 @@ NSArray *fetchedObjects;
 
 - (void) receiveRequestPush:(NSNotification *) notification {
     if ([[notification name] isEqualToString:@"requestPush"]){
-       // [self loadCoreData];
-      //  [[self tableView] reloadData];
         [self queryRequesters];
     }
        
@@ -96,10 +94,10 @@ NSArray *fetchedObjects;
                 PFQuery *query = [relation query];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.refreshControl endRefreshing];
                         if([objects count] == 0) {
 
                         } else {
-                            [self.refreshControl endRefreshing];
                             self.requesters = [[NSArray alloc] initWithArray:objects];
                             self.nbItems = [self.requesters count];
                             [[self tableView] reloadData];

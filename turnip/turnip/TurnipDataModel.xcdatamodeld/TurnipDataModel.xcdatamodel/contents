@@ -18,6 +18,7 @@
         <attribute name="searchRadius" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
     </entity>
     <entity name="YourEvents" syncable="YES">
+        <attribute name="capacity" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="free" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -26,6 +27,7 @@
         <attribute name="image3" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="private" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,6 +36,6 @@
         <element name="RequesterInfo" positionX="23317" positionY="-2403" width="128" height="133"/>
         <element name="TicketInfo" positionX="23292" positionY="-2340" width="128" height="105"/>
         <element name="UserSettings" positionX="23560" positionY="-2403" width="128" height="58"/>
-        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="210"/>
+        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="240"/>
     </elements>
 </model>

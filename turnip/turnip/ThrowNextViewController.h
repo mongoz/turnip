@@ -24,6 +24,7 @@ MBProgressHUDDelegate>
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *location;
 @property (strong, nonatomic) NSString *about;
+@property (strong, nonatomic) NSNumber *cost;
 @property (assign, nonatomic) BOOL isPrivate;
 @property (assign, nonatomic) BOOL isFree;
 @property (assign, nonatomic) BOOL isCreated;

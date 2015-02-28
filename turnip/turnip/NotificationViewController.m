@@ -43,7 +43,7 @@ NSArray *fetchedObjects;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.notifications = [[NSArray alloc] init];
+    //self.notifications = [[NSArray alloc] init];
     
     if ([[UIApplication sharedApplication] applicationIconBadgeNumber] > 0) {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
@@ -162,12 +162,12 @@ NSArray *fetchedObjects;
         if(error) {
             NSLog(@"Error in geo query!: %@", error);
         } else {
+             [self.refreshControl endRefreshing];
             if([objects count] == 0) {
-                NSLog(@"no requests");
             } else {
                 self.notifications = [[NSArray alloc] initWithArray:objects];
-                [self.refreshControl endRefreshing];
-                [[self tableView] reloadData];
+                NSLog(@"notifications :%@", self.notifications);
+                [self.tableView reloadData];
             }
         }
     }];

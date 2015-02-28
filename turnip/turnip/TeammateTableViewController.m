@@ -31,6 +31,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.accepted = [[NSArray alloc] init];
+    
+    // Initialize the refresh control.
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(queryAccepted) forControlEvents:UIControlEventValueChanged];
+    
     [self queryAccepted];
 }
 
@@ -42,7 +47,26 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    if([self.accepted count] > 0) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.backgroundView = nil;
+        return 1;
+    } else {
+        // Display a message when the table is empty
+        messageLabel.text = @"No data is currently available. Please pull down to refresh.";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+    }
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,8 +87,6 @@
     
     NSArray *name = [[[self.accepted valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
     NSString *label = [NSString stringWithFormat:@"%@", [name objectAtIndex:0]];
-    
-    cell.profileImage.image = [UIImage imageNamed:@"Placeholder.jpg"];
     
     [cell.imageSpinner setHidden:NO];
     [cell.imageSpinner startAnimating];
@@ -120,6 +142,7 @@
                 PFQuery *query = [relation query];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.refreshControl endRefreshing];
                         if([objects count] == 0) {
                             NSLog(@"no requests");
                         } else {

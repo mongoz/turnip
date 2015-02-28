@@ -66,8 +66,28 @@
     
     [self.privateSwitch addTarget:self action:@selector(privateSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     [self.freeSwitch addTarget:self action:@selector(freeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    self.cashAmountField.delegate = self;
+    self.cashAmountField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    UIToolbar *numberToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolBar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolBar.items = [NSArray arrayWithObjects: [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelNumberPad)],
+                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)], nil];
+    [numberToolBar sizeToFit];
+    self.cashAmountField.inputAccessoryView = numberToolBar;
+
 }
 
+- (void) cancelNumberPad {
+    [self.cashAmountField resignFirstResponder];
+    self.cashAmountField.text = @"";
+}
+
+- (void) doneWithNumberPad {
+    [self.cashAmountField resignFirstResponder];
+}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string {
     // Prevent crashing undo bug – see note below.
@@ -89,6 +109,7 @@
     [self.titleField resignFirstResponder];
     [self.aboutField resignFirstResponder];
     [self.locationField resignFirstResponder];
+    [self.cashAmountField resignFirstResponder];
     
 }
 
@@ -142,10 +163,12 @@
 - (void) freeSwitchChanged: (UISwitch *) switchState {
     if ([switchState isOn]) {
         self.isFree = NO;
-        self.cashView.hidden = NO;
+        self.cashAmountField.hidden = NO;
+        self.cashLabel.hidden = NO;
     } else {
         self.isFree = YES;
-        self.cashView.hidden = YES;
+        self.cashAmountField.hidden = YES;
+        self.cashLabel.hidden = YES;
     }
 }
 
@@ -217,6 +240,9 @@
         destViewController.isFree = self.isFree;
         destViewController.coordinates = self.currentLocation;
         destViewController.placemark = self.placemark;
+        
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        destViewController.cost = [numberFormatter numberFromString: self.cashAmountField.text];;
         
     }
 }

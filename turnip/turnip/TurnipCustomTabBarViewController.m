@@ -20,7 +20,7 @@
     UITabBar *tabBar = self.tabBar;
     
     UIImage *homeImage = [[UIImage imageNamed:@"homeBlk"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImage *hostImage = [[UIImage imageNamed:@"turnip-icon3"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *hostImage = [[UIImage imageNamed:@"host"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     UITabBarItem *tabHome = [tabBar.items objectAtIndex:0];
     UITabBarItem *tabHost = [tabBar.items objectAtIndex:1];

@@ -47,9 +47,15 @@
     return self.currentLocation;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIImageView *navigationImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 54)];
+    navigationImage.image = [UIImage imageNamed:@"testLogo"];
+    
+    UIImageView *workaroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 63)];
+    [workaroundImageView addSubview:navigationImage];
+    self.navigationItem.titleView = workaroundImageView;
     
     if (_locationManager == nil) {
         _locationManager = [[CLLocationManager alloc] init];

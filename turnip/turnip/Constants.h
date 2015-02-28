@@ -31,8 +31,8 @@ static NSString * const TurnipParsePostZipCodeKey = @"zipCode";
 static NSString * const TurnipParsePostAddressKey = @"address";
 static NSString * const TurnipParsePostDateKey = @"date";
 static NSString * const TurnipParsePostEndTimeKey = @"endTime";
-
-
+static NSString * const TurnipParsePostPriceKey = @"price";
+static NSString * const TurnipParsePostCapacityKey = @"capacity";
 static NSString * const TurnipParsePostIdKey = @"objectId";
 
 // Global Notifications

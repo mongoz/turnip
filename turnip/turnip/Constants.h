@@ -9,6 +9,15 @@
 #ifndef turnip_Constants_h
 #define turnip_Constants_h
 
+
+// Tabbarcontroller view ids
+
+static int const TurnipTabHome = 0;
+static int const TurnipTabHost = 1;
+static int const TurnipTabNotification = 2;
+static int const TurnipTabProfile = 3;
+
+
 // Parse API key constants:
 static NSString * const TurnipParsePostClassName = @"Events";
 static NSString * const TurnipParsePostUserKey = @"user";
@@ -36,11 +45,13 @@ static NSString * const TurnipParsePostCapacityKey = @"capacity";
 static NSString * const TurnipParsePostIdKey = @"objectId";
 
 // Global Notifications
+static NSString * const TurnipPartyRequestPushNotification = @"TurnipPartyRequestPushNotification";
 static NSString * const TurnipPartyThrownNotification = @"TurnipPartyThrownNotification";
 static NSString * const TurnipAcceptedRequestNotification = @"TurnipAcceptedRequestNotification";
 static NSString * const TurnipResetBadgeCountNotification = @"TurnipResetBadgeCountNotification";
 static NSString * const TurnipEventDeletedNotification = @"TurnipEventDeletedNotification";
 static NSString * const TurnipUserWasAcceptedNotification = @"TurnipUserWasAcceptedNotification";
+static NSString * const TurnipEditUserProfileNotification = @"TurnipEditUserProfileNotification";
 
 static double const TurnipDefaultFilterDistance = 1000.0;
 static double const TurnipPostMaximumSearchDistance = 20.0;

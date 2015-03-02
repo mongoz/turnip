@@ -34,10 +34,9 @@
 NSArray *fetchedObjects;
 
 - (void) receiveRequestPush:(NSNotification *) notification {
-    if ([[notification name] isEqualToString:@"requestPush"]){
+    if ([[notification name] isEqualToString:TurnipPartyRequestPushNotification]){
         [self queryRequesters];
     }
-       
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -50,7 +49,7 @@ NSArray *fetchedObjects;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveRequestPush:)
-                                                 name:@"requestPush"
+                                                 name:TurnipPartyRequestPushNotification
                                                object:nil];
     [self queryRequesters];
     
@@ -107,6 +106,10 @@ NSArray *fetchedObjects;
             }
         }
     }];
+}
+
+- (void) deleteRequester {
+    
 }
 
 #pragma mark - Table view data source
@@ -171,6 +174,9 @@ NSArray *fetchedObjects;
     UIView *checkView = [self viewWithImageName:@"check"];
     UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
     
+    UIView *crossView = [self viewWithImageName:@"cross"];
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 /255.0 blue:14.0 / 255.0 alpha:1.0];
+    
     // Setting the default inactive state color to the tableView background color
     [cell setDefaultColor:self.tableView.backgroundView.backgroundColor];
     
@@ -180,7 +186,7 @@ NSArray *fetchedObjects;
     NSString *age = @([self calculateAge:[[self.requesters valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
     NSString *label = [NSString stringWithFormat:@"%@  %@", [name objectAtIndex:0], age];
     
-    cell.imageView.image = [UIImage imageNamed:@"Placeholder.jpg"];
+    cell.profileImage.image = [UIImage imageNamed:@"Placeholder.jpg"];
     
     [cell.imageSpinner setHidden:NO];
     [cell.imageSpinner startAnimating];
@@ -199,14 +205,14 @@ NSArray *fetchedObjects;
              // Set the image in the header imageView
              [cell.imageSpinner setHidden:YES];
              [cell.imageSpinner stopAnimating];
-             cell.imageView.image = [UIImage imageWithData:data];
+             cell.profileImage.image = [UIImage imageWithData:data];
          } else {
              NSLog(@"connectionError: %@", connectionError);
          }
      }];
 
     
-    cell.textLabel.text = label;
+    cell.personLabel.text = label;
     
     [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         [self deleteCell:cell];
@@ -216,10 +222,15 @@ NSArray *fetchedObjects;
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipUserWasAcceptedNotification object:nil];
     }];
     
+    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [self deleteCell:cell];
+        [self.userDelete addObject:[self.requesters objectAtIndex:indexPath.row]];
+    }];
+    
     UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
     tapped.numberOfTapsRequired = 1;
-    [cell.imageView addGestureRecognizer:tapped];
-    cell.imageView.userInteractionEnabled = YES;
+    [cell.profileImage addGestureRecognizer:tapped];
+    cell.profileImage.userInteractionEnabled = YES;
 }
 
 
@@ -269,14 +280,6 @@ NSArray *fetchedObjects;
     return years;
 }
 
-- (void) swipeTableViewCellDidStartSwiping:(MCSwipeTableViewCell *)cell {
-    NSLog(@"did start swiping");
-}
-
-- (void) swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell {
-    NSLog(@"did end swiping");
-}
-
 - (UIView *) viewWithImageName: (NSString *) imageName {
     UIImage *image = [UIImage imageNamed: imageName];
     UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
@@ -303,7 +306,6 @@ NSArray *fetchedObjects;
         
     }
 }
-
 
 - (void) deleteObjectFromCoreData: (NSMutableArray * ) user {
 
@@ -338,6 +340,32 @@ NSArray *fetchedObjects;
     }
 }
 
+#pragma mark -
+#pragma mark MCSwipeTableViewCell Delegates
+
+- (void) deniedButtonWasTapped:(MCSwipeTableViewCell *)cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self deleteCell:cell];
+    [self.userDelete addObject: [self.requesters objectAtIndex:indexPath.row]];
+}
+
+- (void) acceptButtonWasTapped:(MCSwipeTableViewCell *)cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self deleteCell:cell];
+    [self acceptUserRequest: [self.requesters objectAtIndex: indexPath.row]];
+    [self.userDelete addObject: [self.requesters objectAtIndex:indexPath.row]];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipUserWasAcceptedNotification object:nil];
+
+}
+
+- (void) swipeTableViewCellDidStartSwiping:(MCSwipeTableViewCell *)cell {
+    NSLog(@"did start swiping");
+}
+
+- (void) swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell {
+    NSLog(@"did end swiping");
+}
 
 
 @end

@@ -152,12 +152,12 @@
     
     if ([type isEqualToString:@"eventRequest"]) {
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestPush"
+         postNotificationName:TurnipPartyRequestPushNotification
          object:self];
         
         self.notificationCount += 1;
         
-        [[tabController.viewControllers objectAtIndex:2] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
+        [[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
     
     if([type isEqualToString:@"eventAccepted"]) {

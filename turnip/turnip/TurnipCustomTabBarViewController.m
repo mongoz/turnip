@@ -7,6 +7,7 @@
 //
 
 #import "TurnipCustomTabBarViewController.h"
+#import "Constants.h"
 
 @interface TurnipCustomTabBarViewController ()
 
@@ -21,12 +22,18 @@
     
     UIImage *homeImage = [[UIImage imageNamed:@"homeBlk"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImage *hostImage = [[UIImage imageNamed:@"host"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *profileImage = [[UIImage imageNamed:@"profileBlk"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *notificationImage = [[UIImage imageNamed:@"notificationBlk"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *tabHome = [tabBar.items objectAtIndex:0];
-    UITabBarItem *tabHost = [tabBar.items objectAtIndex:1];
+    UITabBarItem *tabHome = [tabBar.items objectAtIndex: TurnipTabHome];
+    UITabBarItem *tabHost = [tabBar.items objectAtIndex: TurnipTabHost];
+    UITabBarItem *tabNotification = [tabBar.items objectAtIndex: TurnipTabNotification];
+    UITabBarItem *tabProfile = [tabBar.items objectAtIndex: TurnipTabProfile];
     
     tabHome = [tabHome initWithTitle:@"" image:homeImage selectedImage:homeImage];
     tabHost = [tabHost initWithTitle:@"" image:hostImage selectedImage:hostImage];
+    tabNotification = [tabNotification initWithTitle:@"" image:notificationImage selectedImage:notificationImage];
+    tabProfile = [tabProfile initWithTitle:@"" image:profileImage selectedImage:profileImage];
 }
 
 - (void)didReceiveMemoryWarning {

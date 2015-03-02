@@ -50,6 +50,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Arial" size:24], NSFontAttributeName, nil]];
+
+    
     UIImageView *navigationImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 54)];
     navigationImage.image = [UIImage imageNamed:@"testLogo"];
     
@@ -93,12 +101,14 @@
     
     // create a GMSCameraPosition to display coordinates
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:39.5678118 longitude:-100.926294 zoom:5];
-    
+    UIEdgeInsets mapInsets = UIEdgeInsetsMake(0, 0, 40, 0);
     self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     self.mapView.myLocationEnabled = YES;
-    self.mapView.settings.compassButton = YES;
+    self.mapView.settings.rotateGestures = NO;
+    self.mapView.settings.tiltGestures = NO;
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMinZoom:3 maxZoom:14];
+    self.mapView.padding = mapInsets;
     self.mapView.delegate = self;
     self.view = self.mapView;
 }
@@ -258,14 +268,16 @@
     
     if (self.oldZoom > self.currentZoom && self.currentZoom < 13) {
         [self.mapView clear];
+        NSLog(@"draw marker");
         [self drawMarkers];
     }else if (self.oldZoom < self.currentZoom && self.currentZoom >= 13) {
         [self.mapView clear];
         if (self.queryPublicEvents) {
-            
+            NSLog(@"query Public");
             [self queryForAllNearbyPublicEvents: self.currentLocation];
             self.queryPublicEvents = NO;
         } else {
+            NSLog(@"draw public");
             [self drawPublicMarkers];
         }
     }

@@ -711,4 +711,11 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     
 }
 
+- (IBAction)deniedButtonHandler:(id)sender {
+    [self.delegate deniedButtonWasTapped:self];
+}
+
+- (IBAction)acceptButtonHandler:(id)sender {
+    [self.delegate acceptButtonWasTapped:self];
+}
 @end

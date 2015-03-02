@@ -56,9 +56,16 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 
 @interface MCSwipeTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *imageSpinner;
+@property (strong, nonatomic) IBOutlet UIButton *deniedButton;
+@property (strong, nonatomic) IBOutlet UIButton *acceptButton;
+@property (strong, nonatomic) IBOutlet UIImageView *profileImage;
+@property (strong, nonatomic) IBOutlet UILabel *personLabel;
+- (IBAction)deniedButtonHandler:(id)sender;
+- (IBAction)acceptButtonHandler:(id)sender;
 
 /** Delegate of `MCSwipeTableViewCell` */
 @property (nonatomic, assign) id <MCSwipeTableViewCellDelegate> delegate;
+
 
 /** 
  * Damping of the physical spring animation. Expressed in percent.
@@ -181,6 +188,21 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 @protocol MCSwipeTableViewCellDelegate <NSObject>
 
 @optional
+
+/**
+ * called when the user tap the denied button
+ *
+ * @param button 'denied' tapped
+ */
+
+- (void) deniedButtonWasTapped:(MCSwipeTableViewCell *) cell;
+
+/**
+ * called when the user tap the accept button
+ *
+ * @param button 'accept' tapped
+ */
+- (void) acceptButtonWasTapped:(MCSwipeTableViewCell *) cell;
 
 /**
  *  Called when the user starts swiping the cell.

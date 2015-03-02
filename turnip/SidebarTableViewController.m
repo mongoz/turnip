@@ -9,6 +9,7 @@
 #import "SidebarTableViewController.h"
 #import "SWRevealViewController.h"
 #import <Parse/Parse.h>
+#import "Constants.h"
 
 @interface SidebarTableViewController ()
 
@@ -70,7 +71,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 2) {
+    if (indexPath.row == 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName: TurnipEditUserProfileNotification object:nil];
+    }
+    
+    if (indexPath.row == 4) {
         [PFUser logOut];
         [self performSegueWithIdentifier: @"logoutSegue" sender: self];
     }

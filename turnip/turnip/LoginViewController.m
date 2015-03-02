@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.tabBarController.tabBar setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,7 +51,6 @@
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         if (!user) {
             // Hide the activity view
-            //self.activityViewVisible = NO;
             NSString *alertMessage, *alertTitle;
             if (error) {
                 FBErrorCategory errorCategory = [FBErrorUtility errorCategoryForError:error];
@@ -86,6 +86,7 @@
                 dispatch_block_t completion = ^{
                     // Hide the activity view
                     // Show the logged in view
+                    NSLog(@"login");
                     
                     [self performSegueWithIdentifier:@"loginSegue" sender:sender];
                 };
@@ -104,6 +105,7 @@
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         completion();
+                        NSLog(@"loggedin");
                     }];
                 }
             }];

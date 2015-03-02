@@ -166,7 +166,6 @@ NSArray *fetchedObjects;
             if([objects count] == 0) {
             } else {
                 self.notifications = [[NSArray alloc] initWithArray:objects];
-                NSLog(@"notifications :%@", self.notifications);
                 [self.tableView reloadData];
             }
         }

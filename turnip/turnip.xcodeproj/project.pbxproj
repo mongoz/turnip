@@ -397,6 +397,11 @@
 					1AA179ED1A74E3D30061CA3E = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = RM38WFLZE6;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					1AA17A091A74E3D30061CA3E = {
 						CreatedOnToolsVersion = 6.1.1;

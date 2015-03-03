@@ -36,9 +36,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Temp string here</string>
+	<string>Turnip always tracks your position to search and alert you about nearby Parties</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your message goes here</string>
+	<string>Turnip tracks your position to search for nearby Parties</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MapViewController.h"
 
+#import <ParseCrashReporting/ParseCrashReporting.h>
 #import <CoreData/CoreData.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -48,6 +49,8 @@
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS
     //[Parse enableLocalDatastore];
+    
+    [ParseCrashReporting enable];
     
     // Initialize Parse.
     [Parse setApplicationId:@"CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64"

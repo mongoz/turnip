@@ -95,7 +95,7 @@ NSArray *fetchedObjects;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.refreshControl endRefreshing];
                         if([objects count] == 0) {
-
+                            
                         } else {
                             self.requesters = [[NSArray alloc] initWithArray:objects];
                             self.nbItems = [self.requesters count];

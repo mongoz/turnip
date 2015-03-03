@@ -11,7 +11,7 @@ PODS:
   - ParseFacebookUtils (1.6.3):
     - Facebook-iOS-SDK (~> 3.20)
     - Parse (~> 1.6.3)
-  - ParseUI (1.1.0):
+  - ParseUI (1.1.1):
     - Parse (~> 1.6)
     - ParseFacebookUtils (~> 1.6)
 
@@ -32,6 +32,6 @@ SPEC CHECKSUMS:
   Parse: f725f76ef200c5127420690fc6882e57c3813923
   ParseCrashReporting: ad04b920f597c43a72629c08ecda63ef3525b084
   ParseFacebookUtils: bb14e63862f920cc3f3864b0e373d6771b765255
-  ParseUI: 00c4c39aab3944d88758b55416581650caa37f89
+  ParseUI: f7e9e0e5271f75a19c74ead8fdd95d36160e268e
 
 COCOAPODS: 0.35.0

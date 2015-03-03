@@ -143,31 +143,6 @@
     return  years;
 }
 
-- (IBAction)sideMenuButtonHandler:(id)sender {
-    SWRevealViewController *revealViewController = self.revealViewController;
-    [revealViewController rightRevealToggleAnimated:YES];
-}
-
-- (IBAction)partiesThrowButtonHandler:(id)sender {
-    [self.partiesThrownButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [self.partiesAttendedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    self.thrownPressed = YES;
-    self.nbItems = [self.thrown count];
-    NSLog(@"throw");
-    [self.collectionView reloadData];
-    
-}
-
-- (IBAction)partiesAttendedButtonHandler:(id)sender {
-    [self.partiesThrownButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.partiesAttendedButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    self.thrownPressed = NO;
-    NSLog(@"attend");
-    self.nbItems = [self.attended count];
-    [self.collectionView reloadData];
-}
-
 #pragma mark - parse queries
 
 - (void) queryForThrownParties {
@@ -225,6 +200,19 @@
     }];
 }
 
+- (void) saveProfileToParse {
+    [PFUser currentUser][@"bio"] = self.bioTextView.text;
+    
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"saved");
+        }
+        else {
+            NSLog(@"error: %@", error);
+        }
+    }];
+}
+
 #pragma mark - Collection view data source
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -239,7 +227,6 @@
     UIImageView *partyImageView = (UIImageView *) [cell viewWithTag:100];
     
     if (self.thrownPressed) {
-        NSLog(@"thrown");
         PFFile *file = [[self.thrown valueForKey:@"image1"] objectAtIndex:indexPath.row];
         
         [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -280,7 +267,68 @@
     if ([[notification name] isEqualToString:TurnipEditUserProfileNotification]){
         self.editProfile = YES;
         self.bioTextView.text = self.bioLabel.text;
+        self.bioTextView.hidden = NO;
+        self.bioLabel.hidden = YES;
+        self.finishEditingProfile.hidden = NO;
+        self.sideMenuButton.hidden = YES;
     }
+}
+
+#pragma mark - textfield handlers
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    self.bioTextView.text = @"";
+    self.bioTextView.textColor = [UIColor blackColor];
+    return YES;
+}
+
+-(void) textViewDidChange:(UITextView *)textView
+{
+    
+    if(self.bioTextView.text.length == 0){
+        self.bioTextView.text = self.bioLabel.text;
+        [self.bioTextView resignFirstResponder];
+    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.bioTextView resignFirstResponder];
+    
+}
+
+#pragma mark -
+#pragma mark button handlers
+- (IBAction)sideMenuButtonHandler:(id)sender {
+    SWRevealViewController *revealViewController = self.revealViewController;
+    [revealViewController rightRevealToggleAnimated:YES];
+}
+
+- (IBAction)partiesThrowButtonHandler:(id)sender {
+    [self.partiesThrownButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.partiesAttendedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    self.thrownPressed = YES;
+    self.nbItems = [self.thrown count];
+    [self.collectionView reloadData];
+    
+}
+
+- (IBAction)partiesAttendedButtonHandler:(id)sender {
+    [self.partiesThrownButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.partiesAttendedButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    self.thrownPressed = NO;
+    self.nbItems = [self.attended count];
+    [self.collectionView reloadData];
+}
+
+- (IBAction)finishEditingProfileHandler:(id)sender {
+    [self saveProfileToParse];
+    self.bioTextView.hidden = YES;
+    self.bioLabel.text = self.bioTextView.text;
+    self.bioLabel.hidden = NO;
+    self.finishEditingProfile.hidden = YES;
+    self.sideMenuButton.hidden = NO;
 }
 
 @end

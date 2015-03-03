@@ -25,9 +25,11 @@
 @property (strong, nonatomic) IBOutlet UIButton *sideMenuButton;
 @property (strong, nonatomic) IBOutlet UIButton *partiesThrownButton;
 @property (strong, nonatomic) IBOutlet UIButton *partiesAttendedButton;
+@property (strong, nonatomic) IBOutlet UIButton *finishEditingProfile;
 
 - (IBAction)sideMenuButtonHandler:(id)sender;
 - (IBAction)partiesThrowButtonHandler:(id)sender;
 - (IBAction)partiesAttendedButtonHandler:(id)sender;
+- (IBAction)finishEditingProfileHandler:(id)sender;
 
 @end

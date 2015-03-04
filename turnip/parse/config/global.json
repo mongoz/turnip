@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "Turnip": {
+            "applicationId": "CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64", 
+            "masterKey": "ktPhpqaxlsf2xUUgnjUEOzV92J0mEdDXTNh0rHBy"
+        }, 
+        "_default": {
+            "link": "Turnip"
+        }
+    }
+}

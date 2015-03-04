@@ -75,10 +75,8 @@
             NSString *name = userData[@"name"];
             NSString *birthday = userData[@"birthday"];
             
-            NSString *snippet = [NSString stringWithFormat:@"%@, %@", name, @([self calculateAge:birthday]).stringValue];
-            
             self.headerTitleLabel.text = name;
-            self.nameLabel.text = snippet;
+            self.ageLabel.text = @([self calculateAge:birthday]).stringValue;
             self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
             
             // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
@@ -108,9 +106,8 @@
     NSArray *name = [[user objectForKey:@"name"] componentsSeparatedByString: @" "];
     
     self.bioLabel.text = [user objectForKey:@"bio"];
-    NSString *snippet = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0],@([self calculateAge:[user objectForKey:@"birthday"]]).stringValue];
     
-    self.nameLabel.text = snippet;
+    self.ageLabel.text = @([self calculateAge:[user objectForKey:@"birthday"]]).stringValue;
     self.navigationItem.title = [name objectAtIndex:0];
     
     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1

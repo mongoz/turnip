@@ -10,11 +10,11 @@
 		1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */; };
 		1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */; };
 		1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */; };
-		1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */; };
 		1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */; };
+		1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */; };
+		1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC41AA67836004F55B4 /* ScannerViewController.m */; };
 		1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */; };
 		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
-		1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */; };
 		1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */; };
 		1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626251A7B15B400AF63B9 /* ZW4QC.png */; };
 		1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4CB1A7E281400AADDAA /* TurnipUser.m */; };
@@ -75,16 +75,16 @@
 		1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
 		1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerShapeView.h; sourceTree = "<group>"; };
 		1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerShapeView.m; sourceTree = "<group>"; };
-		1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScannerViewController.h; path = ../ScannerViewController.h; sourceTree = "<group>"; };
-		1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScannerViewController.m; path = ../ScannerViewController.m; sourceTree = "<group>"; };
 		1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThrowNextViewController.h; sourceTree = "<group>"; };
 		1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThrowNextViewController.m; sourceTree = "<group>"; };
+		1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarTableViewController.h; sourceTree = "<group>"; };
+		1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarTableViewController.m; sourceTree = "<group>"; };
+		1A54AEC31AA67836004F55B4 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewController.h; sourceTree = "<group>"; };
+		1A54AEC41AA67836004F55B4 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewController.m; sourceTree = "<group>"; };
 		1A6B4A261A94A82000DA8928 /* DetailSidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailSidebarTableViewController.h; sourceTree = "<group>"; };
 		1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailSidebarTableViewController.m; sourceTree = "<group>"; };
 		1A8626161A7A321700AF63B9 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarTableViewController.h; path = ../SidebarTableViewController.h; sourceTree = "<group>"; };
-		1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SidebarTableViewController.m; path = ../SidebarTableViewController.m; sourceTree = "<group>"; };
 		1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_icon_325x325.png; sourceTree = "<group>"; };
 		1A8626251A7B15B400AF63B9 /* ZW4QC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZW4QC.png; sourceTree = "<group>"; };
 		1A9AE4CA1A7E281400AADDAA /* TurnipUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipUser.h; sourceTree = "<group>"; };
@@ -242,8 +242,6 @@
 				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
 				1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */,
 				1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */,
-				1A86261D1A7A3BB200AF63B9 /* SidebarTableViewController.h */,
-				1A86261E1A7A3BB200AF63B9 /* SidebarTableViewController.m */,
 				1A6B4A261A94A82000DA8928 /* DetailSidebarTableViewController.h */,
 				1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */,
 				1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */,
@@ -258,8 +256,10 @@
 				1A9D0D321A9D25020082550C /* TeammateTableViewController.m */,
 				1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */,
 				1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */,
-				1A37C2D51A8DF19800FCC397 /* ScannerViewController.h */,
-				1A37C2D61A8DF19800FCC397 /* ScannerViewController.m */,
+				1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */,
+				1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */,
+				1A54AEC31AA67836004F55B4 /* ScannerViewController.h */,
+				1A54AEC41AA67836004F55B4 /* ScannerViewController.m */,
 				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
 				1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
@@ -357,6 +357,7 @@
 				1AA179EB1A74E3D30061CA3E /* Frameworks */,
 				1AA179EC1A74E3D30061CA3E /* Resources */,
 				B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */,
+				1A54AEC61AA678E5004F55B4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -456,6 +457,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1A54AEC61AA678E5004F55B4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\t\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -513,10 +527,10 @@
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
 				1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */,
 				1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */,
+				1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */,
 				1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */,
-				1A86261F1A7A3BB200AF63B9 /* SidebarTableViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
-				1A37C2D71A8DF19800FCC397 /* ScannerViewController.m in Sources */,
+				1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */,
 				1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */,
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,

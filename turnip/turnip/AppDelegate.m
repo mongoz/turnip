@@ -36,6 +36,8 @@
     // Override point for customization after application launch.
     [self managedObjectContext];
     
+    //[self performSelector:@selector(crash) withObject:nil afterDelay:5.0];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetBadgeCount:) name:TurnipResetBadgeCountNotification object:nil];
     
     
@@ -98,6 +100,10 @@
     }
     
     return YES;
+}
+
+- (void) crash {
+    [NSException raise:NSGenericException format:@"Everything is ok. THis is just a test crash."];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

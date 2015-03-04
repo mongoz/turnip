@@ -163,8 +163,7 @@ NSArray *fetchedObjects;
             NSLog(@"Error in geo query!: %@", error);
         } else {
              [self.refreshControl endRefreshing];
-            if([objects count] == 0) {
-            } else {
+            if([objects count] != 0) {
                 self.notifications = [[NSArray alloc] initWithArray:objects];
                 [self.tableView reloadData];
             }

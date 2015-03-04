@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *headerTitleLabel;
 @property (strong, nonatomic) IBOutlet UITextView *bioTextView;
 @property (strong, nonatomic) IBOutlet UILabel *bioLabel;
+@property (strong, nonatomic) IBOutlet UILabel *ageLabel;
 
 @property (strong, nonatomic) IBOutlet UIButton *sideMenuButton;
 @property (strong, nonatomic) IBOutlet UIButton *partiesThrownButton;

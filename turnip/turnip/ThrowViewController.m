@@ -5,7 +5,7 @@
 //  Created by Per on 1/4/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "ThrowViewController.h"
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
@@ -57,7 +57,10 @@
     
     self.update = NO;
     
-    self.aboutField.text = @"About";
+    self.titleField.delegate = self;
+    self.locationField.delegate = self;
+    
+    self.aboutField.text = @"About...";
     self.aboutField.textColor = [UIColor blackColor];
     self.aboutField.delegate = self;
     
@@ -124,7 +127,7 @@
 
 - (BOOL) checkInput {
     return ([self.titleField.text isEqual: @""] ||
-            [self.aboutField.text isEqual: @""] ||
+            [self.aboutField.text isEqual: @"About..."] ||
             [self.locationField.text isEqual: @""]);
 }
 
@@ -172,21 +175,35 @@
     }
 }
 
+- (void) textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField == self.titleField && self.titleField.layer.borderColor == [[UIColor redColor] CGColor]) {
+        self.titleField.layer.borderColor = [[UIColor clearColor] CGColor];
+    }
+    
+    if (textField == self.locationField && self.locationField.layer.borderColor == [[UIColor redColor] CGColor]) {
+        self.locationField.layer.borderColor = [[UIColor clearColor] CGColor];
+    }
+}
+
 #pragma mark - textfield handlers
 
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
-    self.aboutField.text = @"";
-    self.aboutField.textColor = [UIColor blackColor];
+    if ([self.aboutField.text isEqualToString:@"About..."]) {
+        self.aboutField.text = @"";
+        self.aboutField.textColor = [UIColor blackColor];
+    }
+    if (self.aboutField.layer.borderColor == [[UIColor redColor] CGColor]) {
+        self.aboutField.layer.borderColor = [[UIColor clearColor] CGColor];
+    }
+    
     return YES;
 }
 
--(void) textViewDidChange:(UITextView *)textView
-{
-    
+- (void) textViewDidEndEditing:(UITextView *)textView {
     if(self.aboutField.text.length == 0){
         self.aboutField.textColor = [UIColor lightGrayColor];
-        self.aboutField.text = @"About";
+        self.aboutField.text = @"About...";
         [self.aboutField resignFirstResponder];
     }
 }
@@ -210,15 +227,29 @@
     if ([identifier isEqualToString:@"nextThrowSegue"] && ![self checkInput]) {
         return YES;
     } else {
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"error"
-                                   message:@"You have not filled in all the required fields."
-                                  delegate:self
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@"Ok", nil];
-        [alertView show];
+        
+        if (self.titleField.text.length == 0) {
+            self.titleField.layer.cornerRadius = 8.0f;
+            self.titleField.layer.masksToBounds = YES;
+            self.titleField.layer.borderWidth = 1.0f;
+            self.titleField.layer.borderColor = [[UIColor redColor] CGColor];
+            
+        }
+        if(self.locationField.text.length == 0) {
+            self.locationField.layer.cornerRadius = 8.0f;
+            self.locationField.layer.masksToBounds = YES;
+            self.locationField.layer.borderWidth = 1.0f;
+            self.locationField.layer.borderColor = [[UIColor redColor] CGColor];
+            
+        }
+        if ([self.aboutField.text isEqualToString:@"About..."]) {
+            self.aboutField.layer.cornerRadius = 8.0f;
+            self.aboutField.layer.masksToBounds = YES;
+            self.aboutField.layer.borderWidth = 1.0f;
+            self.aboutField.layer.borderColor = [[UIColor redColor] CGColor];
+            
+        }
     }
-    
     return NO;
 }
 
@@ -242,8 +273,16 @@
         destViewController.placemark = self.placemark;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        destViewController.cost = [numberFormatter numberFromString: self.cashAmountField.text];;
-        
+       // NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
+        if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
+            NSNumber *price = [numberFormatter numberFromString: @"0"];
+            destViewController.cost = price;
+
+        } else {
+            NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
+            destViewController.cost = price;
+
+        }
     }
 }
 

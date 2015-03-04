@@ -129,15 +129,21 @@
     });
 }
 
+#pragma mark -
+#pragma mark textFieldDelegates
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if (textField == self.dateInputField) {
-        
         self.selectedDate = [NSDate new];
         self.datePicker.hidden = NO;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"MM/dd hh:mm a";
         
         self.dateInputField.text = [dateFormatter stringFromDate: self.selectedDate];
+        
+        if (self.dateInputField.layer.borderColor == [[UIColor redColor] CGColor]) {
+            self.dateInputField.layer.borderColor = [[UIColor clearColor] CGColor];
+        }
     }
     else if (textField == self.endTimeDate) {
         self.endTimePicker.hidden = NO;
@@ -149,6 +155,14 @@
         dateFormatter.dateFormat = @"hh:mm a";
         
         self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
+        
+        if (self.endTimeDate.layer.borderColor == [[UIColor redColor] CGColor]) {
+            self.endTimeDate.layer.borderColor = [[UIColor clearColor] CGColor];
+        }
+    }
+    
+    else if (textField == self.capacityInputField && self.capacityInputField.layer.borderColor == [[UIColor redColor] CGColor]) {
+        self.capacityInputField.layer.borderColor = [[UIColor clearColor] CGColor];
     }
 }
 
@@ -159,6 +173,9 @@
         [self.dateInputField resignFirstResponder];
     }
     else if (textField == self.endTimeDate) {
+        if (self.endTimeDate.layer.borderColor == [[UIColor redColor] CGColor]) {
+            self.endTimeDate.layer.borderColor = [[UIColor clearColor] CGColor];
+        }
         self.endTimePicker.hidden = YES;
         [self.endTimePicker resignFirstResponder];
     }
@@ -239,6 +256,10 @@
 
 - (IBAction)imageOneTapHandler:(UITapGestureRecognizer *)sender {
     self.lastImagePressed = self.imageOne;
+    
+    if (self.imageOne.layer.borderColor == [[UIColor redColor] CGColor]) {
+        self.imageOne.layer.borderColor = [[UIColor clearColor] CGColor];
+    }
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle: nil
                                                              delegate: self
@@ -373,9 +394,10 @@
 
 - (BOOL) checkInput {
     
-    return  ([self.dateInputField.text isEqual: @""] ||
-             [self.endTimeDate.text isEqual: @""] ||
-             [self.capacityInputField.text isEqual: @""]);;
+    return ([self.dateInputField.text isEqual: @""] ||
+            [self.endTimeDate.text isEqual: @"About..."] ||
+            [self.capacityInputField.text isEqual: @""] ||
+            self.imageOne.image == nil);
 }
 
 
@@ -391,7 +413,7 @@
 
 - (IBAction) saveButtonHandler:(id)sender {
     if (![self checkInput]) {
-        
+
         self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview: self.HUD];
         
@@ -521,13 +543,30 @@
             }
         }];
     } else {
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"error"
-                                   message:@"You have not filled in all the required fields."
-                                  delegate:self
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@"Ok", nil];
-        [alertView show];
+        if ([self.dateInputField.text isEqual: @""]) {
+            self.dateInputField.layer.cornerRadius = 8.0f;
+            self.dateInputField.layer.masksToBounds = YES;
+            self.dateInputField.layer.borderWidth = 1.0f;
+            self.dateInputField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        
+        if ([self.endTimeDate.text isEqual: @""]) {
+            self.endTimeDate.layer.cornerRadius = 8.0f;
+            self.endTimeDate.layer.masksToBounds = YES;
+            self.endTimeDate.layer.borderWidth = 1.0f;
+            self.endTimeDate.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        
+        if ([self.capacityInputField.text isEqual: @""]) {
+            self.capacityInputField.layer.cornerRadius = 8.0f;
+            self.capacityInputField.layer.masksToBounds = YES;
+            self.capacityInputField.layer.borderWidth = 1.0f;
+            self.capacityInputField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        
+        if(self.imageOne.image == nil) {
+            self.imageOne.layer.borderColor = [[UIColor redColor] CGColor];
+        }
     }
 }
 

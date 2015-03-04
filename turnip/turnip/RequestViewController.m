@@ -86,23 +86,25 @@ NSArray *fetchedObjects;
         if(error) {
             NSLog(@"Error in geo query!: %@", error);
         } else {
-            self.eventId = [[objects valueForKey:@"objectId"] objectAtIndex:0];
-            self.events = [[objects valueForKey:@"title"] objectAtIndex:0];
-            for (PFObject *object in objects) {
-                PFRelation *relation = [object relationForKey:@"requests"];
-                PFQuery *query = [relation query];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.refreshControl endRefreshing];
-                        if([objects count] == 0) {
-                            
-                        } else {
-                            self.requesters = [[NSArray alloc] initWithArray:objects];
-                            self.nbItems = [self.requesters count];
-                            [[self tableView] reloadData];
-                        }
-                    });
-                }];
+            if ([objects count] != 0) {
+                self.eventId = [[objects valueForKey:@"objectId"] objectAtIndex:0];
+                self.events = [[objects valueForKey:@"title"] objectAtIndex:0];
+                for (PFObject *object in objects) {
+                    PFRelation *relation = [object relationForKey:@"requests"];
+                    PFQuery *query = [relation query];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.refreshControl endRefreshing];
+                            if([objects count] == 0) {
+                                
+                            } else {
+                                self.requesters = [[NSArray alloc] initWithArray:objects];
+                                self.nbItems = [self.requesters count];
+                                [[self tableView] reloadData];
+                            }
+                        });
+                    }];
+                }
             }
         }
     }];

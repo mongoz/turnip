@@ -85,7 +85,7 @@ NSArray *fetchedObjects;
     [cell.imageSpinner startAnimating];
     
     
-    NSString *title = [[[self.notifications valueForKey:@"event"] valueForKey:@"title"] objectAtIndex: indexPath.row];
+    NSString *title = [[self.notifications valueForKey:@"eventTitle"] objectAtIndex: indexPath.row];
     NSString *notification = [[self.notifications valueForKey:@"notification"] objectAtIndex:indexPath.row];
     
     NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString: notification];

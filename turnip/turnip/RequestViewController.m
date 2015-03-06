@@ -260,7 +260,7 @@ NSArray *fetchedObjects;
     NSString *message = [NSString stringWithFormat:@"You have been accepted to %@ (tap to view ticket)", self.events];
     
     [PFCloud callFunctionInBackground:@"acceptEventPush"
-                       withParameters:@{@"recipientId": userId, @"message": message, @"eventId": userEvent}
+                       withParameters:@{@"recipientId": userId, @"message": message, @"eventId": userEvent, @"eventTitle": self.events}
                                 block:^(NSString *success, NSError *error) {
                                     if (!error) {
                                         NSLog(@"push sent");

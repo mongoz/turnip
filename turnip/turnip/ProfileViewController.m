@@ -302,8 +302,8 @@
 }
 
 - (IBAction)partiesThrowButtonHandler:(id)sender {
-    [self.partiesThrownButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [self.partiesAttendedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.partiesThrownButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.partiesAttendedButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     
     self.thrownPressed = YES;
     self.nbItems = [self.thrown count];
@@ -312,8 +312,8 @@
 }
 
 - (IBAction)partiesAttendedButtonHandler:(id)sender {
-    [self.partiesThrownButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.partiesAttendedButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.partiesThrownButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.partiesAttendedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.thrownPressed = NO;
     self.nbItems = [self.attended count];
     [self.collectionView reloadData];

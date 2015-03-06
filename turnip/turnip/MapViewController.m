@@ -58,10 +58,10 @@
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Arial" size:24], NSFontAttributeName, nil]];
 
     
-    UIImageView *navigationImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 54)];
-    navigationImage.image = [UIImage imageNamed:@"testLogo"];
+    UIImageView *navigationImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 230, 54)];
+    navigationImage.image = [UIImage imageNamed:@"header"];
     
-    UIImageView *workaroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 63)];
+    UIImageView *workaroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 230, 64)];
     [workaroundImageView addSubview:navigationImage];
     self.navigationItem.titleView = workaroundImageView;
     

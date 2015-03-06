@@ -36,8 +36,6 @@
     // Override point for customization after application launch.
     [self managedObjectContext];
     
-    //[self performSelector:@selector(crash) withObject:nil afterDelay:5.0];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetBadgeCount:) name:TurnipResetBadgeCountNotification object:nil];
     
     
@@ -99,12 +97,10 @@
         
     }
     
+    
     return YES;
 }
 
-- (void) crash {
-    [NSException raise:NSGenericException format:@"Everything is ok. THis is just a test crash."];
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

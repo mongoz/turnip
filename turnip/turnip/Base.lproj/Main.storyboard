@@ -228,11 +228,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Capacity" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mn0-dc-QIe">
-                                <rect key="frame" x="15" y="231" width="570" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnt-j2-CHI">
                                 <rect key="frame" x="182" y="507" width="70" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -259,6 +254,11 @@
                                     <action selector="saveButtonHandler:" destination="NWG-9b-ybL" eventType="touchUpInside" id="q88-hm-VQp"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Capacity" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mn0-dc-QIe">
+                                <rect key="frame" x="15" y="231" width="570" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1063,7 +1063,7 @@
                                                 <rect key="frame" x="0.0" y="6" width="300" height="29"/>
                                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
                                                 <state key="normal" title="PARTIES ATTENDED">
-                                                    <color key="titleColor" red="0.98601007460000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -1084,7 +1084,7 @@
                                                 <rect key="frame" x="0.0" y="6" width="300" height="29"/>
                                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
                                                 <state key="normal" title="PARTIES THROWN">
-                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -1126,12 +1126,6 @@
                                             <constraint firstAttribute="width" secondItem="wXv-nR-DQ6" secondAttribute="height" multiplier="1:1" id="bCa-p4-A88"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oj-hA-af2">
-                                        <rect key="frame" x="234" y="116" width="35" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vh-Xd-V2R">
                                         <rect key="frame" x="234" y="179" width="26" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1152,12 +1146,6 @@
                                             <action selector="sideMenuButtonHandler:" destination="qJi-dl-hfz" eventType="touchUpInside" id="u5Y-YY-5Rx"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HcR-cr-UpP">
-                                        <rect key="frame" x="275" y="29" width="63" height="27"/>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="24"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24T-XW-7rC">
                                         <rect key="frame" x="234" y="145" width="322" height="76"/>
                                         <color key="backgroundColor" white="0.86493499087591252" alpha="1" colorSpace="calibratedWhite"/>
@@ -1176,8 +1164,14 @@
                                             <action selector="finishEditingProfileHandler:" destination="qJi-dl-hfz" eventType="touchUpInside" id="GjE-Lg-eED"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmD-cd-E4h">
-                                        <rect key="frame" x="275" y="116" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HcR-cr-UpP">
+                                        <rect key="frame" x="269" y="27" width="63" height="27"/>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="24"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oj-hA-af2">
+                                        <rect key="frame" x="234" y="109" width="35" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -1186,19 +1180,19 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="wXv-nR-DQ6" secondAttribute="bottom" constant="8" id="0Ye-Me-a0Z"/>
                                     <constraint firstItem="OJh-Gx-GqN" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="26" id="3rh-DT-fwX"/>
-                                    <constraint firstItem="24T-XW-7rC" firstAttribute="top" secondItem="rmD-cd-E4h" secondAttribute="bottom" constant="8" id="71L-mH-RXG"/>
-                                    <constraint firstItem="rmD-cd-E4h" firstAttribute="leading" secondItem="8oj-hA-af2" secondAttribute="trailing" constant="6" id="8oA-AB-AUR"/>
+                                    <constraint firstItem="HcR-cr-UpP" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="27" id="7X1-8d-PmO"/>
                                     <constraint firstItem="8oj-hA-af2" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="8" id="9o6-Ox-N0B"/>
                                     <constraint firstAttribute="bottom" secondItem="24T-XW-7rC" secondAttribute="bottom" constant="19" id="DDr-nb-cIa"/>
                                     <constraint firstAttribute="bottom" secondItem="5Vh-Xd-V2R" secondAttribute="bottom" constant="40" id="Eb6-4t-l8s"/>
                                     <constraint firstItem="oF7-Zd-VRf" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="26" id="KJw-Nu-Cba"/>
+                                    <constraint firstAttribute="centerX" secondItem="HcR-cr-UpP" secondAttribute="centerX" constant="-0.5" id="M4w-4Z-IrF"/>
                                     <constraint firstAttribute="trailing" secondItem="24T-XW-7rC" secondAttribute="trailing" constant="44" id="M65-d1-GC0"/>
+                                    <constraint firstItem="24T-XW-7rC" firstAttribute="top" secondItem="8oj-hA-af2" secondAttribute="bottom" constant="15" id="MUc-O2-aTF"/>
                                     <constraint firstItem="wXv-nR-DQ6" firstAttribute="leading" secondItem="WlW-RF-FaI" secondAttribute="leading" constant="16" id="OD4-xs-D5A"/>
                                     <constraint firstItem="24T-XW-7rC" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="8" id="OPN-Qn-3bg"/>
-                                    <constraint firstItem="5Vh-Xd-V2R" firstAttribute="top" secondItem="8oj-hA-af2" secondAttribute="bottom" constant="42" id="WsM-aX-JZ3"/>
-                                    <constraint firstItem="HcR-cr-UpP" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="29" id="Z9z-mB-mRl"/>
+                                    <constraint firstItem="5Vh-Xd-V2R" firstAttribute="top" secondItem="8oj-hA-af2" secondAttribute="bottom" constant="49" id="WsM-aX-JZ3"/>
+                                    <constraint firstAttribute="centerY" secondItem="HcR-cr-UpP" secondAttribute="centerY" constant="79.5" id="iT4-aq-99Y"/>
                                     <constraint firstAttribute="trailing" secondItem="oF7-Zd-VRf" secondAttribute="trailing" constant="8" id="l6Z-sb-c2Q"/>
-                                    <constraint firstAttribute="centerX" secondItem="HcR-cr-UpP" secondAttribute="centerX" constant="-6.5" id="lK1-4V-j4b"/>
                                     <constraint firstAttribute="trailing" secondItem="OJh-Gx-GqN" secondAttribute="trailing" id="psx-Up-DjC"/>
                                     <constraint firstItem="5Vh-Xd-V2R" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="8" id="rCQ-fN-w2D"/>
                                     <constraint firstItem="wXv-nR-DQ6" firstAttribute="width" secondItem="WlW-RF-FaI" secondAttribute="width" multiplier="0.35" id="xD2-yb-1ye"/>
@@ -1235,10 +1229,17 @@
                                     <outlet property="delegate" destination="qJi-dl-hfz" id="Tqe-Wo-dTP"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmD-cd-E4h">
+                                <rect key="frame" x="279" y="109" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WlW-RF-FaI" firstAttribute="height" secondItem="eiW-6c-dzg" secondAttribute="height" multiplier="0.4" id="9I4-pe-xff"/>
+                            <constraint firstItem="rmD-cd-E4h" firstAttribute="leading" secondItem="8oj-hA-af2" secondAttribute="trailing" constant="10" id="BVZ-jj-6VY"/>
                             <constraint firstItem="yzM-2u-vhu" firstAttribute="height" secondItem="eiW-6c-dzg" secondAttribute="height" multiplier="0.53" constant="-18" id="Hda-4Y-rUg"/>
                             <constraint firstAttribute="width" secondItem="WlW-RF-FaI" secondAttribute="width" id="K97-PH-UTM"/>
                             <constraint firstItem="lPU-T2-caV" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="bottom" id="MrW-p2-mgb"/>
@@ -1249,6 +1250,7 @@
                             <constraint firstAttribute="centerX" secondItem="WlW-RF-FaI" secondAttribute="centerX" id="r1n-na-ezz"/>
                             <constraint firstItem="1x6-mD-Joa" firstAttribute="top" secondItem="yzM-2u-vhu" secondAttribute="bottom" constant="18" id="uzg-aB-XWg"/>
                             <constraint firstAttribute="centerX" secondItem="yzM-2u-vhu" secondAttribute="centerX" id="wA4-QM-xIs"/>
+                            <constraint firstItem="24T-XW-7rC" firstAttribute="top" secondItem="rmD-cd-E4h" secondAttribute="bottom" constant="15" id="wdn-dE-VFf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Edw-rN-VkK">
@@ -1288,24 +1290,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNE-jd-oX2">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zch-YX-eHf">
-                                        <rect key="frame" x="124" y="22" width="166" height="43"/>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="27"/>
-                                        <state key="normal" title="Notifications">
-                                            <color key="titleColor" red="0.98601007461547852" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMn-6q-sDJ">
                                         <rect key="frame" x="308" y="20" width="127" height="48"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="27"/>
                                         <state key="normal" title="Requests">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="3af-Xu-aWX" kind="show" identifier="notificationToRequest" id="1x2-M3-7tO"/>
                                         </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zch-YX-eHf">
+                                        <rect key="frame" x="124" y="22" width="166" height="43"/>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="27"/>
+                                        <state key="normal" title="Notifications">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -1802,24 +1804,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Du-4R-mA4">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjl-B6-xat">
-                                        <rect key="frame" x="308" y="20" width="127" height="48"/>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="27"/>
-                                        <state key="normal" title="Requests">
-                                            <color key="titleColor" red="0.98601007460000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQF-5p-Oz8">
                                         <rect key="frame" x="124" y="22" width="166" height="43"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="27"/>
                                         <state key="normal" title="Notifications">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="hhb-rC-4AJ" kind="show" identifier="requestToNotification" id="eVo-du-xyK"/>
                                         </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjl-B6-xat">
+                                        <rect key="frame" x="308" y="20" width="127" height="48"/>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="27"/>
+                                        <state key="normal" title="Requests">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -1966,9 +1968,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="qQ6-T8-g9z"/>
         <segue reference="anS-E0-Al2"/>
-        <segue reference="hYu-wC-nnF"/>
-        <segue reference="k8Z-cM-goU"/>
+        <segue reference="QZr-iu-lXX"/>
         <segue reference="eVo-du-xyK"/>
+        <segue reference="Rxi-Gq-GAj"/>
         <segue reference="Dl2-Ci-fg9"/>
     </inferredMetricsTieBreakers>
 </document>

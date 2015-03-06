@@ -9,7 +9,10 @@
 #import "TurnipCustomTabBarViewController.h"
 #import "Constants.h"
 
-@interface TurnipCustomTabBarViewController ()
+@interface TurnipCustomTabBarViewController () <UITabBarControllerDelegate>
+
+@property (nonatomic, strong) UIViewController *hostController;
+@property (nonatomic, strong) UIViewController *currentViewController;
 
 @end
 
@@ -18,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     UITabBar *tabBar = self.tabBar;
     
     UIImage *homeImage = [[UIImage imageNamed:@"homeBlk"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -34,11 +38,28 @@
     tabHost = [tabHost initWithTitle:@"" image:hostImage selectedImage:hostImage];
     tabNotification = [tabNotification initWithTitle:@"" image:notificationImage selectedImage:notificationImage];
     tabProfile = [tabProfile initWithTitle:@"" image:profileImage selectedImage:profileImage];
+
+    [self setDelegate:self];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (BOOL) tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    self.currentViewController = tabBarController.selectedViewController;
+    
+    if ([self.currentViewController isEqual:viewController]) {
+        return NO;
+    }
+    
+    
+    return YES;
+}
+
 
 @end

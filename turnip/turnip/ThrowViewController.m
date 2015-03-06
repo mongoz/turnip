@@ -36,10 +36,11 @@
     
     if ([self.currentEvent count] == 0) {
         self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
-        if ([self.currentEvent count] > 0) {
-            [self performSegueWithIdentifier:@"revealSegue" sender:self];
-        }
     }
+    if ([self.currentEvent count] > 0) {
+        [self performSegueWithIdentifier:@"revealSegue" sender:self];
+    }
+
 }
 
 - (void)viewDidLoad {

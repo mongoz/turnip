@@ -27,7 +27,7 @@
 @synthesize event;
 
 - (void) viewWillAppear:(BOOL)animated {
-    
+
     if(self.deleted) {
         [self performSegueWithIdentifier:@"unwindToThrow" sender:self];
     }
@@ -134,8 +134,14 @@
     
     self.navigationItem.title = [data objectForKey:TurnipParsePostTitleKey];
     
-    //self.titleLabel.text = [data objectForKey:TurnipParsePostTitleKey];
+    NSArray *name = [[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"name"] componentsSeparatedByString: @" "];
+    
+    self.nameLabel.text = [name objectAtIndex:0];
     self.aboutLabel.text = [data objectForKey:TurnipParsePostTextKey];
+    self.neighbourhoodLabel.text = [[data objectForKey:@"neighbourhood"] valueForKey:@"name"];
+    
+    NSLog(@"date: %@", [self convertDate:[data objectForKey:TurnipParsePostDateKey]]);
+    self.dateLabel.text = [self convertDate:[data objectForKey:TurnipParsePostDateKey]];
     
     if ([data objectForKey:TurnipParsePostPrivateKey]) {
         self.openLabel.text = @"Private";
@@ -275,10 +281,12 @@
 
     NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [name objectAtIndex:0]];
     
-    self.requestButton.enabled = NO; 
+    self.requestButton.enabled = NO;
+    
+    NSLog(@"Name %@", [self.data valueForKey:@"title"]);
     
     [PFCloud callFunctionInBackground:@"requestEventPush"
-                       withParameters:@{@"recipientId": host, @"message": message, @"eventId": self.data.objectId}
+                       withParameters:@{@"recipientId": host, @"message": message, @"eventId": self.data.objectId }
                                 block:^(NSString *success, NSError *error) {
                                     if (!error) {
                                         NSLog(@"push sent");
@@ -384,6 +392,7 @@
     query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     
     [query includeKey:TurnipParsePostUserKey];
+    [query includeKey:@"neighbourhood"];
     [query whereKey:@"requests" equalTo:[PFUser currentUser]];
     [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
         if(error) {
@@ -433,6 +442,25 @@
 - (IBAction)sidemenuButtonHandler:(id)sender {
     SWRevealViewController *revealViewController = self.revealViewController;
     [revealViewController rightRevealToggleAnimated:YES];
+}
+
+
+#pragma mark -
+#pragma mark utils
+
+- (NSString *) convertDate: (NSDate *) date {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    NSLocale *locale = [NSLocale currentLocale];
+    [dateFormatter setLocale:locale];
+    
+    [dateFormatter setDoesRelativeDateFormatting:YES];
+    
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    
+    return dateString;
 }
 
 @end

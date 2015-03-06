@@ -426,7 +426,8 @@
         CLLocationCoordinate2D currentCoordinate = self.coordinates.coordinate;
         
         NSMutableArray *image = [[NSMutableArray alloc] init];
-        NSCharacterSet *special = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+        NSCharacterSet *special = [[NSCharacterSet letterCharacterSet] invertedSet];
+        
         NSString *filtered = [self.name stringByTrimmingCharactersInSet:special];
         
         for (int i = 0; i < [self.images count]; i++) {
@@ -475,35 +476,32 @@
         }
         
         //This needs to be redone in a much smarter way.
+        NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
+        imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+
         if(self.imageOne.image != nil) {
             NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageOne.image], 0.7);
             
-            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
-            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
             PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
             postObject[TurnipParsePostThumbnailKey] = thumb;
             
         } else if(self.imageTwo.image != nil) {
             NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageTwo.image], 0.7);
-            
-            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
-            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+        
             PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
             postObject[TurnipParsePostThumbnailKey] = thumb;
             
         } else if(self.imageThree.image != nil) {
             NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageThree.image], 0.7);
             
-            NSString *imageName = [NSString stringWithFormat:@"th_%@.jpg", filtered];
-            imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
             PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
             postObject[TurnipParsePostThumbnailKey] = thumb;
         }
         
-        PFACL *readOnlyACL = [PFACL ACL];
-        [readOnlyACL setPublicReadAccess:YES];
-        [readOnlyACL setWriteAccess:YES forUser:[PFUser currentUser]];
-        postObject.ACL = readOnlyACL;
+//        PFACL *readOnlyACL = [PFACL ACL];
+//        [readOnlyACL setPublicReadAccess:YES];
+//        [readOnlyACL setWriteAccess:YES forUser:[PFUser currentUser]];
+//        postObject.ACL = readOnlyACL;
         
         [postObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) {  // Failed to save, show an alert view with the error message

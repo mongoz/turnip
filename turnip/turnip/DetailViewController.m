@@ -32,6 +32,10 @@
         [self performSegueWithIdentifier:@"unwindToThrow" sender:self];
     }
     
+    if (self.host) {
+        [self.navigationController.topViewController.navigationItem setHidesBackButton:YES];
+    }
+    
     [self.tabBarController.tabBar setHidden:NO ];
 }
 
@@ -59,7 +63,7 @@
     
    else if (event != nil) {
        self.deleted = NO;
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+       //  [self.navigationController setNavigationBarHidden:NO animated:YES];
         self.objectId = event.objectId;
         self.navigationItem.title = event.title;
         [self downloadDetails];
@@ -87,7 +91,8 @@
     [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl = self.refreshControl;
     
-    self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    //self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.objectId = [[self.yourEvent valueForKey:@"objectId"] objectAtIndex:0];
     self.requestButton.hidden = YES;
     self.headerView.hidden = NO;
@@ -96,6 +101,7 @@
     self.titleLabel.text = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
     self.aboutLabel.text = [[self.yourEvent valueForKey:@"text"] objectAtIndex:0];
+    self.dateLabel.text = [self convertDate:[[self.yourEvent valueForKey:@"date"] objectAtIndex:0]];
     
     if ([[self.yourEvent valueForKey:@"image1"] objectAtIndex:0] != (id)[NSNull null]) {
         self.imageView1.image = [[self.yourEvent valueForKey:@"image1"] objectAtIndex:0];
@@ -140,7 +146,6 @@
     self.aboutLabel.text = [data objectForKey:TurnipParsePostTextKey];
     self.neighbourhoodLabel.text = [[data objectForKey:@"neighbourhood"] valueForKey:@"name"];
     
-    NSLog(@"date: %@", [self convertDate:[data objectForKey:TurnipParsePostDateKey]]);
     self.dateLabel.text = [self convertDate:[data objectForKey:TurnipParsePostDateKey]];
     
     if ([data objectForKey:TurnipParsePostPrivateKey]) {

@@ -50,11 +50,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    int borderSize = 2;
+    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
+    [navBorder setBackgroundColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar addSubview:navBorder];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    self.navigationController.view.backgroundColor = [UIColor redColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Arial" size:24], NSFontAttributeName, nil]];
 
     

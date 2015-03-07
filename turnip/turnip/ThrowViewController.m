@@ -32,7 +32,11 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [self.tabBarController.tabBar setHidden:YES];
-    self.navigationItem.hidesBackButton = YES;
+    
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+    [self.navigationItem setHidesBackButton:YES];
     
     if ([self.currentEvent count] == 0) {
         self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
@@ -45,6 +49,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"did you get here?");
+    
+    int borderSize = 2;
+    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
+    [navBorder setBackgroundColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar addSubview:navBorder];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor redColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Arial" size:24], NSFontAttributeName, nil]];
     
     [self setupView];
     self.isPrivate = YES;

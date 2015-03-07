@@ -22,6 +22,7 @@
 		1A9AE4D51A8052D200AADDAA /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D31A8052D200AADDAA /* green.png */; };
 		1A9AE4D61A8052D200AADDAA /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D41A8052D200AADDAA /* red.png */; };
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
+		1A9C493F1AAB100C003EB071 /* TurnipCustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9C493E1AAB100C003EB071 /* TurnipCustomNavigationBar.m */; };
 		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
 		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
@@ -94,6 +95,8 @@
 		1A9AE4D41A8052D200AADDAA /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
 		1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestViewController.h; sourceTree = "<group>"; };
 		1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
+		1A9C493D1AAB100C003EB071 /* TurnipCustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipCustomNavigationBar.h; sourceTree = "<group>"; };
+		1A9C493E1AAB100C003EB071 /* TurnipCustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnipCustomNavigationBar.m; sourceTree = "<group>"; };
 		1A9D0D311A9D25020082550C /* TeammateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewController.h; sourceTree = "<group>"; };
 		1A9D0D321A9D25020082550C /* TeammateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewController.m; sourceTree = "<group>"; };
 		1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewCell.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				1AFD3FB71A74ED9E00B2EABE /* Base.lproj */,
 				1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */,
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
+				1A9C493D1AAB100C003EB071 /* TurnipCustomNavigationBar.h */,
+				1A9C493E1AAB100C003EB071 /* TurnipCustomNavigationBar.m */,
 				1A1B32141A9E76490096F2DF /* TurnipCustomTabBarViewController.h */,
 				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
 				1A9AE4CA1A7E281400AADDAA /* TurnipUser.h */,
@@ -520,6 +525,7 @@
 				1AFD3FEA1A74ED9E00B2EABE /* MapViewController.m in Sources */,
 				1AFD3FE51A74ED9E00B2EABE /* FindViewController.m in Sources */,
 				1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */,
+				1A9C493F1AAB100C003EB071 /* TurnipCustomNavigationBar.m in Sources */,
 				1AFD3FED1A74ED9E00B2EABE /* MapMarker.m in Sources */,
 				1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */,
 				1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */,

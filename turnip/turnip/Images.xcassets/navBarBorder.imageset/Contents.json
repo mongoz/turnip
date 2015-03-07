@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "header.png"
+      "filename" : "navBarBorder.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "navBarBorder@2x.png"
     },
     {
       "idiom" : "universal",

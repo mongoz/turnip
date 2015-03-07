@@ -485,17 +485,6 @@
             PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
             postObject[TurnipParsePostThumbnailKey] = thumb;
             
-        } else if(self.imageTwo.image != nil) {
-            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageTwo.image], 0.7);
-        
-            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-            postObject[TurnipParsePostThumbnailKey] = thumb;
-            
-        } else if(self.imageThree.image != nil) {
-            NSData *thumbnail = UIImageJPEGRepresentation([self generatePhotoThumbnail:self.imageThree.image], 0.7);
-            
-            PFFile *thumb = [PFFile fileWithName:imageName data:thumbnail];
-            postObject[TurnipParsePostThumbnailKey] = thumb;
         }
         
 //        PFACL *readOnlyACL = [PFACL ACL];

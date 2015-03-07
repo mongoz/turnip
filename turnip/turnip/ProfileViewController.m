@@ -31,6 +31,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    int borderSize = 2;
+    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
+    [navBorder setBackgroundColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar addSubview:navBorder];
+    
+    self.navigationItem.title = @"yer";
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editUserNotification:)
                                                  name: TurnipEditUserProfileNotification
@@ -54,7 +61,7 @@
     else if (user == nil) {
         [self loadFacebookData];
         self.sideMenuButton.hidden = NO;
-        self.headerTitleLabel.hidden = NO;
+        //self.headerTitleLabel.hidden = NO;
     }
     else {
         [self drawFacebookData];
@@ -75,7 +82,17 @@
             NSString *name = userData[@"name"];
             NSString *birthday = userData[@"birthday"];
             
-            self.headerTitleLabel.text = name;
+            self.navigationController.navigationBar.topItem.title = name;
+            
+            UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
+                                           initWithTitle:@"Flip"
+                                           style:UIBarButtonItemStyleBordered
+                                           target:self
+                                           action:@selector(sideMenuButtonHandler:)];
+            self.navigationController.navigationBar.topItem.rightBarButtonItem = flipButton;
+            
+          //  self.headerTitleLabel.text = name;
+            self.navigationItem.title = @"fuck cunt";
             self.ageLabel.text = @([self calculateAge:birthday]).stringValue;
             self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
             

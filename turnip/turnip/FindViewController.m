@@ -16,6 +16,8 @@
 
 @interface FindViewController ()
 
+@property (nonatomic, strong) PFObject *neighbourhood;
+
 @end
 
 @implementation FindViewController
@@ -23,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.title = self.neighbourhoodName;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,11 +48,14 @@
         
         // Whether the built-in pagination is enabled
         self.paginationEnabled = NO;
+        
     }
     return self;
 }
 
 - (PFQuery *)queryForTable {
+    
+    PFObject *obj = [PFObject objectWithoutDataWithClassName:@"Neighbourhoods" objectId:self.neighbourhoodId];
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
@@ -59,8 +65,7 @@
     
     [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey, TurnipParsePostPrivateKey, TurnipParsePostPublicKey, @"date"]];
     
-    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude: self.currentLocation.coordinate.latitude longitude: self.currentLocation.coordinate.longitude];
-    [query whereKey:TurnipParsePostLocationKey nearGeoPoint:point withinMiles: TurnipPostMaximumSearchDistance];
+    [query whereKey:@"neighbourhood" equalTo:obj];
     
     return query;
 }

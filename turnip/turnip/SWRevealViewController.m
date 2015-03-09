@@ -1827,7 +1827,8 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
     if ( [identifier isEqualToString:SWSegueFrontIdentifier] ) {
         operation = SWRevealControllerOperationReplaceFrontController;
         if ([rvc.currentEvent count] > 0) {
-            DetailViewController *details = self.destinationViewController;
+            UINavigationController *destNavController = self.destinationViewController;
+            DetailViewController *details = (DetailViewController *) [destNavController viewControllers].firstObject;
             details.host = YES;
             details.yourEvent = rvc.currentEvent;
         }

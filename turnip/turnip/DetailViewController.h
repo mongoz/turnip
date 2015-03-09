@@ -24,7 +24,6 @@
 
 @property (nonatomic, copy) NSString *objectId;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *openLabel;
 @property (strong, nonatomic) IBOutlet UILabel *freePaidLabel;
@@ -38,9 +37,8 @@
 @property (strong, nonatomic) IBOutlet PFImageView *profileImage;
 
 @property (strong, nonatomic) IBOutlet UIButton *requestButton;
-@property (strong, nonatomic) IBOutlet UIButton *sidemenuButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *sideMenuButton;
 
-@property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *fullScreenImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *fullScreenImage;

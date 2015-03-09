@@ -79,6 +79,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        NSLog(@"edit");
+    }
+    
     if (indexPath.row == 1) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait" message:@"Are you sure you want to delete this.  This action cannot be undone" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];

@@ -34,9 +34,8 @@
     
     if (self.host) {
         [self.navigationController.topViewController.navigationItem setHidesBackButton:YES];
+        [self.tabBarController.tabBar setHidden:NO ];
     }
-    
-    [self.tabBarController.tabBar setHidden:NO ];
 }
 
 - (void)viewDidLoad {
@@ -50,7 +49,6 @@
     
     if (self.host) {
         self.deleted = NO;
-        self.headerView.hidden = NO;
         SWRevealViewController *revealViewController = self.revealViewController;
         if ( revealViewController )
         {
@@ -64,6 +62,7 @@
    else if (event != nil) {
        self.deleted = NO;
        //  [self.navigationController setNavigationBarHidden:NO animated:YES];
+       [self.navigationController.topViewController.navigationItem setRightBarButtonItem:nil];
         self.objectId = event.objectId;
         self.navigationItem.title = event.title;
         [self downloadDetails];
@@ -74,7 +73,10 @@
 - (void)eventWasDeleted:(NSNotification *)note {
     self.deleted = YES;
     self.host = NO;
-    [self viewWillAppear:YES];
+    NSLog(@"undinw");
+    //[self performSegueWithIdentifier:@"unwindToThrow" sender:self];
+    
+    [self.tabBarController setSelectedIndex:0];
 }
 
 - (void) userWasAccepted: (NSNotification *) note {
@@ -82,6 +84,11 @@
 }
 
 - (void) hostDetailSetupView {
+    
+    int borderSize = 2;
+    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
+    [navBorder setBackgroundColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar addSubview:navBorder];
     
     // Initialize the refresh control.
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
@@ -91,14 +98,12 @@
     [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl = self.refreshControl;
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    //self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
+   // [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.objectId = [[self.yourEvent valueForKey:@"objectId"] objectAtIndex:0];
     self.requestButton.hidden = YES;
-    self.headerView.hidden = NO;
     self.tableView.hidden = NO;
     
-    self.titleLabel.text = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
     self.aboutLabel.text = [[self.yourEvent valueForKey:@"text"] objectAtIndex:0];
     self.dateLabel.text = [self convertDate:[[self.yourEvent valueForKey:@"date"] objectAtIndex:0]];
@@ -125,7 +130,7 @@
     if ([[[self.yourEvent valueForKey:@"free"] objectAtIndex:0] boolValue]) {
         self.freePaidLabel.text = @"Free";
     } else {
-        self.freePaidLabel.text = @"Paid";
+        self.freePaidLabel.text = [[[self.yourEvent valueForKey:@"price"] objectAtIndex:0] stringValue];
     }
     
     [self downloadFacebookProfilePicture:[[PFUser currentUser] valueForKey:@"facebookId" ]];
@@ -157,7 +162,7 @@
     if ([data objectForKey:TurnipParsePostPaidKey]) {
         self.freePaidLabel.text = @"Free";
     } else if(![data objectForKey:TurnipParsePostPaidKey]) {
-        self.freePaidLabel.text = @"Paid";
+        self.freePaidLabel.text = [[data objectForKey:TurnipParsePostPriceKey] stringValue];
     }
 }
 
@@ -249,6 +254,7 @@
 }
 
 - (IBAction)fullScreenImageHandler:(UITapGestureRecognizer *)sender {
+    NSLog(@"tap");
     if (self.isFullscreen) {
         [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
             //save previous frame
@@ -256,9 +262,7 @@
             self.fullScreenImage.image = nil;
             [self.tabBarController.tabBar setHidden:NO];
             
-            if (!self.host) {
-               [self.navigationController setNavigationBarHidden:NO animated:YES];
-            }
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
             
         }completion:^(BOOL finished){
             self.isFullscreen = NO;

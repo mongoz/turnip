@@ -36,8 +36,6 @@
     [navBorder setBackgroundColor:[UIColor blackColor]];
     [self.navigationController.navigationBar addSubview:navBorder];
     
-    self.navigationItem.title = @"yer";
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editUserNotification:)
                                                  name: TurnipEditUserProfileNotification
@@ -45,8 +43,7 @@
     
     self.editProfile = NO;
     self.thrownPressed = YES;
-    self.sideMenuButton.hidden = YES;
-    self.headerTitleLabel.hidden = YES;
+    //self.sideMenuButton.hidden = YES;
     
     SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
@@ -60,8 +57,7 @@
     }
     else if (user == nil) {
         [self loadFacebookData];
-        self.sideMenuButton.hidden = NO;
-        //self.headerTitleLabel.hidden = NO;
+       // self.sideMenuButton.hidden = NO;
     }
     else {
         [self drawFacebookData];
@@ -82,17 +78,7 @@
             NSString *name = userData[@"name"];
             NSString *birthday = userData[@"birthday"];
             
-            self.navigationController.navigationBar.topItem.title = name;
-            
-            UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
-                                           initWithTitle:@"Flip"
-                                           style:UIBarButtonItemStyleBordered
-                                           target:self
-                                           action:@selector(sideMenuButtonHandler:)];
-            self.navigationController.navigationBar.topItem.rightBarButtonItem = flipButton;
-            
-          //  self.headerTitleLabel.text = name;
-            self.navigationItem.title = @"fuck cunt";
+            self.navigationItem.title = name;
             self.ageLabel.text = @([self calculateAge:birthday]).stringValue;
             self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
             
@@ -283,8 +269,8 @@
         self.bioTextView.text = self.bioLabel.text;
         self.bioTextView.hidden = NO;
         self.bioLabel.hidden = YES;
-        self.finishEditingProfile.hidden = NO;
-        self.sideMenuButton.hidden = YES;
+        [self.sideMenuButton setImage:nil];
+        self.sideMenuButton.title = @"Done";
     }
 }
 
@@ -314,8 +300,18 @@
 #pragma mark -
 #pragma mark button handlers
 - (IBAction)sideMenuButtonHandler:(id)sender {
-    SWRevealViewController *revealViewController = self.revealViewController;
-    [revealViewController rightRevealToggleAnimated:YES];
+    if (self.editProfile) {
+        [self saveProfileToParse];
+        self.bioTextView.hidden = YES;
+        self.bioLabel.text = self.bioTextView.text;
+        self.bioLabel.hidden = NO;
+        self.sideMenuButton.title = @"";
+        [self.sideMenuButton setImage:[UIImage imageNamed:@"geariconblk"]];
+    } else {
+        SWRevealViewController *revealViewController = self.revealViewController;
+        [revealViewController rightRevealToggleAnimated:YES];
+    }
+
 }
 
 - (IBAction)partiesThrowButtonHandler:(id)sender {
@@ -334,15 +330,6 @@
     self.thrownPressed = NO;
     self.nbItems = [self.attended count];
     [self.collectionView reloadData];
-}
-
-- (IBAction)finishEditingProfileHandler:(id)sender {
-    [self saveProfileToParse];
-    self.bioTextView.hidden = YES;
-    self.bioLabel.text = self.bioTextView.text;
-    self.bioLabel.hidden = NO;
-    self.finishEditingProfile.hidden = YES;
-    self.sideMenuButton.hidden = NO;
 }
 
 @end

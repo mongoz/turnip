@@ -73,6 +73,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName: TurnipEditUserProfileNotification object:nil];
+        [self.revealViewController revealToggleAnimated:YES];
     }
     
     if (indexPath.row == 4) {

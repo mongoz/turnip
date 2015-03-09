@@ -54,14 +54,7 @@
     UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
     [navBorder setBackgroundColor:[UIColor blackColor]];
     [self.navigationController.navigationBar addSubview:navBorder];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.view.backgroundColor = [UIColor redColor];
-    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Arial" size:24], NSFontAttributeName, nil]];
 
-    
     UIImageView *navigationImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 230, 54)];
     navigationImage.image = [UIImage imageNamed:@"header"];
     
@@ -105,14 +98,14 @@
     
     // create a GMSCameraPosition to display coordinates
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:39.5678118 longitude:-100.926294 zoom:5];
-    UIEdgeInsets mapInsets = UIEdgeInsetsMake(0, 0, 40, 0);
+  //  UIEdgeInsets mapInsets = UIEdgeInsetsMake(0, 0, 40, 0);
     self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.rotateGestures = NO;
     self.mapView.settings.tiltGestures = NO;
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMinZoom:3 maxZoom:14];
-    self.mapView.padding = mapInsets;
+   // self.mapView.padding = mapInsets;
     self.mapView.delegate = self;
     self.view = self.mapView;
 }
@@ -127,19 +120,30 @@
 #pragma mark -
 #pragma mark Fetch all parties
 - (void) queryForAllEventsNearLocation: (CLLocation *) currentLocation {
+    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
+                                               longitude:currentLocation.coordinate.longitude];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"MapMarkers"];
+    PFQuery *publicQuery = [PFQuery queryWithClassName:@"Neighbourhoods"];
+    [publicQuery whereKey:@"nrOfPublic" greaterThanOrEqualTo:@1];
+    
+    PFQuery *privateQuery = [PFQuery queryWithClassName:@"Neighbourhoods"];
+    [privateQuery whereKey:@"nrOfPrivate" greaterThanOrEqualTo:@1];
+    
+    NSMutableArray *queryArray = [NSMutableArray arrayWithCapacity:2];
+    [queryArray addObject:privateQuery];
+    [queryArray addObject:publicQuery];
+    
+    PFQuery *query = [PFQuery orQueryWithSubqueries:queryArray];
     
     if([self.markers count] == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
     
-    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
-                                               longitude:currentLocation.coordinate.longitude];
-    [query includeKey:@"neighbourhood"];
-    [query whereKey:@"location"
-        nearGeoPoint:point
+    [query whereKey:@"coordinate"
+       nearGeoPoint:point
         withinMiles:TurnipPostMaximumSearchDistance];
+    
+    [query selectKeys:@[@"coordinate", @"nrOfPublic", @"nrOfPrivate", @"name"]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
@@ -226,14 +230,14 @@
     
     for (NSDictionary *object in objects) {
         MapMarker *newMarker = [[MapMarker alloc] init];
-        
-        newMarker.objectId = object[TurnipParsePostIdKey];
-        newMarker.title = [object[@"neighbourhood"] objectForKey:@"name"];
+        newMarker.objectId = nil;
+        newMarker.userData = [object valueForKey:@"objectId"];
+        newMarker.title = object[@"name"];
         
         NSString *snippet = [NSString stringWithFormat:@"Private: %@ Public %@", object[@"nrOfPrivate"], object[@"nrOfPublic"]];
         newMarker.snippet = snippet;
         
-        PFGeoPoint *geoPoint = object[TurnipParsePostLocationKey];
+        PFGeoPoint *geoPoint = object[@"coordinate"];
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
         newMarker.position = coordinate;
         newMarker.appearAnimation = 1;
@@ -295,7 +299,7 @@
 - (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(MapMarker *)marker {
     
     if (marker.objectId == nil) {
-       [self performSegueWithIdentifier:@"mapToListSegue" sender: self];
+       [self performSegueWithIdentifier:@"mapToListSegue" sender: marker.userData];
     } else {
         [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker.objectId];
     }
@@ -371,7 +375,6 @@
                     NSLog(@"Sender: %@", sender);
             
             DetailViewController *details = [navController.viewControllers objectAtIndex: 1];
-            
             details.objectId = id;
         }
         
@@ -382,6 +385,7 @@
     if ([segue.identifier isEqualToString:@"mapToListSegue"]) {
         FindViewController *destViewController = [segue destinationViewController];
         destViewController.currentLocation = self.currentLocation;
+        destViewController.neighbourhoodId = sender;
     }
 
 }

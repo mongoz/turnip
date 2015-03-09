@@ -16,6 +16,7 @@
 @interface FindViewController : PFQueryTableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) CLLocation *currentLocation;
-
+@property (nonatomic, strong) NSString *neighbourhoodId;
+@property (nonatomic, strong) NSString *neighbourhoodName;
 
 @end

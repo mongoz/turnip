@@ -28,6 +28,9 @@
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
 		1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1D1A860CD100C0A617 /* TicketViewController.m */; };
+		1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF2E1AAE5AA90054197C /* EditViewController.m */; };
+		1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */; };
+		1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF361AB346880054197C /* ReachabilityManager.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
 		1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB81A74ED9E00B2EABE /* LaunchScreen.xib */; };
 		1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */; };
@@ -107,6 +110,13 @@
 		1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		1ABABC1C1A860CD100C0A617 /* TicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketViewController.h; sourceTree = "<group>"; };
 		1ABABC1D1A860CD100C0A617 /* TicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketViewController.m; sourceTree = "<group>"; };
+		1ADEBF2D1AAE5AA90054197C /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		1ADEBF2E1AAE5AA90054197C /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
+		1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNextViewController.h; sourceTree = "<group>"; };
+		1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditNextViewController.m; sourceTree = "<group>"; };
+		1ADEBF331AB265480054197C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1ADEBF351AB346880054197C /* ReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityManager.h; sourceTree = "<group>"; };
+		1ADEBF361AB346880054197C /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
 		1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1AFD3FB91A74ED9E00B2EABE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -238,6 +248,10 @@
 				1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */,
 				1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */,
 				1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */,
+				1ADEBF2D1AAE5AA90054197C /* EditViewController.h */,
+				1ADEBF2E1AAE5AA90054197C /* EditViewController.m */,
+				1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */,
+				1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */,
 				1AFD3FD91A74ED9E00B2EABE /* ThrowViewController.h */,
 				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
 				1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */,
@@ -278,6 +292,8 @@
 				1AFD40481A751F2200B2EABE /* MBProgressHUD.m */,
 				1AFD403B1A74F94900B2EABE /* Info.plist */,
 				1AA179F31A74E3D30061CA3E /* main.m */,
+				1ADEBF351AB346880054197C /* ReachabilityManager.h */,
+				1ADEBF361AB346880054197C /* ReachabilityManager.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -332,6 +348,7 @@
 		1AFD40301A74F2D600B2EABE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1ADEBF331AB265480054197C /* SystemConfiguration.framework */,
 				1AFD40391A74F89600B2EABE /* Accounts.framework */,
 				1AFD40371A74F89100B2EABE /* Social.framework */,
 				1AFD402E1A74F26700B2EABE /* libsqlite3.dylib */,
@@ -468,7 +485,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "";
 		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -508,11 +525,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */,
+				1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */,
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
 				1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */,
 				1AA179F41A74E3D30061CA3E /* main.m in Sources */,
+				1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */,
 				1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
+				1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */,
 				1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,

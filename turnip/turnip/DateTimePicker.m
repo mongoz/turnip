@@ -35,7 +35,7 @@
 
 - (id) initWithFrame: (CGRect) frame {
     if ((self = [super initWithFrame: frame])) {
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.backgroundColor = [UIColor whiteColor];
         
         UIDatePicker *picker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0, MyDateTimePickerToolbarHeight, frame.size.width, frame.size.height - MyDateTimePickerToolbarHeight)];
         [self addSubview: picker];

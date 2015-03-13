@@ -75,10 +75,10 @@
             NSDictionary *userData = (NSDictionary *)result;
             
             NSString *facebookID = userData[@"id"];
-            NSString *name = userData[@"name"];
+            NSArray *name = [userData[@"name"] componentsSeparatedByString:@" "];
             NSString *birthday = userData[@"birthday"];
             
-            self.navigationItem.title = name;
+            self.navigationItem.title = [name objectAtIndex:0];
             self.ageLabel.text = @([self calculateAge:birthday]).stringValue;
             self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
             
@@ -301,12 +301,14 @@
 #pragma mark button handlers
 - (IBAction)sideMenuButtonHandler:(id)sender {
     if (self.editProfile) {
+        [self.bioTextView resignFirstResponder];
         [self saveProfileToParse];
         self.bioTextView.hidden = YES;
         self.bioLabel.text = self.bioTextView.text;
         self.bioLabel.hidden = NO;
         self.sideMenuButton.title = @"";
         [self.sideMenuButton setImage:[UIImage imageNamed:@"geariconblk"]];
+        self.editProfile = NO;
     } else {
         SWRevealViewController *revealViewController = self.revealViewController;
         [revealViewController rightRevealToggleAnimated:YES];

@@ -16,6 +16,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "Constants.h"
 #import "TurnipUser.h"
+#import <Reachability.h>
+#import "ReachabilityManager.h"
 
 @interface AppDelegate ()
 
@@ -36,7 +38,11 @@
     // Override point for customization after application launch.
     [self managedObjectContext];
     
+    [ReachabilityManager sharedManager];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetBadgeCount:) name:TurnipResetBadgeCountNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
     
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
@@ -60,11 +66,22 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     [PFFacebookUtils initializeFacebook];
     
-    if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        // Present wall straight-away
-        [self presentMapViewControllerAnimated:NO];
+    
+    NSLog(@"PFUser :%@", [PFUser currentUser]);
+    NSLog(@"facebook: %@", [PFFacebookUtils session]);
+    if ([ReachabilityManager isReachable]) {
+        NSLog(@"reached");
+        
+        if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+            // Present wall straight-away
+            [self presentMapViewControllerAnimated:NO];
+        } else {
+            // Go to the welcome screen and have them log in or create an account.
+            [self presentLoginViewController];
+        }
+
     } else {
-        // Go to the welcome screen and have them log in or create an account.
+        NSLog(@"not Reachable");
         [self presentLoginViewController];
     }
     
@@ -188,11 +205,11 @@
         
         [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostIdKey, @"address", @"date"]];
         
-        [query getObjectInBackgroundWithId:eventId block:^(PFObject *object, NSError *error) {
-            [self saveTicketInfo: object];
-        }];
+//        [query getObjectInBackgroundWithId:eventId block:^(PFObject *object, NSError *error) {
+//            [self saveTicketInfo: object];
+//        }];
         
-        [[tabController.viewControllers objectAtIndex:2] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
+        [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
 }
 
@@ -245,12 +262,19 @@
     NSLog(@"Data saved");
 }
 
-#pragma mark -
-#pragma mark Notification delegates
+#pragma mark - Notification delegates
 
 - (void) resetBadgeCount:(NSNotification *)note {
     
     self.notificationCount = 0;
+}
+
+- (void) reachabilityDidChange: (NSNotification *) note {
+    if ([ReachabilityManager isReachable]) {
+        NSLog(@"reachable");
+    } else {
+        NSLog(@"Unreachable");
+    }
 }
 
 #pragma mark facebook url open

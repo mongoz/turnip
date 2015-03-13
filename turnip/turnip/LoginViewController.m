@@ -14,6 +14,8 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
+#import "ReachabilityManager.h"
+
 @interface LoginViewController ()
 
 @end
@@ -24,6 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.tabBarController.tabBar setHidden:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,7 +108,6 @@
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         completion();
-                        NSLog(@"loggedin");
                     }];
                 }
             }];

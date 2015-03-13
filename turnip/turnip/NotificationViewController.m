@@ -156,7 +156,7 @@ NSArray *fetchedObjects;
     PFQuery *query = [PFQuery queryWithClassName: @"Notifications"];
     
     if ([self.notifications count] == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        query.cachePolicy = kPFCachePolicyNetworkOnly;
     }
     
     [query orderByDescending:@"createdAt"];

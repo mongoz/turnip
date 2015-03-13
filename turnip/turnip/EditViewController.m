@@ -1,69 +1,47 @@
 //
-//  ThrowViewController.m
+//  EditViewController.m
 //  turnip
 //
-//  Created by Per on 1/4/15.
+//  Created by Per on 3/9/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
-#import <QuartzCore/QuartzCore.h>
-#import "ThrowViewController.h"
+
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
 #import <Parse/Parse.h>
 #import "Constants.h"
-#import "SWRevealViewController.h"
-#import "ThrowNextViewController.h"
+#import "EditViewController.h"
+#import "EditNextViewController.h"
 
 
-@interface ThrowViewController ()
+@interface EditViewController ()
 
-@property (nonatomic, strong) ThrowNextViewController *nextViewController;
-@property (nonatomic, strong) CLLocation *currentLocation;
-@property (nonatomic, strong) CLPlacemark *placemark;
 
-@property (nonatomic, strong) NSArray *currentEvent;
+
+@property (nonatomic, strong) EditNextViewController *nextViewController;
 @property (nonatomic, strong) NSString *currentEventId;
 @property (nonatomic, assign) BOOL isPrivate;
 @property (nonatomic, assign) BOOL isFree;
-@property (nonatomic, assign) BOOL update;
 
 @end
 
-@implementation ThrowViewController
-
-- (void) viewWillAppear:(BOOL)animated {
-    [self.tabBarController.tabBar setHidden:YES];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
-    [self.navigationItem setHidesBackButton:YES animated:YES];
-    [self.navigationItem setHidesBackButton:YES];
-    
-    if ([self.currentEvent count] == 0) {
-        self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
-    }
-    if ([self.currentEvent count] > 0) {
-        [self performSegueWithIdentifier:@"revealSegue" sender:self];
-    }
-
-}
+@implementation EditViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasDeleted:) name:TurnipEventDeletedNotification object:nil];
-    
-    [self setupView];
-    self.isPrivate = YES;
-    self.isFree = YES;
-    
+    // Do any additional setup after loading the view.
+
+    [self initViews];
+    [self setupViews];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 #pragma mark setup view methods
 
-- (void) setupView {
-    
-    self.update = NO;
+- (void) initViews {
     
     self.titleField.delegate = self;
     self.locationField.delegate = self;
@@ -72,8 +50,8 @@
     self.aboutField.textColor = [UIColor blackColor];
     self.aboutField.delegate = self;
     
-    self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
-    [self reverseGeocode: self.currentLocation];
+  //  self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
+  //  [self reverseGeocode: self.currentLocation];
     
     [self.privateSwitch addTarget:self action:@selector(privateSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     [self.freeSwitch addTarget:self action:@selector(freeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
@@ -88,7 +66,34 @@
                            [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)], nil];
     [numberToolBar sizeToFit];
     self.cashAmountField.inputAccessoryView = numberToolBar;
+    
+}
 
+- (void) setupViews {
+    self.titleField.text = [[self.currentEvent valueForKey:@"title"] objectAtIndex:0];
+    self.locationField.text = [[self.currentEvent valueForKey:@"location"] objectAtIndex:0];
+    self.aboutField.text = [[self.currentEvent valueForKey:@"text"] objectAtIndex:0];
+    
+    self.isPrivate = [[[self.currentEvent valueForKey:@"private"] objectAtIndex:0] boolValue];
+    self.isFree = [[[self.currentEvent valueForKey:@"free"] objectAtIndex:0] boolValue];
+    
+    if (self.isPrivate) {
+        [self.privateSwitch setOn:NO];
+    } else {
+        [self.privateSwitch setOn:YES];
+    }
+    
+    if (self.isFree) {
+        [self.freeSwitch setOn:NO];
+    } else {
+        [self.freeSwitch setOn:YES];
+        self.cashAmountField.hidden = NO;
+        self.cashLabel.hidden = NO;
+    }
+    
+    if ([[self.currentEvent valueForKey:@"price"] objectAtIndex:0] != 0) {
+        self.cashAmountField.text = [[[self.currentEvent valueForKey:@"price"] objectAtIndex:0] stringValue];
+    }
 }
 
 - (void) cancelNumberPad {
@@ -111,54 +116,12 @@
     return (newLength > 140) ? NO : YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.titleField resignFirstResponder];
     [self.aboutField resignFirstResponder];
     [self.locationField resignFirstResponder];
     [self.cashAmountField resignFirstResponder];
     
-}
-
-# pragma mark - button controll handlers
-- (IBAction) backButtonHandler:(id)sender {
-    [self.tabBarController.tabBar setHidden: NO];
-    self.tabBarController.selectedIndex = 0;
-}
-
-- (IBAction) nextButtonHandler:(id)sender {
-}
-
-- (BOOL) checkInput {
-    return ([self.titleField.text isEqual: @""] ||
-            [self.aboutField.text isEqual: @"About..."] ||
-            [self.locationField.text isEqual: @""]);
-}
-
-
-#pragma mark - Core Data
-
-- (NSArray *) loadCoreData {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *context = [delegate managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"YourEvents" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    NSArray *fetchedObjects = [[NSArray alloc] initWithArray:[context executeFetchRequest:fetchRequest error: &error]];
-    
-    if ([fetchedObjects count] == 0) {
-        return nil;
-    } else {
-        
-        return fetchedObjects;
-    }
 }
 
 #pragma mark - switch handlers
@@ -216,20 +179,26 @@
     }
 }
 
-- (void)reverseGeocode:(CLLocation *)location {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (error) {
-            NSLog(@"Error %@", error.description);
-        } else {
-            self.placemark = [placemarks lastObject];
-        }
-    }];
+
+# pragma mark - button controll handlers
+- (IBAction) backButtonHandler:(id)sender {
+    //TODO go back to detailsViewController.
+    [self.tabBarController.tabBar setHidden: NO];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction) nextButtonHandler:(id)sender {
+    [self performSegueWithIdentifier:@"editNextPage" sender:self];
+}
+
+- (BOOL) checkInput {
+    return ([self.titleField.text isEqual: @""] ||
+            [self.aboutField.text isEqual: @"About..."] ||
+            [self.locationField.text isEqual: @""]);
 }
 
 
-#pragma mark - navigation
-
+#pragma mark - Navigation
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
     if (![self checkInput]) {
@@ -239,11 +208,9 @@
                 return NO;
             } else {
                 return YES;
-            }  
+            }
         }
-    }
-    
-    else {
+    } else {
         
         if (self.titleField.text.length == 0) {
             self.titleField.layer.cornerRadius = 8.0f;
@@ -270,52 +237,56 @@
     return NO;
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"revealSegue"]) {
-        SWRevealViewController *destViewController = (SWRevealViewController *) segue.destinationViewController;
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"editNextPage"]) {
+        self.nextViewController = (EditNextViewController *) segue.destinationViewController;
         
-        destViewController.currentEvent = self.currentEvent;
-    }
-    
-    if ([segue.identifier isEqualToString:@"nextThrowSegue"]) {
-        //ThrowNextViewController *destViewController = (ThrowNextViewController *) segue.destinationViewController;
-        self.nextViewController = segue.destinationViewController;
-        
-        self.nextViewController.name = self.titleField.text;
+         self.nextViewController.currentEvent = self.currentEvent;
+         self.nextViewController.name = self.titleField.text;
          self.nextViewController.location = self.locationField.text;
          self.nextViewController.about = self.aboutField.text;
          self.nextViewController.isPrivate = self.isPrivate;
          self.nextViewController.isFree = self.isFree;
-         self.nextViewController.coordinates = self.currentLocation;
-         self.nextViewController.placemark = self.placemark;
+//        destViewController.coordinates = self.currentLocation;
+//        destViewController.placemark = self.placemark;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-       // NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
+        // NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
         if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
             NSNumber *price = [numberFormatter numberFromString: @"0"];
              self.nextViewController.cost = price;
-
+            
         } else {
             NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
              self.nextViewController.cost = price;
-
+            
         }
     }
+
 }
 
-- (IBAction)unwindToThrow:(UIStoryboardSegue*)sender
-{
-    // Pull any data from the view controller which initiated the unwind segue.
+#pragma mark - Core Data
+
+- (NSArray *) loadCoreData {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"YourEvents" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObjects = [[NSArray alloc] initWithArray:[context executeFetchRequest:fetchRequest error: &error]];
+    
+    if ([fetchedObjects count] == 0) {
+        return nil;
+    } else {
+        
+        return fetchedObjects;
+    }
 }
-
-#pragma mark - Notifications
-
-- (void)eventWasDeleted:(NSNotification *)note {
-    self.currentEvent = nil;
-    self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
-    [self reverseGeocode: self.currentLocation];
-}
-
 
 @end

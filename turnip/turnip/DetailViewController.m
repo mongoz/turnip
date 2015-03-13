@@ -27,10 +27,6 @@
 @synthesize event;
 
 - (void) viewWillAppear:(BOOL)animated {
-
-    if(self.deleted) {
-        [self performSegueWithIdentifier:@"unwindToThrow" sender:self];
-    }
     
     if (self.host) {
         [self.navigationController.topViewController.navigationItem setHidesBackButton:YES];
@@ -44,7 +40,6 @@
     self.requestButton.enabled = NO;
     self.isFullscreen = NO;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasDeleted:) name:TurnipEventDeletedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userWasAccepted:) name:TurnipUserWasAcceptedNotification object:nil];
     
     if (self.host) {
@@ -60,23 +55,12 @@
     }
     
    else if (event != nil) {
-       self.deleted = NO;
-       //  [self.navigationController setNavigationBarHidden:NO animated:YES];
        [self.navigationController.topViewController.navigationItem setRightBarButtonItem:nil];
         self.objectId = event.objectId;
         self.navigationItem.title = event.title;
         [self downloadDetails];
         self.profileImage.userInteractionEnabled = YES;
     }
-}
-
-- (void)eventWasDeleted:(NSNotification *)note {
-    self.deleted = YES;
-    self.host = NO;
-    NSLog(@"undinw");
-    //[self performSegueWithIdentifier:@"unwindToThrow" sender:self];
-    
-    [self.tabBarController setSelectedIndex:0];
 }
 
 - (void) userWasAccepted: (NSNotification *) note {
@@ -107,6 +91,7 @@
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
     self.aboutLabel.text = [[self.yourEvent valueForKey:@"text"] objectAtIndex:0];
     self.dateLabel.text = [self convertDate:[[self.yourEvent valueForKey:@"date"] objectAtIndex:0]];
+    //self.neighbourhoodLabel.text = [[data objectForKey:@"neighbourhood"] valueForKey:@"name"];
     
     if ([[self.yourEvent valueForKey:@"image1"] objectAtIndex:0] != (id)[NSNull null]) {
         self.imageView1.image = [[self.yourEvent valueForKey:@"image1"] objectAtIndex:0];
@@ -130,7 +115,7 @@
     if ([[[self.yourEvent valueForKey:@"free"] objectAtIndex:0] boolValue]) {
         self.freePaidLabel.text = @"Free";
     } else {
-        self.freePaidLabel.text = [[[self.yourEvent valueForKey:@"price"] objectAtIndex:0] stringValue];
+        self.freePaidLabel.text = [NSString stringWithFormat:@"$%@", [[self.yourEvent valueForKey:@"price"] objectAtIndex:0]];
     }
     
     [self downloadFacebookProfilePicture:[[PFUser currentUser] valueForKey:@"facebookId" ]];
@@ -141,7 +126,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateUI : (PFObject *) data {	
+- (void) updateUI : (PFObject *) data {
+    
+    if (![[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId]) {
+        self.requestButton.hidden = NO;
+    }
     
     self.navigationItem.title = [data objectForKey:TurnipParsePostTitleKey];
     
@@ -159,15 +148,15 @@
         self.openLabel.text = @"Public";
     }
     
-    if ([data objectForKey:TurnipParsePostPaidKey]) {
+    if ([[data objectForKey:TurnipParsePostPaidKey] isEqual:@"True"]) {
         self.freePaidLabel.text = @"Free";
-    } else if(![data objectForKey:TurnipParsePostPaidKey]) {
-        self.freePaidLabel.text = [[data objectForKey:TurnipParsePostPriceKey] stringValue];
+    } else if([[data objectForKey:TurnipParsePostPaidKey] isEqual:@"False"]) {
+        self.freePaidLabel.text = [NSString stringWithFormat:@"$%@",[data objectForKey:TurnipParsePostPriceKey]];
     }
 }
 
 - (void) downloadImages: (PFObject *) data {
-    
+
     if([data objectForKey:@"image1"] != nil) {
         self.imageView1.file = (PFFile *)[data objectForKey:@"image1"];; // remote image
         [self.imageView1 loadInBackground];
@@ -254,7 +243,6 @@
 }
 
 - (IBAction)fullScreenImageHandler:(UITapGestureRecognizer *)sender {
-    NSLog(@"tap");
     if (self.isFullscreen) {
         [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
             //save previous frame
@@ -291,8 +279,6 @@
     NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [name objectAtIndex:0]];
     
     self.requestButton.enabled = NO;
-    
-    NSLog(@"Name %@", [self.data valueForKey:@"title"]);
     
     [PFCloud callFunctionInBackground:@"requestEventPush"
                        withParameters:@{@"recipientId": host, @"message": message, @"eventId": self.data.objectId }
@@ -402,7 +388,7 @@
     
     [query includeKey:TurnipParsePostUserKey];
     [query includeKey:@"neighbourhood"];
-    [query whereKey:@"requests" equalTo:[PFUser currentUser]];
+   // [query whereKey:@"requests" equalTo:[PFUser currentUser]];
     [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
         if(error) {
             NSLog(@"Error in query!: %@", error);

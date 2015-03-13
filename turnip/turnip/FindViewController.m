@@ -59,9 +59,9 @@
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
-    if([self.objects count] == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
+//    if([self.objects count] == 0) {
+//        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+//    }
     
     [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey, TurnipParsePostPrivateKey, TurnipParsePostPublicKey, @"date"]];
     

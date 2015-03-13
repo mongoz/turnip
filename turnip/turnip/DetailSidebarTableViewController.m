@@ -12,6 +12,7 @@
 #import "DetailSidebarTableViewController.h"
 #import "ScannerViewController.h"
 #import "TeammateTableViewController.h"
+#import "EditViewController.h"
 
 @interface DetailSidebarTableViewController ()
 
@@ -79,10 +80,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        NSLog(@"edit");
-    }
-    
+
     if (indexPath.row == 1) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait" message:@"Are you sure you want to delete this.  This action cannot be undone" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
@@ -131,6 +129,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         TeammateTableViewController *teammateController = segue.destinationViewController;
         teammateController.eventId = [[self.event valueForKey:@"objectId"] objectAtIndex:0];
     }
+    
+    if ([segue.identifier isEqualToString:@"editSegue"]) {
+        EditViewController *editController = segue.destinationViewController;
+        editController.currentEvent = self.event;
+    }
 
 }
 
@@ -141,6 +144,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [self deleteFromCoreData];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipEventDeletedNotification object:nil];
+        [self performSegueWithIdentifier:@"unwindToThrow" sender:self];
+
     }
 }
 

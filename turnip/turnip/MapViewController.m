@@ -50,6 +50,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipPartyThrownNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipEventDeletedNotification object:nil];
+    
     int borderSize = 2;
     UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
     [navBorder setBackgroundColor:[UIColor blackColor]];
@@ -216,6 +219,7 @@
         public.position = coordinate;
         public.appearAnimation = 1;
         public.map = nil;
+        public.icon = [UIImage imageNamed:@"turnip-icon3"];
         public.draggable = YES;
 
         [mutableSet addObject: public];
@@ -396,4 +400,13 @@
     [self.mapView clear];
     [self queryForAllEventsNearLocation: self.currentLocation];
 }
+
+#pragma mark -
+#pragma mark Notifications
+- (void)eventWasChanged:(NSNotification *)note {
+    NSLog(@"created");
+    [self.mapView clear];
+    [self queryForAllEventsNearLocation: self.currentLocation];
+}
+
 @end

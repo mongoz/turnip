@@ -31,11 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    int borderSize = 2;
-    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
-    [navBorder setBackgroundColor:[UIColor blackColor]];
-    [self.navigationController.navigationBar addSubview:navBorder];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editUserNotification:)
                                                  name: TurnipEditUserProfileNotification
@@ -43,7 +38,6 @@
     
     self.editProfile = NO;
     self.thrownPressed = YES;
-    //self.sideMenuButton.hidden = YES;
     
     SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
@@ -57,7 +51,6 @@
     }
     else if (user == nil) {
         [self loadFacebookData];
-       // self.sideMenuButton.hidden = NO;
     }
     else {
         [self drawFacebookData];
@@ -67,6 +60,8 @@
 }
 
 - (void) loadFacebookData {
+    
+    self.backNavigationButton.hidden = YES;
     FBRequest *request = [FBRequest requestForMe];
     
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -269,8 +264,7 @@
         self.bioTextView.text = self.bioLabel.text;
         self.bioTextView.hidden = NO;
         self.bioLabel.hidden = YES;
-        [self.sideMenuButton setImage:nil];
-        self.sideMenuButton.title = @"Done";
+        [self.sideMenuButton setImage:[UIImage imageNamed:@"editprofile"] forState:UIControlStateNormal];
     }
 }
 
@@ -297,6 +291,17 @@
     
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    if(range.length + range.location > textView.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textView.text length] + [string length] - range.length;
+    return (newLength > 70) ? NO : YES;
+}
+
 #pragma mark -
 #pragma mark button handlers
 - (IBAction)sideMenuButtonHandler:(id)sender {
@@ -306,8 +311,7 @@
         self.bioTextView.hidden = YES;
         self.bioLabel.text = self.bioTextView.text;
         self.bioLabel.hidden = NO;
-        self.sideMenuButton.title = @"";
-        [self.sideMenuButton setImage:[UIImage imageNamed:@"geariconblk"]];
+        [self.sideMenuButton setImage:[UIImage imageNamed:@"gearWhite"] forState:UIControlStateNormal];
         self.editProfile = NO;
     } else {
         SWRevealViewController *revealViewController = self.revealViewController;
@@ -332,6 +336,10 @@
     self.thrownPressed = NO;
     self.nbItems = [self.attended count];
     [self.collectionView reloadData];
+}
+
+- (IBAction)backNavigationButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

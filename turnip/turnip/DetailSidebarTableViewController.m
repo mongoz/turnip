@@ -23,12 +23,10 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    NSLog(@"navS: %@", self.navigationController.viewControllers);
     self.navigationController.navigationBar.hidden = YES;
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -115,9 +113,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    UINavigationController *destViewController = (UINavigationController *) segue.destinationViewController;
-    destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
     
     if ([segue.identifier isEqualToString:@"scannerSegue"]) {
         UINavigationController *navController = segue.destinationViewController;

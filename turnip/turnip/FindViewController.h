@@ -19,4 +19,6 @@
 @property (nonatomic, strong) NSString *neighbourhoodId;
 @property (nonatomic, strong) NSString *neighbourhoodName;
 
+- (IBAction)backNavigationButton:(id)sender;
+
 @end

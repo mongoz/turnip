@@ -13,4 +13,5 @@
 @property (nonatomic, strong) NSString *eventId;
 @property (nonatomic, strong) NSArray *accepted;
 
+- (IBAction)backNavigationButton:(id)sender;
 @end

@@ -37,7 +37,7 @@
 @implementation MapViewController
 
 - (void)presentThrowViewController {
-    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 1];
+    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: TurnipTabHost];
     ThrowViewController *viewController = [navController.viewControllers objectAtIndex:0];
     viewController.dataSource = self;
 
@@ -53,17 +53,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipPartyThrownNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipEventDeletedNotification object:nil];
     
-    int borderSize = 2;
-    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
-    [navBorder setBackgroundColor:[UIColor blackColor]];
-    [self.navigationController.navigationBar addSubview:navBorder];
-
-    UIImageView *navigationImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 230, 54)];
-    navigationImage.image = [UIImage imageNamed:@"header"];
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
     
-    UIImageView *workaroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 230, 64)];
-    [workaroundImageView addSubview:navigationImage];
-    self.navigationItem.titleView = workaroundImageView;
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont fontWithName:@"LemonMilk" size:38.0], NSFontAttributeName, nil]];
+    self.navigationItem.title = @"Turnip";
     
     if (_locationManager == nil) {
         _locationManager = [[CLLocationManager alloc] init];
@@ -106,11 +101,13 @@
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.rotateGestures = NO;
     self.mapView.settings.tiltGestures = NO;
-    self.mapView.settings.myLocationButton = YES;
+    self.mapView.settings.consumesGesturesInView = NO;
+   // self.mapView.settings.myLocationButton = YES;
     [self.mapView setMinZoom:3 maxZoom:14];
    // self.mapView.padding = mapInsets;
     self.mapView.delegate = self;
     self.view = self.mapView;
+    
 }
 
 
@@ -219,8 +216,8 @@
         public.position = coordinate;
         public.appearAnimation = 1;
         public.map = nil;
-        public.icon = [UIImage imageNamed:@"turnip-icon3"];
-        public.draggable = YES;
+        public.icon = [UIImage imageNamed:@"locationpin"];
+      //  public.draggable = YES;
 
         [mutableSet addObject: public];
     }
@@ -245,9 +242,9 @@
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
         newMarker.position = coordinate;
         newMarker.appearAnimation = 1;
-        newMarker.icon = [UIImage imageNamed:@"turnip-icon3"];
+        newMarker.icon = [UIImage imageNamed:@"locationpin"];
         newMarker.map = nil;
-        newMarker.draggable = YES;
+      //  newMarker.draggable = YES;
         
         [mutableSet addObject: newMarker];
     }
@@ -296,6 +293,10 @@
     self.oldZoom = self.currentZoom;
 }
 
+- (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    NSLog(@"tap");
+    return NO;
+}
 
 /*
  *   Called after a marker's info window has been tapped.
@@ -303,7 +304,7 @@
 - (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(MapMarker *)marker {
     
     if (marker.objectId == nil) {
-       [self performSegueWithIdentifier:@"mapToListSegue" sender: marker.userData];
+       [self performSegueWithIdentifier:@"mapToListSegue" sender: marker];
     } else {
         [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker.objectId];
     }
@@ -389,7 +390,8 @@
     if ([segue.identifier isEqualToString:@"mapToListSegue"]) {
         FindViewController *destViewController = [segue destinationViewController];
         destViewController.currentLocation = self.currentLocation;
-        destViewController.neighbourhoodId = sender;
+        destViewController.neighbourhoodId = [sender valueForKey:@"userData"];
+        destViewController.neighbourhoodName = [sender valueForKey:@"title"];
     }
 
 }
@@ -404,7 +406,6 @@
 #pragma mark -
 #pragma mark Notifications
 - (void)eventWasChanged:(NSNotification *)note {
-    NSLog(@"created");
     [self.mapView clear];
     [self queryForAllEventsNearLocation: self.currentLocation];
 }

@@ -27,6 +27,7 @@
 @synthesize event;
 
 - (void) viewWillAppear:(BOOL)animated {
+    NSLog(@"navD: %@", self.navigationController.viewControllers);
     
     if (self.host) {
         [self.navigationController.topViewController.navigationItem setHidesBackButton:YES];
@@ -69,11 +70,6 @@
 
 - (void) hostDetailSetupView {
     
-    int borderSize = 2;
-    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
-    [navBorder setBackgroundColor:[UIColor blackColor]];
-    [self.navigationController.navigationBar addSubview:navBorder];
-    
     // Initialize the refresh control.
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
     tableViewController.tableView = self.tableView;
@@ -86,6 +82,7 @@
     self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.objectId = [[self.yourEvent valueForKey:@"objectId"] objectAtIndex:0];
     self.requestButton.hidden = YES;
+    self.backNavigationButton.hidden = YES;
     self.tableView.hidden = NO;
     
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
@@ -258,6 +255,8 @@
     }
 
 }
+
+
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"profileSegue"]) {
@@ -432,13 +431,16 @@
 }
 
 #pragma mark -
-#pragma mark Navigation
+#pragma mark NavigationBar items
 
-- (IBAction)sidemenuButtonHandler:(id)sender {
+- (IBAction)backNavigationButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)sideMenuButton:(id)sender {
     SWRevealViewController *revealViewController = self.revealViewController;
     [revealViewController rightRevealToggleAnimated:YES];
 }
-
 
 #pragma mark -
 #pragma mark utils

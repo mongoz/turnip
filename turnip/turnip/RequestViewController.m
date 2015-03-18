@@ -214,7 +214,7 @@ NSArray *fetchedObjects;
     
     cell.personLabel.text = label;
     
-    [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         [self deleteCell:cell];
         [self acceptUserRequest: [self.requesters objectAtIndex: indexPath.row]];
         [self.userDelete addObject: [self.requesters objectAtIndex:indexPath.row]];

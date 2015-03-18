@@ -44,6 +44,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
@@ -67,25 +69,6 @@
     [PFFacebookUtils initializeFacebook];
     
     
-    NSLog(@"PFUser :%@", [PFUser currentUser]);
-    NSLog(@"facebook: %@", [PFFacebookUtils session]);
-    if ([ReachabilityManager isReachable]) {
-        NSLog(@"reached");
-        
-        if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-            // Present wall straight-away
-            [self presentMapViewControllerAnimated:NO];
-        } else {
-            // Go to the welcome screen and have them log in or create an account.
-            [self presentLoginViewController];
-        }
-
-    } else {
-        NSLog(@"not Reachable");
-        [self presentLoginViewController];
-    }
-    
-    
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
@@ -107,25 +90,30 @@
         }
     }
     
-    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-    
-    if (notificationPayload) {
-        NSLog(@"payload start");
-        
-    }
-    
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
     shadow.shadowOffset = CGSizeMake(0, 1);
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.549 green:0 blue:0.102 alpha:1]];
     
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont fontWithName:@"Arial" size:24.0], NSFontAttributeName, nil]];
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont fontWithName:@"LemonMilk" size:20.0], NSFontAttributeName, nil]];
     
-    int borderSize = 2;
-    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,[UINavigationBar appearance].frame.size.height-borderSize,[UINavigationBar appearance].frame.size.width, borderSize)];
-    [navBorder setBackgroundColor:[UIColor blackColor]];
-    [[UINavigationBar appearance] addSubview:navBorder];
+    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    if ([reachability isReachable]) {
+        
+        if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+            // Present wall straight-away
+            [self presentMapViewControllerAnimated:NO];
+        } else {
+            // Go to the welcome screen and have them log in or create an account.
+            [self presentLoginViewController];
+        }
+        
+    } else {
+        [self presentLoginViewController];
+    }
+
     
     return YES;
 }
@@ -182,7 +170,6 @@
     // Create empty photo object
     //    NSString *userId = [userInfo objectForKey:@"fromUser"];
     NSString *type = [userInfo objectForKey:@"type"];
-    NSString *eventId = [userInfo objectForKey:@"eventId"];
     
     if ([type isEqualToString:@"eventRequest"]) {
         [[NSNotificationCenter defaultCenter]
@@ -190,6 +177,7 @@
          object:self];
         
         self.notificationCount += 1;
+         NSLog(@"notificationCOunt %ld", (long)self.notificationCount);
         
         [[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
@@ -201,13 +189,8 @@
         
         self.notificationCount += 1;
         
-        PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+        NSLog(@"notificationCOunt %ld", (long)self.notificationCount);
         
-        [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostIdKey, @"address", @"date"]];
-        
-//        [query getObjectInBackgroundWithId:eventId block:^(PFObject *object, NSError *error) {
-//            [self saveTicketInfo: object];
-//        }];
         
         [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }

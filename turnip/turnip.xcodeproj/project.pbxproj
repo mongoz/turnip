@@ -24,6 +24,9 @@
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
 		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
 		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
+		1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */; };
+		1A9FD9D11AB6BEAF000BF15C /* MessagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */; };
+		1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
@@ -101,6 +104,11 @@
 		1A9D0D321A9D25020082550C /* TeammateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewController.m; sourceTree = "<group>"; };
 		1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewCell.h; sourceTree = "<group>"; };
 		1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewCell.m; sourceTree = "<group>"; };
+		1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonMilk.otf; sourceTree = "<group>"; };
+		1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingViewController.h; sourceTree = "<group>"; };
+		1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingViewController.m; sourceTree = "<group>"; };
+		1A9FD9D21AB6DAB2000BF15C /* ToSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToSViewController.h; sourceTree = "<group>"; };
+		1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToSViewController.m; sourceTree = "<group>"; };
 		1AA179EE1A74E3D30061CA3E /* turnip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = turnip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA179F31A74E3D30061CA3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,6 +242,10 @@
 				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
 				1AFD3FC11A74ED9E00B2EABE /* DetailViewController.h */,
 				1AFD3FC21A74ED9E00B2EABE /* DetailViewController.m */,
+				1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */,
+				1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */,
+				1A9FD9D21AB6DAB2000BF15C /* ToSViewController.h */,
+				1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */,
 				1AFD3FC61A74ED9E00B2EABE /* FindTableCell.h */,
 				1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */,
 				1AFD3FC81A74ED9E00B2EABE /* FindViewController.h */,
@@ -335,6 +347,7 @@
 		1AFD3FF01A74EDA200B2EABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
 				1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */,
@@ -451,6 +464,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */,
 				1AFD3FEC1A74ED9E00B2EABE /* Placeholder.jpg in Resources */,
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
@@ -485,7 +499,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -525,6 +539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */,
+				1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */,
 				1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */,
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
 				1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */,
@@ -541,6 +556,7 @@
 				1AFD3FE51A74ED9E00B2EABE /* FindViewController.m in Sources */,
 				1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */,
 				1AFD3FED1A74ED9E00B2EABE /* MapMarker.m in Sources */,
+				1A9FD9D11AB6BEAF000BF15C /* MessagingViewController.m in Sources */,
 				1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */,
 				1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */,
 				1AFD3FEB1A74ED9E00B2EABE /* TurnipEvent.m in Sources */,

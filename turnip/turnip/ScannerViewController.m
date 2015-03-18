@@ -21,18 +21,11 @@
 
 @implementation ScannerViewController
 
-- (void) viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-
-}
-
-- (void) viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     
@@ -167,5 +160,8 @@
     }
     
     return [translatedPoints copy];
+}
+- (IBAction)backNavigationButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

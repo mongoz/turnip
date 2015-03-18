@@ -26,6 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.title = self.neighbourhoodName;
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"LemonMilk" size:22.0], NSFontAttributeName, nil]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -162,4 +163,8 @@
     return meters * 0.000621371;
 }
 
+- (IBAction)backNavigationButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 @end

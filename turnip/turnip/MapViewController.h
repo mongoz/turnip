@@ -10,11 +10,14 @@
 #import "GoogleMaps/GoogleMaps.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface MapViewController : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate>
+@interface MapViewController : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+
 
 @property (strong, nonatomic) IBOutlet UIButton *updateButton;
 
 - (IBAction)updateButtonHandler:(id)sender;
+
+
 
 @end
 

@@ -27,8 +27,18 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
+- (void) viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"Add a Teammate";
+    NSLog(@"eventId %@", self.eventId);
+    
     // Do any additional setup after loading the view, typically from a nib.
     self.accepted = [[NSArray alloc] init];
     
@@ -131,12 +141,11 @@
     
     [query selectKeys:@[TurnipParsePostIdKey, TurnipParsePostTitleKey, @"accepted"]];
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [query getObjectInBackgroundWithId:self.eventId block:^(PFObject *object, NSError *error) {
         if(error) {
             NSLog(@"Error in geo query!: %@", error);
         } else {
-            self.eventId = [[objects valueForKey:@"objectId"] objectAtIndex:0];
-            for (PFObject *object in objects) {
+            if (object != nil) {
                 self.event = object;
                 PFRelation *relation = [object relationForKey:@"accepted"];
                 PFQuery *query = [relation query];
@@ -165,7 +174,7 @@
     
     if (!self.isClicked) {
         self.isClicked = YES;
-        [cell.checkButton setImage:[UIImage imageNamed:@"teammate-pressed"] forState: UIControlStateNormal];
+        [cell.checkButton setImage:[UIImage imageNamed:@"teammateselect"] forState: UIControlStateNormal];
         
         [PFCloud callFunctionInBackground:@"teammateCloudCode"
                            withParameters:@{@"user": userId, @"eventId": self.eventId, @"eventName": name, @"state": @"add"}
@@ -176,7 +185,7 @@
                                     }];
     } else {
         self.isClicked = NO;
-        [cell.checkButton setImage:[UIImage imageNamed:@"add-teammate"] forState: UIControlStateNormal];
+        [cell.checkButton setImage:nil forState: UIControlStateNormal];
         
         [PFCloud callFunctionInBackground:@"teammateCloudCode"
                            withParameters:@{@"user": userId, @"eventId": self.eventId, @"state": @"remove"}
@@ -189,4 +198,7 @@
     }
 }
 
+- (IBAction)backNavigationButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

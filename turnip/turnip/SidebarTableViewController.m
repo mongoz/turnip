@@ -76,6 +76,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [self.revealViewController revealToggleAnimated:YES];
     }
     
+    if (indexPath.row == 3) {
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.turnipapp.com/faq.htm"]];
+    }
+    
     if (indexPath.row == 4) {
         [PFUser logOut];
         [self performSegueWithIdentifier: @"logoutSegue" sender: self];

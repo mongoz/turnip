@@ -15,4 +15,5 @@
 
 @property (nonatomic, strong) NSString *eventId;
 
+- (IBAction)backNavigationButton:(id)sender;
 @end

@@ -33,8 +33,8 @@ NSArray *fetchedObjects;
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    if ([[[[[self tabBarController] tabBar]items]objectAtIndex:2]badgeValue] > 0) {
-        [[[[[self tabBarController] tabBar]items]objectAtIndex:2]setBadgeValue:0];
+    if ([[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabNotification] badgeValue] > 0) {
+        [[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabNotification] setBadgeValue:0];
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetBadgeCountNotification object:nil];
         
     }
@@ -43,11 +43,6 @@ NSArray *fetchedObjects;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    int borderSize = 2;
-    UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height-borderSize,self.navigationController.navigationBar.frame.size.width, borderSize)];
-    [navBorder setBackgroundColor:[UIColor blackColor]];
-    [self.navigationController.navigationBar addSubview:navBorder];
     
     if ([[UIApplication sharedApplication] applicationIconBadgeNumber] > 0) {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
@@ -90,7 +85,6 @@ NSArray *fetchedObjects;
     
     
     NSString *title = [[self.notifications valueForKey:@"eventTitle"] objectAtIndex: indexPath.row];
-    NSLog(@"title123 %@", self.notifications);
     NSString *notification = [[self.notifications valueForKey:@"notification"] objectAtIndex:indexPath.row];
     
     NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString: notification];

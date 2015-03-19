@@ -84,7 +84,7 @@ NSArray *fetchedObjects;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
-            NSLog(@"Error in geo query!: %@", error);
+            NSLog(@"Error in request query!: %@", error);
         } else {
             if ([objects count] != 0) {
                 self.eventId = [[objects valueForKey:@"objectId"] objectAtIndex:0];
@@ -108,7 +108,35 @@ NSArray *fetchedObjects;
     }];
 }
 
-- (void) deleteRequester {
+- (void) deleteRequester: (NSArray * ) requester {
+    
+
+    PFUser *user = [PFUser objectWithoutDataWithClassName:@"_User" objectId:[requester valueForKey:@"objectId"]];
+    
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+    
+    [query getObjectInBackgroundWithId:self.eventId block:^(PFObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"Error in query: %@", error);
+        } else {
+            if (object != nil) {
+                NSLog(@"object %@", object);
+                PFRelation *relation = [object relationForKey:@"requests"];
+               // PFQuery *query = [relation query];
+                NSLog(@"relation:%@", relation);
+                [relation removeObject:user];
+                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error) {
+                        NSLog(@"Error in save %@",error);
+                    } else {
+                        NSLog(@"saved");
+                    }
+                }];
+            }
+        }
+    }];
+    
+    
     
 }
 
@@ -224,6 +252,7 @@ NSArray *fetchedObjects;
     
     [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         [self deleteCell:cell];
+        [self deleteRequester: [self.requesters objectAtIndex:indexPath.row]];
         [self.userDelete addObject:[self.requesters objectAtIndex:indexPath.row]];
     }];
     
@@ -347,6 +376,7 @@ NSArray *fetchedObjects;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     [self deleteCell:cell];
     [self.userDelete addObject: [self.requesters objectAtIndex:indexPath.row]];
+    [self deleteRequester: [self.requesters objectAtIndex:indexPath.row]];
 }
 
 - (void) acceptButtonWasTapped:(MCSwipeTableViewCell *)cell {

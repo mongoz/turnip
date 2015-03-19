@@ -119,7 +119,7 @@
         }
         
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return (newLength > 20) ? NO : YES;
+        return (newLength > 17) ? NO : YES;
     }
     
     return YES;

@@ -566,7 +566,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="FindView" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="EnW-aL-faH" customClass="FindViewController" sceneMemberID="viewController">
                     <tableView key="view" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="30" sectionFooterHeight="20" id="Rci-tj-ZzQ">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -576,12 +576,6 @@
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FVw-pV-YdX" id="Zko-Dm-bPD">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icG-gP-giF">
-                                            <rect key="frame" x="162" y="33" width="41" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mll-hN-PQ2" customClass="PFImageView">
                                             <rect key="frame" x="8" y="0.0" width="70" height="70"/>
                                         </imageView>
@@ -603,13 +597,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lte-6L-JPy">
-                                            <rect key="frame" x="123" y="47" width="74" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R44-Oa-Qs8">
-                                            <rect key="frame" x="133" y="33" width="28" height="21"/>
+                                            <rect key="frame" x="117" y="46" width="151" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -617,6 +605,12 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RdT-x3-6ZY">
                                             <rect key="frame" x="276" y="30" width="24" height="24"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R44-Oa-Qs8">
+                                            <rect key="frame" x="144" y="34" width="124" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -653,7 +647,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2H-VJ-Qlg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938" y="2179"/>
+            <point key="canvasLocation" x="938" y="2175"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="BfA-ca-zen">
@@ -664,16 +658,16 @@
                         <viewControllerLayoutGuide type="bottom" id="FWu-tZ-MfH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aHI-I0-PJG">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleAspectFit" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="8cc-Gu-U2Y" userLabel="infomationView">
+                            <view contentMode="scaleAspectFit" misplaced="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="8cc-Gu-U2Y" userLabel="infomationView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="392"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yst-ye-omt">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yst-ye-omt">
                                         <rect key="frame" x="8" y="259" width="584" height="130"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="554" translatesAutoresizingMaskIntoConstraints="NO" id="5l4-OD-lBd">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="554" translatesAutoresizingMaskIntoConstraints="NO" id="5l4-OD-lBd">
                                                 <rect key="frame" x="8" y="0.0" width="584" height="130"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -687,7 +681,7 @@
                                             <constraint firstAttribute="centerY" secondItem="5l4-OD-lBd" secondAttribute="centerY" id="edp-U0-PyD"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdv-OD-AGK" userLabel="detailsView">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdv-OD-AGK" userLabel="detailsView">
                                         <rect key="frame" x="8" y="0.0" width="584" height="129"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private/Public" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQT-Cc-0jQ">
@@ -719,7 +713,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AwV-PT-KLp" customClass="PFImageView">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AwV-PT-KLp" customClass="PFImageView">
                                                 <rect key="frame" x="0.0" y="0.0" width="193" height="129"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
@@ -796,10 +790,10 @@
                                             <constraint firstItem="JQT-Cc-0jQ" firstAttribute="leading" secondItem="N6U-WO-5Qa" secondAttribute="trailing" constant="4" id="ymM-GY-R4H"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nDZ-cU-9Ea" userLabel="eventImageView">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDZ-cU-9Ea" userLabel="eventImageView">
                                         <rect key="frame" x="8" y="129" width="584" height="130"/>
                                         <subviews>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pnR-Hc-Ond" customClass="PFImageView">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnR-Hc-Ond" customClass="PFImageView">
                                                 <rect key="frame" x="1" y="0.0" width="193" height="130"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
@@ -813,7 +807,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="QHb-rk-h84" appends="YES" id="SkF-cp-9pj"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUx-bK-WlH" customClass="PFImageView">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lUx-bK-WlH" customClass="PFImageView">
                                                 <rect key="frame" x="194" y="0.0" width="193" height="130"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
@@ -827,7 +821,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="SYu-Vg-toY" appends="YES" id="MDc-we-Nc1"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rDq-Ib-WWW" customClass="PFImageView">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDq-Ib-WWW" customClass="PFImageView">
                                                 <rect key="frame" x="387" y="0.0" width="193" height="130"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
@@ -879,10 +873,10 @@
                                     <rect key="frame" x="7" y="28" width="386" height="386"/>
                                 </variation>
                             </view>
-                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VzL-nF-YoJ" userLabel="bottomView">
+                            <view contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VzL-nF-YoJ" userLabel="bottomView">
                                 <rect key="frame" x="0.0" y="392" width="600" height="144"/>
                                 <subviews>
-                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ypY-ST-11B">
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ypY-ST-11B">
                                         <rect key="frame" x="8" y="0.0" width="584" height="144"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -902,7 +896,7 @@
                                             <outlet property="delegate" destination="spu-ar-JnD" id="nAe-A7-xFw"/>
                                         </connections>
                                     </tableView>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT">
                                         <rect key="frame" x="250" y="22" width="100" height="100"/>
                                         <state key="normal" backgroundImage="request">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -925,10 +919,10 @@
                                     <rect key="frame" x="7" y="422" width="386" height="170"/>
                                 </variation>
                             </view>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XgP-m5-dMe" userLabel="fullScreenImageView">
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XgP-m5-dMe" userLabel="fullScreenImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-fH-mrJ">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-fH-mrJ">
                                         <rect key="frame" x="139" y="107" width="322" height="322"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -1056,7 +1050,7 @@
         <!--Profile View Controller-->
         <scene sceneID="Zhz-f5-suM">
             <objects>
-                <viewController storyboardIdentifier="profileView" id="qJi-dl-hfz" customClass="ProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileView" hidesBottomBarWhenPushed="YES" id="qJi-dl-hfz" customClass="ProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CNB-9W-fLW"/>
                         <viewControllerLayoutGuide type="bottom" id="1x6-mD-Joa"/>
@@ -1545,7 +1539,7 @@
         <!--Root View Controller-->
         <scene sceneID="tZ4-rV-cx7">
             <objects>
-                <tableViewController id="Dnl-T1-gfS" customClass="SidebarTableViewController" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="Dnl-T1-gfS" customClass="SidebarTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NkZ-B6-jOl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1653,16 +1647,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAT-uA-uXN">
-                                <rect key="frame" x="43" y="93" width="515" height="482"/>
-                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet lacinia sapien. Donec in tempor dolor. Sed interdum risus sed metus porta dictum. In gravida tempor metus, eu cursus lacus consequat in. Mauris vel mi viverra, maximus nisl quis, finibus augue. Aliquam id leo at lacus tempus scelerisque. Sed ullamcorper facilisis maximus. Vestibulum sagittis volutpat purus at bibendum. Fusce congue, eros ac sagittis tristique, tortor orci commodo sapien, in tempor elit augue quis tortor. Vivamus tempor justo eget sodales cursus. Aliquam at eros egestas, rhoncus nisl non, facilisis odio. Morbi mattis lacus quam, at blandit quam semper sit amet. Nullam vitae pretium erat, sit amet fringilla urna. Donec rhoncus luctus gravida.
+                                <rect key="frame" x="43" y="44" width="515" height="531"/>
+                                <mutableString key="text">THIS LEGAL AGREEMENT BETWEEN YOU AND The Stupidest App Ever (hereinafter referred to as "Turnip") GOVERNS YOUR USE OF THE Turnip Application (“App”).
+The Stupidest App Ever is the provider of the App that permits you to license software products and digital content for end user use only under the terms and conditions set forth in this Agreement.
+Only persons age 13 years or older can create accounts. Accounts for persons under 13 years old can be created by a parent or legal guardian using Family Sharing or by an approved educational institution. Children under the age of majority should review this Agreement with their parent or guardian to ensure that the child and the parent or legal guardian understand it.
+The App is available to you only in the United States, its territories, and possessions. You agree not to use or attempt to use the App from outside these locations. Turnip may use technologies to verify your compliance.
+Use of the App requires compatible devices, Internet access, and certain software (fees may apply); may require periodic updates; and may be affected by the performance of these factors. High-speed Internet access is strongly recommended. The latest version of required software is recommended to access the App and may be required for certain transactions or features. You agree that meeting these requirements, which may change from time to time, is your responsibility.
+YOUR ACCOUNT
+As a registered user of the App, you may establish an account ("Account"). Don’t reveal your Account information to anyone else. You are solely responsible for maintaining the confidentiality and security of your Account, and for all activities that occur on or through your Account, and you agree to immediately notify Turnip of any security breach of your Account. Turnip shall not be responsible for any losses arising out of the unauthorized use of your Account.
+In order to purchase and/or download the App, you must enter your ID and password to authenticate your Account for transactions. Once you have authenticated your Account using your ID and password, you will not need to authenticate again for ___________________________ minutes; you can choose to allow your computer to remember your password to remain authenticated.
+You agree to provide accurate and complete information when you register with, and as you use, the App, and you agree to update your App Registration Data to keep it accurate and complete.
+________________________ is subject to the following Privacy Policy:
+You agree that the App may include security technology that limits your use and that, whether or not the App is limited by security technology, you shall use it in compliance with the applicable usage rules established by Turnip and its principals (“Usage Rules”), and that any other use of the App may constitute a copyright infringement. Any security technology is an inseparable part of the App. Turnip reserves the right to modify the Usage Rules at any time. You agree not to violate, circumvent, reverse-engineer, decompile, disassemble, or otherwise tamper with any of the security technology related to such Usage Rules for any reason—or to attempt or assist another person to do so. Usage Rules may be controlled and monitored by Turnip for compliance purposes, and Turnip reserves the right to enforce the Usage Rules without notice to you. You shall not access or attempt to access an Account that you are not authorized to access. You agree not to modify the software in any manner or form, or to use modified versions of the software, for any purposes. Violations of system or network security may result in civil or criminal liability.
+The delivery of App does not transfer to you any promotional use rights in the App.
+You acknowledge that, because some aspects of the App, and administration of the Usage Rules entails the ongoing involvement of Turnip, if Turnip changes any part of or discontinues the App, which Turnip may do at its election, you may not be able to use the App to the same extent as prior to such change or discontinuation, and that Turnip shall have no liability to you in such case.
+SUBMISSIONS:
+The App may offer interactive features that allow you to submit materials (including links to third-party content) on areas of the App accessible and viewable by other users of the App and the public. You agree that any use by you of such features, including any materials submitted by you, shall be your sole responsibility, shall not infringe or violate the rights of any other party or violate any laws, contribute to or encourage infringing or otherwise unlawful conduct, or otherwise be obscene, objectionable, or in poor taste. You also agree that you have obtained all necessary rights and licenses. You agree to provide accurate and complete information in connection with your submission of any materials on the App. You hereby grant Turnip a worldwide, royalty-free, nonexclusive license to use such materials as part of the App, and in relation to App, without any compensation or obligation to you. Turnip reserves the right to not post or publish any materials, and to remove or edit any material, at any time in its sole discretion without notice or liability. You may not submit reviews or ratings for the App using a promotional Content Code.
+Turnip has the right, but not the obligation, to monitor any materials submitted by you or otherwise available on the App, to investigate any reported or apparent violation of this Agreement, and to take any action that Turnip, in its sole discretion deems appropriate, including, without limitation, termination hereunder.
+THIRD-PARTY MATERIALS
+Certain content may include materials from third parties. Turnip may provide links to third-party websites as a convenience to you. You agree that Turnip is not responsible for examining or evaluating the content or accuracy and Turnip does not warrant and will not have any liability or responsibility for any third-party materials or websites, or for any other materials, products, or services of third parties. You agree that you will not use any third-party materials in a manner that would infringe or violate the rights of any other party and that Turnip is not in any way responsible for any such use by you.
+OBJECTIONABLE MATERIAL
+You understand that by using the App, you may encounter material that you may deem to be offensive, indecent, or objectionable, and that such content may or may not be identified as having explicit material. Nevertheless, you agree to use the App at your sole risk and Turnip shall have no liability to you for material that may be found to be offensive, indecent, or objectionable. The App descriptions are provided for convenience, and you agree that Turnip does not guarantee their accuracy.
+INTELLECTUAL PROPERTY
+You agree that the App, including but not limited to the graphics, user interface, audio clips, editorial content, and/or the scripts and software used to implement the App, contain proprietary information and material that is owned by Turnip and/or its principals, and is protected by applicable intellectual property and other laws, including but not limited to copyright. You agree that you will not use such proprietary information or materials in any way whatsoever except for use of the App in compliance with this Agreement. No portion of the App may be reproduced in any form or by any means, except as expressly permitted in these terms. You agree not to modify, rent, lease, loan, sell, distribute, or create derivative works based on the App in any manner, and you shall not exploit the App in any unauthorized way whatsoever, including, but not limited to, by trespass or burdening network capacity.
+Notwithstanding any other provision of this Agreement, Turnip and its principals reserve the right to change, suspend, remove, or disable access to the App content, or other materials comprising a part of the App at any time without notice. In no event will Turnip be liable for making these changes. Turnip may also impose limits on the use of or access to certain features or portions of the App, in any case and without notice or liability.
+All copyrights in and to the App (including the compilation of content, postings, links to other Internet resources, and descriptions of those resources) and related software are owned by Turnip and/or its principals, who reserve all their rights in law and equity. THE USE OF THE SOFTWARE OR ANY PART OF THE APP, EXCEPT FOR USE OF THE APP AS PERMITTED IN THIS AGREEMENT, IS STRICTLY PROHIBITED AND INFRINGES ON THE INTELLECTUAL PROPERTY RIGHTS OF OTHERS AND MAY SUBJECT YOU TO CIVIL AND CRIMINAL PENALTIES, INCLUDING POSSIBLE MONETARY DAMAGES, FOR COPYRIGHT INFRINGEMENT.
+Turnip, the Turnip logo, and other Turnip trademarks, service marks, graphics, and logos used in connection with the App are trademarks or registered trademarks of Turnip in the U.S. and/or other countries. Other trademarks, service marks, graphics, and logos used in connection with the App may be the trademarks of their respective owners. You are granted no right or license with respect to any of the aforesaid trademarks and any use of such trademarks.
+TERMINATION
+If you fail, or Turnip suspects that you have failed, to comply with any of the provisions of this Agreement, Turnip, at its sole discretion, without notice to you may: (i) terminate this Agreement and/or your Account, and you will remain liable for all amounts due under your Account up to and including the date of termination; and/or (ii) terminate the license to the software; and/or (iii) preclude access to the App (or any part thereof).
+Turnip reserves the right to modify, suspend, or discontinue the App (or any part or content thereof) at any time with or without notice to you, and Turnip will not be liable to you or to any third party should it exercise such rights.
+DISCLAIMER OF WARRANTIES; LIABILITY LIMITATIONS
+Turnip DOES NOT GUARANTEE, REPRESENT, OR WARRANT THAT YOUR USE OF THE APP WILL BE UNINTERRUPTED OR ERROR-FREE, AND YOU AGREE THAT FROM TIME TO TIME Turnip MAY REMOVE THE APP FOR INDEFINITE PERIODS OF TIME, OR CANCEL THE APP AT ANY TIME, WITHOUT NOTICE TO YOU.
+YOU EXPRESSLY AGREE THAT YOUR USE OF, OR INABILITY TO USE, THE APP IS AT YOUR SOLE RISK. THE APP IS (EXCEPT AS EXPRESSLY STATED BY Turnip) PROVIDED "AS IS" AND "AS AVAILABLE" FOR YOUR USE, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT. BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, THE ABOVE EXCLUSION OF IMPLIED WARRANTIES MAY NOT APPLY TO YOU.
+IN NO CASE SHALL Turnip, ITS DIRECTORS, OFFICERS, EMPLOYEES, AFFILIATES, AGENTS, CONTRACTORS, PRINCIPALS, OR LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, OR CONSEQUENTIAL DAMAGES ARISING FROM YOUR USE OF ANY OF THE APP OR FOR ANY OTHER CLAIM RELATED IN ANY WAY TO YOUR USE OF THE APP, INCLUDING, BUT NOT LIMITED TO, ANY ERRORS OR OMISSIONS IN ANY CONTENT, OR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT (OR PRODUCT) POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE APP, EVEN IF ADVISED OF THEIR POSSIBILITY. BECAUSE SOME STATES OR JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR THE LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, IN SUCH STATES OR JURISDICTIONS, Turnip’S LIABILITY SHALL BE LIMITED TO THE EXTENT PERMITTED BY LAW.
+Turnip SHALL USE REASONABLE EFFORTS TO PROTECT INFORMATION SUBMITTED BY YOU IN CONNECTION WITH THE APP, BUT YOU AGREE THAT YOUR SUBMISSION OF SUCH INFORMATION IS AT YOUR SOLE RISK, AND Turnip HEREBY DISCLAIMS ANY AND ALL LIABILITY TO YOU FOR ANY LOSS OR LIABILITY RELATING TO SUCH INFORMATION IN ANY WAY.
+Turnip DOES NOT REPRESENT OR GUARANTEE THAT THE APP WILL BE FREE FROM LOSS, CORRUPTION, ATTACK, VIRUSES, INTERFERENCE, HACKING, OR OTHER SECURITY INTRUSION, AND APPLE DISCLAIMS ANY LIABILITY RELATING THERETO. YOU SHALL BE RESPONSIBLE FOR BACKING UP YOUR OWN SYSTEM.
+WAIVER AND INDEMNITY
+BY USING THE APP, TO THE EXTENT PERMITTED BY LAW, YOU HEREBY AGREE TO INDEMNIFY AND HOLD Turnip, ITS DIRECTORS, OFFICERS, EMPLOYEES, AFFILIATES, AGENTS, CONTRACTORS, PRINCIPALS, AND LICENSORS HARMLESS WITH RESPECT TO ANY CLAIMS ARISING OUT OF YOUR BREACH OF THIS AGREEMENT, YOUR USE OF THE APP, OR ANY ACTION TAKEN BY Turnip AS PART OF ITS INVESTIGATION OF A SUSPECTED VIOLATION OF THIS AGREEMENT OR AS A RESULT OF ITS FINDING OR DECISION THAT A VIOLATION OF THIS AGREEMENT HAS OCCURRED. THIS MEANS THAT YOU CANNOT SUE OR RECOVER ANY DAMAGES FROM Turnip, ITS DIRECTORS, OFFICERS, EMPLOYEES, AFFILIATES, AGENTS, CONTRACTORS, PRINCIPALS, AND LICENSORS AS A RESULT OF ITS DECISION TO REMOVE OR REFUSE TO PROCESS ANY INFORMATION OR CONTENT, TO WARN YOU, TO SUSPEND OR TERMINATE YOUR ACCESS TO THE APP, OR TO TAKE ANY OTHER ACTION DURING THE INVESTIGATION OF A SUSPECTED VIOLATION OR AS A RESULT OF Turnip'S CONCLUSION THAT A VIOLATION OF THIS AGREEMENT HAS OCCURRED. THIS WAIVER AND INDEMNITY PROVISION APPLIES TO ALL VIOLATIONS DESCRIBED IN OR CONTEMPLATED BY THIS AGREEMENT.
+CHANGES
+Turnip reserves the right at any time to modify this Agreement and to impose new or additional terms or conditions on your use of the App. Such modifications and additional terms and conditions will be effective immediately and incorporated into this Agreement. Your continued use of the App will be deemed acceptance thereof.
+MISCELLANEOUS
+This Agreement constitutes the entire agreement between you and Turnipand governs your use of the App, superseding any prior agreements between you and Turnip. You also may be subject to additional terms and conditions that may apply when you use affiliate services, third-party content, or third-party software. If any part of this Agreement is held invalid or unenforceable, that portion shall be construed in a manner consistent with applicable law to reflect, as nearly as possible, the original intentions of the parties, and the remaining portions shall remain in full force and effect. Turnip's failure to enforce any right or provisions in this Agreement will not constitute a waiver of such or any other provision. Turnip will not be responsible for failures to fulfill any obligations due to causes beyond its control.
+You agree to comply with all local, state, federal, and national laws, statutes, ordinances, and regulations that apply to your use of the App. All transactions on the App are governed by California law, without giving effect to its conflict of law provisions. Your use of the App may also be subject to other laws. You expressly agree that exclusive jurisdiction for any claim or dispute with Turnip or relating in any way to your use of the App resides in the courts in the State of California. Risk of loss and title for all electronically delivered transactions pass to the purchaser in California upon electronic transmission to the recipient. No Turnip employee or agent has the authority to vary this Agreement.
+Apple may notify you with respect to the App by sending an email message to your Account email address or a letter via postal mail to your Account mailing address. Notices shall become effective immediately.
+Turnip reserves the right to take steps it believes are reasonably necessary or appropriate to enforce and/or verify compliance with any part of this Agreement. You agree that Turnip has the right, without liability to you, to disclose any Registration Data and/or Account information to law enforcement authorities, government officials, and/or a third party, as Turnip believes is reasonably necessary or appropriate to enforce and/or verify compliance with any part of this Agreement (including but not limited to Turnip's right to cooperate with any legal process relating to your use of the App, and/or a third-party claim that your use of the App is unlawful and/or infringes such third party's rights).
+STATUTORY EXCEPTIONS FOR PUBLIC INSTITUTIONS
+If you are a qualified public educational or government institution and any part of this Agreement, such as, by way of example, all or part of the indemnification section, is invalid or unenforceable against you because of applicable state or federal law, then that portion shall be deemed invalid or unenforceable, as the case may be, and instead construed in a manner most consistent with applicable governing law. If California law is precluded, this Agreement shall be construed under the laws of the state in which your public educational or government institution is located.
 
-Nullam tempus facilisis porttitor. Sed nec magna faucibus, viverra velit eget, semper purus. Morbi sed lectus dictum, tempor mi bibendum, tincidunt ex. Quisque eu nulla ut risus aliquam euismod. Morbi fermentum sagittis risus, ut rhoncus mauris porta non. Quisque accumsan, nunc eget cursus pellentesque, sapien arcu lacinia nisl, sed iaculis massa nibh convallis augue. Nulla vulputate lacinia ultricies. In lobortis libero a fermentum hendrerit. Integer tincidunt sem tellus, quis scelerisque ligula lacinia vitae. Quisque a urna facilisis, malesuada massa quis, blandit felis. Vestibulum elit lectus, porta at feugiat sed, ultrices vitae justo. Phasellus eu lacus feugiat, tempor neque ac, tincidunt purus.
-
-Phasellus blandit sed odio eu pharetra. Sed at enim mattis, pretium purus ut, consectetur erat. Donec vulputate, justo ut porta elementum, ex elit vestibulum nunc, tempus dignissim purus nisi ut purus. Aliquam ut ante eget ante blandit elementum. Duis faucibus vitae nunc in elementum. Pellentesque porta tellus a quam varius semper. Sed imperdiet velit arcu, id convallis enim condimentum ut. Sed nunc nunc, feugiat a lorem eu, faucibus vehicula neque. Aliquam iaculis dui id bibendum pulvinar. In in dui sit amet quam pharetra porta. Sed auctor in nulla ut sollicitudin. Phasellus sit amet placerat nunc. Nulla accumsan elit eu tristique gravida. Nunc non euismod tellus, a pellentesque augue. Fusce sit amet iaculis ipsum, vitae efficitur enim. Vestibulum pellentesque urna a lacus imperdiet, quis viverra tellus rutrum.
-
-Vivamus elementum, nisl et dictum sagittis, nunc leo dignissim nisi, at fermentum ex nunc non tellus. Fusce sit amet ultricies ex, a tincidunt augue. Quisque feugiat, purus nec sollicitudin efficitur, velit magna mattis metus, ut semper quam libero eu leo. Curabitur vel nisl dignissim, suscipit turpis vel, placerat nunc. Sed et pellentesque turpis. Vivamus nulla sem, vulputate et egestas sed, pharetra non purus. Duis laoreet magna quis lorem ullamcorper, eu porttitor enim aliquet. Aenean vulputate massa sapien. Vestibulum vitae suscipit purus, ut elementum mi. Duis rutrum venenatis nisl, a vehicula odio ultricies vel. Sed ultricies molestie commodo.
-
-Donec urna risus, consequat ut cursus vel, vehicula in nisi. Vestibulum mattis pellentesque ante, at convallis ante sollicitudin at. Aenean eget purus a quam scelerisque ultricies et vitae lectus. Sed porta sapien eget pellentesque euismod. Integer eu lacus porta diam mattis consectetur. Quisque porta mi sit amet rutrum imperdiet. Duis ac lobortis lectus. Fusce lacinia, erat et viverra fringilla, nisl felis aliquam purus, sed ullamcorper arcu libero a ex. Integer lectus nunc, sodales eu aliquet quis, cursus a justo. In vitae dapibus tellus.</mutableString>
+</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1671,10 +1703,11 @@ Donec urna risus, consequat ut cursus vel, vehicula in nisi. Vestibulum mattis p
                         <constraints>
                             <constraint firstItem="IOY-2V-nM2" firstAttribute="top" secondItem="VAT-uA-uXN" secondAttribute="bottom" constant="25" id="52V-95-Zap"/>
                             <constraint firstItem="VAT-uA-uXN" firstAttribute="leading" secondItem="5rI-KV-xMl" secondAttribute="leadingMargin" constant="27" id="HAL-zW-4cd"/>
-                            <constraint firstItem="VAT-uA-uXN" firstAttribute="top" secondItem="ddQ-4U-EXq" secondAttribute="bottom" constant="73" id="vlo-4R-iNf"/>
+                            <constraint firstItem="VAT-uA-uXN" firstAttribute="top" secondItem="ddQ-4U-EXq" secondAttribute="bottom" constant="24" id="vlo-4R-iNf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VAT-uA-uXN" secondAttribute="trailing" constant="26" id="wus-99-qUJ"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Terms of Service" id="hdC-eI-4nH">
                         <barButtonItem key="leftBarButtonItem" id="rGV-eM-oVj">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GDd-JO-cNn">
@@ -1689,6 +1722,7 @@ Donec urna risus, consequat ut cursus vel, vehicula in nisi. Vestibulum mattis p
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tosTextView" destination="VAT-uA-uXN" id="pq0-xi-64O"/>
                         <segue destination="5vm-uZ-QD9" kind="show" identifier="ToSToProfile" id="YqO-Ry-fwr"/>
@@ -2518,9 +2552,9 @@ Donec urna risus, consequat ut cursus vel, vehicula in nisi. Vestibulum mattis p
         <!--Navigation Controller-->
         <scene sceneID="DKw-xI-NAQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dE4-s7-0up" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KRZ-ZM-WHb" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="KRZ-ZM-WHb" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vg2-6P-Hdh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2530,6 +2564,7 @@ Donec urna risus, consequat ut cursus vel, vehicula in nisi. Vestibulum mattis p
                         <segue destination="8Jw-rX-Jev" kind="relationship" relationship="rootViewController" id="bMA-bf-mXw"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dE4-s7-0up" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1400" y="3734"/>
         </scene>

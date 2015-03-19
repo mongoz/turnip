@@ -99,13 +99,14 @@
     cell.eventImageView.file = thumbnail;
     
     cell.titleLabel.text = [object objectForKey: TurnipParsePostTitleKey];
-    cell.distanceLabel.text = [self distanceFromCurrLocation: [object objectForKey: @"location" ]];
-    cell.dateLabel.text = [dateFormatter stringFromDate: [object objectForKey:@"date"]];
+    cell.dateLabel.text = [self convertDate:[object objectForKey:@"date"]];
     
     if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"False"]) {
         cell.statusImage.image = [UIImage imageNamed:@"green.png"];
+        cell.distanceLabel.text = [NSString stringWithFormat:@"%@ Miles", [self distanceFromCurrLocation: [object objectForKey: @"location" ]]];
     }
     if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"True"]) {
+        cell.distanceLabel.text = @"Hidden";
         cell.statusImage.image = [UIImage imageNamed:@"red.png"];
     }
     
@@ -128,6 +129,10 @@
     }
 }
 
+
+#pragma mark -
+#pragma mark utils
+
 //Calculate the distance from current location to the destination Partay
 //Returns a NSString
 - (NSString *) distanceFromCurrLocation : (PFGeoPoint *) point {
@@ -146,6 +151,34 @@
     return stringMile;
 }
 
+
+- (NSString *) convertDate: (NSDate *) date {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    NSLocale *locale = [NSLocale currentLocale];
+    [dateFormatter setLocale:locale];
+    
+    [dateFormatter setDoesRelativeDateFormatting:YES];
+    
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    
+    return dateString;
+}
+
+-(double) metersToMiles:(double) meters {
+    return meters * 0.000621371;
+}
+
+#pragma mark - Navigation
+
+- (IBAction)backNavigationButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showEventDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -157,14 +190,5 @@
         
         destViewController.event = event;
     }
-}
-
--(double) metersToMiles:(double) meters {
-    return meters * 0.000621371;
-}
-
-- (IBAction)backNavigationButton:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    
 }
 @end

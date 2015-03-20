@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIButton *facebookLoginButton;
+@property (strong, nonatomic) IBOutlet UILabel *connectionLabel;
 
 - (IBAction)facebookLoginButton:(id)sender;
 

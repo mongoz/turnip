@@ -41,9 +41,7 @@
     [ReachabilityManager sharedManager];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetBadgeCount:) name:TurnipResetBadgeCountNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
-    
+        
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     
@@ -250,14 +248,6 @@
 - (void) resetBadgeCount:(NSNotification *)note {
     
     self.notificationCount = 0;
-}
-
-- (void) reachabilityDidChange: (NSNotification *) note {
-    if ([ReachabilityManager isReachable]) {
-        NSLog(@"reachable");
-    } else {
-        NSLog(@"Unreachable");
-    }
 }
 
 #pragma mark facebook url open

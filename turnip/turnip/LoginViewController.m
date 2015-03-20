@@ -13,7 +13,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
-
+#import "Reachability.h"
 #import "ReachabilityManager.h"
 
 @interface LoginViewController ()
@@ -26,6 +26,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.tabBarController.tabBar setHidden:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+    
     
 }
 
@@ -113,5 +115,17 @@
             }];
         }
     }];
+}
+
+
+- (void) reachabilityDidChange: (NSNotification *) note {
+    if ([ReachabilityManager isReachable]) {
+        self.facebookLoginButton.hidden = NO;
+        self.connectionLabel.hidden = YES;
+        
+    } else {
+        self.facebookLoginButton.hidden = YES;
+        self.connectionLabel.hidden = NO;
+    }
 }
 @end

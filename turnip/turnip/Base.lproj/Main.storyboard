@@ -561,7 +561,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="Jc9-5Y-Lmj" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="brX-Wj-SMO" kind="relationship" relationship="viewControllers" id="Nzg-dK-Yxc"/>
                         <segue destination="krL-hN-Ark" kind="relationship" relationship="viewControllers" id="dab-ab-4in"/>
                         <segue destination="VKp-6u-dsg" kind="relationship" relationship="viewControllers" id="hZm-H4-7bH"/>
                         <segue destination="5vm-uZ-QD9" kind="relationship" relationship="viewControllers" id="sfu-Oh-zd7"/>
@@ -576,7 +575,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="FindView" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="EnW-aL-faH" customClass="FindViewController" sceneMemberID="viewController">
                     <tableView key="view" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="30" sectionFooterHeight="20" id="Rci-tj-ZzQ">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -668,16 +667,16 @@
                         <viewControllerLayoutGuide type="bottom" id="FWu-tZ-MfH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aHI-I0-PJG">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleAspectFit" misplaced="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="8cc-Gu-U2Y" userLabel="infomationView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="392"/>
+                            <view contentMode="scaleAspectFit" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="8cc-Gu-U2Y" userLabel="infomationView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="391"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yst-ye-omt">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yst-ye-omt">
                                         <rect key="frame" x="8" y="259" width="584" height="130"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="554" translatesAutoresizingMaskIntoConstraints="NO" id="5l4-OD-lBd">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="554" translatesAutoresizingMaskIntoConstraints="NO" id="5l4-OD-lBd">
                                                 <rect key="frame" x="8" y="0.0" width="584" height="130"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -691,8 +690,8 @@
                                             <constraint firstAttribute="centerY" secondItem="5l4-OD-lBd" secondAttribute="centerY" id="edp-U0-PyD"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdv-OD-AGK" userLabel="detailsView">
-                                        <rect key="frame" x="8" y="0.0" width="584" height="129"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdv-OD-AGK" userLabel="detailsView">
+                                        <rect key="frame" x="8" y="0.0" width="584" height="130"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private/Public" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQT-Cc-0jQ">
                                                 <rect key="frame" x="238" y="22" width="292" height="21"/>
@@ -723,8 +722,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AwV-PT-KLp" customClass="PFImageView">
-                                                <rect key="frame" x="0.0" y="0.0" width="193" height="129"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AwV-PT-KLp" customClass="PFImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="130"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
@@ -800,11 +799,11 @@
                                             <constraint firstItem="JQT-Cc-0jQ" firstAttribute="leading" secondItem="N6U-WO-5Qa" secondAttribute="trailing" constant="4" id="ymM-GY-R4H"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDZ-cU-9Ea" userLabel="eventImageView">
-                                        <rect key="frame" x="8" y="129" width="584" height="130"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nDZ-cU-9Ea" userLabel="eventImageView">
+                                        <rect key="frame" x="8" y="130" width="584" height="129"/>
                                         <subviews>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnR-Hc-Ond" customClass="PFImageView">
-                                                <rect key="frame" x="1" y="0.0" width="193" height="130"/>
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pnR-Hc-Ond" customClass="PFImageView">
+                                                <rect key="frame" x="1" y="0.0" width="193" height="129"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
@@ -817,8 +816,8 @@
                                                     <outletCollection property="gestureRecognizers" destination="QHb-rk-h84" appends="YES" id="SkF-cp-9pj"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lUx-bK-WlH" customClass="PFImageView">
-                                                <rect key="frame" x="194" y="0.0" width="193" height="130"/>
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUx-bK-WlH" customClass="PFImageView">
+                                                <rect key="frame" x="194" y="0.0" width="193" height="129"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
@@ -831,8 +830,8 @@
                                                     <outletCollection property="gestureRecognizers" destination="SYu-Vg-toY" appends="YES" id="MDc-we-Nc1"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDq-Ib-WWW" customClass="PFImageView">
-                                                <rect key="frame" x="387" y="0.0" width="193" height="130"/>
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rDq-Ib-WWW" customClass="PFImageView">
+                                                <rect key="frame" x="387" y="0.0" width="193" height="129"/>
                                                 <gestureRecognizers/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
@@ -883,11 +882,11 @@
                                     <rect key="frame" x="7" y="28" width="386" height="386"/>
                                 </variation>
                             </view>
-                            <view contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VzL-nF-YoJ" userLabel="bottomView">
-                                <rect key="frame" x="0.0" y="392" width="600" height="144"/>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VzL-nF-YoJ" userLabel="bottomView">
+                                <rect key="frame" x="0.0" y="391" width="600" height="145"/>
                                 <subviews>
-                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ypY-ST-11B">
-                                        <rect key="frame" x="8" y="0.0" width="584" height="144"/>
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ypY-ST-11B">
+                                        <rect key="frame" x="8" y="0.0" width="584" height="145"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="acceptedCell" id="g3F-1T-eJD">
@@ -906,8 +905,8 @@
                                             <outlet property="delegate" destination="spu-ar-JnD" id="nAe-A7-xFw"/>
                                         </connections>
                                     </tableView>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT">
-                                        <rect key="frame" x="250" y="22" width="100" height="100"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT">
+                                        <rect key="frame" x="250" y="23" width="100" height="100"/>
                                         <state key="normal" backgroundImage="request">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -929,10 +928,10 @@
                                     <rect key="frame" x="7" y="422" width="386" height="170"/>
                                 </variation>
                             </view>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XgP-m5-dMe" userLabel="fullScreenImageView">
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XgP-m5-dMe" userLabel="fullScreenImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-fH-mrJ">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-fH-mrJ">
                                         <rect key="frame" x="139" y="107" width="322" height="322"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -1069,6 +1068,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yzM-2u-vhu">
+                                <rect key="frame" x="0.0" y="272" width="600" height="264"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="5HL-EY-J2b">
+                                    <size key="itemSize" width="140" height="140"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="sfP-ug-R0r">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IGt-AL-S6N" customClass="PFImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.0039215688589999999" green="0.99607849120000003" blue="0.1098039299" alpha="1" colorSpace="deviceRGB"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="261" width="600" height="277"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="qJi-dl-hfz" id="EY4-o6-kNU"/>
+                                    <outlet property="delegate" destination="qJi-dl-hfz" id="Tqe-Wo-dTP"/>
+                                </connections>
+                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPU-T2-caV" userLabel="SeparatorView">
                                 <rect key="frame" x="0.0" y="230" width="600" height="42"/>
                                 <subviews>
@@ -1214,40 +1247,6 @@
                                     <rect key="frame" x="0.0" y="-3" width="600" height="222"/>
                                 </variation>
                             </view>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yzM-2u-vhu">
-                                <rect key="frame" x="0.0" y="272" width="600" height="264"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="5HL-EY-J2b">
-                                    <size key="itemSize" width="140" height="140"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="sfP-ug-R0r">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IGt-AL-S6N" customClass="PFImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" red="0.0039215688589999999" green="0.99607849120000003" blue="0.1098039299" alpha="1" colorSpace="deviceRGB"/>
-                                    </collectionViewCell>
-                                </cells>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="261" width="600" height="277"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="dataSource" destination="qJi-dl-hfz" id="EY4-o6-kNU"/>
-                                    <outlet property="delegate" destination="qJi-dl-hfz" id="Tqe-Wo-dTP"/>
-                                </connections>
-                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1569,20 +1568,6 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invite" id="IH1-iu-ddm">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IH1-iu-ddm" id="SAj-FC-WsB">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invite friends to Turnip" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAb-qo-wcW">
-                                            <rect key="frame" x="25" y="11" width="171" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tos" id="dyX-9f-sbj">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dyX-9f-sbj" id="jGa-hh-gqN">
@@ -1653,19 +1638,19 @@
                         <viewControllerLayoutGuide type="bottom" id="IOY-2V-nM2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5rI-KV-xMl">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAT-uA-uXN">
-                                <rect key="frame" x="43" y="44" width="515" height="531"/>
-                                <mutableString key="text">THIS LEGAL AGREEMENT BETWEEN YOU AND The Stupidest App Ever (hereinafter referred to as "Turnip") GOVERNS YOUR USE OF THE Turnip Application (“App”).
+                                <rect key="frame" x="43" y="24" width="515" height="487"/>
+                                <string key="text">THIS LEGAL AGREEMENT BETWEEN YOU AND The Stupidest App Ever (hereinafter referred to as "Turnip") GOVERNS YOUR USE OF THE Turnip Application (“App”).
 The Stupidest App Ever is the provider of the App that permits you to license software products and digital content for end user use only under the terms and conditions set forth in this Agreement.
 Only persons age 13 years or older can create accounts. Accounts for persons under 13 years old can be created by a parent or legal guardian using Family Sharing or by an approved educational institution. Children under the age of majority should review this Agreement with their parent or guardian to ensure that the child and the parent or legal guardian understand it.
 The App is available to you only in the United States, its territories, and possessions. You agree not to use or attempt to use the App from outside these locations. Turnip may use technologies to verify your compliance.
 Use of the App requires compatible devices, Internet access, and certain software (fees may apply); may require periodic updates; and may be affected by the performance of these factors. High-speed Internet access is strongly recommended. The latest version of required software is recommended to access the App and may be required for certain transactions or features. You agree that meeting these requirements, which may change from time to time, is your responsibility.
 YOUR ACCOUNT
 As a registered user of the App, you may establish an account ("Account"). Don’t reveal your Account information to anyone else. You are solely responsible for maintaining the confidentiality and security of your Account, and for all activities that occur on or through your Account, and you agree to immediately notify Turnip of any security breach of your Account. Turnip shall not be responsible for any losses arising out of the unauthorized use of your Account.
-In order to purchase and/or download the App, you must enter your ID and password to authenticate your Account for transactions. Once you have authenticated your Account using your ID and password, you will not need to authenticate again for ___________________________ minutes; you can choose to allow your computer to remember your password to remain authenticated.
+In order to purchase and/or download the App, you must enter your ID and password to authenticate your Account for transactions.
 You agree to provide accurate and complete information when you register with, and as you use, the App, and you agree to update your App Registration Data to keep it accurate and complete.
 ________________________ is subject to the following Privacy Policy:
 You agree that the App may include security technology that limits your use and that, whether or not the App is limited by security technology, you shall use it in compliance with the applicable usage rules established by Turnip and its principals (“Usage Rules”), and that any other use of the App may constitute a copyright infringement. Any security technology is an inseparable part of the App. Turnip reserves the right to modify the Usage Rules at any time. You agree not to violate, circumvent, reverse-engineer, decompile, disassemble, or otherwise tamper with any of the security technology related to such Usage Rules for any reason—or to attempt or assist another person to do so. Usage Rules may be controlled and monitored by Turnip for compliance purposes, and Turnip reserves the right to enforce the Usage Rules without notice to you. You shall not access or attempt to access an Account that you are not authorized to access. You agree not to modify the software in any manner or form, or to use modified versions of the software, for any purposes. Violations of system or network security may result in civil or criminal liability.
@@ -1704,7 +1689,7 @@ Turnip reserves the right to take steps it believes are reasonably necessary or 
 STATUTORY EXCEPTIONS FOR PUBLIC INSTITUTIONS
 If you are a qualified public educational or government institution and any part of this Agreement, such as, by way of example, all or part of the indemnification section, is invalid or unenforceable against you because of applicable state or federal law, then that portion shall be deemed invalid or unenforceable, as the case may be, and instead construed in a manner most consistent with applicable governing law. If California law is precluded, this Agreement shall be construed under the laws of the state in which your public educational or government institution is located.
 
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -2542,7 +2527,7 @@ If you are a qualified public educational or government institution and any part
         <!--Message-->
         <scene sceneID="Bn9-ce-edB">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="brX-Wj-SMO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="messages" automaticallyAdjustsScrollViewInsets="NO" id="brX-Wj-SMO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Message" image="messaging" id="lBA-N8-ZYG"/>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -2595,13 +2580,13 @@ If you are a qualified public educational or government institution and any part
         <image name="request" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YqO-Ry-fwr"/>
-        <segue reference="Q4Y-8F-Leq"/>
-        <segue reference="Ucw-VM-vmq"/>
-        <segue reference="anS-E0-Al2"/>
         <segue reference="QZr-iu-lXX"/>
+        <segue reference="anS-E0-Al2"/>
+        <segue reference="Ucw-VM-vmq"/>
+        <segue reference="sfu-Oh-zd7"/>
         <segue reference="sAl-Hq-kgH"/>
         <segue reference="SrB-cg-sg9"/>
-        <segue reference="gtm-Sk-oAF"/>
+        <segue reference="eVo-du-xyK"/>
+        <segue reference="ZPE-HD-gzc"/>
     </inferredMetricsTieBreakers>
 </document>

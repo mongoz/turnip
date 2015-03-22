@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 
-@property (strong, nonatomic) PFUser *user;
+@property (strong, nonatomic) NSArray *user;
 
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UITextView *bioTextView;

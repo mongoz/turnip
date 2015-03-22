@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menuItems = @[@"editProfile" ,@"invite", @"tos", @"contact", @"signout"];
+    menuItems = @[@"editProfile", @"tos", @"contact", @"signout"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,11 +76,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [self.revealViewController revealToggleAnimated:YES];
     }
     
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {
          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.turnipapp.com/faq.htm"]];
     }
     
-    if (indexPath.row == 4) {
+    if (indexPath.row == 3) {
         [PFUser logOut];
         [self performSegueWithIdentifier: @"logoutSegue" sender: self];
     }

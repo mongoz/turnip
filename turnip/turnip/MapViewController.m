@@ -294,7 +294,6 @@
 }
 
 - (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
-    NSLog(@"tap");
     return NO;
 }
 

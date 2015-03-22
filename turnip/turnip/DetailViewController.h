@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-#import "TurnipEvent.h"
-
 
 @interface DetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) TurnipEvent *event;
-@property (nonatomic, strong) TurnipEvent *data;
+//@property (nonatomic, strong) TurnipEvent *event;
+@property (nonatomic, strong) NSArray *event;
 
 @property (nonatomic, strong) NSArray *yourEvent;
+@property (nonatomic, strong) NSArray *data;
 
 @property (nonatomic, assign) BOOL host;
 @property (nonatomic, assign) BOOL deleted;

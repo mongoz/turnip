@@ -7,7 +7,6 @@
 //
 
 #import "FindTableCell.h"
-#import "TurnipEvent.h"
 
 @implementation FindTableCell
 

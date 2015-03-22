@@ -27,8 +27,7 @@
 @synthesize event;
 
 - (void) viewWillAppear:(BOOL)animated {
-    NSLog(@"navD: %@", self.navigationController.viewControllers);
-    
+   
     if (self.host) {
         [self.navigationController.topViewController.navigationItem setHidesBackButton:YES];
         [self.tabBarController.tabBar setHidden:NO ];
@@ -57,8 +56,8 @@
     
    else if (event != nil) {
        [self.navigationController.topViewController.navigationItem setRightBarButtonItem:nil];
-        self.objectId = event.objectId;
-        self.navigationItem.title = event.title;
+        self.objectId = [event valueForKey:@"objectId"];
+        self.navigationItem.title = [event valueForKey:@"title"];
         [self downloadDetails];
         self.profileImage.userInteractionEnabled = YES;
     }
@@ -78,7 +77,6 @@
     [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl = self.refreshControl;
     
-   // [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.topItem.title = [[self.yourEvent valueForKey:@"title"] objectAtIndex:0];
     self.objectId = [[self.yourEvent valueForKey:@"objectId"] objectAtIndex:0];
     self.requestButton.hidden = YES;
@@ -123,9 +121,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateUI : (PFObject *) data {
+- (void) updateUI : (PFObject *) data withHideRequest:(BOOL) hide{
     
-    if (![[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId]) {
+    if (![[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId] && !hide) {
         self.requestButton.hidden = NO;
     }
     
@@ -184,7 +182,7 @@
 
 - (IBAction)profileImageTapHandler:(UITapGestureRecognizer *)sender {
 
-    [self performSegueWithIdentifier:@"profileSegue" sender: self.data.user];
+    [self performSegueWithIdentifier:@"profileSegue" sender: [[self.data valueForKey:@"user"] objectAtIndex:0]];
 }
 
 - (IBAction)image1TapHandler:(UITapGestureRecognizer *)sender {
@@ -236,7 +234,6 @@
             self.isFullscreen = YES;
         }];
     }
-
 }
 
 - (IBAction)fullScreenImageHandler:(UITapGestureRecognizer *)sender {
@@ -260,6 +257,7 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"profileSegue"]) {
+
         ProfileViewController *destViewController = segue.destinationViewController;
     
         destViewController.user = sender;
@@ -271,8 +269,8 @@
 
 - (IBAction)requestButtonHandler:(id)sender {
     
-    NSString *host = self.data.user.objectId;
-    
+    //NSString *host = self.data.user.objectId;
+    NSString *host = [[[self.data valueForKey:@"user"] valueForKey:@"objectId"] objectAtIndex:0];
     NSArray *name = [[[PFUser currentUser] objectForKey:@"name"] componentsSeparatedByString: @" "];
 
     NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [name objectAtIndex:0]];
@@ -280,7 +278,7 @@
     self.requestButton.enabled = NO;
     
     [PFCloud callFunctionInBackground:@"requestEventPush"
-                       withParameters:@{@"recipientId": host, @"message": message, @"eventId": self.data.objectId }
+                       withParameters:@{@"recipientId": host, @"message": message, @"eventId": [[self.data valueForKey:TurnipParsePostIdKey] objectAtIndex:0] }
                                 block:^(NSString *success, NSError *error) {
                                     if (!error) {
                                         NSLog(@"push sent");
@@ -381,31 +379,51 @@
 }
 
 - (void) downloadDetails {
+    __block BOOL hideRequest = NO;
+    
     PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
     
     query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     
     [query includeKey:TurnipParsePostUserKey];
     [query includeKey:@"neighbourhood"];
-   // [query whereKey:@"requests" equalTo:[PFUser currentUser]];
-    [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
-        if(error) {
+    
+    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
+        if (error) {
             NSLog(@"Error in query!: %@", error);
-        }else {
+        } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                PFRelation *relation = [object relationForKey:@"requests"];
-                PFQuery *query = [relation query];
-                [query whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
+                PFRelation *acceptedRelation = [object relationForKey:@"accepted"];
+                PFQuery *query = [acceptedRelation query];
+                [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if([objects count] == 0) {
-                        self.requestButton.enabled = YES;
+                    if ([objects count] == 0) {
+                        PFRelation *requestRelation = [object relationForKey:@"requests"];
+                        PFQuery *query = [requestRelation query];
+                        [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
+                        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                            if ([objects count] == 0) {
+                                self.requestButton.enabled = YES;
+                            }
+                        }];
+                    } else {
+                        hideRequest = YES;
+                        // Initialize the refresh control.
+                        UITableViewController *tableViewController = [[UITableViewController alloc] init];
+                        tableViewController.tableView = self.tableView;
+                        
+                        self.refreshControl = [[UIRefreshControl alloc] init];
+                        [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
+                        tableViewController.refreshControl = self.refreshControl;
+                        
+                        self.accepted = [[NSArray alloc] initWithArray:objects];
+                        [[self tableView] reloadData];
+                        self.tableView.hidden = NO;
                     }
+                    self.data = [[NSArray alloc] initWithObjects:object, nil];
+                    [self downloadImages: object];
+                    [self updateUI: object withHideRequest:hideRequest];
                 }];
-                
-                self.data = [[TurnipEvent alloc] initWithPFObject:object];
-                [self downloadImages : object];
-                [self updateUI : object];
-                
             });
         }
     }];

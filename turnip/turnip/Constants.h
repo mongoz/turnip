@@ -13,10 +13,10 @@
 // Tabbarcontroller view ids
 
 static int const TurnipTabHome = 0;
-static int const TurnipTabMessage = 1;
-static int const TurnipTabHost = 2;
-static int const TurnipTabNotification = 3;
-static int const TurnipTabProfile = 4;
+//static int const TurnipTabMessage = 1;
+static int const TurnipTabHost = 1;
+static int const TurnipTabNotification = 2;
+static int const TurnipTabProfile = 3;
 
 
 // Parse API key constants:

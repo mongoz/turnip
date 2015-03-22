@@ -23,7 +23,6 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    NSLog(@"navS: %@", self.navigationController.viewControllers);
     self.navigationController.navigationBar.hidden = YES;
 }
 

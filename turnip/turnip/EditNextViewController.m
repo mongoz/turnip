@@ -12,7 +12,6 @@
 #import "Constants.h"
 #import "DateTimePicker.h"
 #import <Parse/Parse.h>
-#import "TurnipEvent.h"
 
 @interface EditNextViewController ()
 
@@ -37,7 +36,6 @@
     [self initPickerViews];
     [self setupViews];
     
-    NSLog(@"navigationStack %@", self.navigationController.viewControllers);
 }
 
 - (void)didReceiveMemoryWarning {

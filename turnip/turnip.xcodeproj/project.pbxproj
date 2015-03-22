@@ -15,9 +15,7 @@
 		1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC41AA67836004F55B4 /* ScannerViewController.m */; };
 		1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */; };
 		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
-		1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */; };
 		1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626251A7B15B400AF63B9 /* ZW4QC.png */; };
-		1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4CB1A7E281400AADDAA /* TurnipUser.m */; };
 		1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */; };
 		1A9AE4D51A8052D200AADDAA /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D31A8052D200AADDAA /* green.png */; };
 		1A9AE4D61A8052D200AADDAA /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D41A8052D200AADDAA /* red.png */; };
@@ -44,8 +42,6 @@
 		1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */; };
 		1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */; };
 		1AFD3FEA1A74ED9E00B2EABE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */; };
-		1AFD3FEB1A74ED9E00B2EABE /* TurnipEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD31A74ED9E00B2EABE /* TurnipEvent.m */; };
-		1AFD3FEC1A74ED9E00B2EABE /* Placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD41A74ED9E00B2EABE /* Placeholder.jpg */; };
 		1AFD3FED1A74ED9E00B2EABE /* MapMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */; };
 		1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */; };
 		1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */; };
@@ -59,7 +55,6 @@
 		1AFD40381A74F89100B2EABE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40371A74F89100B2EABE /* Social.framework */; };
 		1AFD403A1A74F89600B2EABE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFD40391A74F89600B2EABE /* Accounts.framework */; };
 		1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD40481A751F2200B2EABE /* MBProgressHUD.m */; };
-		1AFD406B1A7A1DBB00B2EABE /* simpleMenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */; };
 		AB78C0845A009A5F3A9EF209 /* libPods-turnip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D397F68C3BE458359F6CA901 /* libPods-turnip.a */; };
 /* End PBXBuildFile section */
 
@@ -91,10 +86,7 @@
 		1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailSidebarTableViewController.m; sourceTree = "<group>"; };
 		1A8626161A7A321700AF63B9 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_icon_325x325.png; sourceTree = "<group>"; };
 		1A8626251A7B15B400AF63B9 /* ZW4QC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZW4QC.png; sourceTree = "<group>"; };
-		1A9AE4CA1A7E281400AADDAA /* TurnipUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipUser.h; sourceTree = "<group>"; };
-		1A9AE4CB1A7E281400AADDAA /* TurnipUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnipUser.m; sourceTree = "<group>"; };
 		1A9AE4CE1A7F787F00AADDAA /* TurnipDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TurnipDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1A9AE4D31A8052D200AADDAA /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		1A9AE4D41A8052D200AADDAA /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
@@ -143,9 +135,6 @@
 		1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		1AFD3FD21A74ED9E00B2EABE /* TurnipEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipEvent.h; sourceTree = "<group>"; };
-		1AFD3FD31A74ED9E00B2EABE /* TurnipEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnipEvent.m; sourceTree = "<group>"; };
-		1AFD3FD41A74ED9E00B2EABE /* Placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Placeholder.jpg; sourceTree = "<group>"; };
 		1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarker.h; sourceTree = "<group>"; };
 		1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarker.m; sourceTree = "<group>"; };
 		1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -164,7 +153,6 @@
 		1AFD403B1A74F94900B2EABE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AFD40471A751F2200B2EABE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		1AFD40481A751F2200B2EABE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simpleMenuButton.png; sourceTree = "<group>"; };
 		75F6F5BBAA2AAD5381FEB163 /* Pods-turnip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.release.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.release.xcconfig"; sourceTree = "<group>"; };
 		D397F68C3BE458359F6CA901 /* libPods-turnip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-turnip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -235,8 +223,6 @@
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
 				1A1B32141A9E76490096F2DF /* TurnipCustomTabBarViewController.h */,
 				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
-				1A9AE4CA1A7E281400AADDAA /* TurnipUser.h */,
-				1A9AE4CB1A7E281400AADDAA /* TurnipUser.m */,
 				1AFD3FBE1A74ED9E00B2EABE /* Constants.h */,
 				1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */,
 				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
@@ -254,8 +240,6 @@
 				1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */,
 				1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */,
 				1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */,
-				1AFD3FD21A74ED9E00B2EABE /* TurnipEvent.h */,
-				1AFD3FD31A74ED9E00B2EABE /* TurnipEvent.m */,
 				1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */,
 				1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */,
 				1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */,
@@ -350,10 +334,7 @@
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
-				1A8626241A7B15B400AF63B9 /* fb_icon_325x325.png */,
 				1A8626251A7B15B400AF63B9 /* ZW4QC.png */,
-				1AFD406A1A7A1DBB00B2EABE /* simpleMenuButton.png */,
-				1AFD3FD41A74ED9E00B2EABE /* Placeholder.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -465,13 +446,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */,
-				1AFD3FEC1A74ED9E00B2EABE /* Placeholder.jpg in Resources */,
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
-				1A8626261A7B15B400AF63B9 /* fb_icon_325x325.png in Resources */,
 				1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */,
-				1AFD406B1A7A1DBB00B2EABE /* simpleMenuButton.png in Resources */,
 				1A9AE4D51A8052D200AADDAA /* green.png in Resources */,
 				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
@@ -499,7 +477,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -548,7 +526,6 @@
 				1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
 				1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */,
-				1A9AE4CC1A7E281400AADDAA /* TurnipUser.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
@@ -559,7 +536,6 @@
 				1A9FD9D11AB6BEAF000BF15C /* MessagingViewController.m in Sources */,
 				1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */,
 				1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */,
-				1AFD3FEB1A74ED9E00B2EABE /* TurnipEvent.m in Sources */,
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
 				1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */,
 				1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */,
@@ -719,7 +695,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = turnip;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -748,7 +724,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = turnip;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -770,7 +746,7 @@
 				);
 				INFOPLIST_FILE = turnipTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = turnipTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/turnip.app/turnip";
 			};
 			name = Debug;
@@ -785,7 +761,7 @@
 				);
 				INFOPLIST_FILE = turnipTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = turnipTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/turnip.app/turnip";
 			};
 			name = Release;

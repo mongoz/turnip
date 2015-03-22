@@ -107,6 +107,7 @@
             _boundingBox.corners = translatedCorners;
             
             // Update the view with the decoded text
+            NSLog(@"eventId: %@", self.eventId);
             self.message.font = [_message.font fontWithSize:30];
             if ([[transformed stringValue] isEqualToString: self.eventId]) {
                 self.message.text = @"Accepted";

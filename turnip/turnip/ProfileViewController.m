@@ -45,14 +45,16 @@
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
     
-    if ([user.objectId isEqual:[PFUser currentUser].objectId]) {
+    if ([[user valueForKey:@"objectId"] isEqual:[PFUser currentUser].objectId]) {
         [self loadFacebookData];
-
+        self.backNavigationButton.hidden = NO;
     }
     else if (user == nil) {
         [self loadFacebookData];
+        self.backNavigationButton.hidden = YES;
     }
     else {
+        self.backNavigationButton.hidden = NO;
         [self drawFacebookData];
     }
     [self queryForThrownParties];
@@ -61,7 +63,6 @@
 
 - (void) loadFacebookData {
     
-    self.backNavigationButton.hidden = YES;
     FBRequest *request = [FBRequest requestForMe];
     
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -99,13 +100,13 @@
 
 - (void) drawFacebookData {
     
-    NSString *facebookID = [user objectForKey:@"facebookId"];
+    NSString *facebookID = [user valueForKey:@"facebookId"];
     
-    NSArray *name = [[user objectForKey:@"name"] componentsSeparatedByString: @" "];
+    NSArray *name = [[user valueForKey:@"name"] componentsSeparatedByString: @" "];
     
-    self.bioLabel.text = [user objectForKey:@"bio"];
+    self.bioLabel.text = [user valueForKey:@"bio"];
     
-    self.ageLabel.text = @([self calculateAge:[user objectForKey:@"birthday"]]).stringValue;
+    self.ageLabel.text = @([self calculateAge:[user valueForKey:@"birthday"]]).stringValue;
     self.navigationItem.title = [name objectAtIndex:0];
     
     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
@@ -180,7 +181,7 @@
                     if (self.user == nil) {
                         [query whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
                     } else {
-                        [query whereKey:@"objectId" equalTo:self.user.objectId];
+                        [query whereKey:@"objectId" equalTo:[self.user valueForKey:TurnipParsePostIdKey]];
                     }
                     
                     [query findObjectsInBackgroundWithBlock:^(NSArray *object, NSError *error) {

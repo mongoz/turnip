@@ -120,6 +120,7 @@
 
 - (void) reachabilityDidChange: (NSNotification *) note {
     if ([ReachabilityManager isReachable]) {
+        NSLog(@"reached");
         self.facebookLoginButton.hidden = NO;
         self.connectionLabel.hidden = YES;
         

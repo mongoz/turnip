@@ -11,7 +11,6 @@
 #import "FindTableCell.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-#import "TurnipEvent.h"
 #import "Constants.h"
 
 @interface FindViewController ()
@@ -184,11 +183,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         DetailViewController *destViewController = segue.destinationViewController;
         
-        PFObject *object = [self.objects objectAtIndex:indexPath.row];
-        
-        TurnipEvent *event = [[TurnipEvent alloc] initWithPFObject:object];
-        
-        destViewController.event = event;
+        destViewController.event = [self.objects objectAtIndex:indexPath.row];
     }
 }
 @end

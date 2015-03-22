@@ -12,11 +12,11 @@
 #import "DateTimePicker.h"
 #import <Parse/Parse.h>
 #import "SWRevealViewController.h"
-#import "TurnipEvent.h"
 #import "ReachabilityManager.h"
 
 @interface ThrowNextViewController ()
 
+@property (nonatomic, strong) NSArray *data;
 @property (nonatomic, strong) NSDate *selectedDate;
 @property (nonatomic, strong) NSDate *selectedTime;
 @property (nonatomic, strong) DateTimePicker *datePicker;
@@ -522,7 +522,8 @@
                     });
                     [self saveToCoreData:postObject];
                     self.currentEventId = postObject.objectId;
-                    self.data = [[TurnipEvent alloc] initWithPFObject:postObject];
+                   // self.data = [[TurnipEvent alloc] initWithPFObject:postObject];
+                    self.data = [[NSArray alloc] initWithObjects:postObject, nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
                     [self viewWillAppear:YES];
                 }

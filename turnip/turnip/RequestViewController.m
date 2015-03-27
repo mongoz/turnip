@@ -110,7 +110,6 @@ NSArray *fetchedObjects;
 
 - (void) deleteRequester: (NSArray * ) requester {
     
-
     PFUser *user = [PFUser objectWithoutDataWithClassName:@"_User" objectId:[requester valueForKey:@"objectId"]];
     
     PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
@@ -120,10 +119,9 @@ NSArray *fetchedObjects;
             NSLog(@"Error in query: %@", error);
         } else {
             if (object != nil) {
-                NSLog(@"object %@", object);
+                [object addUniqueObject:[requester valueForKey:@"objectId"] forKey:@"denied"];
+                
                 PFRelation *relation = [object relationForKey:@"requests"];
-               // PFQuery *query = [relation query];
-                NSLog(@"relation:%@", relation);
                 [relation removeObject:user];
                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (error) {
@@ -387,14 +385,6 @@ NSArray *fetchedObjects;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TurnipUserWasAcceptedNotification object:nil];
 
-}
-
-- (void) swipeTableViewCellDidStartSwiping:(MCSwipeTableViewCell *)cell {
-    NSLog(@"did start swiping");
-}
-
-- (void) swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell {
-    NSLog(@"did end swiping");
 }
 
 

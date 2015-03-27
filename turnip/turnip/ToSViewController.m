@@ -16,22 +16,12 @@
 
 @implementation ToSViewController
 
-//- (void) viewWillAppear:(BOOL)animated {
-//    [self setExtendedLayoutIncludesOpaqueBars:YES];
-//    [self.tabBarController.tabBar setTranslucent:YES];
-//    [self.tabBarController.tabBar setHidden:YES];
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.tosTextView scrollRangeToVisible:NSMakeRange(0, 0)];
 }
-
-//- (void) viewWillDisappear:(BOOL)animated {
-//    [self.tabBarController.tabBar setHidden:NO];
-//}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

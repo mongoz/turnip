@@ -105,7 +105,7 @@
                     
                     [PFUser currentUser][@"name"] = user.name;
                     [PFUser currentUser][@"facebookId"] = user.objectID;
-                    [PFUser currentUser][@"TOS"] = @"True";
+                    [PFUser currentUser][@"TOS"] = @"False";
                     [PFUser currentUser][@"birthday"] = user.birthday;
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

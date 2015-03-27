@@ -26,7 +26,6 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -114,8 +113,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"scannerSegue"]) {
-        UINavigationController *navController = segue.destinationViewController;
-        ScannerViewController *scannerController = [navController childViewControllers].firstObject;
+        ScannerViewController *scannerController = segue.destinationViewController;
         scannerController.eventId = [[self.event valueForKey:@"objectId"] objectAtIndex:0];
     }
     

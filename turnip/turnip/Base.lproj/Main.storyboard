@@ -155,6 +155,196 @@
             </objects>
             <point key="canvasLocation" x="-1516" y="2966"/>
         </scene>
+        <!--Messages-->
+        <scene sceneID="ROh-Ay-kU7">
+            <objects>
+                <tableViewController id="Ay3-GZ-kw5" customClass="ConversationViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Iu8-0U-1eK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="conversationCell" id="JPl-qS-zqW" customClass="ConversationTableViewCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JPl-qS-zqW" id="aag-DU-zig">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fag-nK-4s0">
+                                            <rect key="frame" x="8" y="0.0" width="50" height="43"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Id0-yY-l57">
+                                            <rect key="frame" x="66" y="9" width="201" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RhG-QQ-4T3">
+                                            <rect key="frame" x="66" y="22" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tck-Tw-kts">
+                                            <rect key="frame" x="552" y="11" width="40" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Tck-Tw-kts" firstAttribute="trailing" secondItem="aag-DU-zig" secondAttribute="trailingMargin" id="B0S-Zn-qB9"/>
+                                        <constraint firstAttribute="centerY" secondItem="Tck-Tw-kts" secondAttribute="centerY" id="lce-eb-pDe"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dateLabel" destination="Tck-Tw-kts" id="UrP-Jl-9vQ"/>
+                                    <outlet property="messageLabel" destination="RhG-QQ-4T3" id="Dyh-Hf-DkN"/>
+                                    <outlet property="profileImage" destination="fag-nK-4s0" id="Bgx-VT-hrb"/>
+                                    <outlet property="titleLabel" destination="Id0-yY-l57" id="eXy-VP-pEN"/>
+                                    <segue destination="EGH-fe-jdW" kind="show" identifier="messageSegue" id="Hzw-lZ-toa"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ay3-GZ-kw5" id="CP8-VY-RVO"/>
+                            <outlet property="delegate" destination="Ay3-GZ-kw5" id="3Ai-kV-xf5"/>
+                        </connections>
+                    </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Messages" id="7kS-gv-4ki"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hlO-h2-3cq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2223" y="592"/>
+        </scene>
+        <!--Messaging View Controller-->
+        <scene sceneID="9Bb-FD-W86">
+            <objects>
+                <viewController storyboardIdentifier="messageView" hidesBottomBarWhenPushed="YES" id="EGH-fe-jdW" customClass="MessagingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="681-Jw-x5l"/>
+                        <viewControllerLayoutGuide type="bottom" id="96u-5L-l47"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gB7-5t-drn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twV-5h-dNZ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DhQ-dq-3cd">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="messageCell" id="qRo-P2-mI4" customClass="MessagingTableViewCell">
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qRo-P2-mI4" id="x6F-EF-6Fm">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rfq-3r-B0p">
+                                                            <rect key="frame" x="8" y="8" width="32" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="32" id="7TB-mC-ibf"/>
+                                                                <constraint firstAttribute="width" constant="32" id="tJ1-BB-vP0"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="PiN-x8-dJd">
+                                                            <rect key="frame" x="48" y="12" width="491" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcX-Yr-12r">
+                                                            <rect key="frame" x="48" y="30" width="491" height="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T5Y-CD-6Gr">
+                                                            <rect key="frame" x="560" y="8" width="32" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="32" id="ORf-uz-Lx5"/>
+                                                                <constraint firstAttribute="width" constant="32" id="wyC-a9-39F"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="Rfq-3r-B0p" secondAttribute="bottom" constant="-5" id="5c0-83-umq"/>
+                                                        <constraint firstItem="QcX-Yr-12r" firstAttribute="leading" secondItem="Rfq-3r-B0p" secondAttribute="trailing" constant="8" id="NL4-Fm-wac"/>
+                                                        <constraint firstItem="T5Y-CD-6Gr" firstAttribute="trailing" secondItem="x6F-EF-6Fm" secondAttribute="trailingMargin" id="TYd-bE-TbS"/>
+                                                        <constraint firstItem="QcX-Yr-12r" firstAttribute="top" secondItem="PiN-x8-dJd" secondAttribute="bottom" constant="-2" id="X8V-6w-DHf"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="QcX-Yr-12r" secondAttribute="bottom" constant="-10" id="Xox-qM-8sZ"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="PiN-x8-dJd" secondAttribute="trailing" constant="53" id="Ytc-8k-lkC"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="T5Y-CD-6Gr" secondAttribute="bottom" constant="-5" id="coa-vx-VKf"/>
+                                                        <constraint firstItem="Rfq-3r-B0p" firstAttribute="leading" secondItem="x6F-EF-6Fm" secondAttribute="leadingMargin" id="ekM-3L-JXx"/>
+                                                        <constraint firstItem="PiN-x8-dJd" firstAttribute="top" secondItem="x6F-EF-6Fm" secondAttribute="topMargin" constant="4" id="kuk-22-gUL"/>
+                                                        <constraint firstItem="PiN-x8-dJd" firstAttribute="leading" secondItem="Rfq-3r-B0p" secondAttribute="trailing" constant="8" id="n65-fR-6eK"/>
+                                                        <constraint firstItem="QcX-Yr-12r" firstAttribute="width" secondItem="PiN-x8-dJd" secondAttribute="width" id="oxJ-92-q9g"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="dateLabel" destination="QcX-Yr-12r" id="Pkz-UC-1Co"/>
+                                                    <outlet property="otherImage" destination="Rfq-3r-B0p" id="gbu-Z9-VWg"/>
+                                                    <outlet property="otherText" destination="PiN-x8-dJd" id="uyD-Vh-FRT"/>
+                                                    <outlet property="outgoingImage" destination="T5Y-CD-6Gr" id="5SC-7v-dYO"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <sections/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="EGH-fe-jdW" id="PSY-ge-3lo"/>
+                                            <outlet property="delegate" destination="EGH-fe-jdW" id="mUP-VY-C9n"/>
+                                        </connections>
+                                    </tableView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a message..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JwI-Ab-j3e">
+                                        <rect key="frame" x="0.0" y="503" width="522" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FE9-Fp-9WZ">
+                                        <rect key="frame" x="524" y="505" width="36" height="30"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendButton:" destination="EGH-fe-jdW" eventType="touchUpInside" id="DxV-rb-uaX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="FE9-Fp-9WZ" firstAttribute="leading" secondItem="JwI-Ab-j3e" secondAttribute="trailing" constant="2" id="1lD-WD-5LT"/>
+                                    <constraint firstItem="JwI-Ab-j3e" firstAttribute="top" secondItem="DhQ-dq-3cd" secondAttribute="bottom" constant="2" id="4pu-8v-J7k"/>
+                                    <constraint firstItem="DhQ-dq-3cd" firstAttribute="height" secondItem="twV-5h-dNZ" secondAttribute="height" multiplier="0.934" id="8hh-5P-BFs"/>
+                                    <constraint firstAttribute="centerX" secondItem="DhQ-dq-3cd" secondAttribute="centerX" id="D2v-Gd-HaK"/>
+                                    <constraint firstAttribute="trailing" secondItem="FE9-Fp-9WZ" secondAttribute="trailing" id="GmV-Sd-uBf"/>
+                                    <constraint firstItem="JwI-Ab-j3e" firstAttribute="width" secondItem="twV-5h-dNZ" secondAttribute="width" multiplier="0.87" id="HwW-pG-kcS"/>
+                                    <constraint firstItem="DhQ-dq-3cd" firstAttribute="width" secondItem="twV-5h-dNZ" secondAttribute="width" id="I6a-Ok-mi1"/>
+                                    <constraint firstItem="FE9-Fp-9WZ" firstAttribute="top" secondItem="DhQ-dq-3cd" secondAttribute="bottom" constant="4" id="N45-2c-kU4"/>
+                                    <constraint firstItem="JwI-Ab-j3e" firstAttribute="leading" secondItem="twV-5h-dNZ" secondAttribute="leading" id="fvX-6A-xW5"/>
+                                    <constraint firstAttribute="bottom" secondItem="JwI-Ab-j3e" secondAttribute="bottom" id="mvq-VD-tJS"/>
+                                    <constraint firstItem="DhQ-dq-3cd" firstAttribute="top" secondItem="twV-5h-dNZ" secondAttribute="top" id="nkx-K4-tdE"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="twV-5h-dNZ" secondAttribute="centerX" id="14a-FL-FCX"/>
+                            <constraint firstItem="twV-5h-dNZ" firstAttribute="height" secondItem="gB7-5t-drn" secondAttribute="height" id="7dY-rD-BAW"/>
+                            <constraint firstItem="twV-5h-dNZ" firstAttribute="width" secondItem="gB7-5t-drn" secondAttribute="width" id="dZf-5T-AIu"/>
+                            <constraint firstAttribute="centerY" secondItem="twV-5h-dNZ" secondAttribute="centerY" id="iJf-Zo-Q5U"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="messageField" destination="JwI-Ab-j3e" id="qTo-oP-dkU"/>
+                        <outlet property="scrollView" destination="twV-5h-dNZ" id="lQp-wE-cJq"/>
+                        <outlet property="tableView" destination="DhQ-dq-3cd" id="uCA-CY-vHe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nad-5E-Bwr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2223" y="1336"/>
+        </scene>
         <!--Throw Next View Controller-->
         <scene sceneID="nXm-Fk-Vqq">
             <objects>
@@ -561,6 +751,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Jc9-5Y-Lmj" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="brX-Wj-SMO" kind="relationship" relationship="viewControllers" id="JCb-tZ-8zh"/>
                         <segue destination="krL-hN-Ark" kind="relationship" relationship="viewControllers" id="dab-ab-4in"/>
                         <segue destination="VKp-6u-dsg" kind="relationship" relationship="viewControllers" id="hZm-H4-7bH"/>
                         <segue destination="5vm-uZ-QD9" kind="relationship" relationship="viewControllers" id="sfu-Oh-zd7"/>
@@ -914,6 +1105,25 @@
                                             <action selector="requestButtonHandler:" destination="spu-ar-JnD" eventType="touchUpInside" id="4UG-W6-3fz"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6m-PQ-IZ8">
+                                        <rect key="frame" x="277" y="58" width="46" height="30"/>
+                                        <state key="normal" title="Go to Party">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="attendButton:" destination="spu-ar-JnD" eventType="touchUpInside" id="bxd-ON-lCp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-4l-3iH">
+                                        <rect key="frame" x="127" y="58" width="66" height="30"/>
+                                        <state key="normal" title="Message">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="messageButton:" destination="spu-ar-JnD" eventType="touchUpInside" id="wlj-QI-TUb"/>
+                                            <segue destination="EGH-fe-jdW" kind="show" identifier="detailsToMessageSegue" id="FkE-ub-aJA"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1005,6 +1215,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="aboutLabel" destination="5l4-OD-lBd" id="Cfo-SD-y2x"/>
+                        <outlet property="attendButton" destination="P6m-PQ-IZ8" id="t1f-cQ-2JV"/>
                         <outlet property="backNavigationButton" destination="d4i-vd-C8V" id="zca-Gd-zfx"/>
                         <outlet property="dateLabel" destination="D6n-h4-sw7" id="SZW-Eo-uYo"/>
                         <outlet property="freePaidLabel" destination="J6J-LG-YQJ" id="YeP-U3-GP6"/>
@@ -1013,6 +1224,7 @@
                         <outlet property="imageView1" destination="pnR-Hc-Ond" id="1kl-9w-tka"/>
                         <outlet property="imageView2" destination="lUx-bK-WlH" id="nWp-4P-O7L"/>
                         <outlet property="imageView3" destination="rDq-Ib-WWW" id="iSx-VZ-urU"/>
+                        <outlet property="messageButton" destination="h9o-4l-3iH" id="7mZ-qo-7hz"/>
                         <outlet property="nameLabel" destination="0nc-ar-wud" id="PFH-7e-yhx"/>
                         <outlet property="neighbourhoodLabel" destination="yUw-P5-etm" id="pDA-vc-ZMO"/>
                         <outlet property="openLabel" destination="JQT-Cc-0jQ" id="2Q1-vH-o1y"/>
@@ -1184,28 +1396,10 @@
                                             <rect key="frame" x="16" y="4" width="210" height="210"/>
                                         </variation>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmD-cd-E4h">
-                                        <rect key="frame" x="256" y="25" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="279" y="88" width="42" height="21"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oj-hA-af2">
-                                        <rect key="frame" x="208" y="25" width="35" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="234" y="91" width="35" height="21"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="346" translatesAutoresizingMaskIntoConstraints="NO" id="5Vh-Xd-V2R" userLabel="bio">
-                                        <rect key="frame" x="208" y="145" width="379" height="66"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="346" translatesAutoresizingMaskIntoConstraints="NO" id="5Vh-Xd-V2R" userLabel="bio">
+                                        <rect key="frame" x="208" y="20" width="379" height="100"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="66" id="Ays-in-bwt"/>
+                                            <constraint firstAttribute="height" constant="100" id="Svn-Mu-uvD"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1215,7 +1409,7 @@
                                         </variation>
                                     </label>
                                     <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24T-XW-7rC">
-                                        <rect key="frame" x="208" y="127" width="384" height="76"/>
+                                        <rect key="frame" x="205" y="22" width="384" height="76"/>
                                         <color key="backgroundColor" white="0.86493499087591252" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="76" id="zTz-pc-gA0"/>
@@ -1230,18 +1424,14 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="wXv-nR-DQ6" secondAttribute="bottom" constant="19" id="0Km-km-h1A"/>
-                                    <constraint firstItem="5Vh-Xd-V2R" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="8" id="53V-ok-wIT"/>
-                                    <constraint firstItem="24T-XW-7rC" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="8" id="97H-j6-JGU"/>
-                                    <constraint firstAttribute="bottom" secondItem="24T-XW-7rC" secondAttribute="bottom" constant="27" id="CeY-SC-GQ3"/>
-                                    <constraint firstItem="rmD-cd-E4h" firstAttribute="leading" secondItem="8oj-hA-af2" secondAttribute="trailing" constant="13" id="Cmf-Y5-zkD"/>
-                                    <constraint firstItem="8oj-hA-af2" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="8" id="OMd-aG-jzW"/>
-                                    <constraint firstItem="8oj-hA-af2" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="25" id="ViE-ax-Yen"/>
-                                    <constraint firstItem="rmD-cd-E4h" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="25" id="W1b-sA-ewt"/>
+                                    <constraint firstAttribute="trailing" secondItem="24T-XW-7rC" secondAttribute="trailing" constant="11" id="LCx-jd-jiX"/>
+                                    <constraint firstItem="24T-XW-7rC" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="5" id="OWx-Nu-3dS"/>
+                                    <constraint firstItem="24T-XW-7rC" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="22" id="QB9-Xz-qdj"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Vh-Xd-V2R" secondAttribute="trailing" constant="13" id="Roo-bt-wXe"/>
+                                    <constraint firstItem="5Vh-Xd-V2R" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="20" id="WQu-s2-Cl9"/>
+                                    <constraint firstItem="5Vh-Xd-V2R" firstAttribute="leading" secondItem="wXv-nR-DQ6" secondAttribute="trailing" constant="8" id="Wsg-jU-nvq"/>
                                     <constraint firstItem="wXv-nR-DQ6" firstAttribute="leading" secondItem="WlW-RF-FaI" secondAttribute="leading" constant="8" id="a55-GX-RaL"/>
-                                    <constraint firstAttribute="trailing" secondItem="5Vh-Xd-V2R" secondAttribute="trailing" constant="13" id="bJu-Cb-UaU"/>
                                     <constraint firstItem="wXv-nR-DQ6" firstAttribute="top" secondItem="WlW-RF-FaI" secondAttribute="top" constant="19" id="dw9-ob-K0g"/>
-                                    <constraint firstAttribute="bottom" secondItem="5Vh-Xd-V2R" secondAttribute="bottom" constant="19" id="nDx-PY-P9B"/>
-                                    <constraint firstAttribute="trailing" secondItem="24T-XW-7rC" secondAttribute="trailing" constant="8" id="sBH-0S-5a6"/>
                                 </constraints>
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="0.0" y="-3" width="600" height="222"/>
@@ -1295,16 +1485,15 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="ageLabel" destination="rmD-cd-E4h" id="aOh-uW-1oa"/>
                         <outlet property="backNavigationButton" destination="7Ui-Yy-zMH" id="CCD-Je-dtE"/>
                         <outlet property="bioLabel" destination="5Vh-Xd-V2R" id="Q0t-nR-IHI"/>
                         <outlet property="bioTextView" destination="24T-XW-7rC" id="3Yy-bu-y2E"/>
                         <outlet property="collectionView" destination="yzM-2u-vhu" id="hJL-XD-AKJ"/>
-                        <outlet property="nameLabel" destination="8oj-hA-af2" id="imp-6S-Dv1"/>
                         <outlet property="partiesAttendedButton" destination="Fpb-DH-yeU" id="Pha-7v-Rli"/>
                         <outlet property="partiesThrownButton" destination="ScH-wv-QLq" id="nsm-1N-Qry"/>
                         <outlet property="profileImage" destination="wXv-nR-DQ6" id="WGY-yf-WVx"/>
                         <outlet property="sideMenuButton" destination="az5-R0-9FH" id="Dxx-d4-YC3"/>
+                        <segue destination="EGH-fe-jdW" kind="show" identifier="messageSegue" id="xH8-4C-0nt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQc-Sv-3We" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1437,6 +1626,7 @@
                             <outletCollection property="gestureRecognizers" destination="gDQ-f3-eZ2" appends="YES" id="NOo-6o-w7Q"/>
                         </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="31c-6o-VzZ"/>
                     <connections>
                         <outlet property="tableView" destination="Q23-ps-E7Y" id="3lL-2U-Pee"/>
@@ -1764,7 +1954,7 @@ If you are a qualified public educational or government institution and any part
         <!--Add Teammate-->
         <scene sceneID="WBS-Na-REk">
             <objects>
-                <tableViewController id="NQ8-uT-OIE" customClass="TeammateTableViewController" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="NQ8-uT-OIE" customClass="TeammateTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" id="33T-WS-7h2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1842,6 +2032,7 @@ If you are a qualified public educational or government institution and any part
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DgX-tg-1Rh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1892,25 +2083,6 @@ If you are a qualified public educational or government institution and any part
             </objects>
             <point key="canvasLocation" x="1829" y="610"/>
         </scene>
-        <!--Messaging View Controller-->
-        <scene sceneID="Kxn-Qh-K0u">
-            <objects>
-                <viewController id="gox-2N-f6K" customClass="MessagingViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7Qx-Uf-zWg"/>
-                        <viewControllerLayoutGuide type="bottom" id="8aK-g9-bpD"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="YFD-HF-guX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="IwA-eQ-EGi"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mqk-H7-i2D" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2232" y="600"/>
-        </scene>
         <!--Host-->
         <scene sceneID="Nlf-qm-eh6">
             <objects>
@@ -1935,10 +2107,10 @@ If you are a qualified public educational or government institution and any part
             </objects>
             <point key="canvasLocation" x="-675" y="610"/>
         </scene>
-        <!--View Controller-->
+        <!--Verification View Controller-->
         <scene sceneID="UEj-XT-00A">
             <objects>
-                <viewController storyboardIdentifier="contract" id="DWp-t3-9G3" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verificationView" id="DWp-t3-9G3" customClass="VerificationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jzm-PG-Tz6"/>
                         <viewControllerLayoutGuide type="bottom" id="hpb-Bx-vQ4"/>
@@ -1947,37 +2119,135 @@ If you are a qualified public educational or government institution and any part
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41M-dK-xOJ">
-                                <rect key="frame" x="180" y="127" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emu-x8-ebC">
-                                <rect key="frame" x="374" y="521" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emu-x8-ebC">
+                                <rect key="frame" x="20" y="532" width="560" height="30"/>
+                                <color key="backgroundColor" red="0.0039215688589999999" green="0.99607849120000003" blue="0.1098039299" alpha="1" colorSpace="deviceRGB"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Accept License Agreement">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="2"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.BorderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="acceptButton:" destination="DWp-t3-9G3" eventType="touchUpInside" id="awt-sO-XjZ"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pob-e1-lpS">
-                                <rect key="frame" x="180" y="521" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fxF-vW-P6z">
-                                <rect key="frame" x="252" y="468" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fxF-vW-P6z">
+                                <rect key="frame" x="147" y="481" width="407" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41M-dK-xOJ">
+                                <rect key="frame" x="20" y="36" width="560" height="425"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">THIS LEGAL AGREEMENT BETWEEN YOU AND The Stupidest App Ever (hereinafter referred to as "Turnip") GOVERNS YOUR USE OF THE Turnip Application (“App”).
+The Stupidest App Ever is the provider of the App that permits you to license software products and digital content for end user use only under the terms and conditions set forth in this Agreement.
+Only persons age 13 years or older can create accounts. Accounts for persons under 13 years old can be created by a parent or legal guardian using Family Sharing or by an approved educational institution. Children under the age of majority should review this Agreement with their parent or guardian to ensure that the child and the parent or legal guardian understand it.
+The App is available to you only in the United States, its territories, and possessions. You agree not to use or attempt to use the App from outside these locations. Turnip may use technologies to verify your compliance.
+Use of the App requires compatible devices, Internet access, and certain software (fees may apply); may require periodic updates; and may be affected by the performance of these factors. High-speed Internet access is strongly recommended. The latest version of required software is recommended to access the App and may be required for certain transactions or features. You agree that meeting these requirements, which may change from time to time, is your responsibility.
+YOUR ACCOUNT
+As a registered user of the App, you may establish an account ("Account"). Don’t reveal your Account information to anyone else. You are solely responsible for maintaining the confidentiality and security of your Account, and for all activities that occur on or through your Account, and you agree to immediately notify Turnip of any security breach of your Account. Turnip shall not be responsible for any losses arising out of the unauthorized use of your Account.
+In order to purchase and/or download the App, you must enter your ID and password to authenticate your Account for transactions.
+You agree to provide accurate and complete information when you register with, and as you use, the App, and you agree to update your App Registration Data to keep it accurate and complete.
+________________________ is subject to the following Privacy Policy:
+You agree that the App may include security technology that limits your use and that, whether or not the App is limited by security technology, you shall use it in compliance with the applicable usage rules established by Turnip and its principals (“Usage Rules”), and that any other use of the App may constitute a copyright infringement. Any security technology is an inseparable part of the App. Turnip reserves the right to modify the Usage Rules at any time. You agree not to violate, circumvent, reverse-engineer, decompile, disassemble, or otherwise tamper with any of the security technology related to such Usage Rules for any reason—or to attempt or assist another person to do so. Usage Rules may be controlled and monitored by Turnip for compliance purposes, and Turnip reserves the right to enforce the Usage Rules without notice to you. You shall not access or attempt to access an Account that you are not authorized to access. You agree not to modify the software in any manner or form, or to use modified versions of the software, for any purposes. Violations of system or network security may result in civil or criminal liability.
+The delivery of App does not transfer to you any promotional use rights in the App.
+You acknowledge that, because some aspects of the App, and administration of the Usage Rules entails the ongoing involvement of Turnip, if Turnip changes any part of or discontinues the App, which Turnip may do at its election, you may not be able to use the App to the same extent as prior to such change or discontinuation, and that Turnip shall have no liability to you in such case.
+SUBMISSIONS:
+The App may offer interactive features that allow you to submit materials (including links to third-party content) on areas of the App accessible and viewable by other users of the App and the public. You agree that any use by you of such features, including any materials submitted by you, shall be your sole responsibility, shall not infringe or violate the rights of any other party or violate any laws, contribute to or encourage infringing or otherwise unlawful conduct, or otherwise be obscene, objectionable, or in poor taste. You also agree that you have obtained all necessary rights and licenses. You agree to provide accurate and complete information in connection with your submission of any materials on the App. You hereby grant Turnip a worldwide, royalty-free, nonexclusive license to use such materials as part of the App, and in relation to App, without any compensation or obligation to you. Turnip reserves the right to not post or publish any materials, and to remove or edit any material, at any time in its sole discretion without notice or liability. You may not submit reviews or ratings for the App using a promotional Content Code.
+Turnip has the right, but not the obligation, to monitor any materials submitted by you or otherwise available on the App, to investigate any reported or apparent violation of this Agreement, and to take any action that Turnip, in its sole discretion deems appropriate, including, without limitation, termination hereunder.
+THIRD-PARTY MATERIALS
+Certain content may include materials from third parties. Turnip may provide links to third-party websites as a convenience to you. You agree that Turnip is not responsible for examining or evaluating the content or accuracy and Turnip does not warrant and will not have any liability or responsibility for any third-party materials or websites, or for any other materials, products, or services of third parties. You agree that you will not use any third-party materials in a manner that would infringe or violate the rights of any other party and that Turnip is not in any way responsible for any such use by you.
+OBJECTIONABLE MATERIAL
+You understand that by using the App, you may encounter material that you may deem to be offensive, indecent, or objectionable, and that such content may or may not be identified as having explicit material. Nevertheless, you agree to use the App at your sole risk and Turnip shall have no liability to you for material that may be found to be offensive, indecent, or objectionable. The App descriptions are provided for convenience, and you agree that Turnip does not guarantee their accuracy.
+INTELLECTUAL PROPERTY
+You agree that the App, including but not limited to the graphics, user interface, audio clips, editorial content, and/or the scripts and software used to implement the App, contain proprietary information and material that is owned by Turnip and/or its principals, and is protected by applicable intellectual property and other laws, including but not limited to copyright. You agree that you will not use such proprietary information or materials in any way whatsoever except for use of the App in compliance with this Agreement. No portion of the App may be reproduced in any form or by any means, except as expressly permitted in these terms. You agree not to modify, rent, lease, loan, sell, distribute, or create derivative works based on the App in any manner, and you shall not exploit the App in any unauthorized way whatsoever, including, but not limited to, by trespass or burdening network capacity.
+Notwithstanding any other provision of this Agreement, Turnip and its principals reserve the right to change, suspend, remove, or disable access to the App content, or other materials comprising a part of the App at any time without notice. In no event will Turnip be liable for making these changes. Turnip may also impose limits on the use of or access to certain features or portions of the App, in any case and without notice or liability.
+All copyrights in and to the App (including the compilation of content, postings, links to other Internet resources, and descriptions of those resources) and related software are owned by Turnip and/or its principals, who reserve all their rights in law and equity. THE USE OF THE SOFTWARE OR ANY PART OF THE APP, EXCEPT FOR USE OF THE APP AS PERMITTED IN THIS AGREEMENT, IS STRICTLY PROHIBITED AND INFRINGES ON THE INTELLECTUAL PROPERTY RIGHTS OF OTHERS AND MAY SUBJECT YOU TO CIVIL AND CRIMINAL PENALTIES, INCLUDING POSSIBLE MONETARY DAMAGES, FOR COPYRIGHT INFRINGEMENT.
+Turnip, the Turnip logo, and other Turnip trademarks, service marks, graphics, and logos used in connection with the App are trademarks or registered trademarks of Turnip in the U.S. and/or other countries. Other trademarks, service marks, graphics, and logos used in connection with the App may be the trademarks of their respective owners. You are granted no right or license with respect to any of the aforesaid trademarks and any use of such trademarks.
+TERMINATION
+If you fail, or Turnip suspects that you have failed, to comply with any of the provisions of this Agreement, Turnip, at its sole discretion, without notice to you may: (i) terminate this Agreement and/or your Account, and you will remain liable for all amounts due under your Account up to and including the date of termination; and/or (ii) terminate the license to the software; and/or (iii) preclude access to the App (or any part thereof).
+Turnip reserves the right to modify, suspend, or discontinue the App (or any part or content thereof) at any time with or without notice to you, and Turnip will not be liable to you or to any third party should it exercise such rights.
+DISCLAIMER OF WARRANTIES; LIABILITY LIMITATIONS
+Turnip DOES NOT GUARANTEE, REPRESENT, OR WARRANT THAT YOUR USE OF THE APP WILL BE UNINTERRUPTED OR ERROR-FREE, AND YOU AGREE THAT FROM TIME TO TIME Turnip MAY REMOVE THE APP FOR INDEFINITE PERIODS OF TIME, OR CANCEL THE APP AT ANY TIME, WITHOUT NOTICE TO YOU.
+YOU EXPRESSLY AGREE THAT YOUR USE OF, OR INABILITY TO USE, THE APP IS AT YOUR SOLE RISK. THE APP IS (EXCEPT AS EXPRESSLY STATED BY Turnip) PROVIDED "AS IS" AND "AS AVAILABLE" FOR YOUR USE, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT. BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, THE ABOVE EXCLUSION OF IMPLIED WARRANTIES MAY NOT APPLY TO YOU.
+IN NO CASE SHALL Turnip, ITS DIRECTORS, OFFICERS, EMPLOYEES, AFFILIATES, AGENTS, CONTRACTORS, PRINCIPALS, OR LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, OR CONSEQUENTIAL DAMAGES ARISING FROM YOUR USE OF ANY OF THE APP OR FOR ANY OTHER CLAIM RELATED IN ANY WAY TO YOUR USE OF THE APP, INCLUDING, BUT NOT LIMITED TO, ANY ERRORS OR OMISSIONS IN ANY CONTENT, OR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT (OR PRODUCT) POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE APP, EVEN IF ADVISED OF THEIR POSSIBILITY. BECAUSE SOME STATES OR JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR THE LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, IN SUCH STATES OR JURISDICTIONS, Turnip’S LIABILITY SHALL BE LIMITED TO THE EXTENT PERMITTED BY LAW.
+Turnip SHALL USE REASONABLE EFFORTS TO PROTECT INFORMATION SUBMITTED BY YOU IN CONNECTION WITH THE APP, BUT YOU AGREE THAT YOUR SUBMISSION OF SUCH INFORMATION IS AT YOUR SOLE RISK, AND Turnip HEREBY DISCLAIMS ANY AND ALL LIABILITY TO YOU FOR ANY LOSS OR LIABILITY RELATING TO SUCH INFORMATION IN ANY WAY.
+Turnip DOES NOT REPRESENT OR GUARANTEE THAT THE APP WILL BE FREE FROM LOSS, CORRUPTION, ATTACK, VIRUSES, INTERFERENCE, HACKING, OR OTHER SECURITY INTRUSION, AND APPLE DISCLAIMS ANY LIABILITY RELATING THERETO. YOU SHALL BE RESPONSIBLE FOR BACKING UP YOUR OWN SYSTEM.
+WAIVER AND INDEMNITY
+BY USING THE APP, TO THE EXTENT PERMITTED BY LAW, YOU HEREBY AGREE TO INDEMNIFY AND HOLD Turnip, ITS DIRECTORS, OFFICERS, EMPLOYEES, AFFILIATES, AGENTS, CONTRACTORS, PRINCIPALS, AND LICENSORS HARMLESS WITH RESPECT TO ANY CLAIMS ARISING OUT OF YOUR BREACH OF THIS AGREEMENT, YOUR USE OF THE APP, OR ANY ACTION TAKEN BY Turnip AS PART OF ITS INVESTIGATION OF A SUSPECTED VIOLATION OF THIS AGREEMENT OR AS A RESULT OF ITS FINDING OR DECISION THAT A VIOLATION OF THIS AGREEMENT HAS OCCURRED. THIS MEANS THAT YOU CANNOT SUE OR RECOVER ANY DAMAGES FROM Turnip, ITS DIRECTORS, OFFICERS, EMPLOYEES, AFFILIATES, AGENTS, CONTRACTORS, PRINCIPALS, AND LICENSORS AS A RESULT OF ITS DECISION TO REMOVE OR REFUSE TO PROCESS ANY INFORMATION OR CONTENT, TO WARN YOU, TO SUSPEND OR TERMINATE YOUR ACCESS TO THE APP, OR TO TAKE ANY OTHER ACTION DURING THE INVESTIGATION OF A SUSPECTED VIOLATION OR AS A RESULT OF Turnip'S CONCLUSION THAT A VIOLATION OF THIS AGREEMENT HAS OCCURRED. THIS WAIVER AND INDEMNITY PROVISION APPLIES TO ALL VIOLATIONS DESCRIBED IN OR CONTEMPLATED BY THIS AGREEMENT.
+CHANGES
+Turnip reserves the right at any time to modify this Agreement and to impose new or additional terms or conditions on your use of the App. Such modifications and additional terms and conditions will be effective immediately and incorporated into this Agreement. Your continued use of the App will be deemed acceptance thereof.
+MISCELLANEOUS
+This Agreement constitutes the entire agreement between you and Turnipand governs your use of the App, superseding any prior agreements between you and Turnip. You also may be subject to additional terms and conditions that may apply when you use affiliate services, third-party content, or third-party software. If any part of this Agreement is held invalid or unenforceable, that portion shall be construed in a manner consistent with applicable law to reflect, as nearly as possible, the original intentions of the parties, and the remaining portions shall remain in full force and effect. Turnip's failure to enforce any right or provisions in this Agreement will not constitute a waiver of such or any other provision. Turnip will not be responsible for failures to fulfill any obligations due to causes beyond its control.
+You agree to comply with all local, state, federal, and national laws, statutes, ordinances, and regulations that apply to your use of the App. All transactions on the App are governed by California law, without giving effect to its conflict of law provisions. Your use of the App may also be subject to other laws. You expressly agree that exclusive jurisdiction for any claim or dispute with Turnip or relating in any way to your use of the App resides in the courts in the State of California. Risk of loss and title for all electronically delivered transactions pass to the purchaser in California upon electronic transmission to the recipient. No Turnip employee or agent has the authority to vary this Agreement.
+Apple may notify you with respect to the App by sending an email message to your Account email address or a letter via postal mail to your Account mailing address. Notices shall become effective immediately.
+Turnip reserves the right to take steps it believes are reasonably necessary or appropriate to enforce and/or verify compliance with any part of this Agreement. You agree that Turnip has the right, without liability to you, to disclose any Registration Data and/or Account information to law enforcement authorities, government officials, and/or a third party, as Turnip believes is reasonably necessary or appropriate to enforce and/or verify compliance with any part of this Agreement (including but not limited to Turnip's right to cooperate with any legal process relating to your use of the App, and/or a third-party claim that your use of the App is unlawful and/or infringes such third party's rights).
+STATUTORY EXCEPTIONS FOR PUBLIC INSTITUTIONS
+If you are a qualified public educational or government institution and any part of this Agreement, such as, by way of example, all or part of the indemnification section, is invalid or unenforceable against you because of applicable state or federal law, then that portion shall be deemed invalid or unenforceable, as the case may be, and instead construed in a manner most consistent with applicable governing law. If California law is precluded, this Agreement shall be construed under the laws of the state in which your public educational or government institution is located.
+
+</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Code:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khu-Ba-WpN">
+                                <rect key="frame" x="46" y="485" width="93" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pob-e1-lpS">
+                                <rect key="frame" x="20" y="567" width="560" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Decline">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="2"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.BorderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancelButton:" destination="DWp-t3-9G3" eventType="touchUpInside" id="ZvP-H5-ZPt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fxF-vW-P6z" firstAttribute="top" secondItem="41M-dK-xOJ" secondAttribute="bottom" constant="20" id="0p9-55-L2E"/>
+                            <constraint firstItem="emu-x8-ebC" firstAttribute="top" secondItem="Khu-Ba-WpN" secondAttribute="bottom" constant="26" id="777-gR-ecx"/>
+                            <constraint firstItem="41M-dK-xOJ" firstAttribute="leading" secondItem="n2k-0i-Fmu" secondAttribute="leading" constant="20" id="7dA-3P-pP2"/>
+                            <constraint firstItem="emu-x8-ebC" firstAttribute="top" secondItem="fxF-vW-P6z" secondAttribute="bottom" constant="21" id="7xW-bd-GlC"/>
+                            <constraint firstAttribute="trailing" secondItem="pob-e1-lpS" secondAttribute="trailing" constant="20" id="8Zl-0l-BhU"/>
+                            <constraint firstItem="pob-e1-lpS" firstAttribute="top" secondItem="emu-x8-ebC" secondAttribute="bottom" constant="5" id="IQw-Ea-vMZ"/>
+                            <constraint firstItem="41M-dK-xOJ" firstAttribute="top" secondItem="jzm-PG-Tz6" secondAttribute="bottom" constant="16" id="NZM-4B-qbs"/>
+                            <constraint firstItem="fxF-vW-P6z" firstAttribute="leading" secondItem="Khu-Ba-WpN" secondAttribute="trailing" constant="8" id="W3v-kK-Z0m"/>
+                            <constraint firstAttribute="trailing" secondItem="41M-dK-xOJ" secondAttribute="trailing" constant="20" id="WJg-GX-Dqg"/>
+                            <constraint firstItem="emu-x8-ebC" firstAttribute="leading" secondItem="n2k-0i-Fmu" secondAttribute="leading" constant="20" id="ayn-q6-ETF"/>
+                            <constraint firstItem="Khu-Ba-WpN" firstAttribute="leading" secondItem="n2k-0i-Fmu" secondAttribute="leadingMargin" constant="30" id="iuY-bn-gEV"/>
+                            <constraint firstItem="hpb-Bx-vQ4" firstAttribute="top" secondItem="pob-e1-lpS" secondAttribute="bottom" constant="3" id="kPh-9Q-8Nb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fxF-vW-P6z" secondAttribute="trailing" constant="30" id="kib-96-rFc"/>
+                            <constraint firstAttribute="trailing" secondItem="emu-x8-ebC" secondAttribute="trailing" constant="20" id="qxb-Xr-5jt"/>
+                            <constraint firstItem="pob-e1-lpS" firstAttribute="leading" secondItem="n2k-0i-Fmu" secondAttribute="leading" constant="20" id="zRS-wU-89e"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="codeField" destination="fxF-vW-P6z" id="5h8-AG-RPn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXv-qW-xl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2566" y="610"/>
+            <point key="canvasLocation" x="1426" y="-186"/>
         </scene>
         <!--Request View Controller-->
         <scene sceneID="mSc-RR-GSI">
@@ -2528,16 +2798,17 @@ If you are a qualified public educational or government institution and any part
         <scene sceneID="Bn9-ce-edB">
             <objects>
                 <navigationController storyboardIdentifier="messages" automaticallyAdjustsScrollViewInsets="NO" id="brX-Wj-SMO" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Message" image="messaging" id="lBA-N8-ZYG"/>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GfD-Rc-Td0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="GfD-Rc-Td0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="gox-2N-f6K" kind="relationship" relationship="rootViewController" id="EN1-0n-xdp"/>
+                        <segue destination="Ay3-GZ-kw5" kind="relationship" relationship="rootViewController" id="tlb-OO-Mnj"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IX8-JI-Y4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2580,13 +2851,14 @@ If you are a qualified public educational or government institution and any part
         <image name="request" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QZr-iu-lXX"/>
-        <segue reference="anS-E0-Al2"/>
+        <segue reference="YqO-Ry-fwr"/>
+        <segue reference="qQ6-T8-g9z"/>
         <segue reference="Ucw-VM-vmq"/>
-        <segue reference="sfu-Oh-zd7"/>
-        <segue reference="sAl-Hq-kgH"/>
-        <segue reference="SrB-cg-sg9"/>
+        <segue reference="anS-E0-Al2"/>
+        <segue reference="Ya7-QT-Y00"/>
+        <segue reference="QZr-iu-lXX"/>
+        <segue reference="xH8-4C-0nt"/>
         <segue reference="eVo-du-xyK"/>
-        <segue reference="ZPE-HD-gzc"/>
+        <segue reference="Dl2-Ci-fg9"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -91,10 +91,8 @@
     
     // Configure the cell
     PFFile *thumbnail = [object objectForKey: TurnipParsePostThumbnailKey];
-    UIImage *placeholder = [UIImage imageNamed:@"Placeholder.jpg"];
     
     //Use a placeholder image before we have downloaded the real one.
-    cell.eventImageView.image = placeholder;
     cell.eventImageView.file = thumbnail;
     
     cell.titleLabel.text = [object objectForKey: TurnipParsePostTitleKey];

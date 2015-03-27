@@ -26,6 +26,7 @@
 @property (nonatomic, assign) BOOL isPrivate;
 @property (nonatomic, assign) BOOL isFree;
 @property (nonatomic, assign) BOOL update;
+@property (nonatomic, assign) BOOL correctAddress;
 
 @end
 
@@ -197,6 +198,14 @@
     }
 }
 
+#pragma mark - textfield handlers
+
+- (void) textFieldDidEndEditing:(UITextField *)textField {
+    if (self.locationField.text.length != 0) {
+        [self forwardGeocoder:self.locationField.text];
+    }
+}
+
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     if (textField == self.titleField && self.titleField.layer.borderColor == [[UIColor redColor] CGColor]) {
         self.titleField.layer.borderColor = [[UIColor clearColor] CGColor];
@@ -207,8 +216,6 @@
     }
 }
 
-#pragma mark - textfield handlers
-
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
     if ([self.aboutField.text isEqualToString:@"About..."]) {
@@ -218,7 +225,6 @@
     if (self.aboutField.layer.borderColor == [[UIColor redColor] CGColor]) {
         self.aboutField.layer.borderColor = [[UIColor clearColor] CGColor];
     }
-    
     return YES;
 }
 
@@ -241,14 +247,54 @@
     }];
 }
 
+- (void) forwardGeocoder: (NSString *) address {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    [geocoder geocodeAddressString:address inRegion:nil completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark* aPlacemark in placemarks)
+        {
+            // Process the placemark.
+            CLLocation *location = aPlacemark.location;
+            CLLocationDistance distance = [self.currentLocation distanceFromLocation:location];
+            NSLog(@"distance:%f", distance);
+            if (distance > 100) {
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Wrong Address"
+                                                                  message:@"Sorry, you need to use your own location"
+                                                                 delegate:nil
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil];
+                [message show];
+                
+            } else {
+                self.correctAddress = YES;
+            }
+        }
+    }];
+}
 
 #pragma mark - navigation
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
-    if (![self checkInput]) {
+    if (![self checkInput] && self.correctAddress) {
         if ([identifier isEqualToString:@"nextThrowSegue"]) {
             if (self.nextViewController) {
+                self.nextViewController.name = self.titleField.text;
+                self.nextViewController.location = self.locationField.text;
+                self.nextViewController.about = self.aboutField.text;
+                self.nextViewController.isPrivate = self.isPrivate;
+                self.nextViewController.isFree = self.isFree;
+                self.nextViewController.coordinates = self.currentLocation;
+                self.nextViewController.placemark = self.placemark;
+                
+                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
+                    NSNumber *price = [numberFormatter numberFromString: @"0"];
+                    self.nextViewController.cost = price;
+                } else {
+                    NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
+                    self.nextViewController.cost = price;
+                }
                 [self.navigationController pushViewController:self.nextViewController animated:YES];
                 return NO;
             } else {
@@ -256,29 +302,24 @@
             }  
         }
     }
-    
     else {
-        
         if (self.titleField.text.length == 0) {
             self.titleField.layer.cornerRadius = 8.0f;
             self.titleField.layer.masksToBounds = YES;
             self.titleField.layer.borderWidth = 1.0f;
             self.titleField.layer.borderColor = [[UIColor redColor] CGColor];
-            
         }
         if(self.locationField.text.length == 0) {
             self.locationField.layer.cornerRadius = 8.0f;
             self.locationField.layer.masksToBounds = YES;
             self.locationField.layer.borderWidth = 1.0f;
             self.locationField.layer.borderColor = [[UIColor redColor] CGColor];
-            
         }
         if ([self.aboutField.text isEqualToString:@"About..."]) {
             self.aboutField.layer.cornerRadius = 8.0f;
             self.aboutField.layer.masksToBounds = YES;
             self.aboutField.layer.borderWidth = 1.0f;
             self.aboutField.layer.borderColor = [[UIColor redColor] CGColor];
-            
         }
     }
     return NO;
@@ -293,19 +334,16 @@
     }
     
     if ([segue.identifier isEqualToString:@"nextThrowSegue"]) {
-        //ThrowNextViewController *destViewController = (ThrowNextViewController *) segue.destinationViewController;
         self.nextViewController = segue.destinationViewController;
-        
         self.nextViewController.name = self.titleField.text;
-         self.nextViewController.location = self.locationField.text;
-         self.nextViewController.about = self.aboutField.text;
-         self.nextViewController.isPrivate = self.isPrivate;
-         self.nextViewController.isFree = self.isFree;
-         self.nextViewController.coordinates = self.currentLocation;
-         self.nextViewController.placemark = self.placemark;
+        self.nextViewController.location = self.locationField.text;
+        self.nextViewController.about = self.aboutField.text;
+        self.nextViewController.isPrivate = self.isPrivate;
+        self.nextViewController.isFree = self.isFree;
+        self.nextViewController.coordinates = self.currentLocation;
+        self.nextViewController.placemark = self.placemark;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-       // NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
         if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
             NSNumber *price = [numberFormatter numberFromString: @"0"];
              self.nextViewController.cost = price;
@@ -313,7 +351,6 @@
         } else {
             NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
              self.nextViewController.cost = price;
-
         }
     }
 }

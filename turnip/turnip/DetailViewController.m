@@ -7,6 +7,7 @@
 //
 
 #import "ScannerViewController.h"
+#import "MessagingViewController.h"
 #import "SWRevealViewController.h"
 #import "DetailViewController.h"
 #import "ProfileViewController.h"
@@ -123,10 +124,6 @@
 
 - (void) updateUI : (PFObject *) data withHideRequest:(BOOL) hide{
     
-    if (![[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId] && !hide) {
-        self.requestButton.hidden = NO;
-    }
-    
     self.navigationItem.title = [data objectForKey:TurnipParsePostTitleKey];
     
     NSArray *name = [[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"name"] componentsSeparatedByString: @" "];
@@ -139,8 +136,12 @@
     
     if ([data objectForKey:TurnipParsePostPrivateKey]) {
         self.openLabel.text = @"Private";
+        if (![[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId] && !hide) {
+            self.requestButton.hidden = NO;
+        }
     } else if(![data objectForKey:TurnipParsePostPrivateKey]) {
         self.openLabel.text = @"Public";
+        self.attendButton.hidden = NO;
     }
     
     if ([[data objectForKey:TurnipParsePostPaidKey] isEqual:@"True"]) {
@@ -191,7 +192,6 @@
             //save previous frame
             self.fullScreenImageView.hidden = NO;
             self.fullScreenImage.image = self.imageView1.image;
-            [self.tabBarController.tabBar setHidden:YES];
             if (![self.navigationController.navigationBar isHidden]) {
                 [self.navigationController setNavigationBarHidden:YES animated:YES];
             }
@@ -207,7 +207,6 @@
             //save previous frame
             self.fullScreenImageView.hidden = NO;
             self.fullScreenImage.image = self.imageView2.image;
-            [self.tabBarController.tabBar setHidden:YES];
             
             if (![self.navigationController.navigationBar isHidden]) {
                 [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -226,7 +225,6 @@
             //save previous frame
             self.fullScreenImageView.hidden = NO;
             self.fullScreenImage.image = self.imageView3.image;
-            [self.tabBarController.tabBar setHidden:YES];
             if (![self.navigationController.navigationBar isHidden]) {
                 [self.navigationController setNavigationBarHidden:YES animated:YES];
             }
@@ -242,7 +240,6 @@
             //save previous frame
             self.fullScreenImageView.hidden = YES;
             self.fullScreenImage.image = nil;
-            [self.tabBarController.tabBar setHidden:NO];
             
             [self.navigationController setNavigationBarHidden:NO animated:YES];
             
@@ -253,23 +250,40 @@
 
 }
 
-
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"profileSegue"]) {
-
-        ProfileViewController *destViewController = segue.destinationViewController;
-    
-        destViewController.user = sender;
-    }
-}
-
 #pragma mark -
 #pragma mark button Handlers
 
+- (IBAction)messageButton:(id)sender {
+    //detailsToMessageSegue
+}
+
+
+- (IBAction)attendButton:(id)sender {
+    
+    PFObject *object = [PFObject objectWithoutDataWithClassName:TurnipParsePostClassName objectId:TurnipParsePostIdKey];
+    
+    PFRelation *relation = [object relationForKey:@"accepted"];
+    [relation addObject:[PFUser currentUser]];
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"could not add to accepted");
+        } else if(succeeded) {
+            //add to notification class
+            NSString *message = [NSString stringWithFormat:@"Your ticket for %@ (tap to view ticket)", self.nameLabel.text];
+            
+            PFObject *notification = [PFObject objectWithClassName:@"Notifications"];
+            notification[@"type"] = @"ticket";
+            notification[@"notification"] = message;
+            notification[@"event"] = object;
+            notification[@"user"] = [PFUser currentUser];
+            
+            [notification saveInBackground];
+        }
+    }];
+}
+
 - (IBAction)requestButtonHandler:(id)sender {
     
-    //NSString *host = self.data.user.objectId;
     NSString *host = [[[self.data valueForKey:@"user"] valueForKey:@"objectId"] objectAtIndex:0];
     NSArray *name = [[[PFUser currentUser] objectForKey:@"name"] componentsSeparatedByString: @" "];
 
@@ -388,43 +402,49 @@
     [query includeKey:TurnipParsePostUserKey];
     [query includeKey:@"neighbourhood"];
     
+    [query whereKey:@"denied" notEqualTo:[PFUser currentUser].objectId];
+    
     [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
         if (error) {
             NSLog(@"Error in query!: %@", error);
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                PFRelation *acceptedRelation = [object relationForKey:@"accepted"];
-                PFQuery *query = [acceptedRelation query];
-                [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if ([objects count] == 0) {
-                        PFRelation *requestRelation = [object relationForKey:@"requests"];
-                        PFQuery *query = [requestRelation query];
-                        [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
-                        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                            if ([objects count] == 0) {
-                                self.requestButton.enabled = YES;
-                            }
-                        }];
-                    } else {
-                        hideRequest = YES;
-                        // Initialize the refresh control.
-                        UITableViewController *tableViewController = [[UITableViewController alloc] init];
-                        tableViewController.tableView = self.tableView;
-                        
-                        self.refreshControl = [[UIRefreshControl alloc] init];
-                        [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
-                        tableViewController.refreshControl = self.refreshControl;
-                        
-                        self.accepted = [[NSArray alloc] initWithArray:objects];
-                        [[self tableView] reloadData];
-                        self.tableView.hidden = NO;
-                    }
-                    self.data = [[NSArray alloc] initWithObjects:object, nil];
-                    [self downloadImages: object];
-                    [self updateUI: object withHideRequest:hideRequest];
-                }];
-            });
+            if (object == nil) {
+                NSLog(@"denied");
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    PFRelation *acceptedRelation = [object relationForKey:@"accepted"];
+                    PFQuery *query = [acceptedRelation query];
+                    [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                        if ([objects count] == 0) {
+                            PFRelation *requestRelation = [object relationForKey:@"requests"];
+                            PFQuery *query = [requestRelation query];
+                            [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
+                            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                                if ([objects count] == 0) {
+                                    self.requestButton.enabled = YES;
+                                }
+                            }];
+                        } else {
+                            hideRequest = YES;
+                            // Initialize the refresh control.
+                            UITableViewController *tableViewController = [[UITableViewController alloc] init];
+                            tableViewController.tableView = self.tableView;
+                            
+                            self.refreshControl = [[UIRefreshControl alloc] init];
+                            [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
+                            tableViewController.refreshControl = self.refreshControl;
+                            
+                            self.accepted = [[NSArray alloc] initWithArray:objects];
+                            [[self tableView] reloadData];
+                            self.tableView.hidden = NO;
+                        }
+                        self.data = [[NSArray alloc] initWithObjects:object, nil];
+                        [self downloadImages: object];
+                        [self updateUI: object withHideRequest:hideRequest];
+                    }];
+                });
+            }
         }
     }];
 }
@@ -477,5 +497,23 @@
     
     return dateString;
 }
+
+#pragma mark -
+#pragma mark Navigation
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"profileSegue"]) {
+        
+        ProfileViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.user = sender;
+    }
+    
+    if ([segue.identifier isEqualToString:@"detailsToMessageSegue"]) {
+        MessagingViewController *destViewController = segue.destinationViewController;
+        destViewController.user = [[self.data valueForKey:@"user"] objectAtIndex:0];
+    }
+}
+
 
 @end

@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "SWRevealViewController.h"
+#import "MessagingViewController.h"
 
 @interface ProfileViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -19,6 +20,7 @@
 @property (nonatomic, assign) NSInteger nbItems;
 @property (nonatomic, assign) BOOL thrownPressed;
 @property (nonatomic, assign) BOOL editProfile;
+@property (nonatomic, assign) BOOL messageActive;
 
 @end
 
@@ -38,6 +40,7 @@
     
     self.editProfile = NO;
     self.thrownPressed = YES;
+    self.messageActive = NO;
     
     SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
@@ -55,6 +58,7 @@
     }
     else {
         self.backNavigationButton.hidden = NO;
+        self.messageActive = YES;
         [self drawFacebookData];
     }
     [self queryForThrownParties];
@@ -74,8 +78,9 @@
             NSArray *name = [userData[@"name"] componentsSeparatedByString:@" "];
             NSString *birthday = userData[@"birthday"];
             
-            self.navigationItem.title = [name objectAtIndex:0];
-            self.ageLabel.text = @([self calculateAge:birthday]).stringValue;
+            NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([self calculateAge:birthday]).stringValue];
+            
+            self.navigationItem.title = navigationTitle;
             self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
             
             // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
@@ -100,14 +105,17 @@
 
 - (void) drawFacebookData {
     
+    [self.sideMenuButton setImage:[UIImage imageNamed:@"envelope"] forState:UIControlStateNormal];
+    
     NSString *facebookID = [user valueForKey:@"facebookId"];
     
     NSArray *name = [[user valueForKey:@"name"] componentsSeparatedByString: @" "];
     
+    NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([self calculateAge:[user valueForKey:@"birthday"]]).stringValue];
+    
     self.bioLabel.text = [user valueForKey:@"bio"];
     
-    self.ageLabel.text = @([self calculateAge:[user valueForKey:@"birthday"]]).stringValue;
-    self.navigationItem.title = [name objectAtIndex:0];
+    self.navigationItem.title = navigationTitle;
     
     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
@@ -314,7 +322,10 @@
         self.bioLabel.hidden = NO;
         [self.sideMenuButton setImage:[UIImage imageNamed:@"gearWhite"] forState:UIControlStateNormal];
         self.editProfile = NO;
-    } else {
+    } else if (self.messageActive) {
+        [self performSegueWithIdentifier:@"messageSegue" sender:nil];
+    }
+    else {
         SWRevealViewController *revealViewController = self.revealViewController;
         [revealViewController rightRevealToggleAnimated:YES];
     }
@@ -341,6 +352,16 @@
 
 - (IBAction)backNavigationButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - navigation
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"messageSegue"]) {
+        MessagingViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.user = user;
+    }
 }
 
 @end

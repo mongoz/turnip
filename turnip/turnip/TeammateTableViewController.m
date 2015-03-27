@@ -23,21 +23,23 @@
 
 @implementation TeammateTableViewController
 
+
+
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+
+    self.navigationController.navigationBarHidden = NO;
+}
+- (void) viewDidAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
-
-- (void) viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES];
-}
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"Add a Teammate";
-    NSLog(@"eventId %@", self.eventId);
+    
+    NSLog(@"nav: %@", self.navigationController.viewControllers);
     
     // Do any additional setup after loading the view, typically from a nib.
     self.accepted = [[NSArray alloc] init];

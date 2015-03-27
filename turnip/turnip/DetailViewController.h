@@ -36,6 +36,8 @@
 @property (strong, nonatomic) IBOutlet PFImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UIButton *sideMenuButton;
 @property (strong, nonatomic) IBOutlet UIButton *requestButton;
+@property (strong, nonatomic) IBOutlet UIButton *attendButton;
+@property (strong, nonatomic) IBOutlet UIButton *messageButton;
 
 @property (strong, nonatomic) IBOutlet UIButton *backNavigationButton;
 
@@ -43,12 +45,14 @@
 @property (strong, nonatomic) IBOutlet UIView *fullScreenImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *fullScreenImage;
 
+- (IBAction)attendButton:(id)sender;
 - (IBAction)requestButtonHandler:(id)sender;
 - (IBAction)profileImageTapHandler:(UITapGestureRecognizer *)sender;
 - (IBAction)image1TapHandler:(UITapGestureRecognizer *)sender;
 - (IBAction)image2TapHandler:(UITapGestureRecognizer *)sender;
 - (IBAction)image3TapHandler:(UITapGestureRecognizer *)sender;
 - (IBAction)fullScreenImageHandler:(UITapGestureRecognizer *)sender;
+- (IBAction)messageButton:(id)sender;
 
 - (IBAction)backNavigationButton:(id)sender;
 - (IBAction)sideMenuButton:(id)sender;

@@ -522,7 +522,6 @@
                     });
                     [self saveToCoreData:postObject];
                     self.currentEventId = postObject.objectId;
-                   // self.data = [[TurnipEvent alloc] initWithPFObject:postObject];
                     self.data = [[NSArray alloc] initWithObjects:postObject, nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
                     [self viewWillAppear:YES];

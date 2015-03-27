@@ -39,6 +39,7 @@
     [ReachabilityManager sharedManager];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetBadgeCount:) name:TurnipResetBadgeCountNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCounter:) name:TurnipGoToPublicPartyNotification object:nil];
         
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
@@ -242,6 +243,14 @@
 - (void) resetBadgeCount:(NSNotification *)note {
     
     self.notificationCount = 0;
+}
+
+- (void) notificationCounter:(NSNotification *)note {
+    
+    UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
+    
+    self.notificationCount += 1;
+    [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
 }
 
 #pragma mark facebook url open

@@ -7,11 +7,10 @@
 //
 
 #import "MessagingViewController.h"
-#import "MessagingTableViewCell.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
 
-@interface MessagingViewController ()
+@interface MessagingViewController () <AMBubbleTableDataSource, AMBubbleTableDelegate>
 
 @property (nonatomic, strong) UITextField *activeField;
 @property (nonatomic, assign) BOOL *exists;
@@ -21,18 +20,39 @@
 @property (nonatomic, strong) NSString *outgoingId;
 @property (nonatomic, strong) NSString *incommingId;
 
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
-
-@property (strong, nonatomic) NSMutableDictionary *offscreenCells;
+@property (nonatomic, strong) NSMutableArray* data;
 
 @end
 
 @implementation MessagingViewController
 
 - (void)viewDidLoad {
+    // Dummy data
+    [self setDataSource:self]; // Weird, uh?
+    [self setDelegate:self];
+    
+    NSArray *name = [[self.user valueForKey:@"name"] componentsSeparatedByString: @" "];
+
+    [self setTitle:[name objectAtIndex:0]];
+    
+    NSLog(@"self.user: %@", self.user);
+    
+    // Set a style
+    [self setTableStyle:AMBubbleTableStyleFlat];
+    
+    [self setBubbleTableOptions:@{AMOptionsBubbleDetectionType: @(UIDataDetectorTypeAll),
+                                  AMOptionsBubblePressEnabled: @NO,
+                                  AMOptionsBubbleSwipeEnabled: @NO,
+                                  AMOptionsButtonTextColor: [UIColor colorWithRed:1.0f green:1.0f blue:184.0f/256 alpha:1.0f]}];
+    
+    // Call super after setting up the options
     [super viewDidLoad];
+    
+    [self.tableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
+    //[self reloadTableScrollingToBottom:YES];
     // Do any additional setup after loading the view.
-      self.offscreenCells = [NSMutableDictionary dictionary];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageRecived:) name:TurnipMessagePushNotification object:nil];
     
     if (self.user != nil) {
         [self getMessages];
@@ -41,67 +61,16 @@
         [self getMessagesFromConversation];
     }
     
-    self.messageField.delegate = self;
-    
-    [self registerForKeyboardNotifications];
-    
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapReceived:)];
-    [tapGestureRecognizer setDelegate:self];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
 }
 
--(void)tapReceived:(UITapGestureRecognizer *)tapGestureRecognizer
-{
-     [self.messageField resignFirstResponder];
-
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-    
-}
 
-// Called when the UIKeyboardDidShowNotification is sent.
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-        NSDictionary* info = [aNotification userInfo];
-        CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-        CGRect bkgndRect = _activeField.superview.frame;
-        bkgndRect.size.height += kbSize.height;
-        [_activeField.superview setFrame:bkgndRect];
-        [_scrollView setContentOffset:CGPointMake(0.0, _activeField.frame.origin.y-kbSize.height + 40) animated:YES];
 
-}
-
-// Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    _scrollView.contentInset = contentInsets;
-    _scrollView.scrollIndicatorInsets = contentInsets;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    _activeField = textField;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    _activeField = nil;
-}
 
 #pragma mark - 
 #pragma mark Message handler
@@ -127,6 +96,7 @@
         } else {
             if (object != nil) {
                 [self getFacebookId:object];
+                self.conversationId = object.objectId;
                 PFRelation *relation = [object relationForKey:@"messages"];
                 PFQuery *query = [relation query];
                 [query orderByAscending:@"createdAt"];
@@ -137,8 +107,7 @@
                     else if ([objects count] == 0) {
                         NSLog(@"nothing found");
                     } else {
-                        self.messages = [[NSMutableArray alloc] initWithArray:objects];
-                        [self.tableView reloadData];
+                       [self buildMessageArray:objects];
                     }
                 }];
             }
@@ -158,7 +127,12 @@
         } else {
             if (object != nil) {
                 [self getFacebookId:object];
-                
+                if ([[[object objectForKey:@"userA"] objectId] isEqual:[PFUser currentUser].objectId]) {
+                     self.user = [NSArray arrayWithObject:[object objectForKey:@"userB"]];
+                } else {
+                    self.user = [NSArray arrayWithObject:[object objectForKey:@"userA"]];
+                }
+               
                 PFRelation *relation = [object relationForKey:@"messages"];
                 PFQuery *query = [relation query];
                 [query orderByAscending:@"createdAt"];
@@ -169,8 +143,7 @@
                     else if ([objects count] == 0) {
                         NSLog(@"nothing found");
                     } else {
-                        self.messages = [[NSMutableArray alloc] initWithArray:objects];
-                        [self.tableView reloadData];
+                        [self buildMessageArray:objects];
                     }
                 }];
             }
@@ -183,7 +156,7 @@
     PFObject *conversation = [PFObject objectWithClassName:@"Conversation"];
     
     conversation[@"userA"] = [PFUser currentUser];
-    conversation[@"userB"] = self.recipient;
+    conversation[@"userB"] = self.user;
     
     PFRelation *relation = [conversation relationForKey:@"messages"];
     [relation addObject:message];
@@ -213,151 +186,76 @@
     }];
 }
 
-- (void) sendMessage {
-    
-    PFObject *message = [PFObject objectWithClassName:@"Messages"];
-    
-    message[@"user"] = [PFUser currentUser];
-    message[@"message"] = self.messageField.text;
-    
-    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            NSLog(@"error: %@", error);
-        } if (succeeded) {
-            // send push notification
-            if ([self.messages count] == 0) {
-                [self createConversation:message];
-            } else {
-                [self addMessageToConversation:message];
-            }
-        }
-    }];
-}
+//- (void) sendMessage {
+//    PFObject *message = [PFObject objectWithClassName:@"Messages"];
+//    
+//    message[@"user"] = [PFUser currentUser];
+//    message[@"message"] = self.messageField.text;
+//    
+//    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (error) {
+//            NSLog(@"error: %@", error);
+//        } if (succeeded) {
+//            // send push notification
+//            
+//            
+//            [PFCloud callFunctionInBackground:@"messagePush"
+//                               withParameters:@{@"recipientId": [[self.user valueForKey:@"objectId"] objectAtIndex:0], @"message": self.messageField.text}
+//                                        block:^(NSString *success, NSError *error) {
+//                                            if (!error) {
+//                                                NSLog(@"push sent");
+//                                            }
+//                                        }];
+//            
+//            
+//            if ([self.messages count] == 0) {
+//                [self createConversation:message];
+//            } else {
+//                [self addMessageToConversation:message];
+//            }
+//            self.messageField.text = @"";
+//        }
+//    }];
+//}
 
 #pragma mark - TableView Delegates
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    
-    if([self.messages count] > 0) {
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        self.tableView.backgroundView = nil;
-        return 1;
-    } else {
-        // Display a message when the table is empty
-        messageLabel.text = @"You have no messages";
-        messageLabel.textColor = [UIColor blackColor];
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
-        [messageLabel sizeToFit];
-        
-        self.tableView.backgroundView = messageLabel;
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-    }
-    return 0;
-}
+//- (void) downloadProfileImage:(NSString *) facebookId forTableViewCell:(MessagingTableViewCell *) cell {
+//    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookId]];
+//    
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+//    
+//    // Run network request asynchronously
+//    [NSURLConnection sendAsynchronousRequest:urlRequest
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:
+//     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//         if (connectionError == nil && data != nil) {
+//             if ([facebookId isEqual:self.outgoingId]) {
+//                 cell.outgoingImage.image = [UIImage imageWithData:data];
+//             } else {
+//                 cell.otherImage.image = [UIImage imageWithData:data];
+//             }
+//         }
+//     }];
+//}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return [self.messages count];
-}
+#pragma mark -
+#pragma mark Notifications
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *tableIdentifier = @"messageCell";
+- (void) messageRecived:(NSNotification *) note {
+    NSDictionary *dict = [note object];
     
-    MessagingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
-    if (cell == nil) {
-        cell = [[MessagingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
-    }
+    NSLog(@"Alert %@", [[dict objectForKey:@"aps"] objectForKey:@"alert"]);
     
-    [self configureBasicCell:cell atIndexPath:indexPath];
+    NSString *text = [[dict objectForKey:@"aps"] objectForKey:@"alert"];
     
-    return cell;
-}
-
-- (void)configureBasicCell:(MessagingTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if([[[[self.messages valueForKey:@"user"] objectAtIndex:indexPath.row] objectId] isEqual:[PFUser currentUser].objectId]) {
-        [self downloadProfileImage:self.outgoingId forTableViewCell:cell];
-        [cell.otherText setTextAlignment:NSTextAlignmentRight];
-        [cell.dateLabel setTextAlignment:NSTextAlignmentRight];
-    } else {
-        [self downloadProfileImage:self.incommingId forTableViewCell:cell];
-        [cell.otherText setTextAlignment:NSTextAlignmentLeft];
-        [cell.dateLabel setTextAlignment:NSTextAlignmentLeft];
-    }
+    [self.messages addObject:@{ @"text": text,
+                                @"date": [NSDate date],
+                                @"type": @(AMBubbleCellReceived)
+                                }];
     
-    [cell.otherText sizeToFit];
-    cell.otherText.text = [[self.messages valueForKey:@"message"] objectAtIndex:indexPath.row];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"MMM d, H:mm a"];
-    
-    cell.dateLabel.text = [formatter stringFromDate: [[self.messages valueForKey:@"createdAt"] objectAtIndex:indexPath.row]];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self heightForBasicCellAtIndexPath:indexPath];
-}
-
-- (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath {
-    static MessagingTableViewCell *sizingCell = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:@"messageCell"];
-    });
-    
-    [self configureBasicCell:sizingCell atIndexPath:indexPath];
-    return [self calculateHeightForConfiguredSizingCell:sizingCell];
-}
-
-- (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
-    
-    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.frame), CGRectGetHeight(sizingCell.bounds));
-    
-    [sizingCell setNeedsLayout];
-    [sizingCell layoutIfNeeded];
-    
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    //Dirty hack try and find a better soloution;
-    return size.height + 5.0f; // Add 1.0f for the cell separator height
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // call super because we're a custom subclass.
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80.0f;
-}
-
-
-- (IBAction)sendButton:(id)sender {
-    [self sendMessage];
-}
-
-- (void) downloadProfileImage:(NSString *) facebookId forTableViewCell:(MessagingTableViewCell *) cell {
-    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookId]];
-    
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-    
-    // Run network request asynchronously
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:
-     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         if (connectionError == nil && data != nil) {
-             if ([facebookId isEqual:self.outgoingId]) {
-                 cell.outgoingImage.image = [UIImage imageWithData:data];
-             } else {
-                 cell.otherImage.image = [UIImage imageWithData:data];
-             }
-         }
-     }];
+    [self reloadTableScrollingToBottom:YES];
 }
 
 
@@ -374,5 +272,79 @@
         self.incommingId = [[object objectForKey:@"userA"] objectForKey:@"facebookId"];
     }
 }
+
+#pragma mark - AMBubbleTableDataSource
+
+- (NSInteger)numberOfRows
+{
+    return self.messages.count;
+}
+
+- (AMBubbleCellType)cellTypeForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.messages[indexPath.row][@"type"] intValue];
+}
+
+- (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.messages[indexPath.row][@"text"];
+}
+
+- (NSDate *)timestampForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.messages[indexPath.row][@"date"];
+}
+
+- (UIImage*)avatarForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.messages[indexPath.row][@"avatar"];
+}
+
+#pragma mark - AMBubbleTableDelegate
+
+- (void)didSendText:(NSString*)text
+{
+    NSLog(@"User wrote: %@", text);
+    
+    [self.messages addObject:@{ @"text": text,
+                            @"date": [NSDate date],
+                            @"type": @(AMBubbleCellSent)
+                            }];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.data.count - 1) inSection:0];
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+    [self.tableView endUpdates];
+    // Either do this:
+    // [self scrollToBottomAnimated:YES];
+    // or this:
+    [super reloadTableScrollingToBottom:YES];
+}
+
+
+- (void) buildMessageArray: (NSArray *) data {
+    
+    //NSLog(@"data: %@", data);
+    self.messages = [[NSMutableArray alloc] initWithCapacity:[data count]];
+    
+    int type = 0;
+    
+    for (NSDictionary *message in data) {
+        if ([[[message valueForKey:@"user"] objectId] isEqual:[PFUser currentUser].objectId]) {
+            type = AMBubbleCellSent;
+        } else {
+            type = AMBubbleCellReceived;
+        }
+        
+        [self.messages addObject:@{ @"text": [message valueForKey:@"message"],
+                                    @"date": [message valueForKey:@"createdAt"],
+                                    @"type": @(type),
+                                    @"avatar": [UIImage imageNamed:@"profile"]
+                                    }];
+        
+    }
+    [self reloadTableScrollingToBottom:YES];
+}
+
 
 @end

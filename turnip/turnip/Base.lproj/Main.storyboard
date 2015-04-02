@@ -228,118 +228,10 @@
                     <view key="view" contentMode="scaleToFill" id="gB7-5t-drn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twV-5h-dNZ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                                <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DhQ-dq-3cd">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
-                                        <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="messageCell" id="qRo-P2-mI4" customClass="MessagingTableViewCell">
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qRo-P2-mI4" id="x6F-EF-6Fm">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rfq-3r-B0p">
-                                                            <rect key="frame" x="8" y="8" width="32" height="32"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="32" id="7TB-mC-ibf"/>
-                                                                <constraint firstAttribute="width" constant="32" id="tJ1-BB-vP0"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="PiN-x8-dJd">
-                                                            <rect key="frame" x="48" y="12" width="491" height="20"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcX-Yr-12r">
-                                                            <rect key="frame" x="48" y="30" width="491" height="15"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T5Y-CD-6Gr">
-                                                            <rect key="frame" x="560" y="8" width="32" height="32"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="32" id="ORf-uz-Lx5"/>
-                                                                <constraint firstAttribute="width" constant="32" id="wyC-a9-39F"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="Rfq-3r-B0p" secondAttribute="bottom" constant="-5" id="5c0-83-umq"/>
-                                                        <constraint firstItem="QcX-Yr-12r" firstAttribute="leading" secondItem="Rfq-3r-B0p" secondAttribute="trailing" constant="8" id="NL4-Fm-wac"/>
-                                                        <constraint firstItem="T5Y-CD-6Gr" firstAttribute="trailing" secondItem="x6F-EF-6Fm" secondAttribute="trailingMargin" id="TYd-bE-TbS"/>
-                                                        <constraint firstItem="QcX-Yr-12r" firstAttribute="top" secondItem="PiN-x8-dJd" secondAttribute="bottom" constant="-2" id="X8V-6w-DHf"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="QcX-Yr-12r" secondAttribute="bottom" constant="-10" id="Xox-qM-8sZ"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="PiN-x8-dJd" secondAttribute="trailing" constant="53" id="Ytc-8k-lkC"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="T5Y-CD-6Gr" secondAttribute="bottom" constant="-5" id="coa-vx-VKf"/>
-                                                        <constraint firstItem="Rfq-3r-B0p" firstAttribute="leading" secondItem="x6F-EF-6Fm" secondAttribute="leadingMargin" id="ekM-3L-JXx"/>
-                                                        <constraint firstItem="PiN-x8-dJd" firstAttribute="top" secondItem="x6F-EF-6Fm" secondAttribute="topMargin" constant="4" id="kuk-22-gUL"/>
-                                                        <constraint firstItem="PiN-x8-dJd" firstAttribute="leading" secondItem="Rfq-3r-B0p" secondAttribute="trailing" constant="8" id="n65-fR-6eK"/>
-                                                        <constraint firstItem="QcX-Yr-12r" firstAttribute="width" secondItem="PiN-x8-dJd" secondAttribute="width" id="oxJ-92-q9g"/>
-                                                    </constraints>
-                                                </tableViewCellContentView>
-                                                <connections>
-                                                    <outlet property="dateLabel" destination="QcX-Yr-12r" id="Pkz-UC-1Co"/>
-                                                    <outlet property="otherImage" destination="Rfq-3r-B0p" id="gbu-Z9-VWg"/>
-                                                    <outlet property="otherText" destination="PiN-x8-dJd" id="uyD-Vh-FRT"/>
-                                                    <outlet property="outgoingImage" destination="T5Y-CD-6Gr" id="5SC-7v-dYO"/>
-                                                </connections>
-                                            </tableViewCell>
-                                        </prototypes>
-                                        <sections/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="EGH-fe-jdW" id="PSY-ge-3lo"/>
-                                            <outlet property="delegate" destination="EGH-fe-jdW" id="mUP-VY-C9n"/>
-                                        </connections>
-                                    </tableView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a message..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JwI-Ab-j3e">
-                                        <rect key="frame" x="0.0" y="503" width="522" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FE9-Fp-9WZ">
-                                        <rect key="frame" x="524" y="505" width="36" height="30"/>
-                                        <state key="normal" title="Send">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="sendButton:" destination="EGH-fe-jdW" eventType="touchUpInside" id="DxV-rb-uaX"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="FE9-Fp-9WZ" firstAttribute="leading" secondItem="JwI-Ab-j3e" secondAttribute="trailing" constant="2" id="1lD-WD-5LT"/>
-                                    <constraint firstItem="JwI-Ab-j3e" firstAttribute="top" secondItem="DhQ-dq-3cd" secondAttribute="bottom" constant="2" id="4pu-8v-J7k"/>
-                                    <constraint firstItem="DhQ-dq-3cd" firstAttribute="height" secondItem="twV-5h-dNZ" secondAttribute="height" multiplier="0.934" id="8hh-5P-BFs"/>
-                                    <constraint firstAttribute="centerX" secondItem="DhQ-dq-3cd" secondAttribute="centerX" id="D2v-Gd-HaK"/>
-                                    <constraint firstAttribute="trailing" secondItem="FE9-Fp-9WZ" secondAttribute="trailing" id="GmV-Sd-uBf"/>
-                                    <constraint firstItem="JwI-Ab-j3e" firstAttribute="width" secondItem="twV-5h-dNZ" secondAttribute="width" multiplier="0.87" id="HwW-pG-kcS"/>
-                                    <constraint firstItem="DhQ-dq-3cd" firstAttribute="width" secondItem="twV-5h-dNZ" secondAttribute="width" id="I6a-Ok-mi1"/>
-                                    <constraint firstItem="FE9-Fp-9WZ" firstAttribute="top" secondItem="DhQ-dq-3cd" secondAttribute="bottom" constant="4" id="N45-2c-kU4"/>
-                                    <constraint firstItem="JwI-Ab-j3e" firstAttribute="leading" secondItem="twV-5h-dNZ" secondAttribute="leading" id="fvX-6A-xW5"/>
-                                    <constraint firstAttribute="bottom" secondItem="JwI-Ab-j3e" secondAttribute="bottom" id="mvq-VD-tJS"/>
-                                    <constraint firstItem="DhQ-dq-3cd" firstAttribute="top" secondItem="twV-5h-dNZ" secondAttribute="top" id="nkx-K4-tdE"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="twV-5h-dNZ" secondAttribute="centerX" id="14a-FL-FCX"/>
-                            <constraint firstItem="twV-5h-dNZ" firstAttribute="height" secondItem="gB7-5t-drn" secondAttribute="height" id="7dY-rD-BAW"/>
-                            <constraint firstItem="twV-5h-dNZ" firstAttribute="width" secondItem="gB7-5t-drn" secondAttribute="width" id="dZf-5T-AIu"/>
-                            <constraint firstAttribute="centerY" secondItem="twV-5h-dNZ" secondAttribute="centerY" id="iJf-Zo-Q5U"/>
-                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="messageField" destination="JwI-Ab-j3e" id="qTo-oP-dkU"/>
-                        <outlet property="scrollView" destination="twV-5h-dNZ" id="lQp-wE-cJq"/>
-                        <outlet property="tableView" destination="DhQ-dq-3cd" id="uCA-CY-vHe"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nad-5E-Bwr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1096,7 +988,7 @@
                                             <outlet property="delegate" destination="spu-ar-JnD" id="nAe-A7-xFw"/>
                                         </connections>
                                     </tableView>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT">
                                         <rect key="frame" x="250" y="23" width="100" height="100"/>
                                         <state key="normal" backgroundImage="request">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1105,8 +997,8 @@
                                             <action selector="requestButtonHandler:" destination="spu-ar-JnD" eventType="touchUpInside" id="4UG-W6-3fz"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6m-PQ-IZ8">
-                                        <rect key="frame" x="277" y="58" width="46" height="30"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6m-PQ-IZ8">
+                                        <rect key="frame" x="235" y="58" width="46" height="30"/>
                                         <state key="normal" title="Go to Party">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1114,8 +1006,8 @@
                                             <action selector="attendButton:" destination="spu-ar-JnD" eventType="touchUpInside" id="bxd-ON-lCp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-4l-3iH">
-                                        <rect key="frame" x="127" y="58" width="66" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-4l-3iH">
+                                        <rect key="frame" x="168" y="58" width="62" height="30"/>
                                         <state key="normal" title="Message">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1127,6 +1019,8 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="h9o-4l-3iH" secondAttribute="centerY" constant="-0.5" id="3f7-2K-PzX"/>
+                                    <constraint firstItem="CXy-im-tmT" firstAttribute="leading" secondItem="h9o-4l-3iH" secondAttribute="trailing" constant="20" id="6v4-Om-ncI"/>
                                     <constraint firstAttribute="centerY" secondItem="CXy-im-tmT" secondAttribute="centerY" id="9uD-r9-kpM"/>
                                     <constraint firstAttribute="centerY" secondItem="ypY-ST-11B" secondAttribute="centerY" id="LbG-6H-ney"/>
                                     <constraint firstAttribute="height" secondItem="ypY-ST-11B" secondAttribute="height" id="NFh-Ur-vth"/>
@@ -1646,7 +1540,7 @@
         <!--Ticket View Controller-->
         <scene sceneID="rPo-ds-Nn6">
             <objects>
-                <viewController id="VqK-Y8-eNf" customClass="TicketViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="VqK-Y8-eNf" customClass="TicketViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GEl-0a-oq6"/>
                         <viewControllerLayoutGuide type="bottom" id="nQ1-NR-iRv"/>
@@ -1828,11 +1722,11 @@
                         <viewControllerLayoutGuide type="bottom" id="IOY-2V-nM2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5rI-KV-xMl">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAT-uA-uXN">
-                                <rect key="frame" x="43" y="24" width="515" height="487"/>
+                                <rect key="frame" x="43" y="44" width="515" height="531"/>
                                 <string key="text">THIS LEGAL AGREEMENT BETWEEN YOU AND The Stupidest App Ever (hereinafter referred to as "Turnip") GOVERNS YOUR USE OF THE Turnip Application (“App”).
 The Stupidest App Ever is the provider of the App that permits you to license software products and digital content for end user use only under the terms and conditions set forth in this Agreement.
 Only persons age 13 years or older can create accounts. Accounts for persons under 13 years old can be created by a parent or legal guardian using Family Sharing or by an approved educational institution. Children under the age of majority should review this Agreement with their parent or guardian to ensure that the child and the parent or legal guardian understand it.
@@ -2146,7 +2040,7 @@ If you are a qualified public educational or government institution and any part
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41M-dK-xOJ">
                                 <rect key="frame" x="20" y="36" width="560" height="425"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">THIS LEGAL AGREEMENT BETWEEN YOU AND The Stupidest App Ever (hereinafter referred to as "Turnip") GOVERNS YOUR USE OF THE Turnip Application (“App”).
+                                <string key="text">THIS LEGAL AGREEMENT BETWEEN YOU AND The Stupidest App Ever (hereinafter referred to as "Turnip") GOVERNS YOUR USE OF THE Turnip Application (“App”).
 The Stupidest App Ever is the provider of the App that permits you to license software products and digital content for end user use only under the terms and conditions set forth in this Agreement.
 Only persons age 13 years or older can create accounts. Accounts for persons under 13 years old can be created by a parent or legal guardian using Family Sharing or by an approved educational institution. Children under the age of majority should review this Agreement with their parent or guardian to ensure that the child and the parent or legal guardian understand it.
 The App is available to you only in the United States, its territories, and possessions. You agree not to use or attempt to use the App from outside these locations. Turnip may use technologies to verify your compliance.
@@ -2192,7 +2086,7 @@ Turnip reserves the right to take steps it believes are reasonably necessary or 
 STATUTORY EXCEPTIONS FOR PUBLIC INSTITUTIONS
 If you are a qualified public educational or government institution and any part of this Agreement, such as, by way of example, all or part of the indemnification section, is invalid or unenforceable against you because of applicable state or federal law, then that portion shall be deemed invalid or unenforceable, as the case may be, and instead construed in a manner most consistent with applicable governing law. If California law is precluded, this Agreement shall be construed under the laws of the state in which your public educational or government institution is located.
 
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -2854,10 +2748,10 @@ If you are a qualified public educational or government institution and any part
         <segue reference="YqO-Ry-fwr"/>
         <segue reference="qQ6-T8-g9z"/>
         <segue reference="Ucw-VM-vmq"/>
+        <segue reference="FkE-ub-aJA"/>
         <segue reference="anS-E0-Al2"/>
         <segue reference="Ya7-QT-Y00"/>
         <segue reference="QZr-iu-lXX"/>
-        <segue reference="xH8-4C-0nt"/>
         <segue reference="eVo-du-xyK"/>
         <segue reference="Dl2-Ci-fg9"/>
     </inferredMetricsTieBreakers>

@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.tabBarController.tabBar setHidden:YES];
+    //[self.tabBarController.tabBar setHidden:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
     
     
@@ -43,6 +43,13 @@
     [super viewWillAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    if ([ReachabilityManager isReachable]) {
+        self.facebookLoginButton.hidden = NO;
+    } else {
+        self.facebookLoginButton.hidden = YES;
+        self.connectionLabel.hidden = NO;
+    }
     
 }
 
@@ -91,9 +98,13 @@
                 dispatch_block_t completion = ^{
                     // Hide the activity view
                     // Show the logged in view
-                    NSLog(@"login");
                     
-                    [self performSegueWithIdentifier:@"loginSegue" sender:sender];
+                    //[self performSegueWithIdentifier:@"loginSegue" sender:sender];
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                    UIViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
+                    [self presentViewController:lvc animated:YES completion:nil];
+                    
+                    
                 };
                 
                 if (error) {

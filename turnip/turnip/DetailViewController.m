@@ -122,7 +122,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateUI : (PFObject *) data withHideRequest:(BOOL) hide{
+- (void) updateUI : (PFObject *) data{
+    
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.tableView;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = self.refreshControl;
     
     self.navigationItem.title = [data objectForKey:TurnipParsePostTitleKey];
     
@@ -134,13 +141,19 @@
     
     self.dateLabel.text = [self convertDate:[data objectForKey:TurnipParsePostDateKey]];
     
-    if ([data objectForKey:TurnipParsePostPrivateKey]) {
+    if ([[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId]) {
+        self.requestButton.hidden = YES;
+        self.messageButton.hidden = YES;
+        self.tableView.hidden = NO;
+        [self queryForAcceptedUsers];
+    }
+    
+    if ([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"True"]) {
         self.openLabel.text = @"Private";
-        if (![[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId] && !hide) {
-            self.requestButton.hidden = NO;
-        }
-    } else if(![data objectForKey:TurnipParsePostPrivateKey]) {
+    } else if([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"False"]) {
         self.openLabel.text = @"Public";
+        self.requestButton.hidden = YES;
+        NSLog(@"public");
         self.attendButton.hidden = NO;
     }
     
@@ -260,7 +273,7 @@
 
 - (IBAction)attendButton:(id)sender {
     
-    PFObject *object = [PFObject objectWithoutDataWithClassName:TurnipParsePostClassName objectId:TurnipParsePostIdKey];
+    PFObject *object = [PFObject objectWithoutDataWithClassName:TurnipParsePostClassName objectId:self.objectId];
     
     PFRelation *relation = [object relationForKey:@"accepted"];
     [relation addObject:[PFUser currentUser]];
@@ -269,13 +282,14 @@
             NSLog(@"could not add to accepted");
         } else if(succeeded) {
             //add to notification class
-            NSString *message = [NSString stringWithFormat:@"Your ticket for %@ (tap to view ticket)", self.nameLabel.text];
+            NSString *message = [NSString stringWithFormat:@"Your ticket for %@ (tap to view ticket)", self.navigationItem.title];
             
             PFObject *notification = [PFObject objectWithClassName:@"Notifications"];
             notification[@"type"] = @"ticket";
             notification[@"notification"] = message;
             notification[@"event"] = object;
             notification[@"user"] = [PFUser currentUser];
+            notification[@"eventTitle"] = self.navigationItem.title;
             
             [notification saveInBackground];
         }
@@ -393,7 +407,6 @@
 }
 
 - (void) downloadDetails {
-    __block BOOL hideRequest = NO;
     
     PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
     
@@ -401,14 +414,13 @@
     
     [query includeKey:TurnipParsePostUserKey];
     [query includeKey:@"neighbourhood"];
+    [query whereKey:TurnipParsePostIdKey equalTo:self.objectId];
     
-    [query whereKey:@"denied" notEqualTo:[PFUser currentUser].objectId];
-    
-    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (error) {
             NSLog(@"Error in query!: %@", error);
         } else {
-            if (object == nil) {
+            if ([[object objectForKey:@"denied"] containsObject:[PFUser currentUser].objectId]) {
                 NSLog(@"denied");
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -426,25 +438,19 @@
                                 }
                             }];
                         } else {
-                            hideRequest = YES;
+                            self.requestButton.hidden = YES;
                             // Initialize the refresh control.
-                            UITableViewController *tableViewController = [[UITableViewController alloc] init];
-                            tableViewController.tableView = self.tableView;
-                            
-                            self.refreshControl = [[UIRefreshControl alloc] init];
-                            [self.refreshControl addTarget:self action:@selector(queryForAcceptedUsers) forControlEvents:UIControlEventValueChanged];
-                            tableViewController.refreshControl = self.refreshControl;
-                            
                             self.accepted = [[NSArray alloc] initWithArray:objects];
                             [[self tableView] reloadData];
                             self.tableView.hidden = NO;
                         }
-                        self.data = [[NSArray alloc] initWithObjects:object, nil];
-                        [self downloadImages: object];
-                        [self updateUI: object withHideRequest:hideRequest];
                     }];
                 });
             }
+            self.data = [[NSArray alloc] initWithObjects:object, nil];
+            [self downloadImages: object];
+            [self updateUI: object];
+
         }
     }];
 }

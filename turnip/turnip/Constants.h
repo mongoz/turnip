@@ -55,6 +55,7 @@ static NSString * const TurnipUserWasAcceptedNotification = @"TurnipUserWasAccep
 static NSString * const TurnipEditUserProfileNotification = @"TurnipEditUserProfileNotification";
 static NSString * const TurnipPartyUpdateNotification = @"TurnipPartyUpdateNotification";
 static NSString * const TurnipGoToPublicPartyNotification = @"TurnipGoToPublicPartyNotification";
+static NSString * const TurnipMessagePushNotification = @"TurnipMessagePushNotification";
 
 static double const TurnipDefaultFilterDistance = 1000.0;
 static double const TurnipPostMaximumSearchDistance = 20.0;

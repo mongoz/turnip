@@ -447,7 +447,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
     
     color = self.defaultColor ? self.defaultColor : [UIColor clearColor];
     
-    if (percentage > 0 && _modeForState1) {
+    if (percentage > _firstTrigger && _modeForState1) {
         color = _color1;
     }
     
@@ -455,7 +455,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
         color = _color2;
     }
     
-    if (percentage < 0 && _modeForState3) {
+    if (percentage < -_firstTrigger && _modeForState3) {
         color = _color3;
     }
     
@@ -718,4 +718,5 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
 - (IBAction)acceptButtonHandler:(id)sender {
     [self.delegate acceptButtonWasTapped:self];
 }
+
 @end

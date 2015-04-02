@@ -187,6 +187,11 @@
         
         [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
+    
+    if ([type isEqualToString:@"messagePush"]) {
+        NSLog(@"message recived");
+        [[NSNotificationCenter defaultCenter] postNotificationName:TurnipMessagePushNotification object:userInfo];
+    }
 }
 
 - (BOOL) pushNotificationOnOrOff

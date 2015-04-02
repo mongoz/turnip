@@ -27,7 +27,6 @@
 		1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */; };
 		1AA0668F1AC1045B008A5A11 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0668E1AC1045B008A5A11 /* ConversationViewController.m */; };
 		1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA066911AC3D0A7008A5A11 /* ConversationTableViewCell.m */; };
-		1AA066951AC4C5D4008A5A11 /* MessagingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA066941AC4C5D4008A5A11 /* MessagingTableViewCell.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
@@ -109,8 +108,6 @@
 		1AA0668E1AC1045B008A5A11 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		1AA066901AC3D0A7008A5A11 /* ConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableViewCell.h; sourceTree = "<group>"; };
 		1AA066911AC3D0A7008A5A11 /* ConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableViewCell.m; sourceTree = "<group>"; };
-		1AA066931AC4C5D4008A5A11 /* MessagingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingTableViewCell.h; sourceTree = "<group>"; };
-		1AA066941AC4C5D4008A5A11 /* MessagingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingTableViewCell.m; sourceTree = "<group>"; };
 		1AA179EE1A74E3D30061CA3E /* turnip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = turnip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA179F31A74E3D30061CA3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,8 +239,6 @@
 				1AFD3FC21A74ED9E00B2EABE /* DetailViewController.m */,
 				1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */,
 				1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */,
-				1AA066931AC4C5D4008A5A11 /* MessagingTableViewCell.h */,
-				1AA066941AC4C5D4008A5A11 /* MessagingTableViewCell.m */,
 				1AA0668D1AC1045B008A5A11 /* ConversationViewController.h */,
 				1AA0668E1AC1045B008A5A11 /* ConversationViewController.m */,
 				1AA066901AC3D0A7008A5A11 /* ConversationTableViewCell.h */,
@@ -569,7 +564,6 @@
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
 				1AD8BA121AC5C3610018C383 /* VerificationViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,
-				1AA066951AC4C5D4008A5A11 /* MessagingTableViewCell.m in Sources */,
 				1AFD3FE21A74ED9E00B2EABE /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

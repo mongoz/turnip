@@ -7,6 +7,7 @@
 //
 
 #import "SidebarTableViewController.h"
+#import "LoginViewController.h"
 #import "SWRevealViewController.h"
 #import <Parse/Parse.h>
 #import "Constants.h"
@@ -82,7 +83,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 3) {
         [PFUser logOut];
-        [self performSegueWithIdentifier: @"logoutSegue" sender: self];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UIViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
+        [self presentViewController:lvc animated:YES completion:nil];
+
     }
 }
 

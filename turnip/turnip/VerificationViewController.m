@@ -57,7 +57,7 @@
     
     //go to mapview.
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    MapViewController *mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapView"];
+    UIViewController *mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
     [self presentViewController:mapViewController animated:YES completion:nil];
 }
 
@@ -68,7 +68,7 @@
 - (IBAction)cancelButton:(id)sender {
     // go back to Login view
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    LoginViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
+    UIViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
     [self presentViewController:lvc animated:YES completion:nil];
 }
 @end

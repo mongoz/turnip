@@ -14,6 +14,8 @@
 
 @interface ConversationViewController ()
 
+@property (nonatomic, strong) NSArray *user;
+
 @end
 
 @implementation ConversationViewController
@@ -91,6 +93,8 @@
 }
 
 - (void)configureCell:(ConversationTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath andUser:(PFObject *)user {
+    self.user = [[NSArray alloc] initWithObjects:user, nil];
+    
     NSArray *name = [[user objectForKey:@"name"] componentsSeparatedByString: @" "];
     cell.titleLabel.text = [name objectAtIndex:0];
     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
@@ -137,6 +141,7 @@
         MessagingViewController *destViewController = segue.destinationViewController;
         
         destViewController.conversationId = [[self.objects valueForKey:@"objectId"] objectAtIndex:indexPath.row];
+        destViewController.user = [self.user objectAtIndex:indexPath.row];
     }
 }
 

@@ -55,6 +55,7 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 @protocol MCSwipeTableViewCellDelegate;
 
 @interface MCSwipeTableViewCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *imageSpinner;
 @property (strong, nonatomic) IBOutlet UIButton *deniedButton;
 @property (strong, nonatomic) IBOutlet UIButton *acceptButton;
@@ -65,7 +66,6 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 
 /** Delegate of `MCSwipeTableViewCell` */
 @property (nonatomic, assign) id <MCSwipeTableViewCellDelegate> delegate;
-
 
 /** 
  * Damping of the physical spring animation. Expressed in percent.
@@ -190,6 +190,20 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 @optional
 
 /**
+ *  Called when the user starts swiping the cell.
+ *
+ *  @param cell `MCSwipeTableViewCell` currently swiped.
+ */
+- (void)swipeTableViewCellDidStartSwiping:(MCSwipeTableViewCell *)cell;
+
+/**
+ *  Called when the user ends swiping the cell.
+ *
+ *  @param cell `MCSwipeTableViewCell` currently swiped.
+ */
+- (void)swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell;
+
+/**
  * called when the user tap the denied button
  *
  * @param button 'denied' tapped
@@ -204,19 +218,6 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
  */
 - (void) acceptButtonWasTapped:(MCSwipeTableViewCell *) cell;
 
-/**
- *  Called when the user starts swiping the cell.
- *
- *  @param cell `MCSwipeTableViewCell` currently swiped.
- */
-- (void)swipeTableViewCellDidStartSwiping:(MCSwipeTableViewCell *)cell;
-
-/**
- *  Called when the user ends swiping the cell.
- *
- *  @param cell `MCSwipeTableViewCell` currently swiped.
- */
-- (void)swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell;
 
 /**
  *  Called during a swipe.

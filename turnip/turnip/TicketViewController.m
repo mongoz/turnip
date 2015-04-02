@@ -34,7 +34,14 @@
     self.dateLabel.text = [dateFormatter stringFromDate: date];
     self.addressLabel.text = address;
     self.qrCodeImage.image = qrCodeImage;
-
+    
+    NSDate *currentDate = [NSDate date];
+    
+    NSLog(@"currDate: %@", currentDate);
+    NSLog(@"date: %@", date);
+    NSTimeInterval timeDifferenceBetweenDates = [date timeIntervalSinceNow];
+    
+    NSLog(@"timeDiff: %f", timeDifferenceBetweenDates / (60 * 60));
 }
 
 - (void)didReceiveMemoryWarning {

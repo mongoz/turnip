@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
-#import <ParseUI/ParseUI.h>
 
-@interface ConversationViewController : PFQueryTableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ConversationViewController : UITableViewController
 
 @end

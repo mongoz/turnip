@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menuItems = @[@"editProfile", @"tos", @"contact", @"signout"];
+    menuItems = @[@"editProfile", @"tos", @"contact", @"invite", @"signout"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,7 +81,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.turnipapp.com/faq.htm"]];
     }
     
-    if (indexPath.row == 3) {
+    if (indexPath.row == 4) {
         [PFUser logOut];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         UIViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];

@@ -39,7 +39,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-turnip-ParseFacebookUtils.xcscheme</key>
+		<key>Pods-turnip-ParseFacebookUtilsV4.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -62,57 +62,57 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>14C4B53276EF3D78A1945F51</key>
+		<key>28A380FA8435C6956EDFAFC8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>20D17ED74CB9790653621E31</key>
+		<key>4E35E9D3A2176FC6BEC00F23</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2F11B8E87672046B254389CA</key>
+		<key>75CEACF10CFCB9A9B05C2399</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>32C2BC1EE372D045C3ACA9C6</key>
+		<key>9FB112DC66A3DFED439CC8AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3B336C1E10C1AF8A98765286</key>
+		<key>A96D37ADB9B41AD3B7A78D89</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>645C79D7A079BA660EC43F4B</key>
+		<key>BCAAA8C362E803AC61950D60</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7D96D1DD2A8369C508575939</key>
+		<key>CD5161F1897BDA18DD77B928</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9EAE314C43B75C4E5799886C</key>
+		<key>D42293C7ED2BCF7B68052CF9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1521A281FA052DBA98E00C2</key>
+		<key>E6D6C73AA4AA2B8F2991A5D9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C1CD7A76B709C686FDB5F5D6</key>
+		<key>EBC13B883093773D59F9FE4C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F17C8777F2FFDED1634D7114</key>
+		<key>F0E48C4975EEFD6AC8746F53</key>
 		<dict>
 			<key>primary</key>
 			<true/>

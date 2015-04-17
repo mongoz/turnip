@@ -7,12 +7,13 @@
 //
 
 #import "LoginViewController.h"
+#import "AcceptToSViewController.h"
 #import "ProfileViewController.h"
 #import "MapViewController.h"
 
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "Reachability.h"
 #import "ReachabilityManager.h"
 
@@ -42,6 +43,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    NSLog(@"test");
+    
+    self.activityView.hidden = YES;
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     if ([ReachabilityManager isReachable]) {
@@ -58,76 +63,77 @@
 
 
 - (IBAction)facebookLoginButton:(id)sender {
-     NSArray *permissionsArray = @[ @"user_about_me", @"user_birthday", @"user_location"];
+    self.facebookLoginButton.hidden = YES;
+    self.activityView.hidden = NO;
+    [self.activityView startAnimating];
     
-    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+     NSArray *permissionsArray = @[ @"user_about_me", @"user_birthday", @"user_location", @"user_photos"];
+    
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         if (!user) {
-            // Hide the activity view
-            NSString *alertMessage, *alertTitle;
-            if (error) {
-                FBErrorCategory errorCategory = [FBErrorUtility errorCategoryForError:error];
-                if ([FBErrorUtility shouldNotifyUserForError:error]) {
-                    // If the SDK has a message for the user, surface it.
-                    alertTitle = @"Something Went Wrong";
-                    alertMessage = [FBErrorUtility userMessageForError:error];
-                } else if (errorCategory == FBErrorCategoryAuthenticationReopenSession) {
-                    // It is important to handle session closures. We notify the user.
-                    alertTitle = @"Session Error";
-                    alertMessage = @"Your current session is no longer valid. Please log in again.";
-                } else if (errorCategory == FBErrorCategoryUserCancelled) {
-                    // The user has cancelled a login. You can inspect the error
-                    // for more context. Here, we will simply ignore it.
-                    NSLog(@"user cancelled login");
-                } else {
-                    // Handle all other errors in a generic fashion
-                    alertTitle  = @"Unknown Error";
-                    alertMessage = @"Error. Please try again later.";
-                }
-                
-                if (alertMessage) {
-                    [[[UIAlertView alloc] initWithTitle:alertTitle
-                                                message:alertMessage
-                                               delegate:nil
-                                      cancelButtonTitle:@"Dismiss"
-                                      otherButtonTitles:nil] show];
-                }
-            }
-        } else {
+            NSLog(@"user cancelled login");
+        } else if(user.isNew) {
             // Make a call to get user info
-            [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
-                dispatch_block_t completion = ^{
-                    // Hide the activity view
-                    // Show the logged in view
-                    
-                    //[self performSegueWithIdentifier:@"loginSegue" sender:sender];
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                    UIViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
-                    [self presentViewController:lvc animated:YES completion:nil];
-                    
-                    
-                };
-                
+            FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                 if (error) {
-                    completion();
+                    NSLog(@"error occured");
                 } else {
+                    if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+                        [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:permissionsArray];
+                    }
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveEventually];
                     
-                    [PFUser currentUser][@"name"] = user.name;
-                    [PFUser currentUser][@"facebookId"] = user.objectID;
+                    [PFUser currentUser][@"bio"] = @"super awesome bio";
+                    [PFUser currentUser][@"name"] = [result objectForKey:@"name"];
+                    [PFUser currentUser][@"facebookId"] = [result objectForKey:@"id"];
                     [PFUser currentUser][@"TOS"] = @"False";
-                    [PFUser currentUser][@"birthday"] = user.birthday;
+                    [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                        completion();
+                        [self presentTosView];
                     }];
+                }
+            }];
+        }else {
+            NSLog(@"token: %@", [FBSDKAccessToken currentAccessToken]);
+            // Make a call to get user info
+            FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                if (error) {
+                    NSLog(@"something went wrong: %@", error);
+                } else {
+                    if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+                        [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:permissionsArray];
+                    }
+                    // Save the name on Parse
+                    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
+                    [[PFInstallation currentInstallation] saveEventually];
+                    
+                    if ([[PFUser currentUser][@"TOS"] isEqualToString:@"False"]) {
+                        [self presentTosView];
+                    } else {
+                        [self presentMapView];
+                    }
                 }
             }];
         }
     }];
 }
 
+- (void) presentMapView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController *mvc = [storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
+    [self presentViewController:mvc animated:YES completion:nil];
+}
+
+- (void) presentTosView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController *atvc = [storyboard instantiateViewControllerWithIdentifier:@"acceptTosView"];
+    [self presentViewController:atvc animated:YES completion:nil];
+}
 
 - (void) reachabilityDidChange: (NSNotification *) note {
     if ([ReachabilityManager isReachable]) {

@@ -40,17 +40,15 @@
     if ([self.currentEvent count] > 0) {
         [self performSegueWithIdentifier:@"revealSegue" sender:self];
     }
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"NExt : navController :%@", self.navigationController.viewControllers);
+    
     [self setupView];
     [self setupPickerViews];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -411,6 +409,7 @@
 - (IBAction) saveButtonHandler:(id)sender {
     if (![self checkInput]) {
         if ([ReachabilityManager isReachable] ) {
+            
             self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
             [self.view addSubview: self.HUD];
             
@@ -455,7 +454,6 @@
             postObject[TurnipParsePostZipCodeKey] = self.placemark.postalCode;
             postObject[TurnipParsePostPrivateKey] = (self.isPrivate) ? @"True" : @"False";
             postObject[TurnipParsePostPaidKey] = (self.isFree) ? @"True" : @"False";
-            //            postObject[@"address"] = [self.placemark.addressDictionary valueForKey:@"Street"];
             postObject[TurnipParsePostAddressKey] = self.location;
             postObject[TurnipParsePostDateKey] = self.selectedDate;
             postObject[TurnipParsePostEndTimeKey] = self.endTimeDate.text;
@@ -517,14 +515,18 @@
                         
                         self.HUD.labelText = @"Completed!";
                         
+                        [[postObject objectForKey:@"neighbourhood"] fetchIfNeeded];
+                        NSLog(@"%@", [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"]);
+                        [self saveToCoreData:postObject];
+                        
                         [self.HUD hide:YES afterDelay:5];
                         self.HUD.delegate = self;
+                        
+                        self.currentEventId = postObject.objectId;
+                        self.data = [[NSArray alloc] initWithObjects:postObject, nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
+                        [self viewWillAppear:YES];
                     });
-                    [self saveToCoreData:postObject];
-                    self.currentEventId = postObject.objectId;
-                    self.data = [[NSArray alloc] initWithObjects:postObject, nil];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
-                    [self viewWillAppear:YES];
                 }
             }];
         } else {
@@ -568,10 +570,12 @@
 
 #pragma mark Core Data
 
-- (void) saveToCoreData :(PFObject *) postObject {
+- (void) saveToCoreData:(PFObject *) postObject {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = [delegate managedObjectContext];
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    
+   // NSLog(@"neighbourhood: %@", [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"]);
         
         NSManagedObject *dataRecord = [NSEntityDescription
                                        insertNewObjectForEntityForName:@"YourEvents"
@@ -588,6 +592,7 @@
         [dataRecord setValue: self.imageTwo.image forKey:@"image2"];
         [dataRecord setValue: self.imageThree.image forKey:@"image3"];
         [dataRecord setValue: [numberFormatter numberFromString:self.capacityInputField.text] forKey:@"capacity"];
+        [dataRecord setValue: [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"] forKey:@"neighbourhood"];
     
         NSNumber *privateAsNumber = [NSNumber numberWithBool: self.isPrivate];
         [dataRecord setValue: privateAsNumber forKey:@"private"];

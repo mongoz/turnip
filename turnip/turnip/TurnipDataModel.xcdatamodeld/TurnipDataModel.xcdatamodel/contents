@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="13F1066" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="RequesterInfo" representedClassName="UserInfo" syncable="YES">
         <attribute name="birthday" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,6 +26,7 @@
         <attribute name="image2" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="image3" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="neighbourhood" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="private" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -36,6 +37,6 @@
         <element name="RequesterInfo" positionX="23317" positionY="-2403" width="128" height="133"/>
         <element name="TicketInfo" positionX="23292" positionY="-2340" width="128" height="105"/>
         <element name="UserSettings" positionX="23560" positionY="-2403" width="128" height="58"/>
-        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="240"/>
+        <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="255"/>
     </elements>
 </model>

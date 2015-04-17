@@ -22,16 +22,20 @@
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
 		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
 		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
+		1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DA31ADEF95F00CC4E6A /* ex.png */; };
+		1A9F1DA71ADF71AD00CC4E6A /* InviteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F1DA61ADF71AD00CC4E6A /* InviteTableViewController.m */; };
 		1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */; };
 		1A9FD9D11AB6BEAF000BF15C /* MessagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */; };
 		1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */; };
+		1AA011991AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA011981AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m */; };
+		1AA0119C1AD22906003E7B76 /* profileAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0119B1AD22906003E7B76 /* profileAlbumCollectionViewCell.m */; };
 		1AA0668F1AC1045B008A5A11 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0668E1AC1045B008A5A11 /* ConversationViewController.m */; };
 		1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA066911AC3D0A7008A5A11 /* ConversationTableViewCell.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
 		1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1D1A860CD100C0A617 /* TicketViewController.m */; };
-		1AD8BA121AC5C3610018C383 /* VerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8BA111AC5C3610018C383 /* VerificationViewController.m */; };
+		1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */; };
 		1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF2E1AAE5AA90054197C /* EditViewController.m */; };
 		1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */; };
 		1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF361AB346880054197C /* ReachabilityManager.m */; };
@@ -99,11 +103,18 @@
 		1A9D0D321A9D25020082550C /* TeammateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewController.m; sourceTree = "<group>"; };
 		1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewCell.h; sourceTree = "<group>"; };
 		1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewCell.m; sourceTree = "<group>"; };
+		1A9F1DA31ADEF95F00CC4E6A /* ex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex.png; sourceTree = "<group>"; };
+		1A9F1DA51ADF71AD00CC4E6A /* InviteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteTableViewController.h; sourceTree = "<group>"; };
+		1A9F1DA61ADF71AD00CC4E6A /* InviteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteTableViewController.m; sourceTree = "<group>"; };
 		1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonMilk.otf; sourceTree = "<group>"; };
 		1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingViewController.h; sourceTree = "<group>"; };
 		1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingViewController.m; sourceTree = "<group>"; };
 		1A9FD9D21AB6DAB2000BF15C /* ToSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToSViewController.h; sourceTree = "<group>"; };
 		1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToSViewController.m; sourceTree = "<group>"; };
+		1AA011971AD1E4ED003E7B76 /* ProfileImageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileImageCollectionViewController.h; sourceTree = "<group>"; };
+		1AA011981AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileImageCollectionViewController.m; sourceTree = "<group>"; };
+		1AA0119A1AD22906003E7B76 /* profileAlbumCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profileAlbumCollectionViewCell.h; sourceTree = "<group>"; };
+		1AA0119B1AD22906003E7B76 /* profileAlbumCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = profileAlbumCollectionViewCell.m; sourceTree = "<group>"; };
 		1AA0668D1AC1045B008A5A11 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		1AA0668E1AC1045B008A5A11 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		1AA066901AC3D0A7008A5A11 /* ConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableViewCell.h; sourceTree = "<group>"; };
@@ -117,8 +128,8 @@
 		1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		1ABABC1C1A860CD100C0A617 /* TicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketViewController.h; sourceTree = "<group>"; };
 		1ABABC1D1A860CD100C0A617 /* TicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketViewController.m; sourceTree = "<group>"; };
-		1AD8BA101AC5C3610018C383 /* VerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationViewController.h; sourceTree = "<group>"; };
-		1AD8BA111AC5C3610018C383 /* VerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationViewController.m; sourceTree = "<group>"; };
+		1AD8BA101AC5C3610018C383 /* AcceptToSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptToSViewController.h; sourceTree = "<group>"; };
+		1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptToSViewController.m; sourceTree = "<group>"; };
 		1ADEBF2D1AAE5AA90054197C /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		1ADEBF2E1AAE5AA90054197C /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNextViewController.h; sourceTree = "<group>"; };
@@ -253,10 +264,16 @@
 				1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */,
 				1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */,
 				1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */,
+				1A9F1DA51ADF71AD00CC4E6A /* InviteTableViewController.h */,
+				1A9F1DA61ADF71AD00CC4E6A /* InviteTableViewController.m */,
 				1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */,
 				1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */,
 				1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */,
 				1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */,
+				1AA011971AD1E4ED003E7B76 /* ProfileImageCollectionViewController.h */,
+				1AA011981AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m */,
+				1AA0119A1AD22906003E7B76 /* profileAlbumCollectionViewCell.h */,
+				1AA0119B1AD22906003E7B76 /* profileAlbumCollectionViewCell.m */,
 				1ADEBF2D1AAE5AA90054197C /* EditViewController.h */,
 				1ADEBF2E1AAE5AA90054197C /* EditViewController.m */,
 				1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */,
@@ -285,8 +302,8 @@
 				1A54AEC41AA67836004F55B4 /* ScannerViewController.m */,
 				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
 				1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */,
-				1AD8BA101AC5C3610018C383 /* VerificationViewController.h */,
-				1AD8BA111AC5C3610018C383 /* VerificationViewController.m */,
+				1AD8BA101AC5C3610018C383 /* AcceptToSViewController.h */,
+				1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
@@ -346,6 +363,7 @@
 		1AFD3FF01A74EDA200B2EABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A9F1DA31ADEF95F00CC4E6A /* ex.png */,
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
@@ -466,6 +484,7 @@
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
 				1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */,
 				1A9AE4D51A8052D200AADDAA /* green.png in Resources */,
+				1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */,
 				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
 			);
@@ -537,11 +556,14 @@
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
 				1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */,
 				1AA179F41A74E3D30061CA3E /* main.m in Sources */,
+				1AA011991AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m in Sources */,
 				1AA0668F1AC1045B008A5A11 /* ConversationViewController.m in Sources */,
 				1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */,
 				1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
 				1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */,
+				1A9F1DA71ADF71AD00CC4E6A /* InviteTableViewController.m in Sources */,
+				1AA0119C1AD22906003E7B76 /* profileAlbumCollectionViewCell.m in Sources */,
 				1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
@@ -562,7 +584,7 @@
 				1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */,
 				1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */,
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
-				1AD8BA121AC5C3610018C383 /* VerificationViewController.m in Sources */,
+				1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,
 				1AFD3FE21A74ED9E00B2EABE /* DetailViewController.m in Sources */,
 			);

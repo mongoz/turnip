@@ -8,11 +8,12 @@
 
 #import "AppDelegate.h"
 #import "MapViewController.h"
-
+#import "AcceptToSViewController.h"
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import <CoreData/CoreData.h>
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import "Constants.h"
 #import <Reachability.h>
@@ -22,6 +23,7 @@
 
 @property (nonatomic, strong) UIStoryboard *storyboard;
 @property (nonatomic, assign) NSInteger notificationCount;
+@property (nonatomic, assign) NSInteger messageCount;
 
 @end
 
@@ -30,6 +32,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize currentEvent = _currentEvent;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -39,6 +42,7 @@
     [ReachabilityManager sharedManager];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetBadgeCount:) name:TurnipResetBadgeCountNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetMessageCount:) name:TurnipResetMessageBadgeCount object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCounter:) name:TurnipGoToPublicPartyNotification object:nil];
         
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -63,8 +67,7 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    [PFFacebookUtils initializeFacebook];
-    
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
@@ -98,23 +101,24 @@
     Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
     
     if ([reachability isReachable]) {
-        
         if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-            // Present wall straight-away
-            [self presentMapViewControllerAnimated:NO];
+            // Present map straight-away
+            if ([[PFUser currentUser][@"TOS"] isEqualToString:@"True"]) {
+                [self presentMapViewControllerAnimated:NO];
+            } else {
+                NSLog(@"false");
+                [self presentAcceptTosViewController];
+            }
+
         } else {
             // Go to the welcome screen and have them log in or create an account.
             [self presentLoginViewController];
         }
-        
     } else {
         [self presentLoginViewController];
     }
-
-    
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -133,12 +137,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     // Logs 'install' and 'app activate' App Events.
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[PFFacebookUtils session] close];
 }
 
 #pragma mark push notifications
@@ -147,6 +150,7 @@
     // Store the deviceToken in the current installation and save it to Parse.
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation.channels = @[ @"global" ];
     [currentInstallation saveInBackground];
@@ -189,8 +193,11 @@
     }
     
     if ([type isEqualToString:@"messagePush"]) {
-        NSLog(@"message recived");
+        
+        self.messageCount +=1;
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipMessagePushNotification object:userInfo];
+        
+        [[tabController.viewControllers objectAtIndex:TurnipTabMessage] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.messageCount];
     }
 }
 
@@ -258,15 +265,21 @@
     [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
 }
 
+- (void) resetMessageCount:(NSNotification *) note {
+    self.messageCount = 0;
+    
+}
+
 #pragma mark facebook url open
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    return [FBAppCall handleOpenURL:url
-                  sourceApplication:sourceApplication
-                        withSession:[PFFacebookUtils session]];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
 #pragma mark -
@@ -280,12 +293,22 @@
 }
 
 #pragma mark -
+#pragma mark acceptTosViewCOntroller
+
+- (void)presentAcceptTosViewController {
+    // Go to the welcome screen and have them log in or create an account.
+    UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"acceptTosView"];
+    self.window.rootViewController = viewController;
+    [self.window makeKeyAndVisible];
+}
+
+#pragma mark -
 #pragma mark MapViewController
 
 - (void)presentMapViewControllerAnimated:(BOOL)animated {
     
-    FBRequest *request = [FBRequest requestForMe];
-    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             
             UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
@@ -295,12 +318,14 @@
         } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
                     isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
             NSLog(@"The facebook session was invalidated");
+            [PFFacebookUtils unlinkUserInBackground:[PFUser currentUser]];
         } else {
             NSLog(@"Some other error: %@", error);
         }
     }];
 }
 
+#pragma mark - Core Data stack
 - (void)saveContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
@@ -311,8 +336,6 @@
         }
     }
 }
-
-#pragma mark - Core Data stack
 
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.

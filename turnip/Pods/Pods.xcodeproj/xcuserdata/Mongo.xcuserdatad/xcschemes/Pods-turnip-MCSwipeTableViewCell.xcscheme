@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0620"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9EAE314C43B75C4E5799886C"
+               BlueprintIdentifier = "CD5161F1897BDA18DD77B928"
                BuildableName = "libPods-turnip-MCSwipeTableViewCell.a"
                BlueprintName = "Pods-turnip-MCSwipeTableViewCell"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -39,6 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CD5161F1897BDA18DD77B928"
+            BuildableName = "libPods-turnip-MCSwipeTableViewCell.a"
+            BlueprintName = "Pods-turnip-MCSwipeTableViewCell"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

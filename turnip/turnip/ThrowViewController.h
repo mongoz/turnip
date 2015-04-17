@@ -10,18 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MBProgressHUD.h"
 
-@class ThrowViewController;
-
-@protocol ThrowViewControllerDataSource <NSObject>
-
-- (CLLocation *)currentLocationForThrowViewController:(ThrowViewController *) controller;
-
-@end
-
 @interface ThrowViewController : UIViewController <UITextViewDelegate,
                                                     UITextFieldDelegate>
-
-@property (nonatomic, weak) id<ThrowViewControllerDataSource> dataSource;
 
 @property (strong, nonatomic) IBOutlet UITextField *titleField;
 @property (strong, nonatomic) IBOutlet UITextView *aboutField;

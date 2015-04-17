@@ -12,7 +12,6 @@
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
-
 @property (strong, nonatomic) IBOutlet UIButton *updateButton;
 
 - (IBAction)updateButtonHandler:(id)sender;

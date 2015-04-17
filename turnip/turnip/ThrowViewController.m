@@ -14,13 +14,14 @@
 #import "SWRevealViewController.h"
 #import "ThrowNextViewController.h"
 
-
 @interface ThrowViewController ()
 
 @property (nonatomic, strong) ThrowNextViewController *nextViewController;
 @property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic, strong) CLLocation *eventLocation;
 @property (nonatomic, strong) CLPlacemark *placemark;
 
+@property (nonatomic, strong) NSString *oldAddress;
 @property (nonatomic, strong) NSArray *currentEvent;
 @property (nonatomic, strong) NSString *currentEventId;
 @property (nonatomic, assign) BOOL isPrivate;
@@ -72,9 +73,6 @@
     self.aboutField.text = @"About...";
     self.aboutField.textColor = [UIColor blackColor];
     self.aboutField.delegate = self;
-    
-    self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
-    [self reverseGeocode: self.currentLocation];
     
     [self.privateSwitch addTarget:self action:@selector(privateSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     [self.freeSwitch addTarget:self action:@selector(freeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
@@ -201,7 +199,8 @@
 #pragma mark - textfield handlers
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
-    if (self.locationField.text.length != 0) {
+    if (self.locationField.text.length != 0 && ![self.oldAddress isEqualToString:self.locationField.text]) {
+        self.oldAddress = self.locationField.text;
         [self forwardGeocoder:self.locationField.text];
     }
 }
@@ -254,20 +253,8 @@
         for (CLPlacemark* aPlacemark in placemarks)
         {
             // Process the placemark.
-            CLLocation *location = aPlacemark.location;
-            CLLocationDistance distance = [self.currentLocation distanceFromLocation:location];
-            NSLog(@"distance:%f", distance);
-            if (distance > 100) {
-                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Wrong Address"
-                                                                  message:@"Sorry, you need to use your own location"
-                                                                 delegate:nil
-                                                        cancelButtonTitle:@"OK"
-                                                        otherButtonTitles:nil];
-                [message show];
-                
-            } else {
-                self.correctAddress = YES;
-            }
+            self.eventLocation = aPlacemark.location;
+            self.placemark = [placemarks lastObject];
         }
     }];
 }
@@ -276,7 +263,7 @@
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
-    if (![self checkInput] && self.correctAddress) {
+    if (![self checkInput]) {
         if ([identifier isEqualToString:@"nextThrowSegue"]) {
             if (self.nextViewController) {
                 self.nextViewController.name = self.titleField.text;
@@ -284,7 +271,7 @@
                 self.nextViewController.about = self.aboutField.text;
                 self.nextViewController.isPrivate = self.isPrivate;
                 self.nextViewController.isFree = self.isFree;
-                self.nextViewController.coordinates = self.currentLocation;
+                self.nextViewController.coordinates = self.eventLocation;
                 self.nextViewController.placemark = self.placemark;
                 
                 NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
@@ -340,7 +327,7 @@
         self.nextViewController.about = self.aboutField.text;
         self.nextViewController.isPrivate = self.isPrivate;
         self.nextViewController.isFree = self.isFree;
-        self.nextViewController.coordinates = self.currentLocation;
+        self.nextViewController.coordinates = self.eventLocation;
         self.nextViewController.placemark = self.placemark;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
@@ -364,9 +351,6 @@
 
 - (void)eventWasDeleted:(NSNotification *)note {
     self.currentEvent = nil;
-    self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
-    [self reverseGeocode: self.currentLocation];
 }
-
 
 @end

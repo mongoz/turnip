@@ -14,14 +14,15 @@
 #import "MapMarker.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Parse/Parse.h>
+#import "AppDelegate.h"
+#import <CoreData/CoreData.h>
 
 @interface MapViewController ()
-<ThrowViewControllerDataSource>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
-@property (strong)            CLGeocoder *geocoder;
-@property (strong, nonatomic) GMSMapView *mapView;
+@property (nonatomic, strong) CLGeocoder *geocoder;
+@property (nonatomic, strong) GMSMapView *mapView;
 
 @property (nonatomic, assign) CGFloat currentZoom;
 @property (nonatomic, assign) CGFloat oldZoom;
@@ -32,23 +33,17 @@
 @property (nonatomic, assign) BOOL firstTimeLocation;
 @property (nonatomic, assign) BOOL queryPublicEvents;
 
+@property (nonatomic, strong) NSArray *currentEvent;
+
+
 @end
 
 @implementation MapViewController
 
-- (void)presentThrowViewController {
-    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: TurnipTabHost];
-    ThrowViewController *viewController = [navController.viewControllers objectAtIndex:0];
-    viewController.dataSource = self;
-
-}
-
-- (CLLocation *) currentLocationForThrowViewController:(ThrowViewController *)controller {
-    return self.currentLocation;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self checkLocalEvent];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipPartyThrownNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipEventDeletedNotification object:nil];
@@ -109,7 +104,6 @@
     self.view = self.mapView;
     
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -325,7 +319,6 @@
     
     if (self.firstTimeLocation == YES) {
         self.firstTimeLocation = NO;
-        [self presentThrowViewController];
         [self queryForAllEventsNearLocation:self.currentLocation];
     }
 }
@@ -407,6 +400,117 @@
 - (void)eventWasChanged:(NSNotification *)note {
     [self.mapView clear];
     [self queryForAllEventsNearLocation: self.currentLocation];
+}
+
+#pragma mark -
+#pragma mark Core Data
+
+- (NSArray *) loadCoreData {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"YourEvents" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObjects = [[NSArray alloc] initWithArray:[context executeFetchRequest:fetchRequest error: &error]];
+    
+    if ([fetchedObjects count] == 0) {
+        return nil;
+    } else {
+        return fetchedObjects;
+    }
+}
+
+- (void) deleteFromCoreData {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    
+    NSError *error;
+    for (NSManagedObject *managedObject in self.currentEvent) {
+        [context deleteObject:managedObject];
+    }
+    
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Event Deleted");
+    
+}
+
+- (void) saveToCoreData:(PFObject *) postObject {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    
+    NSURL *url = [NSURL URLWithString: [[postObject objectForKey:@"image1"] valueForKey:@"url"]];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    UIImage *imageOne = [UIImage imageWithData:data];
+    
+    url = [NSURL URLWithString: [[postObject objectForKey:@"image2"] valueForKey:@"url"]];
+    data = [NSData dataWithContentsOfURL:url];
+    UIImage *imageTwo = [UIImage imageWithData:data];
+    
+    url = [NSURL URLWithString: [[postObject objectForKey:@"image3"] valueForKey:@"url"]];
+    data = [NSData dataWithContentsOfURL:url];
+    UIImage *imageThree = [UIImage imageWithData:data];
+    
+    NSManagedObject *dataRecord = [NSEntityDescription
+                                   insertNewObjectForEntityForName:@"YourEvents"
+                                   inManagedObjectContext: context];
+    
+    [dataRecord setValue: [postObject objectForKey:TurnipParsePostTitleKey] forKey:@"title"];
+    [dataRecord setValue: postObject.objectId forKey:@"objectId"];
+    [dataRecord setValue: [postObject objectForKey:TurnipParsePostAddressKey] forKey:@"location"];
+    [dataRecord setValue: [postObject objectForKey:TurnipParsePostTextKey] forKey:@"text"];
+    [dataRecord setValue: [postObject objectForKey:TurnipParsePostPriceKey] forKey:@"price"];
+    [dataRecord setValue: [postObject objectForKey:TurnipParsePostDateKey] forKey:@"date"];
+    [dataRecord setValue: [postObject objectForKey:TurnipParsePostEndTimeKey] forKey:@"endTime"];
+    [dataRecord setValue: imageOne forKey:@"image1"];
+    [dataRecord setValue: imageTwo forKey:@"image2"];
+    [dataRecord setValue: imageThree forKey:@"image3"];
+    [dataRecord setValue: [postObject objectForKey:TurnipParsePostCapacityKey] forKey:@"capacity"];
+    [dataRecord setValue: [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"] forKey:@"neighbourhood"];
+    
+    BOOL privateBool = [[postObject objectForKey:TurnipParsePostPrivateKey] boolValue];
+    BOOL paidBool = [[postObject objectForKey:TurnipParsePostPaidKey] boolValue];
+    
+    NSNumber *privateAsNumber = [NSNumber numberWithBool: privateBool];
+    [dataRecord setValue: privateAsNumber forKey:@"private"];
+    
+    NSNumber *freeAsNumber = [NSNumber numberWithBool: paidBool];
+    [dataRecord setValue: freeAsNumber forKey:@"free"];
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Error:%@", error);
+    }
+    NSLog(@"Event saved");
+    
+}
+
+- (void) checkLocalEvent {
+    _currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
+    
+    if ([_currentEvent count] != 0) {
+        if ([[[_currentEvent valueForKey:@"date"] objectAtIndex:0] timeIntervalSinceNow] < 0.0) {
+            //Delete core data
+            NSLog(@"party over");
+            [self deleteFromCoreData];
+        }
+    } else {
+        PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+        
+        [query whereKey:@"user" equalTo:[PFUser currentUser]];
+        
+        [query includeKey:@"neighbourhood"];
+        
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if(!error) {
+                //Save to core data
+                [self saveToCoreData:object];
+            }
+        }];
+    }
 }
 
 @end

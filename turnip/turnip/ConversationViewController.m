@@ -14,15 +14,25 @@
 
 @interface ConversationViewController ()
 
-@property (nonatomic, strong) NSArray *user;
+@property (nonatomic, strong) NSMutableArray *user;
+@property (nonatomic, strong) NSMutableArray *conversations;
 
 @end
 
 @implementation ConversationViewController
 
+- (void) viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetMessageBadgeCount object:nil];
+    [self queryForTable];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageRecived:) name:TurnipMessagePushNotification object:nil];
+    
+    self.user = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,70 +40,74 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (id)initWithCoder:(NSCoder *)aCoder
-{
-    self = [super initWithCoder:aCoder];
-    if (self) {
-        // The className to query on
-        self.parseClassName = @"Conversation";
-        
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = NO;
-        
-        // Whether the built-in pagination is enabled
-        self.paginationEnabled = NO;
-        
-    }
-    return self;
-}
-
-- (PFQuery *)queryForTable {
+- (void)queryForTable {
     
-    PFQuery *userAQuery = [PFQuery queryWithClassName:self.parseClassName];
+    PFQuery *userAQuery = [PFQuery queryWithClassName:@"Conversation"];
     [userAQuery whereKey:@"userA" equalTo:[PFUser currentUser]];
     
-    PFQuery *userBQuery = [PFQuery queryWithClassName:self.parseClassName];
+    PFQuery *userBQuery = [PFQuery queryWithClassName:@"Conversation"];
     [userBQuery whereKey:@"userB" equalTo:[PFUser currentUser]];
     
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[userAQuery, userBQuery]];
     
-    if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
     [query includeKey:@"userA"];
     [query includeKey:@"userB"];
     [query orderByDescending:@"updatedAt"];
-    return query;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // call super because we're a custom subclass.
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if ([objects count] != 0) {
+                self.conversations = [[NSMutableArray alloc] initWithArray:objects];
+                for (PFObject *object in objects) {
+                    PFRelation *relation = [object relationForKey:@"messages"];
+                    PFQuery *query = [relation query];
+                    [query orderByDescending:@"createdAt"];
+                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        if (!error) {
+                            NSLog(@"object: %@", object);
+                        }
+                    }];
+                }
+                [self.tableView reloadData];
+            }
+        }
+    }];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return [self.conversations count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     static NSString *tableIdentifier = @"conversationCell";
-    
     ConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
     if (cell == nil) {
         cell = [[ConversationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
-    if ([[[object objectForKey:@"userA"] objectId] isEqual: [PFUser currentUser].objectId]) {
-        [self configureCell:cell forRowAtIndexPath:indexPath andUser:[object objectForKey:@"userB"]];
+    cell.titleLabel.text = @"test";
+    
+    if ([[[[self.conversations valueForKey:@"userA"] valueForKey:@"objectId"] objectAtIndex:indexPath.row] isEqual: [PFUser currentUser].objectId]) {
+        [self configureCell:cell forRowAtIndexPath:indexPath andUser:[[self.conversations valueForKey:@"userB"] objectAtIndex:indexPath.row]];
     } else {
-        [self configureCell:cell forRowAtIndexPath:indexPath andUser:[object objectForKey:@"userA"]];
+        [self configureCell:cell forRowAtIndexPath:indexPath andUser:[[self.conversations valueForKey:@"userA"] objectAtIndex:indexPath.row]];
     }
     
     return cell;
+    
 }
 
 - (void)configureCell:(ConversationTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath andUser:(PFObject *)user {
-    self.user = [[NSArray alloc] initWithObjects:user, nil];
+    
+    [self.user insertObject:user atIndex:indexPath.row];
     
     NSArray *name = [[user objectForKey:@"name"] componentsSeparatedByString: @" "];
     cell.titleLabel.text = [name objectAtIndex:0];
@@ -112,25 +126,16 @@
          }
      }];
     
+    NSDate *date = [[self.conversations valueForKey:@"updatedAt"] objectAtIndex:indexPath.row];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setDateFormat:@"MMM d"];
-    cell.dateLabel.text = [formatter stringFromDate:[user updatedAt]];
-
-}
-
-- (void)objectsWillLoad {
-    [super objectsWillLoad];
     
-    // This method is called before a PFQuery is fired to get more objects
-}
-
-- (void) objectsDidLoad:(NSError *)error {
-    [super objectsDidLoad:error];
-    
-    if (error != nil) {
-        NSLog(@"error: %@", [error localizedDescription]);
+    if ([self isDateToday:date]) {
+        [formatter setDateFormat:@"h:mm a"];
+    } else {
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setDateFormat:@"MMM d"];
     }
+    cell.dateLabel.text = [formatter stringFromDate:date];
 }
 
 #pragma mark - Navigation
@@ -140,13 +145,34 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MessagingViewController *destViewController = segue.destinationViewController;
         
-        destViewController.conversationId = [[self.objects valueForKey:@"objectId"] objectAtIndex:indexPath.row];
+        destViewController.conversationId = [[self.conversations valueForKey:@"objectId"] objectAtIndex:indexPath.row];
         destViewController.user = [self.user objectAtIndex:indexPath.row];
     }
 }
 
+#pragma mark -
+#pragma mark Notifications
 
-#pragma mark - utils
+- (void) messageRecived:(NSNotification *) note {
+    [self.tableView reloadData];
+}
 
+#pragma mark -
+#pragma mark utils 
+
+-(BOOL) isDateToday:(NSDate *) messageDate {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:[NSDate date]];
+    
+    NSDate *today = [cal dateFromComponents:components];
+    components = [cal components:(NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:messageDate];
+    NSDate *otherDate = [cal dateFromComponents:components];
+    
+    if ([today isEqualToDate:otherDate]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 @end

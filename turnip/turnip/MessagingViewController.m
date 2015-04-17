@@ -12,10 +12,10 @@
 
 @interface MessagingViewController () <AMBubbleTableDataSource, AMBubbleTableDelegate>
 
-@property (nonatomic, strong) UITextField *activeField;
-@property (nonatomic, assign) BOOL *exists;
-@property (nonatomic, strong) PFUser *recipient;
 @property (nonatomic, strong) NSMutableArray *messages;
+
+@property (nonatomic, strong) UIImage *sentProfile;
+@property (nonatomic, strong) UIImage *recievedProfile;
 
 @property (nonatomic, strong) NSString *outgoingId;
 @property (nonatomic, strong) NSString *incommingId;
@@ -26,16 +26,26 @@
 
 @implementation MessagingViewController
 
-- (void)viewDidLoad {
-    // Dummy data
-    [self setDataSource:self]; // Weird, uh?
-    [self setDelegate:self];
-    
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
     NSArray *name = [[self.user valueForKey:@"name"] componentsSeparatedByString: @" "];
-
-    [self setTitle:[name objectAtIndex:0]];
     
-    NSLog(@"self.user: %@", self.user);
+    self.outgoingId = [[PFUser currentUser] objectForKey:@"facebookId"];
+    self.incommingId = [self.user valueForKey:@"facebookId"];
+    
+    [self downloadProfileImage: self.outgoingId];
+    [self downloadProfileImage: self.incommingId];
+    
+    [self setTitle:[name objectAtIndex:0]];
+}
+
+- (void)viewDidLoad {
+    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetMessageBadgeCount object:nil];
+    [self setDataSource:self];
+    [self setDelegate:self];
+
+    self.messages = [[NSMutableArray alloc] init];
+    self.recipientId = [self.user valueForKey:@"objectId"];
     
     // Set a style
     [self setTableStyle:AMBubbleTableStyleFlat];
@@ -49,28 +59,15 @@
     [super viewDidLoad];
     
     [self.tableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
-    //[self reloadTableScrollingToBottom:YES];
-    // Do any additional setup after loading the view.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageRecived:) name:TurnipMessagePushNotification object:nil];
     
-    if (self.user != nil) {
+    if (self.conversationId == nil) {
         [self getMessages];
-    } else if (self.conversationId != nil) {
-
-        [self getMessagesFromConversation];
-    }
-    
+    } else {
+       [self getMessagesFromConversation];
+   }
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
 
 #pragma mark - 
 #pragma mark Message handler
@@ -79,12 +76,14 @@
     
     PFQuery *first = [PFQuery queryWithClassName:@"Conversation"];
     
+    PFUser *user = [PFUser objectWithoutDataWithClassName:@"_User" objectId:[self.user valueForKey:@"objectId"]];
+    
     [first whereKey:@"userA" equalTo:[PFUser currentUser]];
-    [first whereKey:@"userB" equalTo:self.user];
+    [first whereKey:@"userB" equalTo:user];
     
     PFQuery *second = [PFQuery queryWithClassName:@"Conversation"];
     [second whereKey:@"userB" equalTo:[PFUser currentUser]];
-    [second whereKey:@"userA" equalTo:self.user];
+    [second whereKey:@"userA" equalTo:user];
     
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[first,second]];
     [query includeKey:@"userA"];
@@ -95,7 +94,7 @@
             NSLog(@"error in getMessage: %@", error);
         } else {
             if (object != nil) {
-                [self getFacebookId:object];
+               // [self getFacebookId:object];
                 self.conversationId = object.objectId;
                 PFRelation *relation = [object relationForKey:@"messages"];
                 PFQuery *query = [relation query];
@@ -126,7 +125,6 @@
             NSLog(@"error in convo query: %@", error);
         } else {
             if (object != nil) {
-                [self getFacebookId:object];
                 if ([[[object objectForKey:@"userA"] objectId] isEqual:[PFUser currentUser].objectId]) {
                      self.user = [NSArray arrayWithObject:[object objectForKey:@"userB"]];
                 } else {
@@ -156,7 +154,7 @@
     PFObject *conversation = [PFObject objectWithClassName:@"Conversation"];
     
     conversation[@"userA"] = [PFUser currentUser];
-    conversation[@"userB"] = self.user;
+    conversation[@"userB"] = [PFUser objectWithoutDataWithClassName:@"_User" objectId:[self.user valueForKey:@"objectId"]];
     
     PFRelation *relation = [conversation relationForKey:@"messages"];
     [relation addObject:message];
@@ -165,8 +163,6 @@
             NSLog(@"error in convo:%@", error);
         } if (succeeded) {
             self.conversationId = [conversation objectId];
-            [self.messages addObject:message];
-            [self.tableView reloadData];
         }
     }];
 }
@@ -180,65 +176,31 @@
         if (error) {
             NSLog(@"error:%@", error);
         } else if (succeeded) {
-            [self.messages addObject:message];
-            [self.tableView reloadData];
+            NSLog(@"success");
+            [self reloadTableScrollingToBottom:YES];
         }
     }];
 }
 
-//- (void) sendMessage {
-//    PFObject *message = [PFObject objectWithClassName:@"Messages"];
-//    
-//    message[@"user"] = [PFUser currentUser];
-//    message[@"message"] = self.messageField.text;
-//    
-//    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (error) {
-//            NSLog(@"error: %@", error);
-//        } if (succeeded) {
-//            // send push notification
-//            
-//            
-//            [PFCloud callFunctionInBackground:@"messagePush"
-//                               withParameters:@{@"recipientId": [[self.user valueForKey:@"objectId"] objectAtIndex:0], @"message": self.messageField.text}
-//                                        block:^(NSString *success, NSError *error) {
-//                                            if (!error) {
-//                                                NSLog(@"push sent");
-//                                            }
-//                                        }];
-//            
-//            
-//            if ([self.messages count] == 0) {
-//                [self createConversation:message];
-//            } else {
-//                [self addMessageToConversation:message];
-//            }
-//            self.messageField.text = @"";
-//        }
-//    }];
-//}
+- (void) downloadProfileImage:(NSString *) facebookId {
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookId]];
 
-#pragma mark - TableView Delegates
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
 
-//- (void) downloadProfileImage:(NSString *) facebookId forTableViewCell:(MessagingTableViewCell *) cell {
-//    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookId]];
-//    
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-//    
-//    // Run network request asynchronously
-//    [NSURLConnection sendAsynchronousRequest:urlRequest
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:
-//     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//         if (connectionError == nil && data != nil) {
-//             if ([facebookId isEqual:self.outgoingId]) {
-//                 cell.outgoingImage.image = [UIImage imageWithData:data];
-//             } else {
-//                 cell.otherImage.image = [UIImage imageWithData:data];
-//             }
-//         }
-//     }];
-//}
+    // Run network request asynchronously
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         if (connectionError == nil && data != nil) {
+             if ([facebookId isEqual:self.outgoingId]) {
+                 self.sentProfile = [UIImage imageWithData:data];
+             } else {
+                 self.recievedProfile = [UIImage imageWithData:data];
+             }
+         }
+     }];
+}
 
 #pragma mark -
 #pragma mark Notifications
@@ -246,11 +208,13 @@
 - (void) messageRecived:(NSNotification *) note {
     NSDictionary *dict = [note object];
     
-    NSLog(@"Alert %@", [[dict objectForKey:@"aps"] objectForKey:@"alert"]);
-    
     NSString *text = [[dict objectForKey:@"aps"] objectForKey:@"alert"];
     
-    [self.messages addObject:@{ @"text": text,
+    NSArray *message = [text componentsSeparatedByString: @": "];
+    
+    NSLog(@"name: %@", message);
+    
+    [self.messages addObject:@{ @"text": [message objectAtIndex:1],
                                 @"date": [NSDate date],
                                 @"type": @(AMBubbleCellReceived)
                                 }];
@@ -262,16 +226,6 @@
 #pragma mark -
 #pragma mark utils
 
-- (void) getFacebookId: (PFObject *) object {
-    if ([[[object objectForKey:@"userA"] objectId] isEqual:[PFUser currentUser].objectId]) {
-        self.outgoingId = [[object objectForKey:@"userA"] objectForKey:@"facebookId"];
-        self.incommingId = [[object objectForKey:@"userB"] objectForKey:@"facebookId"];
-        
-    } else {
-        self.outgoingId = [[object objectForKey:@"userB"] objectForKey:@"facebookId"];
-        self.incommingId = [[object objectForKey:@"userA"] objectForKey:@"facebookId"];
-    }
-}
 
 #pragma mark - AMBubbleTableDataSource
 
@@ -304,47 +258,83 @@
 
 - (void)didSendText:(NSString*)text
 {
-    NSLog(@"User wrote: %@", text);
+    PFObject *message = [PFObject objectWithClassName:@"Messages"];
+    UIImage *profile = self.sentProfile;
+    
+    NSArray *name = [[[PFUser currentUser] valueForKey:@"name"] componentsSeparatedByString: @" "];
+
+    message[@"user"] = [PFUser currentUser];
+    message[@"message"] = text;
+    
+    NSString *pushMessage = [NSString stringWithFormat:@"%@: %@",[name objectAtIndex:0],text];
+    
+    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@", error);
+        } if (succeeded) {
+            // send push notification
+            [PFCloud callFunctionInBackground:@"messagePush"
+                               withParameters:@{@"recipientId": self.recipientId, @"message": pushMessage}
+                                        block:^(NSString *success, NSError *error) {
+                                            if (!error) {
+                                                NSLog(@"push sent");
+                                            }
+                                        }];
+            
+            if (self.conversationId == 0) {
+                [self createConversation:message];
+            } else {
+                [self addMessageToConversation:message];
+            }
+        }
+    }];
     
     [self.messages addObject:@{ @"text": text,
-                            @"date": [NSDate date],
-                            @"type": @(AMBubbleCellSent)
-                            }];
+                                @"date": [NSDate date],
+                                @"type": @(AMBubbleCellSent),
+                                @"avatar": profile
+                                }];
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.data.count - 1) inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.messages.count - 1) inSection:0];
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
     [self.tableView endUpdates];
-    // Either do this:
-    // [self scrollToBottomAnimated:YES];
-    // or this:
-    [super reloadTableScrollingToBottom:YES];
-}
 
+    [super reloadTableScrollingToBottom:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipMessageSentNotification object:nil];
+}
 
 - (void) buildMessageArray: (NSArray *) data {
     
-    //NSLog(@"data: %@", data);
-    self.messages = [[NSMutableArray alloc] initWithCapacity:[data count]];
+    UIImage *profile = [UIImage imageNamed:@"profile"];
     
     int type = 0;
     
     for (NSDictionary *message in data) {
         if ([[[message valueForKey:@"user"] objectId] isEqual:[PFUser currentUser].objectId]) {
             type = AMBubbleCellSent;
+            profile = self.sentProfile;
         } else {
             type = AMBubbleCellReceived;
+            profile = self.recievedProfile;
         }
         
         [self.messages addObject:@{ @"text": [message valueForKey:@"message"],
                                     @"date": [message valueForKey:@"createdAt"],
                                     @"type": @(type),
-                                    @"avatar": [UIImage imageNamed:@"profile"]
+                                    @"avatar": profile
                                     }];
-        
     }
     [self reloadTableScrollingToBottom:YES];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+
+- (IBAction)backNavigation:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

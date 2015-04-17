@@ -14,4 +14,5 @@
 
 - (IBAction)facebookLoginButton:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 @end

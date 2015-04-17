@@ -28,8 +28,7 @@
 @synthesize event;
 
 - (void) viewWillAppear:(BOOL)animated {
-   
-    if (self.host) {
+   if (self.host) {
         [self.navigationController.topViewController.navigationItem setHidesBackButton:YES];
         [self.tabBarController.tabBar setHidden:NO ];
     }
@@ -87,7 +86,7 @@
     self.nameLabel.text = [[PFUser currentUser] valueForKey:@"name"];
     self.aboutLabel.text = [[self.yourEvent valueForKey:@"text"] objectAtIndex:0];
     self.dateLabel.text = [self convertDate:[[self.yourEvent valueForKey:@"date"] objectAtIndex:0]];
-    //self.neighbourhoodLabel.text = [[data objectForKey:@"neighbourhood"] valueForKey:@"name"];
+    self.neighbourhoodLabel.text = [[self.yourEvent valueForKey:@"neighbourhood"] objectAtIndex:0];
     
     if ([[self.yourEvent valueForKey:@"image1"] objectAtIndex:0] != (id)[NSNull null]) {
         self.imageView1.image = [[self.yourEvent valueForKey:@"image1"] objectAtIndex:0];
@@ -186,9 +185,13 @@
     } else {
         self.imageView3.hidden = YES;
     }
-    
-    [self downloadFacebookProfilePicture:[data[@"user"] objectForKey:@"facebookId"]];
-
+    if ([[data objectForKey:TurnipParsePostUserKey] valueForKey:@"profileImage"] != nil) {
+        NSURL *url = [NSURL URLWithString: [[data objectForKey:TurnipParsePostUserKey] valueForKey:@"profileImage"]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        self.profileImage.image = [UIImage imageWithData:data];
+    } else {
+        [self downloadFacebookProfilePicture:[data[@"user"] objectForKey:@"facebookId"]];
+    }
 }
 
 #pragma mark -

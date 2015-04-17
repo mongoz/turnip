@@ -55,13 +55,15 @@
 
 - (PFQuery *)queryForTable {
     
+    NSLog(@"query");
+    
     PFObject *obj = [PFObject objectWithoutDataWithClassName:@"Neighbourhoods" objectId:self.neighbourhoodId];
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
-//    if([self.objects count] == 0) {
-//        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-//    }
+    if([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
     
     [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey, TurnipParsePostPrivateKey, TurnipParsePostPublicKey, @"date"]];
     

@@ -11,8 +11,11 @@
 
 @interface MessagingViewController : AMBubbleTableViewController
 
-
+@property (nonatomic, strong) NSString * recipientId;
 @property (nonatomic, strong) NSString *conversationId;
 @property (nonatomic, strong) NSArray *user;
 
+@property (strong, nonatomic) IBOutlet UIButton *backNavigation;
+
+- (IBAction)backNavigation:(id)sender;
 @end

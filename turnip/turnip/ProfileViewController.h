@@ -12,8 +12,10 @@
 @interface ProfileViewController : UIViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *collectionViewActivitySpinner;
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
+@property (strong, nonatomic) IBOutlet UIImageView *profileXImage;
 
 @property (strong, nonatomic) NSArray *user;
 
@@ -30,5 +32,7 @@
 - (IBAction)partiesAttendedButtonHandler:(id)sender;
 - (IBAction)backNavigationButton:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *profileImageTap;
+- (IBAction)profileImageTap:(UITapGestureRecognizer *)sender;
 
 @end

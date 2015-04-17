@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.5</string>
+	<string>0.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -26,11 +26,12 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb855911711138571</string>
+				<string>turnip://invite</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>0.5</string>
+	<string>0.6.1</string>
 	<key>FacebookAppID</key>
 	<string>855911711138571</string>
 	<key>FacebookDisplayName</key>

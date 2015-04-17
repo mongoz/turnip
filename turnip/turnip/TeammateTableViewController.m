@@ -39,8 +39,6 @@
     
     self.navigationItem.title = @"Add a Teammate";
     
-    NSLog(@"nav: %@", self.navigationController.viewControllers);
-    
     // Do any additional setup after loading the view, typically from a nib.
     self.accepted = [[NSArray alloc] init];
     

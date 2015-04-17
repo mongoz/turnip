@@ -23,7 +23,7 @@
 		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
 		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
 		1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DA31ADEF95F00CC4E6A /* ex.png */; };
-		1A9F1DA71ADF71AD00CC4E6A /* InviteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F1DA61ADF71AD00CC4E6A /* InviteTableViewController.m */; };
+		1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */; };
 		1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */; };
 		1A9FD9D11AB6BEAF000BF15C /* MessagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */; };
 		1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */; };
@@ -104,8 +104,8 @@
 		1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewCell.h; sourceTree = "<group>"; };
 		1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewCell.m; sourceTree = "<group>"; };
 		1A9F1DA31ADEF95F00CC4E6A /* ex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex.png; sourceTree = "<group>"; };
-		1A9F1DA51ADF71AD00CC4E6A /* InviteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteTableViewController.h; sourceTree = "<group>"; };
-		1A9F1DA61ADF71AD00CC4E6A /* InviteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteTableViewController.m; sourceTree = "<group>"; };
+		1A9F1DAB1AE0FD0200CC4E6A /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonMilk.otf; sourceTree = "<group>"; };
 		1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingViewController.h; sourceTree = "<group>"; };
 		1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingViewController.m; sourceTree = "<group>"; };
@@ -264,8 +264,8 @@
 				1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */,
 				1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */,
 				1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */,
-				1A9F1DA51ADF71AD00CC4E6A /* InviteTableViewController.h */,
-				1A9F1DA61ADF71AD00CC4E6A /* InviteTableViewController.m */,
+				1A9F1DAB1AE0FD0200CC4E6A /* ShareViewController.h */,
+				1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */,
 				1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */,
 				1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */,
 				1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */,
@@ -560,9 +560,9 @@
 				1AA0668F1AC1045B008A5A11 /* ConversationViewController.m in Sources */,
 				1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */,
 				1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */,
+				1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
 				1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */,
-				1A9F1DA71ADF71AD00CC4E6A /* InviteTableViewController.m in Sources */,
 				1AA0119C1AD22906003E7B76 /* profileAlbumCollectionViewCell.m in Sources */,
 				1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */,

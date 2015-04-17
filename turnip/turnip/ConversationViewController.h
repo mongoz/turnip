@@ -10,4 +10,5 @@
 
 @interface ConversationViewController : UITableViewController
 
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @end

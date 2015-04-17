@@ -21,4 +21,5 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *qrCodeImage;
 
+- (IBAction)backNavigation:(id)sender;
 @end

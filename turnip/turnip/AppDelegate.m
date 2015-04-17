@@ -253,6 +253,8 @@
 #pragma mark - Notification delegates
 
 - (void) resetBadgeCount:(NSNotification *)note {
+    UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
+    [[[[tabController tabBar] items] objectAtIndex: TurnipTabNotification] setBadgeValue:0];
     
     self.notificationCount = 0;
 }
@@ -266,8 +268,10 @@
 }
 
 - (void) resetMessageCount:(NSNotification *) note {
+    UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
+    [[[[tabController tabBar] items] objectAtIndex: TurnipTabMessage] setBadgeValue:0];
+
     self.messageCount = 0;
-    
 }
 
 #pragma mark facebook url open

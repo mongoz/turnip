@@ -21,11 +21,22 @@
 
 @implementation ScannerViewController
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    NSLog(@"nav: %@", self.navigationController.viewControllers);
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    self.navigationItem.title = @"Scanner";
     
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     

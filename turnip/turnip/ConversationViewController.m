@@ -22,8 +22,9 @@
 @implementation ConversationViewController
 
 - (void) viewWillAppear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetMessageBadgeCount object:nil];
-    [self queryForTable];
+    if ([[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabMessage] badgeValue] > 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetMessageBadgeCount object:nil];
+    }
 }
 
 - (void)viewDidLoad {
@@ -32,7 +33,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageRecived:) name:TurnipMessagePushNotification object:nil];
     
-    self.user = [[NSMutableArray alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageSent:) name:TurnipMessageSentNotification object:nil];
+    
+    [self queryForTable];
+    
+    self.conversations = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,6 +46,9 @@
 }
 
 - (void)queryForTable {
+    
+    [self.conversations removeAllObjects];
+    [self.activityIndicator startAnimating];
     
     PFQuery *userAQuery = [PFQuery queryWithClassName:@"Conversation"];
     [userAQuery whereKey:@"userA" equalTo:[PFUser currentUser]];
@@ -57,18 +65,42 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if ([objects count] != 0) {
-                self.conversations = [[NSMutableArray alloc] initWithArray:objects];
+            __block NSInteger counter = 0;
+                
                 for (PFObject *object in objects) {
                     PFRelation *relation = [object relationForKey:@"messages"];
                     PFQuery *query = [relation query];
                     [query orderByDescending:@"createdAt"];
-                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *message, NSError *error) {
                         if (!error) {
-                            NSLog(@"object: %@", object);
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                               self.activityIndicator.hidden = YES;
+                                [self.activityIndicator stopAnimating];
+                                if([objects count] != 0) {
+                                    PFUser  *user = [PFUser new];
+                                    if ([[[object objectForKey:@"userA"] objectId] isEqual: [PFUser currentUser].objectId]) {
+                                        user = [object objectForKey:@"userB"];
+                                    } else {
+                                        user = [object objectForKey:@"userA"];
+                                    }
+                                    [self.conversations addObject:@{ @"conversationId": [object objectId],
+                                                                     @"date": [object updatedAt],
+                                                                     @"latestMessage": [message objectForKey:@"message"],
+                                                                     @"user": user
+                                                                     }];
+                                    counter++;
+                                    if ([objects count] == counter) {
+                                        NSLog(@"done");
+                                        [self.tableView reloadData];
+                                    }
+                                }
+                            });
                         }
                     }];
                 }
-                [self.tableView reloadData];
+            } else {
+                self.activityIndicator.hidden = YES;
+                [self.activityIndicator stopAnimating];
             }
         }
     }];
@@ -94,25 +126,13 @@
     }
     
     cell.titleLabel.text = @"test";
+    cell.messageLabel.text = [[self.conversations valueForKey:@"latestMessage"] objectAtIndex:indexPath.row];
     
-    if ([[[[self.conversations valueForKey:@"userA"] valueForKey:@"objectId"] objectAtIndex:indexPath.row] isEqual: [PFUser currentUser].objectId]) {
-        [self configureCell:cell forRowAtIndexPath:indexPath andUser:[[self.conversations valueForKey:@"userB"] objectAtIndex:indexPath.row]];
-    } else {
-        [self configureCell:cell forRowAtIndexPath:indexPath andUser:[[self.conversations valueForKey:@"userA"] objectAtIndex:indexPath.row]];
-    }
-    
-    return cell;
-    
-}
-
-- (void)configureCell:(ConversationTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath andUser:(PFObject *)user {
-    
-    [self.user insertObject:user atIndex:indexPath.row];
-    
-    NSArray *name = [[user objectForKey:@"name"] componentsSeparatedByString: @" "];
+    NSArray *name = [[[[self.conversations valueForKey:@"user"] valueForKey:@"name"] objectAtIndex:indexPath.row] componentsSeparatedByString: @" "];
     cell.titleLabel.text = [name objectAtIndex:0];
-    // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
-    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [user objectForKey:@"facebookId"]]];
+    
+
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[[self.conversations valueForKey:@"user"] valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
     
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
     
@@ -126,7 +146,7 @@
          }
      }];
     
-    NSDate *date = [[self.conversations valueForKey:@"updatedAt"] objectAtIndex:indexPath.row];
+    NSDate *date = [[self.conversations valueForKey:@"date"] objectAtIndex:indexPath.row];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     
     if ([self isDateToday:date]) {
@@ -136,7 +156,13 @@
         [formatter setDateFormat:@"MMM d"];
     }
     cell.dateLabel.text = [formatter stringFromDate:date];
+
+    
+    return cell;
+    
 }
+
+
 
 #pragma mark - Navigation
 
@@ -145,8 +171,8 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MessagingViewController *destViewController = segue.destinationViewController;
         
-        destViewController.conversationId = [[self.conversations valueForKey:@"objectId"] objectAtIndex:indexPath.row];
-        destViewController.user = [self.user objectAtIndex:indexPath.row];
+        destViewController.conversationId = [[self.conversations valueForKey:@"conversationId"] objectAtIndex:indexPath.row];
+        destViewController.user = [[self.conversations valueForKey:@"user"] objectAtIndex:indexPath.row];
     }
 }
 
@@ -154,7 +180,11 @@
 #pragma mark Notifications
 
 - (void) messageRecived:(NSNotification *) note {
-    [self.tableView reloadData];
+    [self queryForTable];
+}
+
+- (void) messageSent:(NSNotification *) note {
+    [self queryForTable];
 }
 
 #pragma mark -

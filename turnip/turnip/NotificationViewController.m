@@ -34,9 +34,7 @@ NSArray *fetchedObjects;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     if ([[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabNotification] badgeValue] > 0) {
-        [[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabNotification] setBadgeValue:0];
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetBadgeCountNotification object:nil];
-        
     }
 }
 

@@ -10,6 +10,9 @@
 
 @interface TicketViewController ()
 
+@property (nonatomic, weak) NSTimer* timer;
+@property (nonatomic, strong) NSDateComponents *dateComponents;
+
 @end
 
 @implementation TicketViewController
@@ -19,29 +22,52 @@
 @synthesize objectId;
 @synthesize date;
 
+- (void) viewWillDisappear:(BOOL)animated {
+    [self.timer invalidate];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
+    self.dateComponents = [[NSDateComponents alloc] init];
+    [self.dateComponents setHour:-2];
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MM/dd hh:mm a";
+    dateFormatter.dateFormat = @"MMM d hh:mm a";
     
     CIImage *qrCode = [self createQRCode];
     UIImage *qrCodeImage = [self createNonInterpolatedUIImageFromCIImage:qrCode withScale:2*[[UIScreen mainScreen] scale]];
     
     self.titleLabel.text = ticketTitle;
     self.dateLabel.text = [dateFormatter stringFromDate: date];
-    self.addressLabel.text = address;
+    //self.addressLabel.text = address;
     self.qrCodeImage.image = qrCodeImage;
+
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCounter) userInfo:nil repeats:YES];
+
+}
+
+- (void) updateCounter {
     
-    NSDate *currentDate = [NSDate date];
+    NSDate *showDate = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponents toDate:date options:0];
     
-    NSLog(@"currDate: %@", currentDate);
-    NSLog(@"date: %@", date);
-    NSTimeInterval timeDifferenceBetweenDates = [date timeIntervalSinceNow];
+    NSInteger ti = [showDate timeIntervalSinceNow];
+
+    NSInteger seconds = ti % 60;
+    NSInteger minutes = (ti / 60) % 60;
+    NSInteger hours = (ti / 3600) % 24;
+    NSInteger days = (ti / 86400);
     
-    NSLog(@"timeDiff: %f", timeDifferenceBetweenDates / (60 * 60));
+    if (ti > 0) {
+        self.addressLabel.text = [NSString stringWithFormat: @"%02lid %02lih %02lim %02lis untill address is shown", (long)days, (long)hours, (long)minutes, (long)seconds];
+    } else {
+        self.addressLabel.text = address;
+        
+        [self.timer invalidate];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,5 +102,7 @@
     return scaledImage;
 }
 
-
+- (IBAction)backNavigation:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

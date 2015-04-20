@@ -24,6 +24,10 @@
 		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
 		1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DA31ADEF95F00CC4E6A /* ex.png */; };
 		1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */; };
+		1A9F1DAF1AE32DD100CC4E6A /* go.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DAE1AE32DD100CC4E6A /* go.png */; };
+		1A9F1DB31AE32DDF00CC4E6A /* message.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DB01AE32DDF00CC4E6A /* message.png */; };
+		1A9F1DB41AE32DDF00CC4E6A /* request.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DB11AE32DDF00CC4E6A /* request.png */; };
+		1A9F1DB51AE32DDF00CC4E6A /* request2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DB21AE32DDF00CC4E6A /* request2.png */; };
 		1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */; };
 		1A9FD9D11AB6BEAF000BF15C /* MessagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */; };
 		1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */; };
@@ -106,6 +110,10 @@
 		1A9F1DA31ADEF95F00CC4E6A /* ex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex.png; sourceTree = "<group>"; };
 		1A9F1DAB1AE0FD0200CC4E6A /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		1A9F1DAE1AE32DD100CC4E6A /* go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = go.png; sourceTree = "<group>"; };
+		1A9F1DB01AE32DDF00CC4E6A /* message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = message.png; sourceTree = "<group>"; };
+		1A9F1DB11AE32DDF00CC4E6A /* request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = request.png; sourceTree = "<group>"; };
+		1A9F1DB21AE32DDF00CC4E6A /* request2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = request2.png; sourceTree = "<group>"; };
 		1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonMilk.otf; sourceTree = "<group>"; };
 		1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingViewController.h; sourceTree = "<group>"; };
 		1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingViewController.m; sourceTree = "<group>"; };
@@ -364,6 +372,10 @@
 			isa = PBXGroup;
 			children = (
 				1A9F1DA31ADEF95F00CC4E6A /* ex.png */,
+				1A9F1DB01AE32DDF00CC4E6A /* message.png */,
+				1A9F1DB11AE32DDF00CC4E6A /* request.png */,
+				1A9F1DB21AE32DDF00CC4E6A /* request2.png */,
+				1A9F1DAE1AE32DD100CC4E6A /* go.png */,
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
@@ -480,10 +492,14 @@
 			files = (
 				1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */,
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
+				1A9F1DB31AE32DDF00CC4E6A /* message.png in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
 				1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */,
+				1A9F1DAF1AE32DD100CC4E6A /* go.png in Resources */,
+				1A9F1DB41AE32DDF00CC4E6A /* request.png in Resources */,
 				1A9AE4D51A8052D200AADDAA /* green.png in Resources */,
+				1A9F1DB51AE32DDF00CC4E6A /* request2.png in Resources */,
 				1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */,
 				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,

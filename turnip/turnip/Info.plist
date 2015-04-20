@@ -26,12 +26,11 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb855911711138571</string>
-				<string>turnip://invite</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>0.6.1</string>
+	<string>0.6.2</string>
 	<key>FacebookAppID</key>
 	<string>855911711138571</string>
 	<key>FacebookDisplayName</key>

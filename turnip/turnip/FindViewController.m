@@ -55,15 +55,13 @@
 
 - (PFQuery *)queryForTable {
     
-    NSLog(@"query");
-    
     PFObject *obj = [PFObject objectWithoutDataWithClassName:@"Neighbourhoods" objectId:self.neighbourhoodId];
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
-    if([self.objects count] == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
+//    if([self.objects count] == 0) {
+//        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+//    }
     
     [query selectKeys:@[TurnipParsePostTitleKey, TurnipParsePostLocationKey, TurnipParsePostThumbnailKey, TurnipParsePostPrivateKey, TurnipParsePostPublicKey, @"date"]];
     
@@ -96,7 +94,7 @@
     
     //Use a placeholder image before we have downloaded the real one.
     cell.eventImageView.file = thumbnail;
-    
+  
     cell.titleLabel.text = [object objectForKey: TurnipParsePostTitleKey];
     cell.dateLabel.text = [self convertDate:[object objectForKey:@"date"]];
     

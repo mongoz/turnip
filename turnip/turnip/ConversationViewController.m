@@ -71,32 +71,30 @@
                     PFRelation *relation = [object relationForKey:@"messages"];
                     PFQuery *query = [relation query];
                     [query orderByDescending:@"createdAt"];
-                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *message, NSError *error) {
-                        if (!error) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                               self.activityIndicator.hidden = YES;
-                                [self.activityIndicator stopAnimating];
-                                if([objects count] != 0) {
-                                    PFUser  *user = [PFUser new];
-                                    if ([[[object objectForKey:@"userA"] objectId] isEqual: [PFUser currentUser].objectId]) {
-                                        user = [object objectForKey:@"userB"];
-                                    } else {
-                                        user = [object objectForKey:@"userA"];
-                                    }
-                                    [self.conversations addObject:@{ @"conversationId": [object objectId],
-                                                                     @"date": [object updatedAt],
-                                                                     @"latestMessage": [message objectForKey:@"message"],
-                                                                     @"user": user
-                                                                     }];
-                                    counter++;
-                                    if ([objects count] == counter) {
-                                        NSLog(@"done");
-                                        [self.tableView reloadData];
-                                    }
-                                }
-                            });
+                    
+                    //Should change this to do in background instead with callback
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        PFObject *message = [query getFirstObject];
+                        self.activityIndicator.hidden = YES;
+                        [self.activityIndicator stopAnimating];
+                        if([objects count] != 0) {
+                            PFUser  *user = [PFUser new];
+                            if ([[[object objectForKey:@"userA"] objectId] isEqual: [PFUser currentUser].objectId]) {
+                                user = [object objectForKey:@"userB"];
+                            } else {
+                                user = [object objectForKey:@"userA"];
+                            }
+                            [self.conversations addObject:@{ @"conversationId": [object objectId],
+                                                             @"date": [object updatedAt],
+                                                             @"latestMessage": [message objectForKey:@"message"],
+                                                             @"user": user
+                                                             }];
+                            counter++;
+                            if ([objects count] == counter) {
+                                [self.tableView reloadData];
+                            }
                         }
-                    }];
+                    });
                 }
             } else {
                 self.activityIndicator.hidden = YES;
@@ -131,21 +129,28 @@
     NSArray *name = [[[[self.conversations valueForKey:@"user"] valueForKey:@"name"] objectAtIndex:indexPath.row] componentsSeparatedByString: @" "];
     cell.titleLabel.text = [name objectAtIndex:0];
     
+    if (![[[[self.conversations valueForKey:@"user" ] valueForKey:@"profileImage"] objectAtIndex:indexPath.row] isEqual:[NSNull null]] ) {
+        NSURL *url = [NSURL URLWithString: [[[self.conversations valueForKey:@"user" ] valueForKey:@"profileImage"] objectAtIndex:indexPath.row]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        cell.profileImage.image = [UIImage imageWithData:data];
+    } else {
+        
+        NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[[self.conversations valueForKey:@"user"] valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
+        
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+        
+        // Run network request asynchronously
+        [NSURLConnection sendAsynchronousRequest:urlRequest
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:
+         ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+             if (connectionError == nil && data != nil) {
+                 cell.profileImage.image = [UIImage imageWithData:data];
+             }
+         }];
+    }
+    
 
-    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[[self.conversations valueForKey:@"user"] valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
-    
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-    
-    // Run network request asynchronously
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:
-     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         if (connectionError == nil && data != nil) {
-             cell.profileImage.image = [UIImage imageWithData:data];
-         }
-     }];
-    
     NSDate *date = [[self.conversations valueForKey:@"date"] objectAtIndex:indexPath.row];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     

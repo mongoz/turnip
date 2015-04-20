@@ -330,7 +330,7 @@
         return 1;
     } else {
         // Display a message when the table is empty
-        messageLabel.text = @"You have no person going to your party. Please pull down to refresh.";
+        messageLabel.text = @"";
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;

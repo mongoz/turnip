@@ -42,19 +42,15 @@ static NSString * const reuseIdentifier = @"FolderCell";
 }
 
 - (void) getPhotoAlbums {
-    NSLog(@"FBSKDAccesToken: %@", [FBSDKAccessToken currentAccessToken]);
-    
     if ([FBSDKAccessToken currentAccessToken]) {
         
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/albums" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"error %@", error);
             } else {
-                NSLog(@"result: %@", result);
                 NSArray *data = [result objectForKey:@"data"];
                 for (NSDictionary *album in data) {
                     if ([[album valueForKey:@"name"] isEqualToString:@"Profile Pictures"]) {
-                        NSLog(@"album %@", album);
                         [self downloadProfilePhots:[album valueForKey:@"id"]];
                     }
                 }

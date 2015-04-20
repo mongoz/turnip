@@ -78,7 +78,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     
     if (indexPath.row == 2) {
-         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.turnipapp.com/faq.htm"]];
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.turnipapp.com/#support"]];
     }
     
     if (indexPath.row == 4) {

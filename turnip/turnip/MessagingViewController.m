@@ -26,23 +26,28 @@
 
 @implementation MessagingViewController
 
-- (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    NSArray *name = [[self.user valueForKey:@"name"] componentsSeparatedByString: @" "];
-    
-    self.outgoingId = [[PFUser currentUser] objectForKey:@"facebookId"];
-    self.incommingId = [self.user valueForKey:@"facebookId"];
-    
-    [self downloadProfileImage: self.outgoingId];
-    [self downloadProfileImage: self.incommingId];
-    
-    [self setTitle:[name objectAtIndex:0]];
-}
 
 - (void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetMessageBadgeCount object:nil];
     [self setDataSource:self];
     [self setDelegate:self];
+    
+    NSArray *name = [[self.user valueForKey:@"name"] componentsSeparatedByString: @" "];
+    
+    self.outgoingId = [[PFUser currentUser] objectForKey:@"facebookId"];
+    [self downloadProfileImage: self.outgoingId];
+    
+    
+    if ([self.user valueForKey:@"profileImage"] != nil) {
+        NSURL *url = [NSURL URLWithString: [self.user valueForKey:@"profileImage"]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        self.recievedProfile = [UIImage imageWithData:data];
+    } else {
+        self.incommingId = [self.user valueForKey:@"facebookId"];
+        [self downloadProfileImage: self.incommingId];
+    }
+    
+    [self setTitle:[name objectAtIndex:0]];
 
     self.messages = [[NSMutableArray alloc] init];
     self.recipientId = [self.user valueForKey:@"objectId"];
@@ -88,13 +93,13 @@
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[first,second]];
     [query includeKey:@"userA"];
     [query includeKey:@"userB"];
+    query.limit = 20;
     
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (error) {
             NSLog(@"error in getMessage: %@", error);
         } else {
             if (object != nil) {
-               // [self getFacebookId:object];
                 self.conversationId = object.objectId;
                 PFRelation *relation = [object relationForKey:@"messages"];
                 PFQuery *query = [relation query];
@@ -119,6 +124,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Conversation"];
     [query includeKey:@"userA"];
     [query includeKey:@"userB"];
+    query.limit = 20;
     
     [query getObjectInBackgroundWithId:self.conversationId block:^(PFObject *object, NSError *error) {
         if (error) {
@@ -208,20 +214,24 @@
 - (void) messageRecived:(NSNotification *) note {
     NSDictionary *dict = [note object];
     
+    UIImage *profile = self.recievedProfile;
+    
     NSString *text = [[dict objectForKey:@"aps"] objectForKey:@"alert"];
     
     NSArray *message = [text componentsSeparatedByString: @": "];
     
-    NSLog(@"name: %@", message);
+    NSString *from = [dict objectForKey:@"from"];
     
-    [self.messages addObject:@{ @"text": [message objectAtIndex:1],
-                                @"date": [NSDate date],
-                                @"type": @(AMBubbleCellReceived)
-                                }];
-    
-    [self reloadTableScrollingToBottom:YES];
+    if([from isEqualToString: [[self.user valueForKey:@"objectId"] objectAtIndex:0]]) {
+        [self.messages addObject:@{ @"text": [message objectAtIndex:1],
+                                    @"date": [NSDate date],
+                                    @"type": @(AMBubbleCellReceived),
+                                    @"avatar": profile
+                                    }];
+        
+        [self reloadTableScrollingToBottom:YES];
+    }
 }
-
 
 #pragma mark -
 #pragma mark utils
@@ -310,6 +320,7 @@
     
     int type = 0;
     
+    
     for (NSDictionary *message in data) {
         if ([[[message valueForKey:@"user"] objectId] isEqual:[PFUser currentUser].objectId]) {
             type = AMBubbleCellSent;
@@ -318,7 +329,6 @@
             type = AMBubbleCellReceived;
             profile = self.recievedProfile;
         }
-        
         [self.messages addObject:@{ @"text": [message valueForKey:@"message"],
                                     @"date": [message valueForKey:@"createdAt"],
                                     @"type": @(type),

@@ -133,9 +133,6 @@ NSArray *fetchedObjects;
             }
         }
     }];
-    
-    
-    
 }
 
 #pragma mark - Table view data source
@@ -208,6 +205,8 @@ NSArray *fetchedObjects;
     
     [cell setDelegate:self];
     
+    NSLog(@"request: %@", [self.requesters objectAtIndex:indexPath.row]);
+    
     NSArray *name = [[[self.requesters valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
     NSString *age = @([self calculateAge:[[self.requesters valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
     NSString *label = [NSString stringWithFormat:@"%@  %@", [name objectAtIndex:0], age];
@@ -217,26 +216,33 @@ NSArray *fetchedObjects;
     [cell.imageSpinner setHidden:NO];
     [cell.imageSpinner startAnimating];
     
-   //Download facebook image
-    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.requesters valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
-    
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-    
-    // Run network request asynchronously
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:
-     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         if (connectionError == nil && data != nil) {
-             // Set the image in the header imageView
-             [cell.imageSpinner setHidden:YES];
-             [cell.imageSpinner stopAnimating];
-             cell.profileImage.image = [UIImage imageWithData:data];
-         } else {
-             NSLog(@"connectionError: %@", connectionError);
-         }
-     }];
-
+    if (![[[self.requesters valueForKey:@"profileImage"] objectAtIndex:indexPath.row] isEqual:[NSNull null]] ) {
+        NSURL *url = [NSURL URLWithString: [[self.requesters valueForKey:@"profileImage"] objectAtIndex:indexPath.row]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        cell.profileImage.image = [UIImage imageWithData:data];
+        [cell.imageSpinner setHidden:YES];
+        [cell.imageSpinner stopAnimating];
+    } else {
+        //Download facebook image
+        NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.requesters valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
+        
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+        
+        // Run network request asynchronously
+        [NSURLConnection sendAsynchronousRequest:urlRequest
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:
+         ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+             if (connectionError == nil && data != nil) {
+                 // Set the image in the header imageView
+                 [cell.imageSpinner setHidden:YES];
+                 [cell.imageSpinner stopAnimating];
+                 cell.profileImage.image = [UIImage imageWithData:data];
+             } else {
+                 NSLog(@"connectionError: %@", connectionError);
+             }
+         }];
+    }
     
     cell.personLabel.text = label;
     
@@ -312,50 +318,6 @@ NSArray *fetchedObjects;
     UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
-}
-
-#pragma mark core data handlers.
-
-- (void) loadCoreData {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *context = [delegate managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"RequesterInfo" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    fetchedObjects = [context executeFetchRequest:fetchRequest error: &error];
-    
-    if([fetchedObjects count] > 0) {
-        _nbItems = [fetchedObjects count];
-    } else {
-        
-    }
-}
-
-- (void) deleteObjectFromCoreData: (NSMutableArray * ) user {
-
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"RequesterInfo" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"objectId = %@", [user valueForKey:@"objectId"]];
-    [fetchRequest setPredicate: searchFilter];
-    
-    NSError *error;
-    NSArray *array = [context executeFetchRequest:fetchRequest error: &error];
-    
-    for (NSManagedObject *managedObject in array) {
-        [context deleteObject:managedObject];
-    }
-    if (![context save:&error]) {
-        NSLog(@"Error:%@", error);
-    }
-    NSLog(@"Data updated");
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

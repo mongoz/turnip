@@ -1052,27 +1052,27 @@
                                             <outlet property="delegate" destination="spu-ar-JnD" id="nAe-A7-xFw"/>
                                         </connections>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT">
-                                        <rect key="frame" x="250" y="23" width="100" height="100"/>
-                                        <state key="normal" backgroundImage="request">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXy-im-tmT" userLabel="RequestButton">
+                                        <rect key="frame" x="310" y="23" width="100" height="100"/>
+                                        <state key="normal" image="request.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="requestButtonHandler:" destination="spu-ar-JnD" eventType="touchUpInside" id="4UG-W6-3fz"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6m-PQ-IZ8">
-                                        <rect key="frame" x="235" y="58" width="46" height="30"/>
-                                        <state key="normal" title="Go to Party">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6m-PQ-IZ8" userLabel="GoButton">
+                                        <rect key="frame" x="310" y="23" width="100" height="100"/>
+                                        <state key="normal" image="go.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="attendButton:" destination="spu-ar-JnD" eventType="touchUpInside" id="bxd-ON-lCp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-4l-3iH">
-                                        <rect key="frame" x="168" y="58" width="62" height="30"/>
-                                        <state key="normal" title="Message">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-4l-3iH" userLabel="MessageButton">
+                                        <rect key="frame" x="190" y="23" width="100" height="100"/>
+                                        <state key="normal" image="message.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1089,8 +1089,11 @@
                                     <constraint firstAttribute="centerY" secondItem="ypY-ST-11B" secondAttribute="centerY" id="LbG-6H-ney"/>
                                     <constraint firstAttribute="height" secondItem="ypY-ST-11B" secondAttribute="height" id="NFh-Ur-vth"/>
                                     <constraint firstItem="ypY-ST-11B" firstAttribute="leading" secondItem="VzL-nF-YoJ" secondAttribute="leading" constant="8" id="TBb-hz-AL0"/>
+                                    <constraint firstItem="P6m-PQ-IZ8" firstAttribute="leading" secondItem="h9o-4l-3iH" secondAttribute="trailing" constant="20" id="YGc-KS-AJk"/>
                                     <constraint firstAttribute="trailing" secondItem="ypY-ST-11B" secondAttribute="trailing" constant="8" id="ghd-br-teE"/>
-                                    <constraint firstAttribute="centerX" secondItem="CXy-im-tmT" secondAttribute="centerX" id="nY3-2K-lbJ"/>
+                                    <constraint firstAttribute="centerX" secondItem="P6m-PQ-IZ8" secondAttribute="centerX" constant="-60" id="kKU-PD-XMR"/>
+                                    <constraint firstAttribute="centerX" secondItem="CXy-im-tmT" secondAttribute="centerX" constant="-60" id="nY3-2K-lbJ"/>
+                                    <constraint firstAttribute="centerY" secondItem="P6m-PQ-IZ8" secondAttribute="centerY" id="ptB-b9-33q"/>
                                 </constraints>
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="7" y="422" width="386" height="170"/>
@@ -2944,22 +2947,13 @@ If you are a qualified public educational or government institution and any part
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ia0-iI-k88">
-                                <rect key="frame" x="208" y="284" width="33" height="30"/>
-                                <state key="normal" title="SMS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ia0-iI-k88">
+                                <rect key="frame" x="191" y="274" width="50" height="50"/>
+                                <state key="normal" image="sms">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="SMSbutton:" destination="1fS-wz-dHl" eventType="touchUpInside" id="dAo-DU-04n"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xR9-xG-e1b">
-                                <rect key="frame" x="367" y="285" width="38" height="30"/>
-                                <state key="normal" title="Email">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="emailButton:" destination="1fS-wz-dHl" eventType="touchUpInside" id="eLp-6k-kJk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lo-03-T9I">
@@ -2969,6 +2963,15 @@ If you are a qualified public educational or government institution and any part
                                 </state>
                                 <connections>
                                     <action selector="facebookButton:" destination="1fS-wz-dHl" eventType="touchUpInside" id="1VN-4p-JZh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xR9-xG-e1b">
+                                <rect key="frame" x="367" y="275" width="50" height="50"/>
+                                <state key="normal" image="email">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="emailButton:" destination="1fS-wz-dHl" eventType="touchUpInside" id="eLp-6k-kJk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3009,26 +3012,30 @@ If you are a qualified public educational or government institution and any part
         <image name="add-teammate" width="50" height="50"/>
         <image name="backNav" width="50" height="50"/>
         <image name="deny" width="50" height="50"/>
+        <image name="email" width="50" height="50"/>
         <image name="ex.png" width="50" height="50"/>
         <image name="facebookIcon" width="50" height="50"/>
         <image name="gearWhite" width="50" height="50"/>
+        <image name="go.png" width="100" height="100"/>
         <image name="home" width="30" height="30"/>
         <image name="host" width="30" height="30"/>
+        <image name="message.png" width="100" height="100"/>
         <image name="messaging" width="30" height="30"/>
         <image name="notifications" width="30" height="30"/>
         <image name="profile" width="30" height="30"/>
         <image name="refreshWhite" width="55" height="60"/>
-        <image name="request" width="100" height="100"/>
+        <image name="request.png" width="100" height="100"/>
+        <image name="sms" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YqO-Ry-fwr"/>
         <segue reference="qQ6-T8-g9z"/>
-        <segue reference="Ucw-VM-vmq"/>
+        <segue reference="ctn-rt-yrU"/>
+        <segue reference="Ya7-QT-Y00"/>
+        <segue reference="FkE-ub-aJA"/>
         <segue reference="anS-E0-Al2"/>
         <segue reference="QZr-iu-lXX"/>
         <segue reference="SrB-cg-sg9"/>
-        <segue reference="Hzw-lZ-toa"/>
-        <segue reference="ZPE-HD-gzc"/>
         <segue reference="eVo-du-xyK"/>
     </inferredMetricsTieBreakers>
 </document>

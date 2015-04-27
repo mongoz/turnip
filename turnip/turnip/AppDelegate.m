@@ -18,6 +18,7 @@
 #import "Constants.h"
 #import <Reachability.h>
 #import "ReachabilityManager.h"
+#import "HostDetailsViewController.h"
 
 @interface AppDelegate ()
 

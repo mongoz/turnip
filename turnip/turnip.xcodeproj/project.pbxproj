@@ -22,6 +22,7 @@
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
 		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
 		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
+		1A9E371D1AEE231D000802C3 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9E371C1AEE231D000802C3 /* arrow.png */; };
 		1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DA31ADEF95F00CC4E6A /* ex.png */; };
 		1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */; };
 		1A9F1DAF1AE32DD100CC4E6A /* go.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DAE1AE32DD100CC4E6A /* go.png */; };
@@ -37,6 +38,8 @@
 		1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA066911AC3D0A7008A5A11 /* ConversationTableViewCell.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
+		1AA469E31AE9B03400D5BA08 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */; };
+		1AA68CFC1AE71D28005A9D09 /* HostDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
 		1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1D1A860CD100C0A617 /* TicketViewController.m */; };
 		1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */; };
@@ -107,6 +110,7 @@
 		1A9D0D321A9D25020082550C /* TeammateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewController.m; sourceTree = "<group>"; };
 		1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewCell.h; sourceTree = "<group>"; };
 		1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewCell.m; sourceTree = "<group>"; };
+		1A9E371C1AEE231D000802C3 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1A9F1DA31ADEF95F00CC4E6A /* ex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex.png; sourceTree = "<group>"; };
 		1A9F1DAB1AE0FD0200CC4E6A /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
@@ -132,6 +136,10 @@
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA17A0F1A74E3D30061CA3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA17A101A74E3D30061CA3E /* turnipTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = turnipTests.m; sourceTree = "<group>"; };
+		1AA469E11AE9B03400D5BA08 /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
+		1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
+		1AA68CFA1AE71D28005A9D09 /* HostDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostDetailsViewController.h; sourceTree = "<group>"; };
+		1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostDetailsViewController.m; sourceTree = "<group>"; };
 		1ABABC191A839BFB00C0A617 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		1ABABC1C1A860CD100C0A617 /* TicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketViewController.h; sourceTree = "<group>"; };
@@ -256,6 +264,10 @@
 				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
 				1AFD3FC11A74ED9E00B2EABE /* DetailViewController.h */,
 				1AFD3FC21A74ED9E00B2EABE /* DetailViewController.m */,
+				1AA68CFA1AE71D28005A9D09 /* HostDetailsViewController.h */,
+				1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */,
+				1AA469E11AE9B03400D5BA08 /* EventDetailsViewController.h */,
+				1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */,
 				1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */,
 				1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */,
 				1AA0668D1AC1045B008A5A11 /* ConversationViewController.h */,
@@ -376,6 +388,7 @@
 				1A9F1DB11AE32DDF00CC4E6A /* request.png */,
 				1A9F1DB21AE32DDF00CC4E6A /* request2.png */,
 				1A9F1DAE1AE32DD100CC4E6A /* go.png */,
+				1A9E371C1AEE231D000802C3 /* arrow.png */,
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
@@ -495,6 +508,7 @@
 				1A9F1DB31AE32DDF00CC4E6A /* message.png in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
+				1A9E371D1AEE231D000802C3 /* arrow.png in Resources */,
 				1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */,
 				1A9F1DAF1AE32DD100CC4E6A /* go.png in Resources */,
 				1A9F1DB41AE32DDF00CC4E6A /* request.png in Resources */,
@@ -527,7 +541,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "";
 		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -597,10 +611,12 @@
 				1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */,
 				1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
+				1AA68CFC1AE71D28005A9D09 /* HostDetailsViewController.m in Sources */,
 				1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */,
 				1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */,
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
 				1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */,
+				1AA469E31AE9B03400D5BA08 /* EventDetailsViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,
 				1AFD3FE21A74ED9E00B2EABE /* DetailViewController.m in Sources */,
 			);

@@ -7,6 +7,7 @@
 //
 
 #import "FindViewController.h"
+#import "EventDetailsViewController.h"
 #import "DetailViewController.h"
 #import "FindTableCell.h"
 #import <Parse/Parse.h>
@@ -177,9 +178,9 @@
 
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showEventDetails"]) {
+    if ([segue.identifier isEqualToString:@"eventDetailsSegue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        DetailViewController *destViewController = segue.destinationViewController;
+        EventDetailsViewController *destViewController = segue.destinationViewController;
         
         destViewController.event = [self.objects objectAtIndex:indexPath.row];
     }

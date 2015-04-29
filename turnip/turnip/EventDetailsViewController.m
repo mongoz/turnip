@@ -7,6 +7,8 @@
 //
 
 #import "EventDetailsViewController.h"
+#import "ProfileViewController.h"
+#import "MessagingViewController.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
 
@@ -15,6 +17,8 @@
 @property (nonatomic, strong) NSMutableArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) NSArray *accepted;
 
 @property (nonatomic, strong) NSString *objectId;
 
@@ -46,8 +50,7 @@
     [super viewDidAppear:animated];
     // Set up the content size of the scroll view
     CGSize pagesScrollViewSize = self.scrollView.frame.size;
-    NSLog(@"size: %f", pagesScrollViewSize.width);
-    
+
     self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
     
     // Load the initial set of pages that are on screen
@@ -147,33 +150,79 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     PFRelation *acceptedRelation = [object relationForKey:@"accepted"];
                     PFQuery *query = [acceptedRelation query];
-                    [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
+                   // [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
                     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                        if ([objects count] == 0) {
-                            PFRelation *requestRelation = [object relationForKey:@"requests"];
+                        
+                        BOOL found = NO;
+                    
+                        for (PFUser *user in objects) {
+                            if ([[user objectId] isEqual:[PFUser currentUser].objectId]) {
+                                found = YES;
+                                break;
+                            }
+                        }
+                        
+                        if (!found) {                            PFRelation *requestRelation = [object relationForKey:@"requests"];
                             PFQuery *query = [requestRelation query];
                             [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
                             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                                 if ([objects count] == 0) {
-                                    self.requestButton.enabled = YES;
+                                    self.requestHolderImage.hidden = YES;
+                                     self.requestButton.hidden = NO;
                                 }
                             }];
                         } else {
                             self.requestButton.hidden = YES;
+                            self.requestHolderImage.hidden = NO;
+                            self.quitButton.hidden = NO;
+                            self.quitButton.hidden = NO;
                             // Initialize the refresh control.
-//                            self.accepted = [[NSArray alloc] initWithArray:objects];
+                            self.accepted = [[NSArray alloc] initWithArray:objects];
+                            
+                            self.goingButton.hidden = NO;
+                            self.goingLabel.hidden = NO;
 //                            [[self tableView] reloadData];
 //                            self.tableView.hidden = NO;
+                            [self.goingButton setTitle:@([self.accepted count]).stringValue forState:UIControlStateNormal];
                         }
                     }];
                 });
             }
-           // self.data = [[NSArray alloc] initWithObjects:object, nil];
+            self.data = [[NSArray alloc] initWithObjects:object, nil];
             [self downloadImages: object];
             [self updateUI: object];
         }
     }];
 }
+
+- (void) queryForAcceptedUsers {
+    PFQuery *query = [PFQuery queryWithClassName: TurnipParsePostClassName];
+    
+    if ([self.accepted count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    
+    [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
+        if(error) {
+            NSLog(@"Error in query!: %@", error);
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                PFRelation *relation = [object relationForKey:@"accepted"];
+                PFQuery *query = [relation query];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    [self.refreshControl endRefreshing];
+                    if([objects count] == 0) {
+                    } else {
+                        NSLog(@"object: %@", objects);
+                        self.accepted = [[NSArray alloc] initWithArray:objects];
+                     //   [[self tableView] reloadData];
+                    }
+                }];
+            });
+        }
+    }];
+}
+
 
 - (void) downloadImages: (PFObject *) data {
     // Set up the image we want to scroll & zoom and add it to the scroll view
@@ -220,17 +269,13 @@
 
 - (void) updateUI: (PFObject *) data {
     
-//#define kBoarderWidth 3.0
-//#define kCornerRadius 8.0
-//    CALayer *borderLayer = [CALayer layer];
-//    CGRect borderFrame = CGRectMake(0, 0, (imageView.frame.size.width), (imageView.frame.size.height));
-//    [borderLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
-//    [borderLayer setFrame:borderFrame];
-//    [borderLayer setCornerRadius:kCornerRadius];
-//    [borderLayer setBorderWidth:kBorderWidth];
-//    [borderLayer setBorderColor:[[UIColor redColor] CGColor]];
-//    [imageView.layer addSublayer:borderLayer];
-  
+    CALayer *borderLayer = [CALayer layer];
+    CGRect borderFrame = CGRectMake(-5, -5, (self.profileImage.frame.size.width + 10), (self.profileImage.frame.size.height + 10));
+    [borderLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
+    [borderLayer setFrame:borderFrame];
+    [borderLayer setBorderWidth:5];
+    [borderLayer setBorderColor:[[UIColor whiteColor] CGColor]];
+    [self.profileImage.layer addSublayer:borderLayer];
     NSArray *name = [[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"name"] componentsSeparatedByString: @" "];
     NSString *age = @([self calculateAge:[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"birthday"]]).stringValue;
     [[data objectForKey:TurnipParsePostUserKey] valueForKey:@"birthday"];
@@ -249,8 +294,8 @@
     if ([[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId]) {
         self.requestButton.hidden = YES;
         self.messageButton.hidden = YES;
-      //  self.tableView.hidden = NO;
-     //   [self queryForAcceptedUsers];
+       // self.tableView.hidden = NO;
+        //[self queryForAcceptedUsers];
     }
     
    
@@ -272,6 +317,7 @@
     }
     
     self.privateLabel.text = [NSString stringWithFormat:@"%@, %@", open, price];
+    
 }
 
 - (void) downloadFacebookProfilePicture: (NSString *) facebookId {
@@ -336,15 +382,25 @@
     return newImage;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"profileSegue"]) {
+        ProfileViewController *destViewController = segue.destinationViewController;
+        destViewController.user = sender;
+    }
+    
+    if ([segue.identifier isEqualToString:@"messageSegue"]) {
+        MessagingViewController *destViewController = segue.destinationViewController;
+        destViewController.user = [[self.data valueForKey:@"user"] objectAtIndex:0];
+    }
+
 }
-*/
+
 
 #pragma mark - buttons
 
@@ -352,34 +408,114 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)quitParty:(id)sender {
+}
+
+- (IBAction)profileImageTap:(UITapGestureRecognizer *)sender {
+    [self performSegueWithIdentifier:@"profileSegue" sender: [[self.data valueForKey:@"user"] objectAtIndex:0]];
+}
+
 - (IBAction)messageButton:(id)sender {
 }
 
 - (IBAction)requestButton:(id)sender {
     
-//    NSString *host = [[[self.data valueForKey:@"user"] valueForKey:@"objectId"] objectAtIndex:0];
-//    NSArray *name = [[[PFUser currentUser] objectForKey:@"name"] componentsSeparatedByString: @" "];
-//    
-//    NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [name objectAtIndex:0]];
-//    
-//    self.requestButton.enabled = NO;
-//    
-//    [PFCloud callFunctionInBackground:@"requestEventPush"
-//                       withParameters:@{@"recipientId": host, @"message": message, @"eventId": [[self.data valueForKey:TurnipParsePostIdKey] objectAtIndex:0] }
-//                                block:^(NSString *success, NSError *error) {
-//                                    if (!error) {
-//                                        NSLog(@"push sent");
-//                                    }
-//                                }];
+    NSString *host = [[[self.data valueForKey:@"user"] valueForKey:@"objectId"] objectAtIndex:0];
+    NSArray *name = [[[PFUser currentUser] objectForKey:@"name"] componentsSeparatedByString: @" "];
+    
+    NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [name objectAtIndex:0]];
+    
+    self.requestButton.enabled = NO;
+    self.requestButton.hidden = YES;
+    self.requestHolderImage.hidden = NO;
+    
+    [PFCloud callFunctionInBackground:@"requestEventPush"
+                       withParameters:@{@"recipientId": host, @"message": message, @"eventId": [[self.data valueForKey:TurnipParsePostIdKey] objectAtIndex:0] }
+                                block:^(NSString *success, NSError *error) {
+                                    if (!error) {
+                                        NSLog(@"push sent");
+                                    }
+                                }];
 
 }
 
 - (IBAction)nextImageButton:(id)sender {
-    NSLog(@"page: %ld", (long)self.pageControl.currentPage);
-    NSInteger page = self.pageControl.currentPage;
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+    NSInteger page = (NSInteger)floor((self.scrollView.contentOffset.x * 2.0f + pageWidth) / (pageWidth * 2.0f))+1;
+    self.pageControl.currentPage = page;
     
-    [self.pageControl setCurrentPage:1];
-    //[self loadPage:self.pageControl.currentPage + 1];
+    if (page == self.pageImages.count) {
+        page = 0;
+    }
+    
+    CGRect frame = self.scrollView.frame;
+    frame.origin.x = frame.size.width * page;
+    frame.origin.y = 0;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
     [self loadVisiblePages];
+
 }
+
+- (IBAction)goingButton:(id)sender {
+}
+
+//#pragma mark - TableView Delegates
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//    
+//    if([self.accepted count] > 0) {
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//        self.tableView.backgroundView = nil;
+//        return 1;
+//    } else {
+//        // Display a message when the table is empty
+//        messageLabel.text = @"";
+//        messageLabel.textColor = [UIColor blackColor];
+//        messageLabel.numberOfLines = 0;
+//        messageLabel.textAlignment = NSTextAlignmentCenter;
+//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+//        [messageLabel sizeToFit];
+//        
+//        self.tableView.backgroundView = messageLabel;
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        
+//    }
+//    return 0;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    // Return the number of rows in the section.
+//    return [self.accepted count];
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    static NSString *tableIdentifier = @"acceptedCell";
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
+//    }
+//    
+//    cell.textLabel.text = [[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row];
+//    cell.imageView.image = [UIImage imageNamed:@"profile"];
+//    
+//    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.accepted valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
+//    
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+//    
+//    // Run network request asynchronously
+//    [NSURLConnection sendAsynchronousRequest:urlRequest
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:
+//     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//         if (connectionError == nil && data != nil) {
+//             // Set the image in the header imageView
+//             cell.imageView.image = [UIImage imageWithData:data];
+//         }
+//     }];
+//    
+//    return cell;
+//}
+
 @end

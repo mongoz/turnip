@@ -90,6 +90,7 @@
                     [PFUser currentUser][@"name"] = [result objectForKey:@"name"];
                     [PFUser currentUser][@"facebookId"] = [result objectForKey:@"id"];
                     [PFUser currentUser][@"TOS"] = @"False";
+                    NSLog(@"birthday: %@", [result objectForKey:@"birthday"]);
                     [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

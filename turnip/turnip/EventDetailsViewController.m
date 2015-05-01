@@ -153,6 +153,8 @@
                    // [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
                     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                         
+                        self.accepted = [[NSArray alloc] initWithArray:objects];
+                        [self.goingButton setTitle:@([self.accepted count]).stringValue forState:UIControlStateNormal];
                         BOOL found = NO;
                     
                         for (PFUser *user in objects) {
@@ -162,7 +164,8 @@
                             }
                         }
                         
-                        if (!found) {                            PFRelation *requestRelation = [object relationForKey:@"requests"];
+                        if (!found) {
+                            PFRelation *requestRelation = [object relationForKey:@"requests"];
                             PFQuery *query = [requestRelation query];
                             [query whereKey:TurnipParsePostIdKey equalTo:[PFUser currentUser].objectId];
                             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -177,14 +180,9 @@
                             self.quitButton.hidden = NO;
                             self.quitButton.hidden = NO;
                             // Initialize the refresh control.
-                            self.accepted = [[NSArray alloc] initWithArray:objects];
-                            
-                            self.goingButton.hidden = NO;
-                            self.goingLabel.hidden = NO;
 //                            [[self tableView] reloadData];
 //                            self.tableView.hidden = NO;
-                            [self.goingButton setTitle:@([self.accepted count]).stringValue forState:UIControlStateNormal];
-                        }
+                                                   }
                     }];
                 });
             }

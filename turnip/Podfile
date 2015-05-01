@@ -12,6 +12,7 @@ pod 'Google-Maps-iOS-SDK', '~> 1.9'
 pod 'MCSwipeTableViewCell', '~> 2.1.2'
 pod 'Reachability'
 pod 'AMBubbleTableViewController'
+pod 'AFNetworking', '~> 2.0'
 
 end
 

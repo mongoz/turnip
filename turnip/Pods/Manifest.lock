@@ -1,6 +1,32 @@
 PODS:
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - AMBubbleTableViewController (0.5.4)
-  - Bolts (1.1.4)
+  - Bolts (1.1.5):
+    - Bolts/AppLinks (= 1.1.5)
+    - Bolts/Tasks (= 1.1.5)
+  - Bolts/AppLinks (1.1.5):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.1.5)
   - Facebook-iOS-SDK (4.0.1):
     - Bolts (~> 1.0)
     - Facebook-iOS-SDK/CoreKit (= 4.0.1)
@@ -19,18 +45,21 @@ PODS:
     - Facebook-iOS-SDK/CoreKit
   - Google-Maps-iOS-SDK (1.9.2)
   - MCSwipeTableViewCell (2.1.2)
-  - Parse (1.7.1):
+  - Parse (1.7.2):
     - Bolts (~> 1.1)
-  - ParseCrashReporting (1.7.1):
-    - Parse (~> 1.7.1)
-  - ParseFacebookUtilsV4 (1.7.1):
+  - ParseCrashReporting (1.7.2):
+    - Bolts (~> 1.1)
+    - Parse (~> 1.7.2)
+  - ParseFacebookUtilsV4 (1.7.2):
+    - Bolts (~> 1.1)
     - Facebook-iOS-SDK/LoginKit (~> 4.0)
-    - Parse (~> 1.7.1)
+    - Parse (~> 1.7.2)
   - ParseUI (1.1.3):
     - Parse (~> 1.7)
   - Reachability (3.2)
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.0)
   - AMBubbleTableViewController
   - Facebook-iOS-SDK (~> 4.0.1)
   - Google-Maps-iOS-SDK (~> 1.9)
@@ -42,14 +71,15 @@ DEPENDENCIES:
   - Reachability
 
 SPEC CHECKSUMS:
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
   AMBubbleTableViewController: f4426cd8d646fbe4ec5f0d821857cca62c2792b2
-  Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
+  Bolts: aac24961496d504aa56fc267cde95162a71bac39
   Facebook-iOS-SDK: 6d05532c97e9c542f8d87f94b7f6ee217493d00b
   Google-Maps-iOS-SDK: 4c008abdb68e03ae125c7f674be841d369e2b3de
   MCSwipeTableViewCell: 0fc22bd3635b9b5f4ce08675218b0a7278b6440f
-  Parse: fa8ec29de6d82035635986c11946299fb1b38316
-  ParseCrashReporting: 9aeff8680d500e5e833564fca5b60333f7bb7403
-  ParseFacebookUtilsV4: fc44a339e38513fb6fc0bafbef34f69df6559e06
+  Parse: e1959adb9fe2fcd4736dac20b3ac691d47a4f06c
+  ParseCrashReporting: 794a166ff1ce4d7c671ffb7fd86f381b806bddb7
+  ParseFacebookUtilsV4: 79d6f3c54da18651c8208e0f785a54988a2d9a1c
   ParseUI: 1a68e9cebc3bd458eed9605ce7b33d7cc082f473
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 

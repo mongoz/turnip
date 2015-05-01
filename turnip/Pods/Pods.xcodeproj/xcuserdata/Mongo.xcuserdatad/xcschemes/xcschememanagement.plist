@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-turnip-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-turnip-AMBubbleTableViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,57 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>28A380FA8435C6956EDFAFC8</key>
+		<key>1205178018298CFEC07602E4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E35E9D3A2176FC6BEC00F23</key>
+		<key>12D09058E32C5174BFFDA4F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>75CEACF10CFCB9A9B05C2399</key>
+		<key>166E0DEB59F628444FE85FE9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9FB112DC66A3DFED439CC8AE</key>
+		<key>3312198F9AA9AE32938724AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A96D37ADB9B41AD3B7A78D89</key>
+		<key>341C0567076AFBB66CE819B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BCAAA8C362E803AC61950D60</key>
+		<key>41B98140113E8ED43C8169C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD5161F1897BDA18DD77B928</key>
+		<key>60FCF0AC8ACCC47AB677BD50</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D42293C7ED2BCF7B68052CF9</key>
+		<key>8A2E3E6E328B99F0FEE05F81</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E6D6C73AA4AA2B8F2991A5D9</key>
+		<key>E24835484FB76F158E7C77D2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EBC13B883093773D59F9FE4C</key>
+		<key>E406CE774EA18B842E172E67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F0E48C4975EEFD6AC8746F53</key>
+		<key>F594EF4506920BA06D00AC61</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD0E1E216CB9A102B62E2F95</key>
 		<dict>
 			<key>primary</key>
 			<true/>

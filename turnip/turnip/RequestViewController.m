@@ -205,8 +205,6 @@ NSArray *fetchedObjects;
     
     [cell setDelegate:self];
     
-    NSLog(@"request: %@", [self.requesters objectAtIndex:indexPath.row]);
-    
     NSArray *name = [[[self.requesters valueForKey:@"name"] objectAtIndex: indexPath.row] componentsSeparatedByString: @" "];
     NSString *age = @([self calculateAge:[[self.requesters valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
     NSString *label = [NSString stringWithFormat:@"%@  %@", [name objectAtIndex:0], age];

@@ -28,21 +28,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setTitle:@"TURNIP!"];
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
-    self.dateComponents = [[NSDateComponents alloc] init];
-    [self.dateComponents setHour:-2];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MMM d hh:mm a";
     
     CIImage *qrCode = [self createQRCode];
     UIImage *qrCodeImage = [self createNonInterpolatedUIImageFromCIImage:qrCode withScale:2*[[UIScreen mainScreen] scale]];
     
-    self.titleLabel.text = ticketTitle;
-    self.dateLabel.text = [dateFormatter stringFromDate: date];
-    //self.addressLabel.text = address;
+    NSString *startText = @"Scan your QR code to Gain entrance to";
+    
+    NSString *labelText = [NSString stringWithFormat:@"%@ %@", startText, ticketTitle];
+    self.mainText.numberOfLines = 0;
+    self.mainText.text = labelText;
+    [self.mainText sizeToFit];
+
     self.qrCodeImage.image = qrCodeImage;
 
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCounter) userInfo:nil repeats:YES];
@@ -50,6 +51,12 @@
 }
 
 - (void) updateCounter {
+    
+    self.dateComponents = [[NSDateComponents alloc] init];
+    [self.dateComponents setHour:-2];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MMM d 'at' hh:mm a";
     
     NSDate *showDate = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponents toDate:date options:0];
     
@@ -60,13 +67,19 @@
     NSInteger hours = (ti / 3600) % 24;
     NSInteger days = (ti / 86400);
     
+    self.subText.numberOfLines = 0;
+
     if (ti > 0) {
-        self.addressLabel.text = [NSString stringWithFormat: @"%02lid %02lih %02lim %02lis untill address is shown", (long)days, (long)hours, (long)minutes, (long)seconds];
+        NSString *timeText = [NSString stringWithFormat: @"Adress Hidden until %2li days %02li hours %02li minutes and %02li seconds", (long)days, (long)hours, (long)minutes, (long)seconds];
+        
+        self.subText.text = [NSString stringWithFormat:@"%@ %@", [dateFormatter stringFromDate:date], timeText];
     } else {
-        self.addressLabel.text = address;
+        NSString *subText = [NSString stringWithFormat:@"%@ %@", [dateFormatter stringFromDate:date], address];
+        self.subText.text = subText;
         
         [self.timer invalidate];
     }
+    [self.subText sizeToFit];
     
 }
 

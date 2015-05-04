@@ -16,6 +16,11 @@
 		1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */; };
 		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
 		1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626251A7B15B400AF63B9 /* ZW4QC.png */; };
+		1A8A84851AF489E9002A75AF /* qrcircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84841AF489E9002A75AF /* qrcircle.png */; };
+		1A8A84871AF718AC002A75AF /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84861AF718AC002A75AF /* add.png */; };
+		1A8A848B1AF718BA002A75AF /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84881AF718BA002A75AF /* delete.png */; };
+		1A8A848C1AF718BA002A75AF /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84891AF718BA002A75AF /* edit.png */; };
+		1A8A848D1AF718BA002A75AF /* scanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A848A1AF718BA002A75AF /* scanner.png */; };
 		1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */; };
 		1A9AE4D51A8052D200AADDAA /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D31A8052D200AADDAA /* green.png */; };
 		1A9AE4D61A8052D200AADDAA /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D41A8052D200AADDAA /* red.png */; };
@@ -101,6 +106,11 @@
 		1A8626161A7A321700AF63B9 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		1A8626251A7B15B400AF63B9 /* ZW4QC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZW4QC.png; sourceTree = "<group>"; };
+		1A8A84841AF489E9002A75AF /* qrcircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcircle.png; sourceTree = "<group>"; };
+		1A8A84861AF718AC002A75AF /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
+		1A8A84881AF718BA002A75AF /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		1A8A84891AF718BA002A75AF /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		1A8A848A1AF718BA002A75AF /* scanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanner.png; sourceTree = "<group>"; };
 		1A9AE4CE1A7F787F00AADDAA /* TurnipDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TurnipDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1A9AE4D31A8052D200AADDAA /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		1A9AE4D41A8052D200AADDAA /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
@@ -383,6 +393,10 @@
 		1AFD3FF01A74EDA200B2EABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A8A84881AF718BA002A75AF /* delete.png */,
+				1A8A84891AF718BA002A75AF /* edit.png */,
+				1A8A848A1AF718BA002A75AF /* scanner.png */,
+				1A8A84861AF718AC002A75AF /* add.png */,
 				1A9F1DA31ADEF95F00CC4E6A /* ex.png */,
 				1A9F1DB01AE32DDF00CC4E6A /* message.png */,
 				1A9F1DB11AE32DDF00CC4E6A /* request.png */,
@@ -391,6 +405,7 @@
 				1A9E371C1AEE231D000802C3 /* arrow.png */,
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
+				1A8A84841AF489E9002A75AF /* qrcircle.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
 				1A8626251A7B15B400AF63B9 /* ZW4QC.png */,
 			);
@@ -506,6 +521,7 @@
 				1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */,
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
 				1A9F1DB31AE32DDF00CC4E6A /* message.png in Resources */,
+				1A8A84871AF718AC002A75AF /* add.png in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
 				1A9E371D1AEE231D000802C3 /* arrow.png in Resources */,
@@ -513,8 +529,12 @@
 				1A9F1DAF1AE32DD100CC4E6A /* go.png in Resources */,
 				1A9F1DB41AE32DDF00CC4E6A /* request.png in Resources */,
 				1A9AE4D51A8052D200AADDAA /* green.png in Resources */,
+				1A8A848C1AF718BA002A75AF /* edit.png in Resources */,
+				1A8A848D1AF718BA002A75AF /* scanner.png in Resources */,
 				1A9F1DB51AE32DDF00CC4E6A /* request2.png in Resources */,
+				1A8A848B1AF718BA002A75AF /* delete.png in Resources */,
 				1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */,
+				1A8A84851AF489E9002A75AF /* qrcircle.png in Resources */,
 				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
 			);
@@ -766,6 +786,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
+					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = turnip;
 				PROVISIONING_PROFILE = "";
@@ -795,6 +816,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
+					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = turnip;
 				PROVISIONING_PROFILE = "";

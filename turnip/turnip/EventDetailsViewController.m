@@ -9,6 +9,8 @@
 #import "EventDetailsViewController.h"
 #import "ProfileViewController.h"
 #import "MessagingViewController.h"
+#import <AFNetworking/AFNetworking.h>
+#import <UIImageView+AFNetworking.h>
 #import "Constants.h"
 #import <Parse/Parse.h>
 
@@ -44,17 +46,6 @@
     
     [self downloadDetails];
     
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    // Set up the content size of the scroll view
-    CGSize pagesScrollViewSize = self.scrollView.frame.size;
-
-    self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
-    
-    // Load the initial set of pages that are on screen
-    [self loadVisiblePages];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,18 +162,29 @@
                             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                                 if ([objects count] == 0) {
                                     self.requestHolderImage.hidden = YES;
-                                     self.requestButton.hidden = NO;
+                                    
+                                    if ([[[object objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId]) {
+                                        self.requestButton.hidden = YES;
+                                        self.messageButton.hidden = YES;
+                                        
+                                    } else {
+                                        if ([[object objectForKey:TurnipParsePostPrivateKey] isEqual:@"False"]) {
+                                            self.attendButton.hidden = NO;
+                                        } else {
+                                            self.requestButton.hidden = NO;
+                                        }
+
+                                    }
                                 }
                             }];
                         } else {
                             self.requestButton.hidden = YES;
                             self.requestHolderImage.hidden = NO;
-                            self.quitButton.hidden = NO;
-                            self.quitButton.hidden = NO;
                             // Initialize the refresh control.
 //                            [[self tableView] reloadData];
 //                            self.tableView.hidden = NO;
-                                                   }
+                        }
+                          
                     }];
                 });
             }
@@ -221,44 +223,77 @@
     }];
 }
 
-
 - (void) downloadImages: (PFObject *) data {
     // Set up the image we want to scroll & zoom and add it to the scroll view
-    if([data objectForKey:@"image1"] != nil) {
-        NSURL *url = [NSURL URLWithString: [(PFFile *)[data objectForKey:TurnipParsePostImageOneKey] url]];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-             [self.pageImages addObject:[UIImage imageWithData:data]];
+    
+    NSInteger imageCount =0;
+    
+    for (int i = 1; i <= 3; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"image%d",i];
+        if ([data objectForKey:imageName] != nil) {
+            imageCount++;
+             NSURL *url = [NSURL URLWithString: [(PFFile *)[data objectForKey:imageName] url]];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            
+            AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            
+            op.responseSerializer = [AFImageResponseSerializer serializer];
+            
+            [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [self.pageImages addObject: responseObject];
+                
+                // Load the initial set of pages that are on screen
+                [self loadVisiblePages];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"error %@", error);
+            }];
+            [op start];
+            
+        }
     }
     
-    if([data objectForKey:@"image2"] != nil) {
-        NSURL *url = [NSURL URLWithString: [(PFFile *)[data objectForKey:TurnipParsePostImageTwoKey] url]];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-       [self.pageImages addObject:[UIImage imageWithData:data]];
-    }
-    
-    if([data objectForKey:@"image3"] != nil) {
-        NSURL *url = [NSURL URLWithString: [(PFFile *)[data objectForKey:TurnipParsePostImageThreeKey] url]];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        [self.pageImages addObject:[UIImage imageWithData:data]];
-    }
-                      
     if ([[data objectForKey:TurnipParsePostUserKey] valueForKey:@"profileImage"] != nil) {
         NSURL *url = [NSURL URLWithString: [[data objectForKey:TurnipParsePostUserKey] valueForKey:@"profileImage"]];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        self.profileImage.image = [UIImage imageWithData:data];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicatorView.center = self.profileImage.center;
+        [self.view addSubview:activityIndicatorView];
+        [activityIndicatorView startAnimating];
+        
+        __unsafe_unretained typeof(self) weakSelf = self;
+        [self.profileImage setImageWithURLRequest:request
+                         placeholderImage:nil
+                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                      
+                                      [activityIndicatorView removeFromSuperview];
+                                      
+                                      // do image resize here
+                                      
+                                      // then set image view
+                                      
+                                      [weakSelf.profileImage setImage:image];
+                                  }
+                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                      [activityIndicatorView removeFromSuperview];
+                                      
+                                      // do any other error handling you want here
+                                  }];
     } else {
         [self downloadFacebookProfilePicture:[data[@"user"] objectForKey:@"facebookId"]];
     }
     
-    NSInteger pageCount = self.pageImages.count;
+    CGSize pagesScrollViewSize = self.scrollView.frame.size;
+    
+    self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * imageCount, pagesScrollViewSize.height);
     
     // Set up the page control
     self.pageControl.currentPage = 0;
-    self.pageControl.numberOfPages = pageCount;
+    self.pageControl.numberOfPages = imageCount;
     
     // Set up the array to hold the views for each page
     self.pageViews = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < pageCount; ++i) {
+    for (NSInteger i = 0; i < imageCount; ++i) {
         [self.pageViews addObject:[NSNull null]];
     }
     self.imageLoader.hidden = YES;
@@ -287,15 +322,6 @@
     self.neighbourhoodLabel.text = [[data objectForKey:@"neighbourhood"] valueForKey:@"name"];
     
     self.dateLabel.text = [self convertDate:[data objectForKey:TurnipParsePostDateKey]];
-    self.capacityLabel.text = [NSString stringWithFormat:@"Capacity: %@", [data objectForKey:TurnipParsePostCapacityKey] ];
-    
-    if ([[[data objectForKey:TurnipParsePostUserKey] objectId] isEqual:[PFUser currentUser].objectId]) {
-        self.requestButton.hidden = YES;
-        self.messageButton.hidden = YES;
-       // self.tableView.hidden = NO;
-        //[self queryForAcceptedUsers];
-    }
-    
    
     NSString *price = @"";
     NSString *open = @"";
@@ -304,8 +330,6 @@
         open  = @"Private";
     } else if([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"False"]) {
         open = @"Public";
-        self.requestButton.hidden = YES;
-       // self.attendButton.hidden = NO;
     }
     
     if ([[data objectForKey:TurnipParsePostPaidKey] isEqual:@"True"]) {
@@ -406,9 +430,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)quitParty:(id)sender {
-}
-
 - (IBAction)profileImageTap:(UITapGestureRecognizer *)sender {
     [self performSegueWithIdentifier:@"profileSegue" sender: [[self.data valueForKey:@"user"] objectAtIndex:0]];
 }
@@ -438,6 +459,7 @@
 }
 
 - (IBAction)nextImageButton:(id)sender {
+    
     CGFloat pageWidth = self.scrollView.frame.size.width;
     NSInteger page = (NSInteger)floor((self.scrollView.contentOffset.x * 2.0f + pageWidth) / (pageWidth * 2.0f))+1;
     self.pageControl.currentPage = page;
@@ -455,6 +477,35 @@
 }
 
 - (IBAction)goingButton:(id)sender {
+}
+
+- (IBAction)attendButton:(id)sender {
+    
+    PFObject *object = [PFObject objectWithoutDataWithClassName:TurnipParsePostClassName objectId:[[self.data valueForKey:@"objectId"] objectAtIndex:0]];
+    
+    PFRelation *relation = [object relationForKey:@"accepted"];
+    [relation addObject:[PFUser currentUser]];
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"could not add to acceptedL %@", error);
+        } else if(succeeded) {
+            //add to notification class
+            NSString *message = [NSString stringWithFormat:@"Your ticket for %@ (tap to view ticket)", self.navigationItem.title];
+            
+            PFObject *notification = [PFObject objectWithClassName:@"Notifications"];
+            notification[@"type"] = @"ticket";
+            notification[@"notification"] = message;
+            notification[@"event"] = object;
+            notification[@"user"] = [PFUser currentUser];
+            notification[@"eventTitle"] = self.navigationItem.title;
+            
+            [notification saveInBackground];
+            
+            self.attendButton.hidden = YES;
+            self.requestHolderImage.hidden = NO;
+        }
+    }];
+
 }
 
 //#pragma mark - TableView Delegates

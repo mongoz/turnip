@@ -13,6 +13,7 @@
 #import <Parse/Parse.h>
 #import "SWRevealViewController.h"
 #import "ReachabilityManager.h"
+#import "HostDetailsViewController.h"
 
 @interface ThrowNextViewController ()
 
@@ -38,7 +39,7 @@
     // read data Variable instead of coreData.
     self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
     if ([self.currentEvent count] > 0) {
-        [self performSegueWithIdentifier:@"revealSegue" sender:self];
+        [self performSegueWithIdentifier:@"hostDetailsSegue" sender:self];
     }
 }
 
@@ -442,7 +443,8 @@
                                    longitude: currentCoordinate.longitude
              ];
             
-            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            NSLog(@"currentPoint: %@", currentPoint);
+            NSLog(@"placemark: %@", self.placemark);
             
             PFObject *postObject = [PFObject objectWithClassName: TurnipParsePostClassName];
             postObject[TurnipParsePostUserKey] = [PFUser currentUser];
@@ -457,7 +459,6 @@
             postObject[TurnipParsePostAddressKey] = self.location;
             postObject[TurnipParsePostDateKey] = self.selectedDate;
             postObject[TurnipParsePostEndTimeKey] = self.endTimeDate.text;
-            postObject[TurnipParsePostCapacityKey] = [numberFormatter numberFromString:self.capacityInputField.text];
             postObject[TurnipParsePostPriceKey] = self.cost;
             
             if ([image count] > 0) {
@@ -642,10 +643,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 //     Get the new view controller using [segue destinationViewController].
 //     Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"revealSegue"]) {
-        SWRevealViewController *destViewController = (SWRevealViewController *) segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"hostDetailsSegue"]) {
         
-        destViewController.currentEvent = self.currentEvent;
+        HostDetailsViewController *destViewController = (HostDetailsViewController *)segue.destinationViewController;
+        
+        destViewController.event = [self.currentEvent objectAtIndex:0];
     }
 }
 

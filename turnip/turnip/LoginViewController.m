@@ -86,7 +86,7 @@
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveEventually];
                     
-                    [PFUser currentUser][@"bio"] = @"super awesome bio";
+                    [PFUser currentUser][@"bio"] = @"Hi, I really like to party";
                     [PFUser currentUser][@"name"] = [result objectForKey:@"name"];
                     [PFUser currentUser][@"facebookId"] = [result objectForKey:@"id"];
                     [PFUser currentUser][@"TOS"] = @"False";

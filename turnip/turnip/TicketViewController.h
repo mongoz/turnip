@@ -15,9 +15,10 @@
 @property (nonatomic, strong) NSString *objectId;
 @property (nonatomic, strong) NSDate *date;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
-@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
+
+@property (strong, nonatomic) IBOutlet UILabel *mainText;
+
+@property (strong, nonatomic) IBOutlet UILabel *subText;
 
 @property (strong, nonatomic) IBOutlet UIImageView *qrCodeImage;
 

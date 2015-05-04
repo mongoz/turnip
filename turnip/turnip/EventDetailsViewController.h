@@ -21,7 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *nextImageButton;
 @property (strong, nonatomic) IBOutlet UIButton *messageButton;
 @property (strong, nonatomic) IBOutlet UIButton *requestButton;
-@property (strong, nonatomic) IBOutlet UIButton *quitButton;
+@property (strong, nonatomic) IBOutlet UIButton *attendButton;
 @property (strong, nonatomic) IBOutlet UIButton *goingButton;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -33,15 +33,14 @@
 @property (strong, nonatomic) IBOutlet UILabel *privateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *neighbourhoodLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
-@property (strong, nonatomic) IBOutlet UILabel *capacityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
 @property (strong, nonatomic) IBOutlet UILabel *goingLabel;
 
-- (IBAction)quitParty:(id)sender;
 - (IBAction)profileImageTap:(UITapGestureRecognizer *)sender;
 - (IBAction)messageButton:(id)sender;
 - (IBAction)requestButton:(id)sender;
 - (IBAction)nextImageButton:(id)sender;
 - (IBAction)goingButton:(id)sender;
+- (IBAction)attendButton:(id)sender;
 
 @end

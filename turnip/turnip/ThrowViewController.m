@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "SWRevealViewController.h"
 #import "ThrowNextViewController.h"
+#import "HostDetailsViewController.h"
 
 @interface ThrowViewController ()
 
@@ -45,7 +46,7 @@
         self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
     }
     if ([self.currentEvent count] > 0) {
-        [self performSegueWithIdentifier:@"revealSegue" sender:self];
+        [self performSegueWithIdentifier:@"hostDetailsSegue" sender:self];
     }
 
 }
@@ -255,6 +256,8 @@
             // Process the placemark.
             self.eventLocation = aPlacemark.location;
             self.placemark = [placemarks lastObject];
+            
+            NSLog(@"placemark: %@", [placemarks lastObject]);
         }
     }];
 }
@@ -314,10 +317,13 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([segue.identifier isEqualToString:@"revealSegue"]) {
-        SWRevealViewController *destViewController = (SWRevealViewController *) segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"hostDetailsSegue"]) {
         
-        destViewController.currentEvent = self.currentEvent;
+       // UINavigationController *navController = segue.destinationViewController;
+        
+        HostDetailsViewController *destViewController = (HostDetailsViewController *) segue.destinationViewController;
+        
+        destViewController.event = [self.currentEvent objectAtIndex:0];
     }
     
     if ([segue.identifier isEqualToString:@"nextThrowSegue"]) {

@@ -27,9 +27,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "SWRevealViewController.h"
-#import "DetailSidebarTableViewController.h"
-#import "DetailViewController.h"
-
 
 #pragma mark - StatusBar Helper Function
 
@@ -72,7 +69,6 @@ static CGFloat statusBarAdjustment( UIView* view )
 
 
 @implementation SWRevealView
-
 
 static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1, CGFloat max1)
 {
@@ -153,20 +149,6 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     CGFloat xLocation = [self frontLocationForPosition:_c.frontViewPosition];
     [self _layoutRearViewsForLocation:xLocation];
     [self _prepareForNewPosition:newPosition];
-}
-
-
-- (void)unloadRearView
-{
-    [_rearView removeFromSuperview];
-    _rearView = nil;
-}
-
-
-- (void)unloadRightView
-{
-    [_rightView removeFromSuperview];
-    _rightView = nil;
 }
 
 
@@ -409,17 +391,16 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return NO;  // not supported
 }
 
-
 - (BOOL)transitionWasCancelled
 {
     return NO; // not supported
 }
 
-
 - (CGAffineTransform)targetTransform
 {
     return CGAffineTransformIdentity;
 }
+
 
 
 - (UIModalPresentationStyle)presentationStyle
@@ -1563,17 +1544,7 @@ const int FrontViewPositionNone = 0xff;
     
     _rearViewPosition = newPosition;
     
-    void (^deploymentCompletion)() =
-    [self _deploymentForViewController:_rearViewController inView:_contentView.rearView appear:appear disappear:disappear];
-    
-    void (^completion)() = ^()
-    {
-        deploymentCompletion();
-        if ( disappear )
-            [_contentView unloadRearView];
-    };
-    
-    return completion;
+    return [self _deploymentForViewController:_rearViewController inView:_contentView.rearView appear:appear disappear:disappear];
 }
 
 // Deploy/Undeploy of the right view controller following the containment principles. Returns a block
@@ -1591,17 +1562,7 @@ const int FrontViewPositionNone = 0xff;
     
     _rightViewPosition = newPosition;
     
-    void (^deploymentCompletion)() =
-    [self _deploymentForViewController:_rightViewController inView:_contentView.rightView appear:appear disappear:disappear];
-    
-    void (^completion)() = ^()
-    {
-        deploymentCompletion();
-        if ( disappear )
-            [_contentView unloadRightView];
-    };
-    
-    return completion;
+    return [self _deploymentForViewController:_rightViewController inView:_contentView.rightView appear:appear disappear:disappear];
 }
 
 
@@ -1700,9 +1661,15 @@ const int FrontViewPositionNone = 0xff;
         //Try each segue separately so it doesn't break prematurely if either Rear or Right views are not used.
         @try
         {
-            [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
+            [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
         }
         @catch(NSException *exception) {}
+        
+//        @try
+//        {
+//            [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
+//        }
+//        @catch(NSException *exception) {}
         
         @try
         {
@@ -1710,11 +1677,7 @@ const int FrontViewPositionNone = 0xff;
         }
         @catch(NSException *exception) {}
         
-        @try
-        {
-            [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
-        }
-        @catch(NSException *exception) {}
+        
     }
 }
 
@@ -1856,21 +1819,12 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
     
     if ( [identifier isEqualToString:SWSegueFrontIdentifier] ) {
         operation = SWRevealControllerOperationReplaceFrontController;
-        if ([rvc.currentEvent count] > 0) {
-            DetailViewController *details = self.destinationViewController;
-            details.host = YES;
-            details.yourEvent = rvc.currentEvent;
-        }
     }
     else if ( [identifier isEqualToString:SWSegueRearIdentifier] )
         operation = SWRevealControllerOperationReplaceRearController;
     
     else if ( [identifier isEqualToString:SWSegueRightIdentifier] ) {
         operation = SWRevealControllerOperationReplaceRightController;
-        if ([rvc.currentEvent count] > 0) {
-            DetailSidebarTableViewController *detailSide = self.destinationViewController;
-            detailSide.event = rvc.currentEvent;
-        }
     }
     
     if ( operation != SWRevealControllerOperationNone )

@@ -10,4 +10,9 @@
 
 @interface AMBubbleFlatAccessoryView : UIView<AMBubbleAccessory>
 
+@property (nonatomic, strong) UIImageView*	imageAvatar;
+@property (nonatomic, weak)   NSDictionary* options;
+@property (nonatomic, strong) UILabel*		labelTimestamp;
+@property (nonatomic, strong) UIImageView*	imageCheck;
+
 @end

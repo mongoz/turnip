@@ -31,6 +31,14 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     
     [self.navigationItem setHidesBackButton:NO animated:YES];
+    
+    
+    // Set up the content size of the scroll view
+    CGSize pagesScrollViewSize = self.view.frame.size;
+    self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, self.scrollView.frame.size.height);
+    
+    [self loadVisiblePages];
+    
 }
 
 - (void)viewDidLoad {
@@ -75,7 +83,15 @@
     [[PFUser currentUser] objectForKey:@"birthday"];
     
     NSString *nameAge = [NSString stringWithFormat:@"%@ - %@", [name objectAtIndex:0], age];
-    self.nameLabel.text = nameAge;
+    
+    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString: nameAge];
+    
+    NSRange range = [nameAge rangeOfString:[name objectAtIndex:0]];
+    
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.549 green:0 blue:0.102 alpha:1] range:range];
+    
+    [self.nameLabel setAttributedText:string];
+
     
     self.aboutLabel.numberOfLines = 0;
     self.aboutLabel.text = [self.event valueForKey:TurnipParsePostTextKey];
@@ -147,10 +163,6 @@
         [self downloadFacebookProfilePicture:[[PFUser currentUser] objectForKey:@"facebookId"]];
     }
     
-    CGSize pagesScrollViewSize = self.scrollView.frame.size;
-    
-    self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
-    
     // Set up the page control
     self.pageControl.currentPage = 0;
     self.pageControl.numberOfPages = self.pageImages.count;
@@ -160,7 +172,7 @@
     for (NSInteger i = 0; i < self.pageImages.count; ++i) {
         [self.pageViews addObject:[NSNull null]];
     }
-    [self loadVisiblePages];
+
 }
 
 - (void) downloadFacebookProfilePicture: (NSString *) facebookId {
@@ -199,9 +211,10 @@
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                   //  [self.refreshControl endRefreshing];
                     if([objects count] == 0) {
+                        [self.goingButton setTitle:@"0" forState:UIControlStateNormal];
                     } else {
                         self.accepted = [[NSArray alloc] initWithArray:objects];
-                        //   [[self tableView] reloadData];
+                        [[self tableView] reloadData];
                         
                         [self.goingButton setTitle:@([self.accepted count]).stringValue forState:UIControlStateNormal];
                     }
@@ -271,7 +284,9 @@
 }
 
 -(void) backNavigation {
-    [self.navigationController popViewControllerAnimated:YES];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController *mvc = [storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
+    [self presentViewController:mvc animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -416,5 +431,65 @@
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     [self loadVisiblePages];
 }
+
+#pragma mark - TableView Delegates
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+
+    if([self.accepted count] > 0) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.backgroundView = nil;
+        return 1;
+    } else {
+        // Display a message when the table is empty
+        messageLabel.text = @"";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    }
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return [self.accepted count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *tableIdentifier = @"acceptedCell";
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
+    }
+
+    cell.textLabel.text = [[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:@"profile"];
+
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.accepted valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
+
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+
+    // Run network request asynchronously
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         if (connectionError == nil && data != nil) {
+             // Set the image in the header imageView
+             cell.imageView.image = [UIImage imageWithData:data];
+         }
+     }];
+
+    return cell;
+}
+
 
 @end

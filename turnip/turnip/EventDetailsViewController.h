@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FXBlurView.h"
+#import <QuartzCore/QuartzCore.h>
 
-
-//, UITableViewDelegate, UITableViewDataSource
-@interface EventDetailsViewController : UIViewController <UIScrollViewDelegate>
+@interface EventDetailsViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *event;
 @property (nonatomic, strong) NSArray *data;
+
+@property (nonatomic, strong) NSString *objectId;
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UIImageView *requestHolderImage;
@@ -26,6 +28,8 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet FXBlurView *attendingView;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *imageLoader;
 
@@ -42,5 +46,6 @@
 - (IBAction)nextImageButton:(id)sender;
 - (IBAction)goingButton:(id)sender;
 - (IBAction)attendButton:(id)sender;
+- (IBAction)closeAttendingViewButton:(id)sender;
 
 @end

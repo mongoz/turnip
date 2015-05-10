@@ -30,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.navigationController setNavigationBarHidden:YES];
 
     [self initViews];
     [self setupViews];
@@ -50,9 +52,6 @@
     self.aboutField.textColor = [UIColor blackColor];
     self.aboutField.delegate = self;
     
-  //  self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
-  //  [self reverseGeocode: self.currentLocation];
-    
     [self.privateSwitch addTarget:self action:@selector(privateSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     [self.freeSwitch addTarget:self action:@selector(freeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -70,12 +69,12 @@
 }
 
 - (void) setupViews {
-    self.titleField.text = [[self.currentEvent valueForKey:@"title"] objectAtIndex:0];
-    self.locationField.text = [[self.currentEvent valueForKey:@"location"] objectAtIndex:0];
-    self.aboutField.text = [[self.currentEvent valueForKey:@"text"] objectAtIndex:0];
+    self.titleField.text = [self.currentEvent valueForKey:@"title"];
+    self.locationField.text =[self.currentEvent valueForKey:@"location"];
+    self.aboutField.text = [self.currentEvent valueForKey:@"text"];
     
-    self.isPrivate = [[[self.currentEvent valueForKey:@"private"] objectAtIndex:0] boolValue];
-    self.isFree = [[[self.currentEvent valueForKey:@"free"] objectAtIndex:0] boolValue];
+    self.isPrivate = [[self.currentEvent valueForKey:@"private"] boolValue];
+    self.isFree = [[self.currentEvent valueForKey:@"free"] boolValue];
     
     if (self.isPrivate) {
         [self.privateSwitch setOn:NO];
@@ -91,8 +90,8 @@
         self.cashLabel.hidden = NO;
     }
     
-    if ([[self.currentEvent valueForKey:@"price"] objectAtIndex:0] != 0) {
-        self.cashAmountField.text = [[[self.currentEvent valueForKey:@"price"] objectAtIndex:0] stringValue];
+    if ([self.currentEvent valueForKey:@"price"] != 0) {
+        self.cashAmountField.text = [[self.currentEvent valueForKey:@"price"] stringValue];
     }
 }
 

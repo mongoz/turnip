@@ -8,17 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HostDetailsViewController : UIViewController
+@interface HostDetailsViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *event;
 @property (nonatomic, strong) NSArray *data;
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 
-@property (strong, nonatomic) IBOutlet UIButton *nextImageButton;
-
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;

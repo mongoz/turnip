@@ -6,10 +6,11 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
+#import "ParseErrorHandlingController.h"
 #import "MapViewController.h"
 #import "ThrowViewController.h"
+#import "EventDetailsViewController.h"
 #import "FindViewController.h"
-#import "DetailViewController.h"
 #import "Constants.h"
 #import "MapMarker.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -48,12 +49,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipPartyThrownNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasChanged:) name:TurnipEventDeletedNotification object:nil];
     
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
-    shadow.shadowOffset = CGSizeMake(0, 1);
-    
-    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont fontWithName:@"LemonMilk" size:38.0], NSFontAttributeName, nil]];
-    self.navigationItem.title = @"Turnip";
+    UIImage *image = [UIImage imageNamed:@"turnip.png"];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
     
     if (_locationManager == nil) {
         _locationManager = [[CLLocationManager alloc] init];
@@ -141,7 +138,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
-            NSLog(@"Error in geo query!: %@", error);
+            [ParseErrorHandlingController handleParseError:error];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^ {
                  [self createMarkerObject:objects];
@@ -164,7 +161,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
-            NSLog(@"Error in geo query!: %@", error);
+            [ParseErrorHandlingController handleParseError:error];
         } else {
            [self createPublicMarkerObject:objects];
         }
@@ -187,7 +184,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
-            NSLog(@"Error in geo query!: %@", error);
+            [ParseErrorHandlingController handleParseError:error];
         } else {
             [self createPublicMarkerObject:objects];
         }
@@ -371,11 +368,11 @@
             UINavigationController *navController = segue.destinationViewController;
                     NSLog(@"Sender: %@", sender);
             
-            DetailViewController *details = [navController.viewControllers objectAtIndex: 1];
+            EventDetailsViewController *details = [navController.viewControllers objectAtIndex: 1];
             details.objectId = id;
         }
         
-         DetailViewController *destViewController = segue.destinationViewController;
+         EventDetailsViewController *destViewController = segue.destinationViewController;
         destViewController.objectId = id;
     }
     
@@ -508,6 +505,8 @@
             if(!error) {
                 //Save to core data
                 [self saveToCoreData:object];
+            } else {
+                [ParseErrorHandlingController handleParseError:error];
             }
         }];
     }

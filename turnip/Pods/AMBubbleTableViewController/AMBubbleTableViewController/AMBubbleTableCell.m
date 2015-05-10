@@ -12,12 +12,6 @@
 
 @interface AMBubbleTableCell ()
 
-@property (nonatomic, weak)   NSDictionary* options;
-@property (nonatomic, strong) UITextView*	textView;
-@property (nonatomic, strong) UIImageView*	imageBackground;
-@property (nonatomic, strong) UILabel*		labelUsername;
-@property (nonatomic, strong) UIView<AMBubbleAccessory>*		bubbleAccessory;
-
 @end
 
 @implementation AMBubbleTableCell
@@ -200,6 +194,11 @@
 	[self.textView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
 	[self.textView setText:nil];
 	[self.textView setText:text];
+}
+
+-(UIImageView *)avatarImageView
+{
+    return self.bubbleAccessory.imageAvatar;
 }
 
 

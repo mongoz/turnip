@@ -8,7 +8,6 @@
 
 #import "FindViewController.h"
 #import "EventDetailsViewController.h"
-#import "DetailViewController.h"
 #import "FindTableCell.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>

@@ -40,7 +40,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     [self.navigationItem setHidesBackButton:YES animated:YES];
-    [self.navigationItem setHidesBackButton:YES];
     
     if ([self.currentEvent count] == 0) {
         self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
@@ -150,7 +149,9 @@
 - (BOOL) checkInput {
     return ([self.titleField.text isEqual: @""] ||
             [self.aboutField.text isEqual: @"About..."] ||
-            [self.locationField.text isEqual: @""]);
+            [self.locationField.text isEqual: @""] ||
+            self.placemark == nil ||
+            self.eventLocation == nil);
 }
 
 
@@ -256,8 +257,7 @@
             // Process the placemark.
             self.eventLocation = aPlacemark.location;
             self.placemark = [placemarks lastObject];
-            
-            NSLog(@"placemark: %@", [placemarks lastObject]);
+        
         }
     }];
 }
@@ -293,6 +293,18 @@
         }
     }
     else {
+        NSLog(@"placemark? %@", self.placemark);
+        NSLog(@"address: %@", self.eventLocation);
+        if (self.placemark == nil) {
+            NSLog(@"derp");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid address"
+                                                            message:@"The address you entered is invalid please double check it."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        
         if (self.titleField.text.length == 0) {
             self.titleField.layer.cornerRadius = 8.0f;
             self.titleField.layer.masksToBounds = YES;
@@ -318,8 +330,6 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"hostDetailsSegue"]) {
-        
-       // UINavigationController *navController = segue.destinationViewController;
         
         HostDetailsViewController *destViewController = (HostDetailsViewController *) segue.destinationViewController;
         

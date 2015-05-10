@@ -66,6 +66,11 @@
     [Parse setApplicationId:@"CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64"
                   clientKey:@"UWt8D4lmGKO6Yr2axtpq68aJitE4Iy4ceH7A10GW"];
     
+    // [Parse setApplicationId:@"SfQvQqR6vQvkluA56LfqKl2qrkd32xKWcfoMoWng"
+     //             clientKey:@"8hG06KY34D9hH8Ll079cQZPhVHWdC3dCBuiFPwiN"];
+    
+    [PFUser enableRevocableSessionInBackground];
+    
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
@@ -104,10 +109,10 @@
     if ([reachability isReachable]) {
         if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
             // Present map straight-away
+            
             if ([[PFUser currentUser][@"TOS"] isEqualToString:@"True"]) {
                 [self presentMapViewControllerAnimated:NO];
             } else {
-                NSLog(@"false");
                 [self presentAcceptTosViewController];
             }
 

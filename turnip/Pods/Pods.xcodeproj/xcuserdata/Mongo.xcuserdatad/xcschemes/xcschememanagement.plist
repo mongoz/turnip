@@ -19,12 +19,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-turnip-Facebook-iOS-SDK.xcscheme</key>
+		<key>Pods-turnip-FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-turnip-Google-Maps-iOS-SDK.xcscheme</key>
+		<key>Pods-turnip-FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-turnip-FBSDKShareKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -67,62 +72,67 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1205178018298CFEC07602E4</key>
+		<key>28F0EFEAAAA5BEEC447D9212</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>12D09058E32C5174BFFDA4F3</key>
+		<key>5AC52324433956FDCCB701D3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>166E0DEB59F628444FE85FE9</key>
+		<key>67BE7FBAB610C9881B20941E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3312198F9AA9AE32938724AF</key>
+		<key>8E675823EB5E1779781430B4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>341C0567076AFBB66CE819B9</key>
+		<key>9038E194D9399BD38D62EA42</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>41B98140113E8ED43C8169C5</key>
+		<key>9DEE04C3BD9C3F74868FBA07</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>60FCF0AC8ACCC47AB677BD50</key>
+		<key>9F2337BDB9284FC84708F458</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A2E3E6E328B99F0FEE05F81</key>
+		<key>B2292906F9A75120F3C5AE8B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E24835484FB76F158E7C77D2</key>
+		<key>B6343415A0A2916DCE0FCF4D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E406CE774EA18B842E172E67</key>
+		<key>C548BB821D59B2DE604AEAD6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F594EF4506920BA06D00AC61</key>
+		<key>C7661E085CF3351D7EE5D37D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD0E1E216CB9A102B62E2F95</key>
+		<key>D226E06F79D3D7F82534DB4E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC1657DDE07BB6D1F66F3398</key>
 		<dict>
 			<key>primary</key>
 			<true/>

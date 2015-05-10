@@ -34,8 +34,9 @@
 }
 
 - (IBAction)facebookButton:(id)sender {
-    FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc] initWithAppLinkURL:[NSURL URLWithString:@"https://fb.me/910852172311191"]];
-    
+    FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc] init];
+    content.appLinkURL = [NSURL URLWithString:@"https://fb.me/910852172311191"];
+  
     content.previewImageURL = [NSURL URLWithString:@"http://www.turnipapp.com/invite.png"];
     
     [FBSDKAppInviteDialog showWithContent:content delegate:self];

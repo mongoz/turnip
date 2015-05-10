@@ -10,11 +10,12 @@
 		1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */; };
 		1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */; };
 		1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */; };
+		1A2AA2AD1AFF192D007010E9 /* camera placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2AC1AFF192D007010E9 /* camera placeholder.png */; };
+		1A2AA2BA1AFF3BA6007010E9 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2AA2B91AFF3BA6007010E9 /* Accelerate.framework */; };
+		1A2AA2C01AFF3BE3007010E9 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */; };
 		1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */; };
 		1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */; };
 		1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC41AA67836004F55B4 /* ScannerViewController.m */; };
-		1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */; };
-		1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8626171A7A321700AF63B9 /* SWRevealViewController.m */; };
 		1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626251A7B15B400AF63B9 /* ZW4QC.png */; };
 		1A8A84851AF489E9002A75AF /* qrcircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84841AF489E9002A75AF /* qrcircle.png */; };
 		1A8A84871AF718AC002A75AF /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84861AF718AC002A75AF /* add.png */; };
@@ -48,13 +49,16 @@
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
 		1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1D1A860CD100C0A617 /* TicketViewController.m */; };
 		1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */; };
+		1ADB35991AF976EA0075984F /* ParseErrorHandlingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB35981AF976EA0075984F /* ParseErrorHandlingController.m */; };
+		1ADB359C1AF9804D0075984F /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB359B1AF9804D0075984F /* SWRevealViewController.m */; };
+		1ADB359F1AFD85880075984F /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB359E1AFD85880075984F /* logo.png */; };
+		1ADB35A71AFEAD8F0075984F /* turnip.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB35A61AFEAD8F0075984F /* turnip.png */; };
 		1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF2E1AAE5AA90054197C /* EditViewController.m */; };
 		1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */; };
 		1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF361AB346880054197C /* ReachabilityManager.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
 		1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB81A74ED9E00B2EABE /* LaunchScreen.xib */; };
 		1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */; };
-		1AFD3FE21A74ED9E00B2EABE /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC21A74ED9E00B2EABE /* DetailViewController.m */; };
 		1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC41A74ED9E00B2EABE /* LaunchScreen.strings */; };
 		1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */; };
 		1AFD3FE51A74ED9E00B2EABE /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC91A74ED9E00B2EABE /* FindViewController.m */; };
@@ -89,22 +93,21 @@
 
 /* Begin PBXFileReference section */
 		128F4766B166E2108280E1E6 /* Pods-turnip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.debug.xcconfig"; sourceTree = "<group>"; };
-		1A1B32141A9E76490096F2DF /* TurnipCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipCustomTabBarViewController.h; sourceTree = "<group>"; };
 		1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnipCustomTabBarViewController.m; sourceTree = "<group>"; };
 		1A1B32171AA05E090096F2DF /* NotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTableViewCell.h; sourceTree = "<group>"; };
 		1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
 		1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerShapeView.h; sourceTree = "<group>"; };
 		1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerShapeView.m; sourceTree = "<group>"; };
+		1A2AA2AC1AFF192D007010E9 /* camera placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera placeholder.png"; sourceTree = "<group>"; };
+		1A2AA2B91AFF3BA6007010E9 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		1A2AA2BE1AFF3BE3007010E9 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThrowNextViewController.h; sourceTree = "<group>"; };
 		1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThrowNextViewController.m; sourceTree = "<group>"; };
 		1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarTableViewController.h; sourceTree = "<group>"; };
 		1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarTableViewController.m; sourceTree = "<group>"; };
 		1A54AEC31AA67836004F55B4 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewController.h; sourceTree = "<group>"; };
 		1A54AEC41AA67836004F55B4 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewController.m; sourceTree = "<group>"; };
-		1A6B4A261A94A82000DA8928 /* DetailSidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailSidebarTableViewController.h; sourceTree = "<group>"; };
-		1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailSidebarTableViewController.m; sourceTree = "<group>"; };
-		1A8626161A7A321700AF63B9 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
-		1A8626171A7A321700AF63B9 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		1A8626251A7B15B400AF63B9 /* ZW4QC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZW4QC.png; sourceTree = "<group>"; };
 		1A8A84841AF489E9002A75AF /* qrcircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcircle.png; sourceTree = "<group>"; };
 		1A8A84861AF718AC002A75AF /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
@@ -156,6 +159,13 @@
 		1ABABC1D1A860CD100C0A617 /* TicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketViewController.m; sourceTree = "<group>"; };
 		1AD8BA101AC5C3610018C383 /* AcceptToSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptToSViewController.h; sourceTree = "<group>"; };
 		1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptToSViewController.m; sourceTree = "<group>"; };
+		1ADB35971AF976EA0075984F /* ParseErrorHandlingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseErrorHandlingController.h; sourceTree = "<group>"; };
+		1ADB35981AF976EA0075984F /* ParseErrorHandlingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseErrorHandlingController.m; sourceTree = "<group>"; };
+		1ADB359A1AF9804D0075984F /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		1ADB359B1AF9804D0075984F /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		1ADB359D1AFA7ED60075984F /* TurnipCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnipCustomTabBarViewController.h; sourceTree = "<group>"; };
+		1ADB359E1AFD85880075984F /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		1ADB35A61AFEAD8F0075984F /* turnip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnip.png; sourceTree = "<group>"; };
 		1ADEBF2D1AAE5AA90054197C /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		1ADEBF2E1AAE5AA90054197C /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNextViewController.h; sourceTree = "<group>"; };
@@ -169,8 +179,6 @@
 		1AFD3FBE1A74ED9E00B2EABE /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimePicker.h; sourceTree = "<group>"; };
 		1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimePicker.m; sourceTree = "<group>"; };
-		1AFD3FC11A74ED9E00B2EABE /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		1AFD3FC21A74ED9E00B2EABE /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		1AFD3FC51A74ED9E00B2EABE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = LaunchScreen.strings; sourceTree = "<group>"; };
 		1AFD3FC61A74ED9E00B2EABE /* FindTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindTableCell.h; sourceTree = "<group>"; };
 		1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTableCell.m; sourceTree = "<group>"; };
@@ -208,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A2AA2BA1AFF3BA6007010E9 /* Accelerate.framework in Frameworks */,
 				1AFD403A1A74F89600B2EABE /* Accounts.framework in Frameworks */,
 				1AFD40381A74F89100B2EABE /* Social.framework in Frameworks */,
 				1AFD402F1A74F26700B2EABE /* libsqlite3.dylib in Frameworks */,
@@ -267,13 +276,13 @@
 				1AFD3FB71A74ED9E00B2EABE /* Base.lproj */,
 				1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */,
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
-				1A1B32141A9E76490096F2DF /* TurnipCustomTabBarViewController.h */,
+				1ADB35981AF976EA0075984F /* ParseErrorHandlingController.m */,
+				1ADB35971AF976EA0075984F /* ParseErrorHandlingController.h */,
+				1ADB359D1AFA7ED60075984F /* TurnipCustomTabBarViewController.h */,
 				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
 				1AFD3FBE1A74ED9E00B2EABE /* Constants.h */,
 				1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */,
 				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
-				1AFD3FC11A74ED9E00B2EABE /* DetailViewController.h */,
-				1AFD3FC21A74ED9E00B2EABE /* DetailViewController.m */,
 				1AA68CFA1AE71D28005A9D09 /* HostDetailsViewController.h */,
 				1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */,
 				1AA469E11AE9B03400D5BA08 /* EventDetailsViewController.h */,
@@ -312,8 +321,6 @@
 				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
 				1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */,
 				1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */,
-				1A6B4A261A94A82000DA8928 /* DetailSidebarTableViewController.h */,
-				1A6B4A271A94A82000DA8928 /* DetailSidebarTableViewController.m */,
 				1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */,
 				1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */,
 				1ABABC191A839BFB00C0A617 /* NotificationViewController.h */,
@@ -343,9 +350,11 @@
 		1AA179F11A74E3D30061CA3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1A2AA2BE1AFF3BE3007010E9 /* FXBlurView.h */,
+				1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */,
 				1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */,
-				1A8626161A7A321700AF63B9 /* SWRevealViewController.h */,
-				1A8626171A7A321700AF63B9 /* SWRevealViewController.m */,
+				1ADB359A1AF9804D0075984F /* SWRevealViewController.h */,
+				1ADB359B1AF9804D0075984F /* SWRevealViewController.m */,
 				1AFD40471A751F2200B2EABE /* MBProgressHUD.h */,
 				1AFD40481A751F2200B2EABE /* MBProgressHUD.m */,
 				1AFD403B1A74F94900B2EABE /* Info.plist */,
@@ -393,6 +402,7 @@
 		1AFD3FF01A74EDA200B2EABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1ADB359E1AFD85880075984F /* logo.png */,
 				1A8A84881AF718BA002A75AF /* delete.png */,
 				1A8A84891AF718BA002A75AF /* edit.png */,
 				1A8A848A1AF718BA002A75AF /* scanner.png */,
@@ -403,10 +413,12 @@
 				1A9F1DB21AE32DDF00CC4E6A /* request2.png */,
 				1A9F1DAE1AE32DD100CC4E6A /* go.png */,
 				1A9E371C1AEE231D000802C3 /* arrow.png */,
+				1ADB35A61AFEAD8F0075984F /* turnip.png */,
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
 				1A8A84841AF489E9002A75AF /* qrcircle.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
+				1A2AA2AC1AFF192D007010E9 /* camera placeholder.png */,
 				1A8626251A7B15B400AF63B9 /* ZW4QC.png */,
 			);
 			name = Resources;
@@ -415,6 +427,7 @@
 		1AFD40301A74F2D600B2EABE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A2AA2B91AFF3BA6007010E9 /* Accelerate.framework */,
 				1ADEBF331AB265480054197C /* SystemConfiguration.framework */,
 				1AFD40391A74F89600B2EABE /* Accounts.framework */,
 				1AFD40371A74F89100B2EABE /* Social.framework */,
@@ -521,9 +534,11 @@
 				1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */,
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
 				1A9F1DB31AE32DDF00CC4E6A /* message.png in Resources */,
+				1ADB35A71AFEAD8F0075984F /* turnip.png in Resources */,
 				1A8A84871AF718AC002A75AF /* add.png in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
+				1A2AA2AD1AFF192D007010E9 /* camera placeholder.png in Resources */,
 				1A9E371D1AEE231D000802C3 /* arrow.png in Resources */,
 				1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */,
 				1A9F1DAF1AE32DD100CC4E6A /* go.png in Resources */,
@@ -534,6 +549,7 @@
 				1A9F1DB51AE32DDF00CC4E6A /* request2.png in Resources */,
 				1A8A848B1AF718BA002A75AF /* delete.png in Resources */,
 				1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */,
+				1ADB359F1AFD85880075984F /* logo.png in Resources */,
 				1A8A84851AF489E9002A75AF /* qrcircle.png in Resources */,
 				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
@@ -561,7 +577,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -601,10 +617,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */,
+				1ADB359C1AF9804D0075984F /* SWRevealViewController.m in Sources */,
+				1ADB35991AF976EA0075984F /* ParseErrorHandlingController.m in Sources */,
 				1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */,
 				1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */,
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
-				1A6B4A281A94A82000DA8928 /* DetailSidebarTableViewController.m in Sources */,
 				1AA179F41A74E3D30061CA3E /* main.m in Sources */,
 				1AA011991AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m in Sources */,
 				1AA0668F1AC1045B008A5A11 /* ConversationViewController.m in Sources */,
@@ -626,9 +643,9 @@
 				1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */,
 				1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */,
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
-				1A8626181A7A321700AF63B9 /* SWRevealViewController.m in Sources */,
 				1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */,
 				1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */,
+				1A2AA2C01AFF3BE3007010E9 /* FXBlurView.m in Sources */,
 				1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
 				1AA68CFC1AE71D28005A9D09 /* HostDetailsViewController.m in Sources */,
@@ -638,7 +655,6 @@
 				1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */,
 				1AA469E31AE9B03400D5BA08 /* EventDetailsViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,
-				1AFD3FE21A74ED9E00B2EABE /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

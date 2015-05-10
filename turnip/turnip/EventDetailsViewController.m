@@ -22,7 +22,6 @@
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSArray *accepted;
 
-@property (nonatomic, strong) NSString *objectId;
 
 @end
 
@@ -145,6 +144,7 @@
                     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                         
                         self.accepted = [[NSArray alloc] initWithArray:objects];
+                        [self.tableView reloadData];
                         [self.goingButton setTitle:@([self.accepted count]).stringValue forState:UIControlStateNormal];
                         BOOL found = NO;
                     
@@ -195,33 +195,6 @@
     }];
 }
 
-- (void) queryForAcceptedUsers {
-    PFQuery *query = [PFQuery queryWithClassName: TurnipParsePostClassName];
-    
-    if ([self.accepted count] == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
-    [query getObjectInBackgroundWithId: self.objectId block:^(PFObject *object, NSError *error) {
-        if(error) {
-            NSLog(@"Error in query!: %@", error);
-        }else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                PFRelation *relation = [object relationForKey:@"accepted"];
-                PFQuery *query = [relation query];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    [self.refreshControl endRefreshing];
-                    if([objects count] == 0) {
-                    } else {
-                        NSLog(@"object: %@", objects);
-                        self.accepted = [[NSArray alloc] initWithArray:objects];
-                     //   [[self tableView] reloadData];
-                    }
-                }];
-            });
-        }
-    }];
-}
 
 - (void) downloadImages: (PFObject *) data {
     // Set up the image we want to scroll & zoom and add it to the scroll view
@@ -302,6 +275,9 @@
 
 - (void) updateUI: (PFObject *) data {
     
+    self.attendingView.dynamic = YES;
+    self.attendingView.blurRadius = 5;
+    
     CALayer *borderLayer = [CALayer layer];
     CGRect borderFrame = CGRectMake(-5, -5, (self.profileImage.frame.size.width + 10), (self.profileImage.frame.size.height + 10));
     [borderLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
@@ -309,13 +285,21 @@
     [borderLayer setBorderWidth:5];
     [borderLayer setBorderColor:[[UIColor whiteColor] CGColor]];
     [self.profileImage.layer addSublayer:borderLayer];
+    
     NSArray *name = [[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"name"] componentsSeparatedByString: @" "];
     NSString *age = @([self calculateAge:[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"birthday"]]).stringValue;
     [[data objectForKey:TurnipParsePostUserKey] valueForKey:@"birthday"];
-    
     NSString *nameAge = [NSString stringWithFormat:@"%@ - %@", [name objectAtIndex:0], age];
     
-    self.nameLabel.text = nameAge;
+    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString: nameAge];
+    
+    NSRange range = [nameAge rangeOfString:[name objectAtIndex:0]];
+    
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.549 green:0 blue:0.102 alpha:1] range:range];
+    
+    [self.nameLabel setAttributedText:string];
+    
+   /// self.nameLabel.text = nameAge;
     self.aboutLabel.numberOfLines = 0;
     self.aboutLabel.text = [data objectForKey:TurnipParsePostTextKey];
     [self.aboutLabel sizeToFit];
@@ -477,6 +461,11 @@
 }
 
 - (IBAction)goingButton:(id)sender {
+    self.attendingView.hidden = NO;
+}
+
+- (IBAction)closeAttendingViewButton:(id)sender {
+    self.attendingView.hidden = YES;
 }
 
 - (IBAction)attendButton:(id)sender {
@@ -508,63 +497,64 @@
 
 }
 
-//#pragma mark - TableView Delegates
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-//    
-//    if([self.accepted count] > 0) {
-//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//        self.tableView.backgroundView = nil;
-//        return 1;
-//    } else {
-//        // Display a message when the table is empty
-//        messageLabel.text = @"";
-//        messageLabel.textColor = [UIColor blackColor];
-//        messageLabel.numberOfLines = 0;
-//        messageLabel.textAlignment = NSTextAlignmentCenter;
-//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
-//        [messageLabel sizeToFit];
-//        
-//        self.tableView.backgroundView = messageLabel;
-//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        
-//    }
-//    return 0;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    // Return the number of rows in the section.
-//    return [self.accepted count];
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    static NSString *tableIdentifier = @"acceptedCell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
-//    }
-//    
-//    cell.textLabel.text = [[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row];
-//    cell.imageView.image = [UIImage imageNamed:@"profile"];
-//    
-//    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.accepted valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
-//    
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-//    
-//    // Run network request asynchronously
-//    [NSURLConnection sendAsynchronousRequest:urlRequest
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:
-//     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//         if (connectionError == nil && data != nil) {
-//             // Set the image in the header imageView
-//             cell.imageView.image = [UIImage imageWithData:data];
-//         }
-//     }];
-//    
-//    return cell;
-//}
+#pragma mark - TableView Delegates
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    if([self.accepted count] > 0) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.backgroundView = nil;
+        return 1;
+    } else {
+        // Display a message when the table is empty
+        messageLabel.text = @"";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+    }
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return [self.accepted count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *tableIdentifier = @"acceptedCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
+    }
+    
+    cell.textLabel.text = [[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:@"profile"];
+    
+    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.accepted valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+    
+    // Run network request asynchronously
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         if (connectionError == nil && data != nil) {
+             // Set the image in the header imageView
+             cell.imageView.image = [UIImage imageWithData:data];
+         }
+     }];
+    
+    return cell;
+}
+
 
 @end

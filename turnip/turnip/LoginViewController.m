@@ -88,9 +88,10 @@
                     
                     [PFUser currentUser][@"bio"] = @"Hi, I really like to party";
                     [PFUser currentUser][@"name"] = [result objectForKey:@"name"];
+                    [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
+                    [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
                     [PFUser currentUser][@"facebookId"] = [result objectForKey:@"id"];
                     [PFUser currentUser][@"TOS"] = @"False";
-                    NSLog(@"birthday: %@", [result objectForKey:@"birthday"]);
                     [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -99,7 +100,6 @@
                 }
             }];
         }else {
-            NSLog(@"token: %@", [FBSDKAccessToken currentAccessToken]);
             // Make a call to get user info
             FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
             [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -112,6 +112,12 @@
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveEventually];
+                    
+                    [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
+                    [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
+                    [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
+                    
+                    [[PFUser currentUser] saveInBackground];
                     
                     if ([[PFUser currentUser][@"TOS"] isEqualToString:@"False"]) {
                         [self presentTosView];

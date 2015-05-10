@@ -91,6 +91,8 @@
 {
 	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
 																						action:@selector(handleTapGesture:)];
+    
+    
 	// Table View
     CGRect tableFrame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height - kInputHeight);
 	self.tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
@@ -222,6 +224,13 @@
 			UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
 			[cell addGestureRecognizer:longPressGesture];
 		}
+        
+        UITapGestureRecognizer *avatarTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleAvatarTapGesture:)];
+        
+        cell.avatarImageView.userInteractionEnabled = YES;
+        cell.avatarImageView.tag = indexPath.row;
+        [cell.avatarImageView addGestureRecognizer:avatarTapGesture];
+        
 	}
 	
 	// iPad cells are set by default to 320 pixels, this fixes the quirk
@@ -277,6 +286,12 @@
 			[self.delegate longPressedCellAtIndexPath:[NSIndexPath indexPathForRow:sender.view.tag inSection:0] withFrame:sender.view.frame];
 		}
 	}
+}
+
+- (void) handleAvatarTapGesture:(UITapGestureRecognizer *) sender {
+    if ([self.delegate respondsToSelector:@selector(avatarTapAtIndexPath:)]) {
+        [self.delegate avatarTapAtIndexPath:[NSIndexPath indexPathForRow:sender.view.tag inSection:0]];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DetailViewController.h"
+#import "EventDetailsViewController.h"
 
 @import AVFoundation;
 

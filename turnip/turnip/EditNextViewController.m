@@ -115,21 +115,19 @@
 }
 
 - (void) setupViews {
-    self.imageOne.image = [[self.currentEvent valueForKey:@"image1"] objectAtIndex:0];
-    if ([[self.currentEvent valueForKey:@"image2"] objectAtIndex:0] != [NSNull null]) {
-        self.imageTwo.image = [[self.currentEvent valueForKey:@"image2"] objectAtIndex:0];
+    self.imageOne.image = [self.currentEvent valueForKey:@"image1"] ;
+    if ([self.currentEvent valueForKey:@"image2"] != [NSNull null]) {
+        self.imageTwo.image = [self.currentEvent valueForKey:@"image2"];
     }
-    if ([[self.currentEvent valueForKey:@"image3"] objectAtIndex:0] != [NSNull null]) {
-       self.imageThree.image = [[self.currentEvent valueForKey:@"image3"] objectAtIndex:0];
+    if ([self.currentEvent valueForKey:@"image3"] != [NSNull null]) {
+       self.imageThree.image = [self.currentEvent valueForKey:@"image3"];
     }
-   
-    self.capacityInputField.text = [[[self.currentEvent valueForKey:@"capacity"] objectAtIndex:0] stringValue];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MM/dd hh:mm a";
     
-    self.dateInputField.text = [dateFormatter stringFromDate: [[self.currentEvent valueForKey:@"date"] objectAtIndex:0]];
-    self.endTimeDate.text = [[self.currentEvent valueForKey:@"endTime"] objectAtIndex:0];
+    self.dateInputField.text = [dateFormatter stringFromDate: [self.currentEvent valueForKey:@"date"] ];
+    self.endTimeDate.text = [self.currentEvent valueForKey:@"endTime"];
 }
 
 

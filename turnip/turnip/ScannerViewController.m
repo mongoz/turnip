@@ -5,7 +5,7 @@
 //  Created by Per on 2/13/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
-#import "DetailViewController.h"
+#import "EventDetailsViewController.h"
 #import "ScannerViewController.h"
 #import "ScannerShapeView.h"
 @import AVFoundation;
@@ -23,8 +23,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
-    NSLog(@"nav: %@", self.navigationController.viewControllers);
+
     
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES];

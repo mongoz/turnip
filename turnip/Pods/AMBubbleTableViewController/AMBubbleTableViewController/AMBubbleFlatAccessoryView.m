@@ -11,11 +11,6 @@
 
 @interface AMBubbleFlatAccessoryView ()
 
-@property (nonatomic, weak)   NSDictionary* options;
-@property (nonatomic, strong) UILabel*		labelTimestamp;
-@property (nonatomic, strong) UIImageView*	imageCheck;
-@property (nonatomic, strong) UIImageView*	imageAvatar;
-
 @end
 
 @implementation AMBubbleFlatAccessoryView

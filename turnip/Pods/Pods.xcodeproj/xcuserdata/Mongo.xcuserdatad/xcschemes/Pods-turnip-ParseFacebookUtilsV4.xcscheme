@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0630"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E24835484FB76F158E7C77D2"
+               BlueprintIdentifier = "28F0EFEAAAA5BEEC447D9212"
                BuildableName = "libPods-turnip-ParseFacebookUtilsV4.a"
                BlueprintName = "Pods-turnip-ParseFacebookUtilsV4"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -39,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E24835484FB76F158E7C77D2"
-            BuildableName = "libPods-turnip-ParseFacebookUtilsV4.a"
-            BlueprintName = "Pods-turnip-ParseFacebookUtilsV4"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

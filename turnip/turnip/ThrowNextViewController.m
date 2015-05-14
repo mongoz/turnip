@@ -29,6 +29,8 @@
 @property (nonatomic, strong) NSArray *currentEvent;
 @property (nonatomic, strong) NSString *currentEventId;
 
+@property (nonatomic, strong) UIImage *image;
+
 @end
 
 @implementation ThrowNextViewController
@@ -46,6 +48,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.image = [UIImage imageNamed:@"camera placeholder.png"];
     
     [self setupView];
     [self setupPickerViews];
@@ -264,18 +268,15 @@
                                                     otherButtonTitles: @"Photo library", @"Camera",@"Remove Image", nil];
     [actionSheet showInView:self.view];
     
-    self.imageTwo.hidden = NO;
 }
 
 - (IBAction)imageTwoTapHandler:(UITapGestureRecognizer *)sender {
-    self.lastImagePressed = self.imageTwo;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle: nil
                                                              delegate: self
                                                     cancelButtonTitle: @"Cancel"
                                                destructiveButtonTitle: nil
                                                     otherButtonTitles: @"Photo library", @"Camera",@"Remove Image", nil];
     [actionSheet showInView:self.view];
-    self.imageThree.hidden = NO;
     
 }
 
@@ -302,6 +303,7 @@
             [self takeNewPhotoFromCamera];
             break;
         case 2:
+            NSLog(@"self.last: %@", self.lastImagePressed);
             self.lastImagePressed.image = nil;
             break;
         default:
@@ -343,9 +345,20 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    UIImageView *temp;
+    
+    NSLog(@"lastImagePressed %@", self.lastImagePressed);
+    NSLog(@"temp %@", temp);
     self.lastImagePressed.image = chosenImage;
     
+    if ([temp isEqual:self.lastImagePressed]) {
+        NSLog(@"remove");
+        [self.images removeLastObject];
+    }
+
     [self.images addObject:chosenImage];
+    
+    temp = self.lastImagePressed;
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
@@ -443,9 +456,6 @@
                                    longitude: currentCoordinate.longitude
              ];
             
-            NSLog(@"currentPoint: %@", currentPoint);
-            NSLog(@"placemark: %@", self.placemark);
-            
             PFObject *postObject = [PFObject objectWithClassName: TurnipParsePostClassName];
             postObject[TurnipParsePostUserKey] = [PFUser currentUser];
             postObject[TurnipParsePostTitleKey] = self.name;
@@ -517,7 +527,6 @@
                         self.HUD.labelText = @"Completed!";
                         
                         [[postObject objectForKey:@"neighbourhood"] fetchIfNeeded];
-                        NSLog(@"%@", [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"]);
                         [self saveToCoreData:postObject];
                         
                         [self.HUD hide:YES afterDelay:5];

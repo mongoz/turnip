@@ -122,7 +122,7 @@
 }
 
 - (void) downloadImages {
-    // Set up the image we want to scroll & zoom and add it to the scroll view
+    // Set up the image we want to scroll and add it to the scroll view
     
     for (int i = 1; i <= 3; i++) {
         NSString *imageName = [NSString stringWithFormat:@"image%d",i];
@@ -344,20 +344,23 @@
     }
 }
 
-
 #pragma mark - Delete methods
 
 - (void) deleteFromParse {
-    PFObject *object = [PFObject objectWithoutDataWithClassName:@"Events" objectId: [[self.event valueForKey:@"objectId"] objectAtIndex:0]];
+    PFObject *object = [PFObject objectWithoutDataWithClassName:@"Events" objectId: [self.event valueForKey:@"objectId"] ];
     [object deleteInBackground];
 }
 
 - (void) deleteFromCoreData {
+
+    
+    NSArray *temp = [[NSArray alloc] initWithObjects:self.event, nil];
+    
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     
     NSError *error;
-    for (NSManagedObject *managedObject in self.event) {
+    for (NSManagedObject *managedObject in temp) {
         [context deleteObject:managedObject];
     }
     
@@ -399,6 +402,7 @@
         // If it's outside the range of what we have to display, then do nothing
         return;
     }
+    
     // Load an individual page, first seeing if we've already loaded it
     UIView *pageView = [self.pageViews objectAtIndex:page];
     if ((NSNull*)pageView == [NSNull null]) {
@@ -407,7 +411,7 @@
         frame.origin.y = 0.0f;
         
         UIImageView *newPageView = [[UIImageView alloc] initWithImage:[self.pageImages objectAtIndex:page]];
-        newPageView.contentMode = UIViewContentModeScaleAspectFill;
+        newPageView.contentMode = UIViewContentModeScaleAspectFit;
         newPageView.frame = frame;
         [self.scrollView addSubview:newPageView];
         [self.pageViews replaceObjectAtIndex:page withObject:newPageView];

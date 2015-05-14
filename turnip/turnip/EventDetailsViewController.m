@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
+#import "ParseErrorHandlingController.h"
 #import "EventDetailsViewController.h"
 #import "ProfileViewController.h"
 #import "MessagingViewController.h"
@@ -21,6 +22,8 @@
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSArray *accepted;
+
+@property (nonatomic, assign) BOOL userIsAccepted;
 
 
 @end
@@ -151,6 +154,7 @@
                         for (PFUser *user in objects) {
                             if ([[user objectId] isEqual:[PFUser currentUser].objectId]) {
                                 found = YES;
+                                self.userIsAccepted = YES;
                                 break;
                             }
                         }
@@ -178,8 +182,9 @@
                                 }
                             }];
                         } else {
+                            self.requestHolderImage.hidden = YES;
                             self.requestButton.hidden = YES;
-                            self.requestHolderImage.hidden = NO;
+                            self.unattendButton.hidden = NO;
                             // Initialize the refresh control.
 //                            [[self tableView] reloadData];
 //                            self.tableView.hidden = NO;
@@ -276,7 +281,8 @@
 - (void) updateUI: (PFObject *) data {
     
     self.attendingView.dynamic = YES;
-    self.attendingView.blurRadius = 5;
+    self.attendingView.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    
     
     CALayer *borderLayer = [CALayer layer];
     CGRect borderFrame = CGRectMake(-5, -5, (self.profileImage.frame.size.width + 10), (self.profileImage.frame.size.height + 10));
@@ -461,7 +467,10 @@
 }
 
 - (IBAction)goingButton:(id)sender {
-    self.attendingView.hidden = NO;
+
+    if (self.userIsAccepted || [[[[self.data valueForKey:@"user"] valueForKey:@"objectId"] objectAtIndex:0] isEqual:[PFUser currentUser].objectId]) {
+        self.attendingView.hidden = NO;
+    }
 }
 
 - (IBAction)closeAttendingViewButton:(id)sender {
@@ -491,10 +500,55 @@
             [notification saveInBackground];
             
             self.attendButton.hidden = YES;
-            self.requestHolderImage.hidden = NO;
+            self.unattendButton.hidden = NO;
         }
     }];
 
+}
+
+- (IBAction)unattendButton:(id)sender {
+    PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
+    
+    [query getObjectInBackgroundWithId:[[self.data valueForKey:TurnipParsePostIdKey] objectAtIndex:0] block:^(PFObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"Error in query: %@", error);
+        } else {
+            if (object != nil) {
+                PFRelation *relation = [object relationForKey:@"accepted"];
+                [relation removeObject:[PFUser currentUser]];
+                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error) {
+                        NSLog(@"Error in save %@",error);
+                    } else {
+                        NSLog(@"saved");
+                        self.unattendButton.hidden = YES;
+                        self.requestButton.hidden = NO;
+                        
+                        NSInteger index = [self.accepted indexOfObject:[PFUser currentUser]];
+                        
+                        NSLog(@"accepted: %lu", (unsigned long)index);
+                    }
+                }];
+            }
+        }
+    }];
+    
+    
+    PFQuery *queryNotification = [PFQuery queryWithClassName:@"Notifications"];
+    
+    [queryNotification whereKey:@"event" equalTo:[[self.data valueForKey:TurnipParsePostIdKey] objectAtIndex:0]];
+    [queryNotification whereKey:@"user" equalTo:[PFUser currentUser]];
+    
+    [queryNotification findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *object in objects) {
+                [object deleteEventually];
+            }
+        } else {
+            [ParseErrorHandlingController handleParseError:error];
+        }
+    }];
+    
 }
 
 #pragma mark - TableView Delegates
@@ -535,7 +589,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
-    cell.textLabel.text = [[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row];
+    NSArray *name = [[[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row] componentsSeparatedByString: @" "];
+    NSString *age = @([self calculateAge:[[self.accepted valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
+    [[self.accepted valueForKey:@"birthday"] objectAtIndex:indexPath.row];
+    NSString *nameAge = [NSString stringWithFormat:@"%@ - %@", [name objectAtIndex:0], age];
+
+    
+    cell.textLabel.text = nameAge;
     cell.imageView.image = [UIImage imageNamed:@"profile"];
     
     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [[self.accepted valueForKey:@"facebookId"] objectAtIndex:indexPath.row]]];

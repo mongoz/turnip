@@ -13,6 +13,7 @@
 		1A2AA2AD1AFF192D007010E9 /* camera placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2AC1AFF192D007010E9 /* camera placeholder.png */; };
 		1A2AA2BA1AFF3BA6007010E9 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2AA2B91AFF3BA6007010E9 /* Accelerate.framework */; };
 		1A2AA2C01AFF3BE3007010E9 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */; };
+		1A2AA2D01B0315BC007010E9 /* unattend.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2CF1B0315BC007010E9 /* unattend.png */; };
 		1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */; };
 		1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */; };
 		1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC41AA67836004F55B4 /* ScannerViewController.m */; };
@@ -102,6 +103,7 @@
 		1A2AA2B91AFF3BA6007010E9 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		1A2AA2BE1AFF3BE3007010E9 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		1A2AA2CF1B0315BC007010E9 /* unattend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unattend.png; sourceTree = "<group>"; };
 		1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThrowNextViewController.h; sourceTree = "<group>"; };
 		1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThrowNextViewController.m; sourceTree = "<group>"; };
 		1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarTableViewController.h; sourceTree = "<group>"; };
@@ -248,6 +250,127 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		1A2AA2C51B01DF74007010E9 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */,
+				1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */,
+				1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */,
+				1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		1A2AA2C61B01DFA1007010E9 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */,
+				1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */,
+				1AA0668D1AC1045B008A5A11 /* ConversationViewController.h */,
+				1AA0668E1AC1045B008A5A11 /* ConversationViewController.m */,
+				1AA066901AC3D0A7008A5A11 /* ConversationTableViewCell.h */,
+				1AA066911AC3D0A7008A5A11 /* ConversationTableViewCell.m */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		1A2AA2C71B01DFB8007010E9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1A9F1DAB1AE0FD0200CC4E6A /* ShareViewController.h */,
+				1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */,
+				1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */,
+				1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */,
+				1AA011971AD1E4ED003E7B76 /* ProfileImageCollectionViewController.h */,
+				1AA011981AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m */,
+				1AA0119A1AD22906003E7B76 /* profileAlbumCollectionViewCell.h */,
+				1AA0119B1AD22906003E7B76 /* profileAlbumCollectionViewCell.m */,
+				1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */,
+				1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */,
+				1A9FD9D21AB6DAB2000BF15C /* ToSViewController.h */,
+				1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		1A2AA2C81B01DFC8007010E9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */,
+				1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */,
+				1ABABC191A839BFB00C0A617 /* NotificationViewController.h */,
+				1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */,
+				1A1B32171AA05E090096F2DF /* NotificationTableViewCell.h */,
+				1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */,
+			);
+			name = Notification;
+			sourceTree = "<group>";
+		};
+		1A2AA2C91B01E010007010E9 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				1AA68CFA1AE71D28005A9D09 /* HostDetailsViewController.h */,
+				1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */,
+				1AA469E11AE9B03400D5BA08 /* EventDetailsViewController.h */,
+				1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */,
+			);
+			name = Details;
+			sourceTree = "<group>";
+		};
+		1A2AA2CA1B01E07A007010E9 /* Host */ = {
+			isa = PBXGroup;
+			children = (
+				1A54AEC31AA67836004F55B4 /* ScannerViewController.h */,
+				1A54AEC41AA67836004F55B4 /* ScannerViewController.m */,
+				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
+				1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */,
+				1A9D0D311A9D25020082550C /* TeammateTableViewController.h */,
+				1A9D0D321A9D25020082550C /* TeammateTableViewController.m */,
+				1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */,
+				1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */,
+				1ADEBF2D1AAE5AA90054197C /* EditViewController.h */,
+				1ADEBF2E1AAE5AA90054197C /* EditViewController.m */,
+				1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */,
+				1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */,
+				1AFD3FD91A74ED9E00B2EABE /* ThrowViewController.h */,
+				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
+				1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */,
+				1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */,
+			);
+			name = Host;
+			sourceTree = "<group>";
+		};
+		1A2AA2CB1B01E0A9007010E9 /* Find */ = {
+			isa = PBXGroup;
+			children = (
+				1AFD3FC61A74ED9E00B2EABE /* FindTableCell.h */,
+				1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */,
+				1AFD3FC81A74ED9E00B2EABE /* FindViewController.h */,
+				1AFD3FC91A74ED9E00B2EABE /* FindViewController.m */,
+			);
+			name = Find;
+			sourceTree = "<group>";
+		};
+		1A2AA2CD1B01E0D2007010E9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1AFD3FCC1A74ED9E00B2EABE /* LoginViewController.h */,
+				1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */,
+				1AD8BA101AC5C3610018C383 /* AcceptToSViewController.h */,
+				1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		1A2AA2CE1B01E0DA007010E9 /* Ticket */ = {
+			isa = PBXGroup;
+			children = (
+				1ABABC1C1A860CD100C0A617 /* TicketViewController.h */,
+				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
+			);
+			name = Ticket;
+			sourceTree = "<group>";
+		};
 		1AA179E51A74E3D30061CA3E = {
 			isa = PBXGroup;
 			children = (
@@ -276,71 +399,15 @@
 				1AFD3FB71A74ED9E00B2EABE /* Base.lproj */,
 				1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */,
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
-				1ADB35981AF976EA0075984F /* ParseErrorHandlingController.m */,
-				1ADB35971AF976EA0075984F /* ParseErrorHandlingController.h */,
-				1ADB359D1AFA7ED60075984F /* TurnipCustomTabBarViewController.h */,
-				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
-				1AFD3FBE1A74ED9E00B2EABE /* Constants.h */,
-				1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */,
-				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
-				1AA68CFA1AE71D28005A9D09 /* HostDetailsViewController.h */,
-				1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */,
-				1AA469E11AE9B03400D5BA08 /* EventDetailsViewController.h */,
-				1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */,
-				1A9FD9CF1AB6BEAF000BF15C /* MessagingViewController.h */,
-				1A9FD9D01AB6BEAF000BF15C /* MessagingViewController.m */,
-				1AA0668D1AC1045B008A5A11 /* ConversationViewController.h */,
-				1AA0668E1AC1045B008A5A11 /* ConversationViewController.m */,
-				1AA066901AC3D0A7008A5A11 /* ConversationTableViewCell.h */,
-				1AA066911AC3D0A7008A5A11 /* ConversationTableViewCell.m */,
-				1A9FD9D21AB6DAB2000BF15C /* ToSViewController.h */,
-				1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */,
-				1AFD3FC61A74ED9E00B2EABE /* FindTableCell.h */,
-				1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */,
-				1AFD3FC81A74ED9E00B2EABE /* FindViewController.h */,
-				1AFD3FC91A74ED9E00B2EABE /* FindViewController.m */,
-				1AFD3FCC1A74ED9E00B2EABE /* LoginViewController.h */,
-				1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */,
-				1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */,
-				1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */,
-				1A9F1DAB1AE0FD0200CC4E6A /* ShareViewController.h */,
-				1A9F1DAC1AE0FD0200CC4E6A /* ShareViewController.m */,
-				1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */,
-				1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */,
-				1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */,
-				1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */,
-				1AA011971AD1E4ED003E7B76 /* ProfileImageCollectionViewController.h */,
-				1AA011981AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m */,
-				1AA0119A1AD22906003E7B76 /* profileAlbumCollectionViewCell.h */,
-				1AA0119B1AD22906003E7B76 /* profileAlbumCollectionViewCell.m */,
-				1ADEBF2D1AAE5AA90054197C /* EditViewController.h */,
-				1ADEBF2E1AAE5AA90054197C /* EditViewController.m */,
-				1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */,
-				1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */,
-				1AFD3FD91A74ED9E00B2EABE /* ThrowViewController.h */,
-				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
-				1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */,
-				1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */,
-				1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */,
-				1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */,
-				1ABABC191A839BFB00C0A617 /* NotificationViewController.h */,
-				1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */,
-				1A1B32171AA05E090096F2DF /* NotificationTableViewCell.h */,
-				1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */,
-				1ABABC1C1A860CD100C0A617 /* TicketViewController.h */,
-				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
-				1A9D0D311A9D25020082550C /* TeammateTableViewController.h */,
-				1A9D0D321A9D25020082550C /* TeammateTableViewController.m */,
-				1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */,
-				1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */,
-				1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */,
-				1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */,
-				1A54AEC31AA67836004F55B4 /* ScannerViewController.h */,
-				1A54AEC41AA67836004F55B4 /* ScannerViewController.m */,
-				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
-				1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */,
-				1AD8BA101AC5C3610018C383 /* AcceptToSViewController.h */,
-				1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */,
+				1A2AA2C91B01E010007010E9 /* Details */,
+				1A2AA2C61B01DFA1007010E9 /* Message */,
+				1A2AA2CB1B01E0A9007010E9 /* Find */,
+				1A2AA2CD1B01E0D2007010E9 /* Login */,
+				1A2AA2CE1B01E0DA007010E9 /* Ticket */,
+				1A2AA2C51B01DF74007010E9 /* Map */,
+				1A2AA2C71B01DFB8007010E9 /* Profile */,
+				1A2AA2CA1B01E07A007010E9 /* Host */,
+				1A2AA2C81B01DFC8007010E9 /* Notification */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
@@ -350,6 +417,13 @@
 		1AA179F11A74E3D30061CA3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1AFD3FBE1A74ED9E00B2EABE /* Constants.h */,
+				1ADB35981AF976EA0075984F /* ParseErrorHandlingController.m */,
+				1ADB35971AF976EA0075984F /* ParseErrorHandlingController.h */,
+				1ADB359D1AFA7ED60075984F /* TurnipCustomTabBarViewController.h */,
+				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
+				1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */,
+				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
 				1A2AA2BE1AFF3BE3007010E9 /* FXBlurView.h */,
 				1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */,
 				1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */,
@@ -417,6 +491,7 @@
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A9AE4D31A8052D200AADDAA /* green.png */,
 				1A8A84841AF489E9002A75AF /* qrcircle.png */,
+				1A2AA2CF1B0315BC007010E9 /* unattend.png */,
 				1A9AE4D41A8052D200AADDAA /* red.png */,
 				1A2AA2AC1AFF192D007010E9 /* camera placeholder.png */,
 				1A8626251A7B15B400AF63B9 /* ZW4QC.png */,
@@ -536,6 +611,7 @@
 				1A9F1DB31AE32DDF00CC4E6A /* message.png in Resources */,
 				1ADB35A71AFEAD8F0075984F /* turnip.png in Resources */,
 				1A8A84871AF718AC002A75AF /* add.png in Resources */,
+				1A2AA2D01B0315BC007010E9 /* unattend.png in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
 				1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */,
 				1A2AA2AD1AFF192D007010E9 /* camera placeholder.png in Resources */,

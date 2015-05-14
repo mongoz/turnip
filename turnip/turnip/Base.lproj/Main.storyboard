@@ -42,8 +42,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="updateButton" destination="S06-5F-tuN" id="Yp7-7B-4HQ"/>
-                        <segue destination="NsP-zP-2s5" kind="show" identifier="mapToDetailsSegue" id="qQ6-T8-g9z"/>
                         <segue destination="EnW-aL-faH" kind="show" identifier="mapToListSegue" id="tiM-6A-tU9"/>
+                        <segue destination="g8r-dQ-90n" kind="show" identifier="mapToDetailsSegue" id="TyK-Zu-X3h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -171,6 +171,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="seU-CQ-uQf">
+                                <rect key="frame" x="22" y="69" width="180" height="108"/>
+                                <gestureRecognizers/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.BorderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="sFb-dT-6l7" appends="YES" id="nV1-jA-Pbv"/>
+                                </connections>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ydo-0i-CAg">
                                 <rect key="frame" x="210" y="69" width="180" height="108"/>
                                 <gestureRecognizers/>
@@ -183,20 +197,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="LGU-MS-0Tw" appends="YES" id="jue-EH-UGY"/>
-                                </connections>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="4DF-RU-ob6">
-                                <rect key="frame" x="398" y="69" width="180" height="108"/>
-                                <gestureRecognizers/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.BorderColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="M03-Mf-oS4" appends="YES" id="Vhe-Hu-Zbn"/>
                                 </connections>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date:     mm/dd  00.00 AM" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ja3-SI-Wae">
@@ -241,8 +241,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="seU-CQ-uQf">
-                                <rect key="frame" x="22" y="69" width="180" height="108"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="4DF-RU-ob6">
+                                <rect key="frame" x="398" y="69" width="180" height="108"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
@@ -252,7 +252,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="sFb-dT-6l7" appends="YES" id="nV1-jA-Pbv"/>
+                                    <outletCollection property="gestureRecognizers" destination="M03-Mf-oS4" appends="YES" id="Vhe-Hu-Zbn"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -731,6 +731,19 @@
                                                     <action selector="requestButton:" destination="g8r-dQ-90n" eventType="touchUpInside" id="pcT-zR-vtS"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vrs-nF-EYu" userLabel="unattend">
+                                                <rect key="frame" x="465" y="147" width="120" height="120"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="cf8-FC-vPV"/>
+                                                    <constraint firstAttribute="height" constant="120" id="htM-Ha-Ng7"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="unattend.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="unattendButton:" destination="g8r-dQ-90n" eventType="touchUpInside" id="48d-Ba-loj"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ijf-P4-RHB">
                                                 <rect key="frame" x="8" y="8" width="584" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -777,8 +790,10 @@
                                             <constraint firstAttribute="bottom" secondItem="b40-gR-2YN" secondAttribute="bottom" constant="-15" id="0QG-Oz-pCF"/>
                                             <constraint firstAttribute="trailing" secondItem="NSg-mO-Byh" secondAttribute="trailing" constant="15" id="3b0-3l-Uh3"/>
                                             <constraint firstAttribute="bottom" secondItem="NSg-mO-Byh" secondAttribute="bottom" constant="-15" id="6Sx-qO-0zB"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vrs-nF-EYu" secondAttribute="trailing" constant="15" id="IrH-Wc-pN6"/>
                                             <constraint firstAttribute="trailing" secondItem="Ijf-P4-RHB" secondAttribute="trailing" constant="8" id="Mb1-v6-qKR"/>
                                             <constraint firstAttribute="trailing" secondItem="zSl-ml-Br3" secondAttribute="trailing" constant="15" id="Mlu-RA-SDl"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vrs-nF-EYu" secondAttribute="bottom" constant="-15" id="RQi-kL-Ho4"/>
                                             <constraint firstAttribute="trailing" secondItem="b40-gR-2YN" secondAttribute="trailing" constant="15" id="Xhn-cK-P6V"/>
                                             <constraint firstAttribute="bottom" secondItem="uUr-AO-UMb" secondAttribute="bottom" constant="-15" id="dac-6h-rze"/>
                                             <constraint firstItem="Ijf-P4-RHB" firstAttribute="leading" secondItem="5R9-wp-CTD" secondAttribute="leading" constant="8" id="i71-8J-dIn"/>
@@ -1012,6 +1027,7 @@
                         <outlet property="requestHolderImage" destination="zSl-ml-Br3" id="8zV-fF-92i"/>
                         <outlet property="scrollView" destination="iYu-0t-8Yo" id="G2C-GJ-7hY"/>
                         <outlet property="tableView" destination="8td-fy-bTR" id="vSN-eu-1wx"/>
+                        <outlet property="unattendButton" destination="Vrs-nF-EYu" id="GVZ-n3-tDh"/>
                         <segue destination="qJi-dl-hfz" kind="show" identifier="profileSegue" id="mYQ-hN-INn"/>
                     </connections>
                 </viewController>
@@ -2295,22 +2311,6 @@ If you are a qualified public educational or government institution and any part
             </objects>
             <point key="canvasLocation" x="1748" y="2259"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="v16-HS-aHG">
-            <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="NsP-zP-2s5" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="utR-Je-5On">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4px-lI-Olh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-675" y="2179"/>
-        </scene>
         <!--Edit View Controller-->
         <scene sceneID="xTA-BV-kkW">
             <objects>
@@ -2505,7 +2505,7 @@ If you are a qualified public educational or government institution and any part
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="x7m-o1-YE8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x7m-o1-YE8">
                                 <rect key="frame" x="22" y="69" width="180" height="108"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -2519,7 +2519,7 @@ If you are a qualified public educational or government institution and any part
                                     <outletCollection property="gestureRecognizers" destination="EaW-pQ-GdF" appends="YES" id="bjf-mP-n38"/>
                                 </connections>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="xGl-fD-My1">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xGl-fD-My1">
                                 <rect key="frame" x="210" y="69" width="180" height="108"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -2569,7 +2569,7 @@ If you are a qualified public educational or government institution and any part
                                     <action selector="backButtonHandler:" destination="Tf4-KK-27r" eventType="touchUpInside" id="fx7-8v-XlO"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="wOG-LU-oLK">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wOG-LU-oLK">
                                 <rect key="frame" x="398" y="69" width="180" height="108"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -2830,14 +2830,6 @@ If you are a qualified public educational or government institution and any part
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-cw-abm">
-                                                <rect key="frame" x="547" y="28" width="45" height="45"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                                <state key="normal" title="###">
-                                                    <color key="titleColor" red="0.59326528280000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name - Age" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="291" translatesAutoresizingMaskIntoConstraints="NO" id="F7F-bv-Gah">
                                                 <rect key="frame" x="5" y="0.0" width="291" height="18"/>
                                                 <constraints>
@@ -2846,6 +2838,14 @@ If you are a qualified public educational or government institution and any part
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-cw-abm">
+                                                <rect key="frame" x="562" y="28" width="30" height="45"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" red="0.59326528280000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2977,6 +2977,39 @@ If you are a qualified public educational or government institution and any part
                                             <constraint firstAttribute="centerX" secondItem="Ipr-8u-SWK" secondAttribute="centerX" id="tUs-hG-5EQ"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOH-Pf-RE0">
+                                        <rect key="frame" x="30" y="290" width="22" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="TaS-ii-W94"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Teammate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mm-uq-0EE">
+                                        <rect key="frame" x="164" y="290" width="60" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="0Oz-CQ-nt5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scanner" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pse-Pg-q4D">
+                                        <rect key="frame" x="249" y="290" width="331" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NhN-Nr-Ndd">
+                                        <rect key="frame" x="103" y="290" width="36" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="8iR-wG-fUW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="cQc-kH-mZB" secondAttribute="trailing" constant="20" id="0uc-Ge-XHC"/>
@@ -2987,14 +3020,22 @@ If you are a qualified public educational or government institution and any part
                                     <constraint firstItem="4sO-Sk-Mj7" firstAttribute="top" secondItem="25M-UJ-FJz" secondAttribute="bottom" constant="5" id="93L-D4-Zhu"/>
                                     <constraint firstItem="pZN-06-Geh" firstAttribute="leading" secondItem="LPX-Js-z2V" secondAttribute="leading" constant="20" id="A4V-r8-jB7"/>
                                     <constraint firstItem="25M-UJ-FJz" firstAttribute="top" secondItem="LPX-Js-z2V" secondAttribute="top" id="AsT-W9-XSZ"/>
+                                    <constraint firstItem="WOH-Pf-RE0" firstAttribute="top" secondItem="pZN-06-Geh" secondAttribute="bottom" constant="-5" id="Avv-lW-2xu"/>
                                     <constraint firstItem="97u-nI-e7V" firstAttribute="top" secondItem="080-bv-YLU" secondAttribute="bottom" constant="74" id="BzI-ni-1OS"/>
+                                    <constraint firstItem="NhN-Nr-Ndd" firstAttribute="leading" secondItem="WOH-Pf-RE0" secondAttribute="trailing" constant="51" id="Dg8-Rj-R9e"/>
                                     <constraint firstAttribute="trailing" secondItem="gp8-Tj-3HC" secondAttribute="trailing" constant="5" id="DvA-NY-U2Y"/>
                                     <constraint firstItem="OEV-tt-N3E" firstAttribute="leading" secondItem="LPX-Js-z2V" secondAttribute="leading" id="GVZ-kK-alJ"/>
+                                    <constraint firstItem="9Mm-uq-0EE" firstAttribute="leading" secondItem="NhN-Nr-Ndd" secondAttribute="trailing" constant="25" id="Ge9-fq-43E"/>
+                                    <constraint firstItem="pse-Pg-q4D" firstAttribute="leading" secondItem="9Mm-uq-0EE" secondAttribute="trailing" constant="25" id="JSn-rb-R6l"/>
                                     <constraint firstItem="25M-UJ-FJz" firstAttribute="leading" secondItem="LPX-Js-z2V" secondAttribute="leading" id="SgQ-Iw-Fy9"/>
                                     <constraint firstItem="97u-nI-e7V" firstAttribute="top" secondItem="73J-XF-xPK" secondAttribute="bottom" constant="59" id="TwE-TN-qJA"/>
                                     <constraint firstItem="cQc-kH-mZB" firstAttribute="top" secondItem="25M-UJ-FJz" secondAttribute="bottom" constant="5" id="VhF-Zq-bGP"/>
                                     <constraint firstItem="HZA-Vk-BSn" firstAttribute="top" secondItem="25M-UJ-FJz" secondAttribute="bottom" constant="5" id="WeJ-Jt-Z34"/>
                                     <constraint firstAttribute="centerX" secondItem="73J-XF-xPK" secondAttribute="centerX" id="WyD-wg-byj"/>
+                                    <constraint firstItem="pse-Pg-q4D" firstAttribute="top" secondItem="cQc-kH-mZB" secondAttribute="bottom" constant="-5" id="dHF-DF-7IG"/>
+                                    <constraint firstItem="9Mm-uq-0EE" firstAttribute="top" secondItem="HZA-Vk-BSn" secondAttribute="bottom" constant="-5" id="dyX-oY-KxA"/>
+                                    <constraint firstAttribute="trailing" secondItem="pse-Pg-q4D" secondAttribute="trailing" constant="20" id="ft5-rR-3t9"/>
+                                    <constraint firstItem="WOH-Pf-RE0" firstAttribute="leading" secondItem="LPX-Js-z2V" secondAttribute="leading" constant="30" id="fwQ-xo-ON5"/>
                                     <constraint firstItem="gp8-Tj-3HC" firstAttribute="top" secondItem="LPX-Js-z2V" secondAttribute="top" constant="85" id="guW-J3-hsG"/>
                                     <constraint firstItem="OEV-tt-N3E" firstAttribute="top" secondItem="97u-nI-e7V" secondAttribute="bottom" constant="7" id="hhs-TR-dbM"/>
                                     <constraint firstAttribute="trailing" secondItem="OEV-tt-N3E" secondAttribute="trailing" id="odd-s9-Uq2"/>
@@ -3005,6 +3046,7 @@ If you are a qualified public educational or government institution and any part
                                     <constraint firstAttribute="bottom" secondItem="OEV-tt-N3E" secondAttribute="bottom" constant="-114" id="t9a-v8-aju"/>
                                     <constraint firstItem="4sO-Sk-Mj7" firstAttribute="leading" secondItem="pZN-06-Geh" secondAttribute="trailing" constant="25" id="yxP-X4-EPo"/>
                                     <constraint firstItem="97u-nI-e7V" firstAttribute="top" secondItem="25M-UJ-FJz" secondAttribute="bottom" constant="65" id="zCM-39-xCr"/>
+                                    <constraint firstItem="NhN-Nr-Ndd" firstAttribute="top" secondItem="4sO-Sk-Mj7" secondAttribute="bottom" constant="-5" id="zQm-7R-aW2"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -3079,11 +3121,13 @@ If you are a qualified public educational or government institution and any part
         <image name="scanner.png" width="50" height="50"/>
         <image name="sms" width="50" height="50"/>
         <image name="tabbar_selected" width="66" height="50"/>
+        <image name="unattend.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sfu-Oh-zd7"/>
         <segue reference="Sch-fP-gge"/>
         <segue reference="hqz-fk-RkI"/>
+        <segue reference="TyK-Zu-X3h"/>
         <segue reference="50M-W9-2XO"/>
         <segue reference="mYQ-hN-INn"/>
         <segue reference="eVo-du-xyK"/>

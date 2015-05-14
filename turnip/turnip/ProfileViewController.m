@@ -36,8 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"user: %@", self.user);
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editUserNotification:)
                                                  name: TurnipEditUserProfileNotification

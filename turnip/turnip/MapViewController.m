@@ -311,12 +311,10 @@
     
     GMSCameraUpdate *updateCamera = [GMSCameraUpdate setTarget: CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude)  zoom:11.5];
     
-    [self.mapView animateWithCameraUpdate:updateCamera];
-    
-    
     if (self.firstTimeLocation == YES) {
         self.firstTimeLocation = NO;
         [self queryForAllEventsNearLocation:self.currentLocation];
+        [self.mapView animateWithCameraUpdate:updateCamera];
     }
 }
 

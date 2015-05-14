@@ -66,8 +66,8 @@
     [Parse setApplicationId:@"CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64"
                   clientKey:@"UWt8D4lmGKO6Yr2axtpq68aJitE4Iy4ceH7A10GW"];
     
-    // [Parse setApplicationId:@"SfQvQqR6vQvkluA56LfqKl2qrkd32xKWcfoMoWng"
-     //             clientKey:@"8hG06KY34D9hH8Ll079cQZPhVHWdC3dCBuiFPwiN"];
+     //[Parse setApplicationId:@"SfQvQqR6vQvkluA56LfqKl2qrkd32xKWcfoMoWng"
+       //           clientKey:@"8hG06KY34D9hH8Ll079cQZPhVHWdC3dCBuiFPwiN"];
     
     [PFUser enableRevocableSessionInBackground];
     

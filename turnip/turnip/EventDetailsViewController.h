@@ -20,6 +20,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UIImageView *requestHolderImage;
 
+@property (strong, nonatomic) IBOutlet UIButton *unattendButton;
+
 @property (strong, nonatomic) IBOutlet UIButton *nextImageButton;
 @property (strong, nonatomic) IBOutlet UIButton *messageButton;
 @property (strong, nonatomic) IBOutlet UIButton *requestButton;
@@ -46,6 +48,8 @@
 - (IBAction)nextImageButton:(id)sender;
 - (IBAction)goingButton:(id)sender;
 - (IBAction)attendButton:(id)sender;
+- (IBAction)unattendButton:(id)sender;
 - (IBAction)closeAttendingViewButton:(id)sender;
+
 
 @end

@@ -51,6 +51,9 @@
     
     self.image = [UIImage imageNamed:@"camera placeholder.png"];
     
+    NSLog(@"placemark: %@", self.placemark);
+    NSLog(@"coords: %@", self.coordinates);
+    
     [self setupView];
     [self setupPickerViews];
 }
@@ -271,6 +274,7 @@
 }
 
 - (IBAction)imageTwoTapHandler:(UITapGestureRecognizer *)sender {
+    self.lastImagePressed = self.imageTwo;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle: nil
                                                              delegate: self
                                                     cancelButtonTitle: @"Cancel"
@@ -303,7 +307,6 @@
             [self takeNewPhotoFromCamera];
             break;
         case 2:
-            NSLog(@"self.last: %@", self.lastImagePressed);
             self.lastImagePressed.image = nil;
             break;
         default:
@@ -351,14 +354,14 @@
     NSLog(@"temp %@", temp);
     self.lastImagePressed.image = chosenImage;
     
-    if ([temp isEqual:self.lastImagePressed]) {
-        NSLog(@"remove");
-        [self.images removeLastObject];
-    }
+    //if ([temp isEqual:self.lastImagePressed]) {
+        //NSLog(@"remove");
+      //  [self.images removeLastObject];
+    //}
 
     [self.images addObject:chosenImage];
     
-    temp = self.lastImagePressed;
+   // temp = self.lastImagePressed;
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
     

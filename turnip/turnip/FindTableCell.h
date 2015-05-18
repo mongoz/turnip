@@ -11,9 +11,8 @@
 
 @interface FindTableCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet PFImageView *eventImageView;
+@property (strong, nonatomic) IBOutlet PFImageView *eventImageView;
 
-@property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 

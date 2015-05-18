@@ -180,11 +180,13 @@ NSArray *fetchedObjects;
         NSString *objectId = [[[self.notifications valueForKey:@"event"] valueForKey:@"objectId"] objectAtIndex: indexPath.row];
         NSDate *date = [[[self.notifications valueForKey:@"event"] valueForKey:@"date"] objectAtIndex: indexPath.row];
         NSString *address = [[[self.notifications valueForKey:@"event"] valueForKey:@"address"] objectAtIndex: indexPath.row];
+        BOOL isPrivate = [[[[self.notifications valueForKey:@"event"] valueForKey:@"private"] objectAtIndex:indexPath.row] boolValue];
         
         destViewController.ticketTitle = title;
         destViewController.objectId = objectId;
         destViewController.date = date;
         destViewController.address = address;
+        destViewController.isPrivate = isPrivate;
     }
     
     if ([segue.identifier isEqualToString:@"scannerSegue"]) {

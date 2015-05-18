@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *ticketTitle;
 @property (nonatomic, strong) NSString *objectId;
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, assign) BOOL isPrivate;
 
 
 @property (strong, nonatomic) IBOutlet UILabel *mainText;

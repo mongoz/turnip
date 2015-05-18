@@ -27,6 +27,8 @@ static NSString * const reuseIdentifier = @"FolderCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [PFAnalytics trackEvent:@"Edit_Profile_Image"];
+    
     self.photos = [[NSMutableArray alloc] init];
     
     [self.activitySpinner startAnimating];
@@ -47,6 +49,8 @@ static NSString * const reuseIdentifier = @"FolderCell";
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/albums" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"error %@", error);
+                NSString *codeString = [NSString stringWithFormat:@"%ld", (long)[error code]];
+                [PFAnalytics trackEvent:@"Profile_error" dimensions:@{ @"code": codeString }];
             } else {
                 NSArray *data = [result objectForKey:@"data"];
                 for (NSDictionary *album in data) {
@@ -58,7 +62,7 @@ static NSString * const reuseIdentifier = @"FolderCell";
             
         }];
     } else {
-        NSLog(@"access denied");
+        [PFAnalytics trackEvent:@"FB_image_Denied"];
     }
 }
 

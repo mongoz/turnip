@@ -27,7 +27,7 @@
 		1A9AE4D51A8052D200AADDAA /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D31A8052D200AADDAA /* green.png */; };
 		1A9AE4D61A8052D200AADDAA /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D41A8052D200AADDAA /* red.png */; };
 		1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */; };
-		1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateTableViewController.m */; };
+		1A9D0D331A9D25020082550C /* TeammateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D321A9D25020082550C /* TeammateViewController.m */; };
 		1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */; };
 		1A9E371D1AEE231D000802C3 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9E371C1AEE231D000802C3 /* arrow.png */; };
 		1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F1DA31ADEF95F00CC4E6A /* ex.png */; };
@@ -121,8 +121,8 @@
 		1A9AE4D41A8052D200AADDAA /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
 		1A9AE4D71A80C2D700AADDAA /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestViewController.h; sourceTree = "<group>"; };
 		1A9AE4D81A80C2D700AADDAA /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
-		1A9D0D311A9D25020082550C /* TeammateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewController.h; sourceTree = "<group>"; };
-		1A9D0D321A9D25020082550C /* TeammateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewController.m; sourceTree = "<group>"; };
+		1A9D0D311A9D25020082550C /* TeammateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateViewController.h; sourceTree = "<group>"; };
+		1A9D0D321A9D25020082550C /* TeammateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateViewController.m; sourceTree = "<group>"; };
 		1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeammateTableViewCell.h; sourceTree = "<group>"; };
 		1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeammateTableViewCell.m; sourceTree = "<group>"; };
 		1A9E371C1AEE231D000802C3 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -320,18 +320,9 @@
 		1A2AA2CA1B01E07A007010E9 /* Host */ = {
 			isa = PBXGroup;
 			children = (
-				1A54AEC31AA67836004F55B4 /* ScannerViewController.h */,
-				1A54AEC41AA67836004F55B4 /* ScannerViewController.m */,
-				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
-				1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */,
-				1A9D0D311A9D25020082550C /* TeammateTableViewController.h */,
-				1A9D0D321A9D25020082550C /* TeammateTableViewController.m */,
-				1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */,
-				1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */,
-				1ADEBF2D1AAE5AA90054197C /* EditViewController.h */,
-				1ADEBF2E1AAE5AA90054197C /* EditViewController.m */,
-				1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */,
-				1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */,
+				1A2AA2D31B05522F007010E9 /* Scanner */,
+				1A2AA2D21B055222007010E9 /* Teammate */,
+				1A2AA2D41B055237007010E9 /* Edit */,
 				1AFD3FD91A74ED9E00B2EABE /* ThrowViewController.h */,
 				1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */,
 				1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */,
@@ -369,6 +360,61 @@
 				1ABABC1D1A860CD100C0A617 /* TicketViewController.m */,
 			);
 			name = Ticket;
+			sourceTree = "<group>";
+		};
+		1A2AA2D11B048D0E007010E9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1AFD3FBE1A74ED9E00B2EABE /* Constants.h */,
+				1ADB35971AF976EA0075984F /* ParseErrorHandlingController.h */,
+				1ADB35981AF976EA0075984F /* ParseErrorHandlingController.m */,
+				1ADB359D1AFA7ED60075984F /* TurnipCustomTabBarViewController.h */,
+				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
+				1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */,
+				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
+				1A2AA2BE1AFF3BE3007010E9 /* FXBlurView.h */,
+				1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */,
+				1ADB359A1AF9804D0075984F /* SWRevealViewController.h */,
+				1ADB359B1AF9804D0075984F /* SWRevealViewController.m */,
+				1AFD40471A751F2200B2EABE /* MBProgressHUD.h */,
+				1AFD40481A751F2200B2EABE /* MBProgressHUD.m */,
+				1ADEBF351AB346880054197C /* ReachabilityManager.h */,
+				1ADEBF361AB346880054197C /* ReachabilityManager.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		1A2AA2D21B055222007010E9 /* Teammate */ = {
+			isa = PBXGroup;
+			children = (
+				1A9D0D311A9D25020082550C /* TeammateViewController.h */,
+				1A9D0D321A9D25020082550C /* TeammateViewController.m */,
+				1A9D0D341A9DC7780082550C /* TeammateTableViewCell.h */,
+				1A9D0D351A9DC7780082550C /* TeammateTableViewCell.m */,
+			);
+			name = Teammate;
+			sourceTree = "<group>";
+		};
+		1A2AA2D31B05522F007010E9 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				1A54AEC31AA67836004F55B4 /* ScannerViewController.h */,
+				1A54AEC41AA67836004F55B4 /* ScannerViewController.m */,
+				1A28E2241A8EF46B00067C9C /* ScannerShapeView.h */,
+				1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */,
+			);
+			name = Scanner;
+			sourceTree = "<group>";
+		};
+		1A2AA2D41B055237007010E9 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				1ADEBF2D1AAE5AA90054197C /* EditViewController.h */,
+				1ADEBF2E1AAE5AA90054197C /* EditViewController.m */,
+				1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */,
+				1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */,
+			);
+			name = Edit;
 			sourceTree = "<group>";
 		};
 		1AA179E51A74E3D30061CA3E = {
@@ -409,6 +455,7 @@
 				1A2AA2CA1B01E07A007010E9 /* Host */,
 				1A2AA2C81B01DFC8007010E9 /* Notification */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
+				1A2AA2D11B048D0E007010E9 /* Utils */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
 			path = turnip;
@@ -417,24 +464,9 @@
 		1AA179F11A74E3D30061CA3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1AFD3FBE1A74ED9E00B2EABE /* Constants.h */,
-				1ADB35981AF976EA0075984F /* ParseErrorHandlingController.m */,
-				1ADB35971AF976EA0075984F /* ParseErrorHandlingController.h */,
-				1ADB359D1AFA7ED60075984F /* TurnipCustomTabBarViewController.h */,
-				1A1B32151A9E76490096F2DF /* TurnipCustomTabBarViewController.m */,
-				1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */,
-				1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */,
-				1A2AA2BE1AFF3BE3007010E9 /* FXBlurView.h */,
-				1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */,
 				1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */,
-				1ADB359A1AF9804D0075984F /* SWRevealViewController.h */,
-				1ADB359B1AF9804D0075984F /* SWRevealViewController.m */,
-				1AFD40471A751F2200B2EABE /* MBProgressHUD.h */,
-				1AFD40481A751F2200B2EABE /* MBProgressHUD.m */,
 				1AFD403B1A74F94900B2EABE /* Info.plist */,
 				1AA179F31A74E3D30061CA3E /* main.m */,
-				1ADEBF351AB346880054197C /* ReachabilityManager.h */,
-				1ADEBF361AB346880054197C /* ReachabilityManager.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -702,7 +734,7 @@
 				1AA011991AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m in Sources */,
 				1AA0668F1AC1045B008A5A11 /* ConversationViewController.m in Sources */,
 				1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */,
-				1A9D0D331A9D25020082550C /* TeammateTableViewController.m in Sources */,
+				1A9D0D331A9D25020082550C /* TeammateViewController.m in Sources */,
 				1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
 				1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */,

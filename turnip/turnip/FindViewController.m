@@ -12,6 +12,8 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "Constants.h"
+#import <AFNetworking/AFNetworking.h>
+#import <UIImageView+AFNetworking.h>
 
 @interface FindViewController ()
 
@@ -97,13 +99,13 @@
   
     cell.titleLabel.text = [object objectForKey: TurnipParsePostTitleKey];
     cell.dateLabel.text = [self convertDate:[object objectForKey:@"date"]];
+    [cell.titleLabel sizeToFit];
+    [cell.dateLabel sizeToFit];
     
     if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"False"]) {
         cell.statusImage.image = [UIImage imageNamed:@"green.png"];
-        cell.distanceLabel.text = [NSString stringWithFormat:@"%@ Miles", [self distanceFromCurrLocation: [object objectForKey: @"location" ]]];
     }
     if ([[object objectForKey:TurnipParsePostPrivateKey] isEqualToString:@"True"]) {
-        cell.distanceLabel.text = @"Hidden";
         cell.statusImage.image = [UIImage imageNamed:@"red.png"];
     }
     

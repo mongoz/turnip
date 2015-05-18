@@ -12,7 +12,7 @@
 #import <Parse/Parse.h>
 #import "Constants.h"
 #import <UIImageView+AFNetworking.h>
-#import "TeammateTableViewController.h"
+#import "TeammateViewController.h"
 #import "ScannerViewController.h"
 #import "EditViewController.h"
 
@@ -33,12 +33,6 @@
     [self.navigationItem setHidesBackButton:NO animated:YES];
     
     
-    // Set up the content size of the scroll view
-    CGSize pagesScrollViewSize = self.view.frame.size;
-    self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, self.scrollView.frame.size.height);
-    
-    [self loadVisiblePages];
-    
 }
 
 - (void)viewDidLoad {
@@ -58,9 +52,16 @@
     
     self.pageImages = [[NSMutableArray alloc] initWithCapacity:3];
     
+    // Set up the content size of the scroll view
+    
     [self queryForAcceptedUsers];
     [self updateUI];
 
+}
+
+
+- (void) viewDidAppear:(BOOL)animated {
+    [self drawImages];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,10 +119,9 @@
     
     self.privateLabel.text = [NSString stringWithFormat:@"%@, %@", open, price];
     
-    [self downloadImages];
 }
 
-- (void) downloadImages {
+- (void) drawImages {
     // Set up the image we want to scroll and add it to the scroll view
     
     for (int i = 1; i <= 3; i++) {
@@ -131,6 +131,7 @@
             [self.pageImages addObject: [self.event valueForKey:imageName]];
         }
     }
+
     
     if ([[PFUser currentUser] valueForKey:@"profileImage"] != nil) {
         NSURL *url = [NSURL URLWithString: [[PFUser currentUser] valueForKey:@"profileImage"]];
@@ -148,10 +149,6 @@
                                               
                                               [activityIndicatorView removeFromSuperview];
                                               
-                                              // do image resize here
-                                              
-                                              // then set image view
-                                              
                                               [weakSelf.profileImage setImage:image];
                                           }
                                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
@@ -163,6 +160,9 @@
         [self downloadFacebookProfilePicture:[[PFUser currentUser] objectForKey:@"facebookId"]];
     }
     
+    CGSize pagesScrollViewSize = self.scrollView.frame.size;
+    self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
+    
     // Set up the page control
     self.pageControl.currentPage = 0;
     self.pageControl.numberOfPages = self.pageImages.count;
@@ -172,7 +172,8 @@
     for (NSInteger i = 0; i < self.pageImages.count; ++i) {
         [self.pageViews addObject:[NSNull null]];
     }
-
+    
+    [self loadVisiblePages];
 }
 
 - (void) downloadFacebookProfilePicture: (NSString *) facebookId {
@@ -209,7 +210,7 @@
                 PFRelation *relation = [object relationForKey:@"accepted"];
                 PFQuery *query = [relation query];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                  //  [self.refreshControl endRefreshing];
+                   // [self.refreshControl endRefreshing];
                     if([objects count] == 0) {
                         [self.goingButton setTitle:@"0" forState:UIControlStateNormal];
                     } else {
@@ -238,8 +239,9 @@
     }
     
     if ([segue.identifier isEqualToString:@"addTeammateSegue"]) {
-        TeammateTableViewController *teammateController = segue.destinationViewController;
+        TeammateViewController *teammateController = segue.destinationViewController;
         teammateController.eventId = [self.event valueForKey:@"objectId"];
+        teammateController.accepted = [[NSMutableArray alloc] initWithArray:self.accepted];
     }
     
     if ([segue.identifier isEqualToString:@"editEventSegue"]) {
@@ -402,7 +404,6 @@
         // If it's outside the range of what we have to display, then do nothing
         return;
     }
-    
     // Load an individual page, first seeing if we've already loaded it
     UIView *pageView = [self.pageViews objectAtIndex:page];
     if ((NSNull*)pageView == [NSNull null]) {
@@ -411,7 +412,7 @@
         frame.origin.y = 0.0f;
         
         UIImageView *newPageView = [[UIImageView alloc] initWithImage:[self.pageImages objectAtIndex:page]];
-        newPageView.contentMode = UIViewContentModeScaleAspectFit;
+        newPageView.contentMode = UIViewContentModeScaleAspectFill;
         newPageView.frame = frame;
         [self.scrollView addSubview:newPageView];
         [self.pageViews replaceObjectAtIndex:page withObject:newPageView];

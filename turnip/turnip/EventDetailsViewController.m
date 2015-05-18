@@ -46,6 +46,8 @@
     
     self.pageImages = [[NSMutableArray alloc] initWithCapacity:3];
     
+    [self.scrollView layoutIfNeeded];
+    [self.scrollView setNeedsLayout];
     [self downloadDetails];
     
 }
@@ -94,7 +96,7 @@
         frame.origin.y = 0.0f;
         
         UIImageView *newPageView = [[UIImageView alloc] initWithImage:[self.pageImages objectAtIndex:page]];
-        newPageView.contentMode = UIViewContentModeScaleAspectFill;
+        newPageView.contentMode = UIViewContentModeScaleToFill;
         newPageView.frame = frame;
         [self.scrollView addSubview:newPageView];
         [self.pageViews replaceObjectAtIndex:page withObject:newPageView];
@@ -210,7 +212,7 @@
         NSString *imageName = [NSString stringWithFormat:@"image%d",i];
         if ([data objectForKey:imageName] != nil) {
             imageCount++;
-             NSURL *url = [NSURL URLWithString: [(PFFile *)[data objectForKey:imageName] url]];
+            NSURL *url = [NSURL URLWithString: [(PFFile *)[data objectForKey:imageName] url]];
             NSURLRequest *request = [NSURLRequest requestWithURL:url];
             
             AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -245,10 +247,6 @@
                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                       
                                       [activityIndicatorView removeFromSuperview];
-                                      
-                                      // do image resize here
-                                      
-                                      // then set image view
                                       
                                       [weakSelf.profileImage setImage:image];
                                   }

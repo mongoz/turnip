@@ -45,9 +45,19 @@
     [self.mainText sizeToFit];
 
     self.qrCodeImage.image = qrCodeImage;
+    
+    if (self.isPrivate) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCounter) userInfo:nil repeats:YES];
+    } else {
+        self.subText.numberOfLines = 0;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MMM d 'at' hh:mm a";
+        NSString *subText = [NSString stringWithFormat:@"%@ %@", [dateFormatter stringFromDate:date], address];
+        self.subText.text = subText;
+        
+        [self.subText sizeToFit];
 
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCounter) userInfo:nil repeats:YES];
-
+    }
 }
 
 - (void) updateCounter {

@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
+#import "ParseErrorHandlingController.h"
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "SWRevealViewController.h"
@@ -86,7 +87,10 @@
                 NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([self calculateAge:birthday]).stringValue];
                 
                 self.navigationItem.title = navigationTitle;
+                
+                self.bioLabel.numberOfLines = 0;
                 self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
+                [self.bioLabel sizeToFit];
                 
                 if ([[PFUser currentUser] valueForKey:@"profileImage"] != nil) {
                     NSURL *url = [NSURL URLWithString: [[PFUser currentUser] valueForKey:@"profileImage"]];
@@ -126,7 +130,9 @@
     
     NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([self calculateAge:[user valueForKey:@"birthday"]]).stringValue];
     
+    self.bioLabel.numberOfLines = 0;
     self.bioLabel.text = [user valueForKey:@"bio"];
+    [self.bioLabel sizeToFit];
     
     self.navigationItem.title = navigationTitle;
     
@@ -181,7 +187,7 @@
     [query orderByDescending:@"updatedAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
-            NSLog(@"Error in geo query!: %@", error);
+            [ParseErrorHandlingController handleParseError:error];
         } else {
             if([objects count] == 0) {
             } else {
@@ -199,7 +205,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(error) {
-            NSLog(@"Error in geo query!: %@", error);
+            [ParseErrorHandlingController handleParseError:error];
         } else {
             if([objects count] == 0) {
             } else {

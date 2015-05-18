@@ -42,7 +42,10 @@
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = backButtonItem;
     
-    self.title = [self.event valueForKey:@"title"];
+    if ([self.event count] > 0) {
+        self.title = [self.event valueForKey:@"title"];
+        self.objectId = [self.event valueForKey:@"objectId"];
+    }
     
     self.pageImages = [[NSMutableArray alloc] initWithCapacity:3];
     
@@ -133,7 +136,7 @@
     
     [query includeKey:TurnipParsePostUserKey];
     [query includeKey:@"neighbourhood"];
-    [query whereKey:TurnipParsePostIdKey equalTo:[self.event valueForKey:@"objectId"]];
+    [query whereKey:TurnipParsePostIdKey equalTo:self.objectId];
     
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (error) {

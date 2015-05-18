@@ -296,7 +296,7 @@
     if (marker.objectId == nil) {
        [self performSegueWithIdentifier:@"mapToListSegue" sender: marker];
     } else {
-        [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker.objectId];
+        [self performSegueWithIdentifier:@"mapToDetailsSegue" sender: marker];
     }
 }
 
@@ -360,18 +360,11 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"mapToDetailsSegue"]) {
         
-        NSString *id = sender;
-        
-        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
-            UINavigationController *navController = segue.destinationViewController;
-                    NSLog(@"Sender: %@", sender);
-            
-            EventDetailsViewController *details = [navController.viewControllers objectAtIndex: 1];
-            details.objectId = id;
-        }
+        NSString *objectId = [sender valueForKey:@"objectId"];
         
          EventDetailsViewController *destViewController = segue.destinationViewController;
-        destViewController.objectId = id;
+        destViewController.objectId = objectId;
+        destViewController.title = [sender valueForKey:@"title"];
     }
     
     if ([segue.identifier isEqualToString:@"mapToListSegue"]) {

@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray *data;
 
 @property (nonatomic, strong) NSString *objectId;
+@property (nonatomic, strong) NSString *eventTitle;
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UIImageView *requestHolderImage;

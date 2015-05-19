@@ -8,7 +8,6 @@
 
 #import "AcceptToSViewController.h"
 #import "LoginViewController.h"
-#import "MapViewController.h"
 #import <Parse/Parse.h>
 
 @interface AcceptToSViewController ()

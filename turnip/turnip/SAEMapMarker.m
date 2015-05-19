@@ -1,22 +1,22 @@
 //
-//  MapMarker.m
-//  turnip
+//  SAEMapMarker.m
+//  Turnip
 //
 //  Created by Per on 1/15/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "MapMarker.h"
+#import "SAEMapMarker.h"
 #import <Parse/Parse.h>
 
-@implementation MapMarker
+@implementation SAEMapMarker
 
 
 - (BOOL) isEqual:(id)other {
-    if (![other isKindOfClass:[MapMarker class]]) {
+    if (![other isKindOfClass:[SAEMapMarker class]]) {
         return NO;
     }
-    MapMarker *otherMarker = (MapMarker *) other;
+    SAEMapMarker *otherMarker = (SAEMapMarker *) other;
     
     return [self.objectId isEqual:otherMarker.objectId];
 }

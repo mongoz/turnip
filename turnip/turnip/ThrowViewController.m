@@ -13,7 +13,7 @@
 #import "Constants.h"
 #import "SWRevealViewController.h"
 #import "ThrowNextViewController.h"
-#import "HostDetailsViewController.h"
+#import "SAEHostDetailsViewController.h"
 
 @interface ThrowViewController ()
 
@@ -331,7 +331,7 @@
     
     if ([segue.identifier isEqualToString:@"hostDetailsSegue"]) {
         
-        HostDetailsViewController *destViewController = (HostDetailsViewController *) segue.destinationViewController;
+        SAEHostDetailsViewController *destViewController = (SAEHostDetailsViewController *) segue.destinationViewController;
         
         destViewController.event = [self.currentEvent objectAtIndex:0];
     }

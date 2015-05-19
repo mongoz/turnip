@@ -268,7 +268,6 @@
 #pragma mark - AMBubbleTableDelegate
 
 -(void) avatarTapAtIndexPath:(NSIndexPath *)indexPath {
-   // NSLog(@"indexPath: %ld", (long)indexPath.row);
     NSString *type = [[self.messages valueForKey:@"type"] objectAtIndex:indexPath.row];
     
     if ([type isEqual:@1]) {
@@ -361,7 +360,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    NSLog(@"sender: %@", sender);
     if ([segue.identifier isEqualToString:@"showProfile"]) {
         ProfileViewController *destViewController = segue.destinationViewController;
         destViewController.user = sender;

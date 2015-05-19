@@ -5,7 +5,7 @@
 //  Created by Per on 2/13/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
-#import "EventDetailsViewController.h"
+
 #import "ScannerViewController.h"
 #import "ScannerShapeView.h"
 @import AVFoundation;
@@ -24,16 +24,12 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
 
-    
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     self.navigationItem.title = @"Scanner";
     

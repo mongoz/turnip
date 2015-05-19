@@ -1,24 +1,24 @@
 //
-//  MapViewController.m
-//  turnip
+//  SAEMapViewController.m
+//  Turnip
 //
 //  Created by Per on 1/4/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
 #import "ParseErrorHandlingController.h"
-#import "MapViewController.h"
+#import "SAEMapViewController.h"
 #import "ThrowViewController.h"
-#import "EventDetailsViewController.h"
-#import "FindViewController.h"
+#import "SAEEventDetailsViewController.h"
+#import "SAEFindViewController.h"
 #import "Constants.h"
-#import "MapMarker.h"
+#import "SAEMapMarker.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
 
-@interface MapViewController ()
+@interface SAEMapViewController ()
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
@@ -39,7 +39,7 @@
 
 @end
 
-@implementation MapViewController
+@implementation SAEMapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -196,7 +196,7 @@
     NSMutableSet *mutableSet = [[NSMutableSet alloc] init];
     
     for (NSDictionary *object in objects) {
-        MapMarker *public = [[MapMarker alloc] init];
+        SAEMapMarker *public = [[SAEMapMarker alloc] init];
         
         public.objectId = [object valueForKey:@"objectId"];
         public.title = object[TurnipParsePostTitleKey];
@@ -221,7 +221,7 @@
     NSMutableSet *mutableSet = [[NSMutableSet alloc] initWithCapacity: [objects count]];
     
     for (NSDictionary *object in objects) {
-        MapMarker *newMarker = [[MapMarker alloc] init];
+        SAEMapMarker *newMarker = [[SAEMapMarker alloc] init];
         newMarker.objectId = nil;
         newMarker.userData = [object valueForKey:@"objectId"];
         newMarker.title = object[@"name"];
@@ -246,7 +246,7 @@
 }
 
 - (void) drawPublicMarkers {
-    for (MapMarker *marker in self.publicMarkers) {
+    for (SAEMapMarker *marker in self.publicMarkers) {
         if(marker.map == nil) {
             marker.map = self.mapView;
         }
@@ -255,7 +255,7 @@
 
 - (void) drawMarkers {
     
-    for (MapMarker *marker in self.markers) {
+    for (SAEMapMarker *marker in self.markers) {
         if (marker.map == nil) {
             marker.map = self.mapView;
         }
@@ -291,7 +291,7 @@
 /*
  *   Called after a marker's info window has been tapped.
  */
-- (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(MapMarker *)marker {
+- (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(SAEMapMarker *)marker {
     
     if (marker.objectId == nil) {
        [self performSegueWithIdentifier:@"mapToListSegue" sender: marker];
@@ -362,13 +362,13 @@
         
         NSString *objectId = [sender valueForKey:@"objectId"];
         
-         EventDetailsViewController *destViewController = segue.destinationViewController;
+        SAEEventDetailsViewController *destViewController = segue.destinationViewController;
         destViewController.objectId = objectId;
         destViewController.title = [sender valueForKey:@"title"];
     }
     
     if ([segue.identifier isEqualToString:@"mapToListSegue"]) {
-        FindViewController *destViewController = [segue destinationViewController];
+        SAEFindViewController *destViewController = [segue destinationViewController];
         destViewController.currentLocation = self.currentLocation;
         destViewController.neighbourhoodId = [sender valueForKey:@"userData"];
         destViewController.neighbourhoodName = [sender valueForKey:@"title"];

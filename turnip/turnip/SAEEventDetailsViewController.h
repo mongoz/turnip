@@ -10,7 +10,7 @@
 #import "FXBlurView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface EventDetailsViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SAEEventDetailsViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *event;
 @property (nonatomic, strong) NSArray *data;

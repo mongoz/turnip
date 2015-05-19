@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MapViewController.h"
+#import "SAEMapViewController.h"
 #import "AcceptToSViewController.h"
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import <CoreData/CoreData.h>
@@ -18,7 +18,7 @@
 #import "Constants.h"
 #import <Reachability.h>
 #import "ReachabilityManager.h"
-#import "HostDetailsViewController.h"
+#import "SAEHostDetailsViewController.h"
 
 @interface AppDelegate ()
 

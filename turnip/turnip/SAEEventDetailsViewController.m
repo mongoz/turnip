@@ -7,7 +7,7 @@
 //
 
 #import "ParseErrorHandlingController.h"
-#import "EventDetailsViewController.h"
+#import "SAEEventDetailsViewController.h"
 #import "ProfileViewController.h"
 #import "MessagingViewController.h"
 #import <AFNetworking/AFNetworking.h>
@@ -15,7 +15,7 @@
 #import "Constants.h"
 #import <Parse/Parse.h>
 
-@interface EventDetailsViewController ()
+@interface SAEEventDetailsViewController ()
 
 @property (nonatomic, strong) NSMutableArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation EventDetailsViewController
+@implementation SAEEventDetailsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +42,7 @@
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = backButtonItem;
     
-    if ([self.event count] > 0) {
+    if (self.event) {
         self.title = [self.event valueForKey:@"title"];
         self.objectId = [self.event valueForKey:@"objectId"];
     }
@@ -190,9 +190,6 @@
                             self.requestHolderImage.hidden = YES;
                             self.requestButton.hidden = YES;
                             self.unattendButton.hidden = NO;
-                            // Initialize the refresh control.
-//                            [[self tableView] reloadData];
-//                            self.tableView.hidden = NO;
                         }
                           
                     }];
@@ -281,7 +278,7 @@
 
 - (void) updateUI: (PFObject *) data {
     
-    self.attendingView.dynamic = YES;
+    self.attendingView.dynamic = NO;
     self.attendingView.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     
     
@@ -406,6 +403,15 @@
         ProfileViewController *destViewController = segue.destinationViewController;
         destViewController.user = sender;
     }
+    
+    if ([segue.identifier isEqualToString:@"attendingProfile"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        ProfileViewController *destViewController = segue.destinationViewController;
+        destViewController.user = [self.accepted objectAtIndex:indexPath.row];
+    }
+
+    
+    
     
     if ([segue.identifier isEqualToString:@"messageSegue"]) {
         MessagingViewController *destViewController = segue.destinationViewController;

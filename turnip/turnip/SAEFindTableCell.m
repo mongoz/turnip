@@ -1,14 +1,14 @@
 //
-//  FindTableCell.m
-//  turnip
+//  SAEFindTableCell.m
+//  Turnip
 //
 //  Created by Per on 1/14/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "FindTableCell.h"
+#import "SAEFindTableCell.h"
 
-@implementation FindTableCell
+@implementation SAEFindTableCell
 
 - (id) initWithCoder:(NSCoder *)aCoder {
     

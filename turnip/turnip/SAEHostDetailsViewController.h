@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HostDetailsViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SAEHostDetailsViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *event;
 @property (nonatomic, strong) NSArray *data;

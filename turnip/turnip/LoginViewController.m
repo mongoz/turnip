@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "AcceptToSViewController.h"
 #import "ProfileViewController.h"
-#import "MapViewController.h"
+#import "SAEMapViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
@@ -42,8 +42,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    NSLog(@"test");
     
     self.activityView.hidden = YES;
     
@@ -112,6 +110,7 @@
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveEventually];
+                    NSLog(@"derp");
                     
                     [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
                     [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];

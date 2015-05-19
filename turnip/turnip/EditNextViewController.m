@@ -157,7 +157,7 @@
         
         PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
         
-        [query getObjectInBackgroundWithId:[[self.currentEvent valueForKey:@"objectId"] objectAtIndex:0] block:^(PFObject *eventData, NSError *error) {
+        [query getObjectInBackgroundWithId:[self.currentEvent valueForKey:@"objectId"] block:^(PFObject *eventData, NSError *error) {
             if(!error) {
                 NSCharacterSet *special = [[NSCharacterSet letterCharacterSet] invertedSet];
                 
@@ -223,6 +223,8 @@
                     
                 }
                 
+                NSLog(@"upload: %@", eventData);
+                
                 [eventData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (error) {  // Failed to save, show an alert view with the error message
                         UIAlertView *alertView =
@@ -239,7 +241,7 @@
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [[NSNotificationCenter defaultCenter] postNotificationName:TurnipPartyThrownNotification object:nil];
                             [self.HUD hide:YES];
-                            
+                             NSLog(@"saveed!");
                             // Show checkmark
                             self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
                             [self.view addSubview: self.HUD];
@@ -254,6 +256,7 @@
                             [self.HUD hide:YES afterDelay:5];
                             self.HUD.delegate = self;
                         });
+                        NSLog(@"save!");
                         [self saveToCoreData:eventData];
                         self.currentEventId = eventData.objectId;
                         [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];

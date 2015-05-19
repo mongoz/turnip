@@ -14,6 +14,8 @@
 		1A2AA2BA1AFF3BA6007010E9 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2AA2B91AFF3BA6007010E9 /* Accelerate.framework */; };
 		1A2AA2C01AFF3BE3007010E9 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */; };
 		1A2AA2D01B0315BC007010E9 /* unattend.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2CF1B0315BC007010E9 /* unattend.png */; };
+		1A2AA2E11B0B3AE5007010E9 /* PUBLIC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2E01B0B3AE5007010E9 /* PUBLIC.png */; };
+		1A2AA2E31B0B3AF5007010E9 /* PRIVATE.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2E21B0B3AF5007010E9 /* PRIVATE.png */; };
 		1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */; };
 		1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */; };
 		1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC41AA67836004F55B4 /* ScannerViewController.m */; };
@@ -45,8 +47,8 @@
 		1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA066911AC3D0A7008A5A11 /* ConversationTableViewCell.m */; };
 		1AA179F41A74E3D30061CA3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA179F31A74E3D30061CA3E /* main.m */; };
 		1AA17A111A74E3D30061CA3E /* turnipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA17A101A74E3D30061CA3E /* turnipTests.m */; };
-		1AA469E31AE9B03400D5BA08 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */; };
-		1AA68CFC1AE71D28005A9D09 /* HostDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */; };
+		1AA469E31AE9B03400D5BA08 /* SAEEventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA469E21AE9B03400D5BA08 /* SAEEventDetailsViewController.m */; };
+		1AA68CFC1AE71D28005A9D09 /* SAEHostDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA68CFB1AE71D28005A9D09 /* SAEHostDetailsViewController.m */; };
 		1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */; };
 		1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABABC1D1A860CD100C0A617 /* TicketViewController.m */; };
 		1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8BA111AC5C3610018C383 /* AcceptToSViewController.m */; };
@@ -61,12 +63,12 @@
 		1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB81A74ED9E00B2EABE /* LaunchScreen.xib */; };
 		1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */; };
 		1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC41A74ED9E00B2EABE /* LaunchScreen.strings */; };
-		1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */; };
-		1AFD3FE51A74ED9E00B2EABE /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC91A74ED9E00B2EABE /* FindViewController.m */; };
+		1AFD3FE41A74ED9E00B2EABE /* SAEFindTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC71A74ED9E00B2EABE /* SAEFindTableCell.m */; };
+		1AFD3FE51A74ED9E00B2EABE /* SAEFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC91A74ED9E00B2EABE /* SAEFindViewController.m */; };
 		1AFD3FE61A74ED9E00B2EABE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */; };
 		1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */; };
-		1AFD3FEA1A74ED9E00B2EABE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */; };
-		1AFD3FED1A74ED9E00B2EABE /* MapMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */; };
+		1AFD3FEA1A74ED9E00B2EABE /* SAEMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD01A74ED9E00B2EABE /* SAEMapViewController.m */; };
+		1AFD3FED1A74ED9E00B2EABE /* SAEMapMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD61A74ED9E00B2EABE /* SAEMapMarker.m */; };
 		1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */; };
 		1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FDA1A74ED9E00B2EABE /* ThrowViewController.m */; };
 		1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FFC1A74EEC700B2EABE /* Main.storyboard */; };
@@ -104,6 +106,8 @@
 		1A2AA2BE1AFF3BE3007010E9 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		1A2AA2BF1AFF3BE3007010E9 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		1A2AA2CF1B0315BC007010E9 /* unattend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unattend.png; sourceTree = "<group>"; };
+		1A2AA2E01B0B3AE5007010E9 /* PUBLIC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PUBLIC.png; sourceTree = "<group>"; };
+		1A2AA2E21B0B3AF5007010E9 /* PRIVATE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PRIVATE.png; sourceTree = "<group>"; };
 		1A5241A91A9AF6EE008E2B72 /* ThrowNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThrowNextViewController.h; sourceTree = "<group>"; };
 		1A5241AA1A9AF6EE008E2B72 /* ThrowNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThrowNextViewController.m; sourceTree = "<group>"; };
 		1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarTableViewController.h; sourceTree = "<group>"; };
@@ -151,10 +155,10 @@
 		1AA17A0A1A74E3D30061CA3E /* turnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = turnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA17A0F1A74E3D30061CA3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA17A101A74E3D30061CA3E /* turnipTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = turnipTests.m; sourceTree = "<group>"; };
-		1AA469E11AE9B03400D5BA08 /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
-		1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
-		1AA68CFA1AE71D28005A9D09 /* HostDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostDetailsViewController.h; sourceTree = "<group>"; };
-		1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostDetailsViewController.m; sourceTree = "<group>"; };
+		1AA469E11AE9B03400D5BA08 /* SAEEventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEEventDetailsViewController.h; sourceTree = "<group>"; };
+		1AA469E21AE9B03400D5BA08 /* SAEEventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEEventDetailsViewController.m; sourceTree = "<group>"; };
+		1AA68CFA1AE71D28005A9D09 /* SAEHostDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEHostDetailsViewController.h; sourceTree = "<group>"; };
+		1AA68CFB1AE71D28005A9D09 /* SAEHostDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEHostDetailsViewController.m; sourceTree = "<group>"; };
 		1ABABC191A839BFB00C0A617 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		1ABABC1A1A839BFB00C0A617 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		1ABABC1C1A860CD100C0A617 /* TicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketViewController.h; sourceTree = "<group>"; };
@@ -182,17 +186,17 @@
 		1AFD3FBF1A74ED9E00B2EABE /* DateTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimePicker.h; sourceTree = "<group>"; };
 		1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimePicker.m; sourceTree = "<group>"; };
 		1AFD3FC51A74ED9E00B2EABE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = LaunchScreen.strings; sourceTree = "<group>"; };
-		1AFD3FC61A74ED9E00B2EABE /* FindTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindTableCell.h; sourceTree = "<group>"; };
-		1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTableCell.m; sourceTree = "<group>"; };
-		1AFD3FC81A74ED9E00B2EABE /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
-		1AFD3FC91A74ED9E00B2EABE /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
+		1AFD3FC61A74ED9E00B2EABE /* SAEFindTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEFindTableCell.h; sourceTree = "<group>"; };
+		1AFD3FC71A74ED9E00B2EABE /* SAEFindTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEFindTableCell.m; sourceTree = "<group>"; };
+		1AFD3FC81A74ED9E00B2EABE /* SAEFindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEFindViewController.h; sourceTree = "<group>"; };
+		1AFD3FC91A74ED9E00B2EABE /* SAEFindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEFindViewController.m; sourceTree = "<group>"; };
 		1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1AFD3FCC1A74ED9E00B2EABE /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1AFD3FCD1A74ED9E00B2EABE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarker.h; sourceTree = "<group>"; };
-		1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarker.m; sourceTree = "<group>"; };
+		1AFD3FCF1A74ED9E00B2EABE /* SAEMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEMapViewController.h; sourceTree = "<group>"; };
+		1AFD3FD01A74ED9E00B2EABE /* SAEMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEMapViewController.m; sourceTree = "<group>"; };
+		1AFD3FD51A74ED9E00B2EABE /* SAEMapMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEMapMarker.h; sourceTree = "<group>"; };
+		1AFD3FD61A74ED9E00B2EABE /* SAEMapMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEMapMarker.m; sourceTree = "<group>"; };
 		1AFD3FD71A74ED9E00B2EABE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		1AFD3FD81A74ED9E00B2EABE /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1AFD3FD91A74ED9E00B2EABE /* ThrowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThrowViewController.h; sourceTree = "<group>"; };
@@ -253,10 +257,10 @@
 		1A2AA2C51B01DF74007010E9 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				1AFD3FCF1A74ED9E00B2EABE /* MapViewController.h */,
-				1AFD3FD01A74ED9E00B2EABE /* MapViewController.m */,
-				1AFD3FD51A74ED9E00B2EABE /* MapMarker.h */,
-				1AFD3FD61A74ED9E00B2EABE /* MapMarker.m */,
+				1AFD3FCF1A74ED9E00B2EABE /* SAEMapViewController.h */,
+				1AFD3FD01A74ED9E00B2EABE /* SAEMapViewController.m */,
+				1AFD3FD51A74ED9E00B2EABE /* SAEMapMarker.h */,
+				1AFD3FD61A74ED9E00B2EABE /* SAEMapMarker.m */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -309,10 +313,10 @@
 		1A2AA2C91B01E010007010E9 /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				1AA68CFA1AE71D28005A9D09 /* HostDetailsViewController.h */,
-				1AA68CFB1AE71D28005A9D09 /* HostDetailsViewController.m */,
-				1AA469E11AE9B03400D5BA08 /* EventDetailsViewController.h */,
-				1AA469E21AE9B03400D5BA08 /* EventDetailsViewController.m */,
+				1AA68CFA1AE71D28005A9D09 /* SAEHostDetailsViewController.h */,
+				1AA68CFB1AE71D28005A9D09 /* SAEHostDetailsViewController.m */,
+				1AA469E11AE9B03400D5BA08 /* SAEEventDetailsViewController.h */,
+				1AA469E21AE9B03400D5BA08 /* SAEEventDetailsViewController.m */,
 			);
 			name = Details;
 			sourceTree = "<group>";
@@ -334,10 +338,10 @@
 		1A2AA2CB1B01E0A9007010E9 /* Find */ = {
 			isa = PBXGroup;
 			children = (
-				1AFD3FC61A74ED9E00B2EABE /* FindTableCell.h */,
-				1AFD3FC71A74ED9E00B2EABE /* FindTableCell.m */,
-				1AFD3FC81A74ED9E00B2EABE /* FindViewController.h */,
-				1AFD3FC91A74ED9E00B2EABE /* FindViewController.m */,
+				1AFD3FC61A74ED9E00B2EABE /* SAEFindTableCell.h */,
+				1AFD3FC71A74ED9E00B2EABE /* SAEFindTableCell.m */,
+				1AFD3FC81A74ED9E00B2EABE /* SAEFindViewController.h */,
+				1AFD3FC91A74ED9E00B2EABE /* SAEFindViewController.m */,
 			);
 			name = Find;
 			sourceTree = "<group>";
@@ -508,12 +512,14 @@
 		1AFD3FF01A74EDA200B2EABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A2AA2E01B0B3AE5007010E9 /* PUBLIC.png */,
 				1ADB359E1AFD85880075984F /* logo.png */,
 				1A8A84881AF718BA002A75AF /* delete.png */,
 				1A8A84891AF718BA002A75AF /* edit.png */,
 				1A8A848A1AF718BA002A75AF /* scanner.png */,
 				1A8A84861AF718AC002A75AF /* add.png */,
 				1A9F1DA31ADEF95F00CC4E6A /* ex.png */,
+				1A2AA2E21B0B3AF5007010E9 /* PRIVATE.png */,
 				1A9F1DB01AE32DDF00CC4E6A /* message.png */,
 				1A9F1DB11AE32DDF00CC4E6A /* request.png */,
 				1A9F1DB21AE32DDF00CC4E6A /* request2.png */,
@@ -596,8 +602,9 @@
 		1AA179E61A74E3D30061CA3E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SAE;
 				LastUpgradeCheck = 0610;
-				ORGANIZATIONNAME = Per;
+				ORGANIZATIONNAME = "Stupidest App Ever";
 				TargetAttributes = {
 					1AA179ED1A74E3D30061CA3E = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -642,6 +649,7 @@
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
 				1A9F1DB31AE32DDF00CC4E6A /* message.png in Resources */,
 				1ADB35A71AFEAD8F0075984F /* turnip.png in Resources */,
+				1A2AA2E11B0B3AE5007010E9 /* PUBLIC.png in Resources */,
 				1A8A84871AF718AC002A75AF /* add.png in Resources */,
 				1A2AA2D01B0315BC007010E9 /* unattend.png in Resources */,
 				1AFD3FE31A74ED9E00B2EABE /* LaunchScreen.strings in Resources */,
@@ -658,6 +666,7 @@
 				1A8A848B1AF718BA002A75AF /* delete.png in Resources */,
 				1A9F1DA41ADEF95F00CC4E6A /* ex.png in Resources */,
 				1ADB359F1AFD85880075984F /* logo.png in Resources */,
+				1A2AA2E31B0B3AF5007010E9 /* PRIVATE.png in Resources */,
 				1A8A84851AF489E9002A75AF /* qrcircle.png in Resources */,
 				1A9AE4D61A8052D200AADDAA /* red.png in Resources */,
 				1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */,
@@ -736,17 +745,17 @@
 				1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */,
 				1A9D0D331A9D25020082550C /* TeammateViewController.m in Sources */,
 				1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */,
-				1AFD3FE41A74ED9E00B2EABE /* FindTableCell.m in Sources */,
+				1AFD3FE41A74ED9E00B2EABE /* SAEFindTableCell.m in Sources */,
 				1AA066921AC3D0A7008A5A11 /* ConversationTableViewCell.m in Sources */,
 				1AA0119C1AD22906003E7B76 /* profileAlbumCollectionViewCell.m in Sources */,
 				1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* ThrowNextViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
-				1AFD3FEA1A74ED9E00B2EABE /* MapViewController.m in Sources */,
-				1AFD3FE51A74ED9E00B2EABE /* FindViewController.m in Sources */,
+				1AFD3FEA1A74ED9E00B2EABE /* SAEMapViewController.m in Sources */,
+				1AFD3FE51A74ED9E00B2EABE /* SAEFindViewController.m in Sources */,
 				1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */,
-				1AFD3FED1A74ED9E00B2EABE /* MapMarker.m in Sources */,
+				1AFD3FED1A74ED9E00B2EABE /* SAEMapMarker.m in Sources */,
 				1A9FD9D11AB6BEAF000BF15C /* MessagingViewController.m in Sources */,
 				1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */,
 				1AFD3FE81A74ED9E00B2EABE /* LoginViewController.m in Sources */,
@@ -756,12 +765,12 @@
 				1A2AA2C01AFF3BE3007010E9 /* FXBlurView.m in Sources */,
 				1A1B32161A9E76490096F2DF /* TurnipCustomTabBarViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
-				1AA68CFC1AE71D28005A9D09 /* HostDetailsViewController.m in Sources */,
+				1AA68CFC1AE71D28005A9D09 /* SAEHostDetailsViewController.m in Sources */,
 				1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */,
 				1ABABC1E1A860CD100C0A617 /* TicketViewController.m in Sources */,
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
 				1AD8BA121AC5C3610018C383 /* AcceptToSViewController.m in Sources */,
-				1AA469E31AE9B03400D5BA08 /* EventDetailsViewController.m in Sources */,
+				1AA469E31AE9B03400D5BA08 /* SAEEventDetailsViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* ThrowViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,7 +13,7 @@
 #import <Parse/Parse.h>
 #import "SWRevealViewController.h"
 #import "ReachabilityManager.h"
-#import "HostDetailsViewController.h"
+#import "SAEHostDetailsViewController.h"
 
 @interface ThrowNextViewController ()
 
@@ -657,7 +657,7 @@
 //     Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"hostDetailsSegue"]) {
         
-        HostDetailsViewController *destViewController = (HostDetailsViewController *)segue.destinationViewController;
+        SAEHostDetailsViewController *destViewController = (SAEHostDetailsViewController *)segue.destinationViewController;
         
         destViewController.event = [self.currentEvent objectAtIndex:0];
     }

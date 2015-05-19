@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "HostDetailsViewController.h"
+#import "SAEHostDetailsViewController.h"
 #import <CoreData/CoreData.h>
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
@@ -16,7 +16,7 @@
 #import "ScannerViewController.h"
 #import "EditViewController.h"
 
-@interface HostDetailsViewController ()
+@interface SAEHostDetailsViewController ()
 
 @property (nonatomic, strong) NSMutableArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation HostDetailsViewController
+@implementation SAEHostDetailsViewController
 
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:NO];

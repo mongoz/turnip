@@ -2332,12 +2332,6 @@ If you are a qualified public educational or government institution and any part
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wn6-UV-gRN" id="Vvr-JI-veX">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCZ-b8-4js">
-                                                    <rect key="frame" x="135" y="28" width="53" height="23"/>
-                                                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="20"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m11-Ta-leV" userLabel="deniedButton">
                                                     <rect key="frame" x="8" y="15" width="50" height="50"/>
                                                     <state key="normal" image="deny">
@@ -2366,6 +2360,12 @@ If you are a qualified public educational or government institution and any part
                                                         <constraint firstAttribute="width" constant="69" id="crl-7t-nMq"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCZ-b8-4js">
+                                                    <rect key="frame" x="135" y="30" width="45" height="19"/>
+                                                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="P1i-N5-6js" firstAttribute="leading" secondItem="m11-Ta-leV" secondAttribute="trailing" id="9jZ-Zy-092"/>
@@ -3285,9 +3285,9 @@ If you are a qualified public educational or government institution and any part
         <segue reference="Awu-i5-jm8"/>
         <segue reference="sfu-Oh-zd7"/>
         <segue reference="BLL-n3-Hbf"/>
-        <segue reference="mYQ-hN-INn"/>
-        <segue reference="xH8-4C-0nt"/>
         <segue reference="hqz-fk-RkI"/>
+        <segue reference="ZPE-HD-gzc"/>
         <segue reference="eVo-du-xyK"/>
+        <segue reference="xH8-4C-0nt"/>
     </inferredMetricsTieBreakers>
 </document>

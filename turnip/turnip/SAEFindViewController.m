@@ -178,11 +178,13 @@
 {
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width, 35)];
     header.backgroundColor = [UIColor whiteColor];
+    
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:header.bounds];
     headerLabel.textColor = [UIColor blackColor];
     [header addSubview:headerLabel];
     
     [headerLabel setText: [self.days objectAtIndex:section]];
+    headerLabel.textAlignment = NSTextAlignmentCenter;
     
     return header;
 }
@@ -199,7 +201,7 @@
         }
         else
         {
-            [((NSMutableArray*)[self.groupedEvents objectForKey:date]) addObject:data];
+            [((NSMutableArray *)[self.groupedEvents objectForKey:date]) addObject:data];
         }
     }
 }

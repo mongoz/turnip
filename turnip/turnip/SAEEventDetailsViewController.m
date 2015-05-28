@@ -322,7 +322,7 @@
     if ([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"True"]) {
         open  = @"Private";
        
-        self.addressLabel.text = @"Address is private until accepted";
+        self.addressLabel.text = @"Address is private";
 
     } else if([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"False"]) {
         open = @"Public";
@@ -390,9 +390,7 @@
     
     switch (differenceInDays) {
         case -1:
-            NSLog(@"Yesterday");
         case 0:
-            NSLog(@"Today");
         case 1:
             
             [dateFormatter setTimeStyle:NSDateFormatterShortStyle];

@@ -1,17 +1,17 @@
 //
-//  MessagingViewController.m
+//  SAEMessagingViewController.m
 //  turnip
 //
 //  Created by Per on 3/16/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "MessagingViewController.h"
+#import "SAEMessagingViewController.h"
 #import "ProfileViewController.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
 
-@interface MessagingViewController () <AMBubbleTableDataSource, AMBubbleTableDelegate>
+@interface SAEMessagingViewController () <AMBubbleTableDataSource, AMBubbleTableDelegate>
 
 @property (nonatomic, strong) NSMutableArray *messages;
 
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation MessagingViewController
+@implementation SAEMessagingViewController
 
 
 - (void)viewDidLoad {

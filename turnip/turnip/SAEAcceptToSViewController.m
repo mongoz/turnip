@@ -1,20 +1,19 @@
 //
-//  AcceptToSViewController
+//  SAEAcceptToSViewController
 //  turnip
 //
 //  Created by Per on 3/27/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "AcceptToSViewController.h"
-#import "LoginViewController.h"
+#import "SAEAcceptToSViewController.h"
 #import <Parse/Parse.h>
 
-@interface AcceptToSViewController ()
+@interface SAEAcceptToSViewController ()
 
 @end
 
-@implementation AcceptToSViewController
+@implementation SAEAcceptToSViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,7 +24,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark -
 #pragma button handlers

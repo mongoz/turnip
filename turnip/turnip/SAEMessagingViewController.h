@@ -1,5 +1,5 @@
 //
-//  MessagingViewController.h
+//  SAEMessagingViewController.h
 //  turnip
 //
 //  Created by Per on 3/16/15.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AMBubbleTableViewController.h"
 
-@interface MessagingViewController : AMBubbleTableViewController
+@interface SAEMessagingViewController : AMBubbleTableViewController
 
 @property (nonatomic, strong) NSString * recipientId;
 @property (nonatomic, strong) NSString *conversationId;

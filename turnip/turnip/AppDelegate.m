@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "SAEMapViewController.h"
-#import "AcceptToSViewController.h"
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import <CoreData/CoreData.h>
 #import <Parse/Parse.h>
@@ -238,25 +237,6 @@
 }
 #endif
 
-#pragma mark save to coreData
-
-- (void) saveTicketInfo: (PFObject *) object {
-    
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSManagedObject *dataRecord = [NSEntityDescription
-                                   insertNewObjectForEntityForName:@"TicketInfo"
-                                   inManagedObjectContext: context];
-    
-    [dataRecord setValue: [object objectForKey: @"title"] forKey:@"title"];
-    [dataRecord setValue: [object objectId] forKey:@"objectId"];
-    [dataRecord setValue: [object objectForKey: @"address"] forKey:@"address"];
-    [dataRecord setValue: [object objectForKey: @"date"] forKey:@"date"];
-    NSError *error;
-    if (![context save:&error]) {
-        NSLog(@"Error:%@", error);
-    }
-    NSLog(@"Data saved");
-}
 
 #pragma mark - Notification delegates
 
@@ -305,7 +285,7 @@
 }
 
 #pragma mark -
-#pragma mark acceptTosViewCOntroller
+#pragma mark acceptTosViewController
 
 - (void)presentAcceptTosViewController {
     // Go to the welcome screen and have them log in or create an account.

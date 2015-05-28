@@ -8,7 +8,7 @@
 
 #import "NotificationTableViewCell.h"
 #import "NotificationViewController.h"
-#import "TicketViewController.h"
+#import "SAETicketViewController.h"
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
 #import "Constants.h"
@@ -21,6 +21,7 @@
 @property (nonatomic, assign) NSUInteger nbItems;
 @property (nonatomic, strong) NSArray *notifications;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, strong) PFImageView *image;
 
@@ -53,6 +54,13 @@ NSArray *fetchedObjects;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(queryNotifications) forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl = self.refreshControl;
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.activityIndicator.color = [UIColor blackColor];
+    
+    self.tableView.backgroundView = self.activityIndicator;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.activityIndicator startAnimating];
     
     [self queryNotifications];
 
@@ -120,19 +128,19 @@ NSArray *fetchedObjects;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 70, self.view.bounds.size.height)];
     
     if([self.notifications count] > 0) {
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.backgroundView = nil;
         return 1;
-    } else {
+    } else if (![self.activityIndicator isAnimating]) {
         // Display a message when the table is empty
-        messageLabel.text = @"No data is currently available. Please pull down to refresh.";
+        messageLabel.text = @"You currently have no notifications.";
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        messageLabel.font = [UIFont fontWithName:@"Arial-Bold" size:20];
         [messageLabel sizeToFit];
         
         self.tableView.backgroundView = messageLabel;
@@ -160,6 +168,11 @@ NSArray *fetchedObjects;
             NSLog(@"Error in geo query!: %@", error);
         } else {
              [self.refreshControl endRefreshing];
+            if ([self.activityIndicator isAnimating]) {
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.hidden = YES;
+                [self numberOfSectionsInTableView:self.tableView];
+            }
             if([objects count] != 0) {
                 self.notifications = [[NSArray alloc] initWithArray:objects];
                 [self.tableView reloadData];
@@ -174,7 +187,7 @@ NSArray *fetchedObjects;
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     if ([segue.identifier isEqualToString:@"ticketSegue"]) {
-        TicketViewController *destViewController = segue.destinationViewController;
+        SAETicketViewController *destViewController = segue.destinationViewController;
         
         NSString *title = [[[self.notifications valueForKey:@"event"] valueForKey:@"title"] objectAtIndex: indexPath.row];
         NSString *objectId = [[[self.notifications valueForKey:@"event"] valueForKey:@"objectId"] objectAtIndex: indexPath.row];

@@ -1,5 +1,5 @@
 //
-//  AcceptToSViewController.h
+//  SAEAcceptToSViewController.h
 //  turnip
 //
 //  Created by Per on 3/27/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AcceptToSViewController : UIViewController
+@interface SAEAcceptToSViewController : UIViewController
 
 - (IBAction)acceptButton:(id)sender;
 - (IBAction)cancelButton:(id)sender;

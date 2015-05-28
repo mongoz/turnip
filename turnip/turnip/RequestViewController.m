@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSMutableArray *userDelete;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -51,7 +52,13 @@ NSArray *fetchedObjects;
                                              selector:@selector(receiveRequestPush:)
                                                  name:TurnipPartyRequestPushNotification
                                                object:nil];
-    [self queryRequesters];
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.activityIndicator.color = [UIColor blackColor];
+    
+    self.tableView.backgroundView = self.activityIndicator;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.activityIndicator startAnimating];
     
     self.userDelete = [[NSMutableArray alloc] init];
     
@@ -63,6 +70,7 @@ NSArray *fetchedObjects;
     [self.refreshControl addTarget:self action:@selector(queryRequesters) forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl = self.refreshControl;
     
+    [self queryRequesters];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,6 +103,8 @@ NSArray *fetchedObjects;
                     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.refreshControl endRefreshing];
+                            [self.activityIndicator stopAnimating];
+                            self.activityIndicator.hidden = YES;
                             if([objects count] != 0) {
                                 self.requesters = [[NSArray alloc] initWithArray:objects];
                                 self.nbItems = [self.requesters count];
@@ -103,6 +113,10 @@ NSArray *fetchedObjects;
                         });
                     }];
                 }
+            } else {
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.hidden = YES;
+                [self numberOfSectionsInTableView:self.tableView];
             }
         }
     }];
@@ -145,13 +159,13 @@ NSArray *fetchedObjects;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.backgroundView = nil;
         return 1;
-    } else {
+    } else if(![self.activityIndicator isAnimating]){
         // Display a message when the table is empty
-        messageLabel.text = @"No data is currently available. Please pull down to refresh.";
+        messageLabel.text = @"You currently have no requests. Please pull down to refresh.";
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        messageLabel.font = [UIFont fontWithName:@"Arial-Bold" size:20];
         [messageLabel sizeToFit];
         
         self.tableView.backgroundView = messageLabel;

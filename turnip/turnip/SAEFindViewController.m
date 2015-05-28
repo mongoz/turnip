@@ -79,11 +79,14 @@
         if (error) {
             [ParseErrorHandlingController handleParseError:error];
         } else {
+            if ([self.activityView isAnimating]) {
+                [self.activityView stopAnimating];
+                self.activityView.hidden = YES;
+            }
             if ([objects count] > 0) {
                 self.events = [[NSArray alloc] initWithArray:objects];
                 [self groupEventsIntoDays];
-                [self.activityView stopAnimating];
-                self.activityView.hidden = YES;
+                
                 [self.tableView reloadData];
             }
         }
@@ -207,21 +210,63 @@
 
 - (NSString *) convertDate: (NSDate *) date {
     
-    NSLocale *currentLocale = [NSLocale currentLocale];
-    
-    // Set the date components you want
-    NSString *dateComponents = @"EEEEMMMMd";
-    
-    // The components will be reordered according to the locale
-    NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:dateComponents options:0 locale:currentLocale];
+    NSString *dateString = nil;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:dateFormat];
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
     
-    NSString *formattedDateString = [dateFormatter stringFromDate:date];
+    NSUInteger units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:units fromDate:[NSDate date]];
+    comps.day = comps.day + 1;
+    NSDate *tomorrowMidnight = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
-    return formattedDateString;
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setLocale:currentLocale];
+    
+    NSString *eventDate = [dateFormatter stringFromDate:date];
+    
+    NSDate *eventDay = [dateFormatter dateFromString:eventDate];
+    
+    NSInteger differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate: eventDay] -
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:tomorrowMidnight];
+    
+    
+    switch (differenceInDays) {
+        case -1:
+           
+        case 0:
+  
+        case 1:
+            
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            
+            [dateFormatter setLocale:currentLocale];
+            
+            [dateFormatter setDoesRelativeDateFormatting:YES];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            break;
+        default: {
+            // Set the date components you want
+            NSString *dateComponents = @"EEEEMMMMd, h:mm a";
+            
+            // The components will be reordered according to the locale
+            NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:dateComponents options:0 locale:currentLocale];
+            
+            [dateFormatter setDateFormat:dateFormat];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            
+            break;
+        }
+    }
+    
+    return dateString;
 }
+
 
 #pragma mark - Navigation
 
@@ -246,9 +291,12 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"eventDetailsSegue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        id key = [self.days objectAtIndex:indexPath.section];
+        NSArray *sectionItems = [[NSArray alloc] initWithArray:[self.groupedEvents objectForKey:key]];
+        
         SAEEventDetailsViewController *destViewController = segue.destinationViewController;
         
-        destViewController.event = [self.events objectAtIndex:indexPath.row];
+        destViewController.event = [sectionItems objectAtIndex:indexPath.row];
     }
 }
 @end

@@ -1,5 +1,5 @@
 //
-//  ConversationTableViewCell.h
+//  SAEConversationTableViewCell.h
 //  turnip
 //
 //  Created by Per on 3/25/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ConversationTableViewCell : UITableViewCell
+@interface SAEConversationTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel;

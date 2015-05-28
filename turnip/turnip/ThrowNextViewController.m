@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIImageView *lastImagePressed;
 @property (nonatomic, strong) NSMutableArray *images;
 
+
 @property (nonatomic, strong) NSArray *currentEvent;
 @property (nonatomic, strong) NSString *currentEventId;
 
@@ -49,10 +50,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.image = [UIImage imageNamed:@"camera placeholder.png"];
-    
-    NSLog(@"placemark: %@", self.placemark);
-    NSLog(@"coords: %@", self.coordinates);
     
     [self setupView];
     [self setupPickerViews];
@@ -72,26 +69,8 @@
     self.imageTwo.userInteractionEnabled = YES;
     self.imageThree.userInteractionEnabled = YES;
     
-    self.capacityInputField.delegate = self;
-    self.capacityInputField.keyboardType = UIKeyboardTypeNumberPad;
-    
-    UIToolbar *numberToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    numberToolBar.barStyle = UIBarStyleBlackTranslucent;
-    numberToolBar.items = [NSArray arrayWithObjects: [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelNumberPad)],
-                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                           [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)], nil];
-    [numberToolBar sizeToFit];
-    self.capacityInputField.inputAccessoryView = numberToolBar;
 }
 
-- (void) cancelNumberPad {
-    [self.capacityInputField resignFirstResponder];
-    self.capacityInputField.text = @"";
-}
-
-- (void) doneWithNumberPad {
-    [self.capacityInputField resignFirstResponder];
-}
 
 - (void) setupPickerViews {
     UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -165,10 +144,6 @@
             self.endTimeDate.layer.borderColor = [[UIColor clearColor] CGColor];
         }
     }
-    
-    else if (textField == self.capacityInputField && self.capacityInputField.layer.borderColor == [[UIColor redColor] CGColor]) {
-        self.capacityInputField.layer.borderColor = [[UIColor clearColor] CGColor];
-    }
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
@@ -186,33 +161,6 @@
     }
 }
 
-- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    if (textField == self.capacityInputField) {
-        /* for backspace */
-        if([string length]==0){
-            return YES;
-        }
-        
-        /*  limit to only numeric characters  */
-        NSCharacterSet* numberCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-        for (int i = 0; i < [string length]; ++i)
-        {
-            unichar c = [string characterAtIndex:i];
-            if (![numberCharSet characterIsMember:c])
-            {
-                return NO;
-            }
-        }
-        return YES;
-    }
-    return NO;
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self.capacityInputField resignFirstResponder];
-    
-}
 
 #pragma mark - Date/Time picker delegates
 
@@ -408,7 +356,6 @@
     
     return ([self.dateInputField.text isEqual: @""] ||
             [self.endTimeDate.text isEqual: @"About..."] ||
-            [self.capacityInputField.text isEqual: @""] ||
             self.imageOne.image == nil);
 }
 
@@ -424,7 +371,7 @@
 }
 
 - (IBAction) saveButtonHandler:(id)sender {
-    if (![self checkInput]) {
+    if (![self checkInput] || self.coordinates != nil || self.placemark != nil) {
         if ([ReachabilityManager isReachable] ) {
             
             self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
@@ -568,13 +515,6 @@
             self.endTimeDate.layer.borderColor = [[UIColor redColor] CGColor];
         }
         
-        if ([self.capacityInputField.text isEqual: @""]) {
-            self.capacityInputField.layer.cornerRadius = 8.0f;
-            self.capacityInputField.layer.masksToBounds = YES;
-            self.capacityInputField.layer.borderWidth = 1.0f;
-            self.capacityInputField.layer.borderColor = [[UIColor redColor] CGColor];
-        }
-        
         if(self.imageOne.image == nil) {
             self.imageOne.layer.borderColor = [[UIColor redColor] CGColor];
         }
@@ -586,9 +526,7 @@
 - (void) saveToCoreData:(PFObject *) postObject {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = [delegate managedObjectContext];
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     
-   // NSLog(@"neighbourhood: %@", [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"]);
         
         NSManagedObject *dataRecord = [NSEntityDescription
                                        insertNewObjectForEntityForName:@"YourEvents"
@@ -601,12 +539,18 @@
         [dataRecord setValue: self.cost forKey:@"price"];
         [dataRecord setValue: self.selectedDate forKey:@"date"];
         [dataRecord setValue: self.endTimeDate.text forKey:@"endTime"];
-        [dataRecord setValue: self.imageOne.image forKey:@"image1"];
-        [dataRecord setValue: self.imageTwo.image forKey:@"image2"];
-        [dataRecord setValue: self.imageThree.image forKey:@"image3"];
-        [dataRecord setValue: [numberFormatter numberFromString:self.capacityInputField.text] forKey:@"capacity"];
         [dataRecord setValue: [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"] forKey:@"neighbourhood"];
     
+    int imageCount = 1;
+    for (UIImage *image in self.images) {
+        NSString *imageName = [NSString stringWithFormat:@"image%d",imageCount];
+        NSLog(@"imageName: %@", imageName);
+        
+        [dataRecord setValue:image forKey:imageName];
+        
+        imageCount++;
+    }
+
         NSNumber *privateAsNumber = [NSNumber numberWithBool: self.isPrivate];
         [dataRecord setValue: privateAsNumber forKey:@"private"];
         

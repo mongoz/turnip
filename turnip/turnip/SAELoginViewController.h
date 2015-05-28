@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface SAELoginViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIButton *facebookLoginButton;
 @property (strong, nonatomic) IBOutlet UILabel *connectionLabel;
 

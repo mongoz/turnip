@@ -1,14 +1,14 @@
 //
-//  MessagingTableViewCell.m
+//  SAEConversationTableViewCell.m
 //  turnip
 //
 //  Created by Per on 3/25/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "ConversationTableViewCell.h"
+#import "SAEConversationTableViewCell.h"
 
-@implementation ConversationTableViewCell
+@implementation SAEConversationTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "TicketViewController.h"
+#import "SAETicketViewController.h"
 
-@interface TicketViewController ()
+@interface SAETicketViewController ()
 
 @property (nonatomic, weak) NSTimer* timer;
 @property (nonatomic, strong) NSDateComponents *dateComponents;
 
 @end
 
-@implementation TicketViewController
+@implementation SAETicketViewController
 
 @synthesize address;
 @synthesize ticketTitle;

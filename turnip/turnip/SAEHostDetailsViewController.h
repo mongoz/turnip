@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
 @property (strong, nonatomic) IBOutlet UILabel *goingLabel;
 @property (strong, nonatomic) IBOutlet UIButton *goingButton;
+@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
 
 - (IBAction)deleteButton:(id)sender;
 - (IBAction)editButton:(id)sender;

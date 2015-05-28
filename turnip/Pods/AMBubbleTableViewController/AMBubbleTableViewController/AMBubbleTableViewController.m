@@ -251,7 +251,7 @@
 					  withWidth:self.tableView.frame.size.width
 					  andParams:@{ @"date": stringDate }];
 	} else {
-		[self.dateFormatter setDateFormat:@"h:mm"];					// 13:23
+		[self.dateFormatter setDateFormat:@"h:mm a"];					// 13:23
 		NSString* username;
 		if ([self.dataSource respondsToSelector:@selector(usernameForRowAtIndexPath:)]) {
 			username = [self.dataSource usernameForRowAtIndexPath:indexPath];

@@ -13,7 +13,7 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "SWRevealViewController.h"
-#import "MessagingViewController.h"
+#import "SAEMessagingViewController.h"
 #import "ProfileImageCollectionViewController.h"
 
 @interface ProfileViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
@@ -82,7 +82,7 @@
                 
                 NSString *facebookID = userData[@"id"];
                 NSArray *name = [userData[@"name"] componentsSeparatedByString:@" "];
-                NSString *birthday = userData[@"birthday"];
+                NSString *birthday = [[PFUser currentUser] valueForKey:@"birthday"];
                 
                 NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([self calculateAge:birthday]).stringValue];
                 
@@ -414,7 +414,7 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"messageSegue"]) {
-        MessagingViewController *destViewController = segue.destinationViewController;
+        SAEMessagingViewController *destViewController = segue.destinationViewController;
         destViewController.user = user;
     }
 }

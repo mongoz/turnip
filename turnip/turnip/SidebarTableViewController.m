@@ -7,7 +7,6 @@
 //
 
 #import "SidebarTableViewController.h"
-#import "LoginViewController.h"
 #import "SWRevealViewController.h"
 #import <Parse/Parse.h>
 #import "Constants.h"

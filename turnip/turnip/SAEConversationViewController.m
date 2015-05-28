@@ -1,25 +1,26 @@
 //
-//  ConversationViewController.m
+//  SAEConversationViewController.m
 //  turnip
 //
 //  Created by Per on 3/23/15.
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "ConversationViewController.h"
-#import "ConversationTableViewCell.h"
-#import "MessagingViewController.h"
+#import "SAEConversationViewController.h"
+#import "SAEConversationTableViewCell.h"
+#import "SAEMessagingViewController.h"
 #import <Parse/Parse.h>
 #import "Constants.h"
 
-@interface ConversationViewController ()
+@interface SAEConversationViewController ()
 
 @property (nonatomic, strong) NSMutableArray *user;
 @property (nonatomic, strong) NSMutableArray *conversations;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
-@implementation ConversationViewController
+@implementation SAEConversationViewController
 
 - (void) viewWillAppear:(BOOL)animated {
     if ([[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabMessage] badgeValue] > 0) {
@@ -34,6 +35,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageRecived:) name:TurnipMessagePushNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageSent:) name:TurnipMessageSentNotification object:nil];
+    
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.activityIndicator.color = [UIColor blackColor];
+    
+    self.tableView.backgroundView = self.activityIndicator;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.activityIndicator startAnimating];
     
     [self queryForTable];
     
@@ -99,6 +108,7 @@
             } else {
                 self.activityIndicator.hidden = YES;
                 [self.activityIndicator stopAnimating];
+                [self numberOfSectionsInTableView:self.tableView];
             }
         }
     }];
@@ -106,7 +116,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    if([self.conversations count] > 0) {
+        self.tableView.backgroundView = nil;
+        return 1;
+    } else if(![self.activityIndicator isAnimating]){
+        // Display a message when the table is empty
+        messageLabel.text = @"You currently have no active conversations.";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Arial-Bold" size:20];
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+    }
+    return 0;
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -118,9 +145,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *tableIdentifier = @"conversationCell";
-    ConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
+    SAEConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
     if (cell == nil) {
-        cell = [[ConversationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
+        cell = [[SAEConversationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
     cell.titleLabel.text = @"test";
@@ -174,7 +201,7 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"messageSegue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        MessagingViewController *destViewController = segue.destinationViewController;
+        SAEMessagingViewController *destViewController = segue.destinationViewController;
         
         destViewController.conversationId = [[self.conversations valueForKey:@"conversationId"] objectAtIndex:indexPath.row];
         destViewController.user = [[self.conversations valueForKey:@"user"] objectAtIndex:indexPath.row];

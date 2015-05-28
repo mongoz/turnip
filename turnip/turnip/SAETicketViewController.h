@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TicketViewController : UIViewController
+@interface SAETicketViewController : UIViewController
 
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *ticketTitle;

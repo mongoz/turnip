@@ -118,7 +118,7 @@
         }
         
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return (newLength > 17) ? NO : YES;
+        return (newLength > 25) ? NO : YES;
     }
     
     return YES;
@@ -257,7 +257,9 @@
             // Process the placemark.
             self.eventLocation = aPlacemark.location;
             self.placemark = [placemarks lastObject];
-        
+            
+            NSLog(@"self.eventLocation : %@", self.eventLocation);
+            NSLog(@"self.placemark : %@", self.placemark);
         }
     }];
 }
@@ -293,10 +295,7 @@
         }
     }
     else {
-        NSLog(@"placemark? %@", self.placemark);
-        NSLog(@"address: %@", self.eventLocation);
         if (self.placemark == nil) {
-            NSLog(@"derp");
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid address"
                                                             message:@"The address you entered is invalid please double check it."
                                                            delegate:nil

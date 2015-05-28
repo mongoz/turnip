@@ -41,8 +41,9 @@
         [self addSubview: picker];
         
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 0, frame.size.width, MyDateTimePickerToolbarHeight)];
-        toolbar.barStyle = UIBarStyleBlackOpaque;
+        toolbar.barStyle = UIBarStyleDefault;
         toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [toolbar setTintColor:[UIColor colorWithRed:0.592 green:0 blue:0 alpha:1]];
         
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle: @"Done" style: UIBarButtonItemStylePlain target: self action: @selector(donePressed)];
         UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];

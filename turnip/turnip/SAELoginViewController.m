@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "AcceptToSViewController.h"
+#import "SAELoginViewController.h"
 #import "ProfileViewController.h"
 #import "SAEMapViewController.h"
+#import "ParseErrorHandlingController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
@@ -17,18 +17,16 @@
 #import "Reachability.h"
 #import "ReachabilityManager.h"
 
-@interface LoginViewController ()
+@interface SAELoginViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation SAELoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //[self.tabBarController.tabBar setHidden:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
-    
     
 }
 
@@ -75,25 +73,44 @@
             FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
             [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                 if (error) {
-                    NSLog(@"error occured");
+                    NSLog(@"error occured: %@", error);
                 } else {
                     if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
                         [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:permissionsArray];
                     }
+                    
+                    NSString *birthday = nil;
+                    
+                    if ([result objectForKey:@"birthday"] == nil) {
+                        birthday = @"0";
+                    } else {
+                        birthday = [result objectForKey:@"birthday"];
+                    }
+                    
+                    
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveEventually];
                     
+                    [PFUser currentUser][@"gender"] = [result objectForKey:@"gender"];
                     [PFUser currentUser][@"bio"] = @"Hi, I really like to party";
                     [PFUser currentUser][@"name"] = [result objectForKey:@"name"];
                     [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
                     [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
                     [PFUser currentUser][@"facebookId"] = [result objectForKey:@"id"];
                     [PFUser currentUser][@"TOS"] = @"False";
-                    [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
+                    [PFUser currentUser][@"birthday"] = birthday;
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                        [self presentTosView];
+                        if (error) {
+                            [ParseErrorHandlingController handleParseError:error];
+                        } else if(succeeded) {
+                            if (birthday == 0) {
+                                [self presentBirthdayViewController];
+                            } else {
+                                [self presentTosView];
+                            }
+                        }
                     }];
                 }
             }];
@@ -109,20 +126,30 @@
                     }
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
-                    [[PFInstallation currentInstallation] saveEventually];
-                    NSLog(@"derp");
+                    [[PFInstallation currentInstallation] saveInBackground];
                     
-                    [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
-                    [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
-                    [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
-                    
-                    [[PFUser currentUser] saveInBackground];
-                    
-                    if ([[PFUser currentUser][@"TOS"] isEqualToString:@"False"]) {
-                        [self presentTosView];
-                    } else {
-                        [self presentMapView];
-                    }
+                        [PFUser currentUser][@"gender"] = [result objectForKey:@"gender"];
+                        [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
+                        [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
+                        
+                        if ([result objectForKey:@"birthday"] != nil) {
+                            [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
+                        }
+                        
+                        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if(error) {
+                                [ParseErrorHandlingController handleParseError:error];
+                            } else if(succeeded){
+                                if ([[PFUser currentUser][@"birthday"] isEqualToString:@"0"]) {
+                                    [self presentBirthdayViewController];
+                                } else if ([[PFUser currentUser][@"TOS"] isEqualToString:@"False"]) {
+                                    [self presentTosView];
+                                } else {
+                                    [self presentMapView];
+                                }
+
+                            }
+                        }];
                 }
             }];
         }
@@ -141,9 +168,15 @@
     [self presentViewController:atvc animated:YES completion:nil];
 }
 
+- (void)presentBirthdayViewController {
+    // Go to the welcome screen and have them log in or create an account.
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController *bdvc = [storyboard instantiateViewControllerWithIdentifier:@"birthdayView"];
+    [self presentViewController:bdvc animated:YES completion:nil];
+}
+
 - (void) reachabilityDidChange: (NSNotification *) note {
     if ([ReachabilityManager isReachable]) {
-        NSLog(@"reached");
         self.facebookLoginButton.hidden = NO;
         self.connectionLabel.hidden = YES;
         

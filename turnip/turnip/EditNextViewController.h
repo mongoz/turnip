@@ -27,7 +27,7 @@ MBProgressHUDDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *dateInputField;
 @property (strong, nonatomic) IBOutlet UITextField *endTimeDate;
-@property (strong, nonatomic) IBOutlet UITextField *capacityInputField;
+
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageOne;
 @property (strong, nonatomic) IBOutlet UIImageView *imageTwo;

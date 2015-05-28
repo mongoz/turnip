@@ -9,7 +9,7 @@
 #import "ParseErrorHandlingController.h"
 #import "SAEEventDetailsViewController.h"
 #import "ProfileViewController.h"
-#import "MessagingViewController.h"
+#import "SAEMessagingViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
 #import "Constants.h"
@@ -32,6 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAddress:) name:@"userIsAccepted" object:nil];
     
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30.0f, 30.0f)];
     
@@ -160,6 +162,7 @@
                             if ([[user objectId] isEqual:[PFUser currentUser].objectId]) {
                                 found = YES;
                                 self.userIsAccepted = YES;
+                                [[NSNotificationCenter defaultCenter] postNotificationName:@"userIsAccepted" object:nil];
                                 break;
                             }
                         }
@@ -280,7 +283,7 @@
     
     self.attendingView.dynamic = NO;
     self.attendingView.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-    
+    self.attendingView.updateInterval = 5;
     
     CALayer *borderLayer = [CALayer layer];
     CGRect borderFrame = CGRectMake(-5, -5, (self.profileImage.frame.size.width + 10), (self.profileImage.frame.size.height + 10));
@@ -314,11 +317,18 @@
     NSString *price = @"";
     NSString *open = @"";
     
+    self.addressLabel.numberOfLines = 0;
+    
     if ([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"True"]) {
         open  = @"Private";
+       
+        self.addressLabel.text = @"Address is private until accepted";
+
     } else if([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"False"]) {
         open = @"Public";
+        self.addressLabel.text = [data objectForKey:TurnipParsePostAddressKey];
     }
+    [self.addressLabel sizeToFit];
     
     if ([[data objectForKey:TurnipParsePostPaidKey] isEqual:@"True"]) {
         price = @"Free";
@@ -327,6 +337,7 @@
     }
     
     self.privateLabel.text = [NSString stringWithFormat:@"%@, %@", open, price];
+    
     
 }
 
@@ -353,16 +364,60 @@
 #pragma mark utils
 
 - (NSString *) convertDate: (NSDate *) date {
+    
+    NSString *dateString = nil;
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
     
-    NSLocale *locale = [NSLocale currentLocale];
-    [dateFormatter setLocale:locale];
+    NSUInteger units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:units fromDate:[NSDate date]];
+    comps.day = comps.day + 1;
+    NSDate *tomorrowMidnight = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
-    [dateFormatter setDoesRelativeDateFormatting:YES];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setLocale:currentLocale];
     
-    NSString *dateString = [dateFormatter stringFromDate:date];
+    NSString *eventDate = [dateFormatter stringFromDate:date];
+    
+    NSDate *eventDay = [dateFormatter dateFromString:eventDate];
+    
+    NSInteger differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate: eventDay] -
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:tomorrowMidnight];
+  
+    
+    switch (differenceInDays) {
+        case -1:
+            NSLog(@"Yesterday");
+        case 0:
+            NSLog(@"Today");
+        case 1:
+            
+            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            
+            [dateFormatter setLocale:currentLocale];
+            
+            [dateFormatter setDoesRelativeDateFormatting:YES];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            break;
+        default: {
+            // Set the date components you want
+            NSString *dateComponents = @"EEEEMMMMd, h:mm a";
+            
+            // The components will be reordered according to the locale
+            NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:dateComponents options:0 locale:currentLocale];
+            
+            [dateFormatter setDateFormat:dateFormat];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            
+            break;
+        }
+    }
     
     return dateString;
 }
@@ -414,7 +469,7 @@
     
     
     if ([segue.identifier isEqualToString:@"messageSegue"]) {
-        MessagingViewController *destViewController = segue.destinationViewController;
+        SAEMessagingViewController *destViewController = segue.destinationViewController;
         destViewController.user = [[self.data valueForKey:@"user"] objectAtIndex:0];
     }
 
@@ -477,6 +532,8 @@
 
     if (self.userIsAccepted || [[[[self.data valueForKey:@"user"] valueForKey:@"objectId"] objectAtIndex:0] isEqual:[PFUser currentUser].objectId]) {
         self.attendingView.hidden = NO;
+        [self.attendingView setNeedsDisplay];
+        [self.scrollView setScrollEnabled:NO];
     }
 }
 
@@ -621,6 +678,30 @@
      }];
     
     return cell;
+}
+
+#pragma mark - Notifications 
+
+- (void)showAddress:(NSNotification *)notification {
+    if (self.userIsAccepted) {
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setHour:-2];
+        
+        NSDate *showDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:[[self.data valueForKey:TurnipParsePostDateKey] objectAtIndex:0] options:0];
+        
+        NSLog(@"showDate: %@", showDate);
+        NSLog(@"currDate :%@", [NSDate date]);
+
+        self.addressLabel.numberOfLines = 0;
+        if(showDate >= [NSDate date]) {
+            self.addressLabel.text = [[self.data valueForKey:TurnipParsePostAddressKey] objectAtIndex:0];
+        } else {
+           NSString *address = [NSString stringWithFormat:@"Address will be shown %@", [self convertDate:showDate]];
+            self.addressLabel.text = address;
+        }
+        
+        [self.addressLabel sizeToFit];
+    }
 }
 
 

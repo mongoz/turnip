@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UIImageView *requestHolderImage;
+@property (strong, nonatomic) IBOutlet UIView *middleView;
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
 
 @property (strong, nonatomic) IBOutlet UIButton *unattendButton;
 
@@ -42,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
 @property (strong, nonatomic) IBOutlet UILabel *goingLabel;
+@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
 
 - (IBAction)profileImageTap:(UITapGestureRecognizer *)sender;
 - (IBAction)messageButton:(id)sender;

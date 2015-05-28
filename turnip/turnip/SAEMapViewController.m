@@ -480,9 +480,20 @@
     _currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
     
     if ([_currentEvent count] != 0) {
-        if ([[[_currentEvent valueForKey:@"date"] objectAtIndex:0] timeIntervalSinceNow] < 0.0) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
+        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        
+        NSString *string = [dateFormatter stringFromDate:[[_currentEvent valueForKey:@"date"] objectAtIndex:0]];
+        
+        NSString *endDate = [NSString stringWithFormat:@"%@ %@", string, [[_currentEvent valueForKey:@"endTime"] objectAtIndex:0]];
+        
+        NSDate *newDate = [formatter dateFromString:endDate];
+        if ([newDate timeIntervalSinceNow] < 0.0) {
             //Delete core data
-            NSLog(@"party over");
             [self deleteFromCoreData];
         }
     } else {

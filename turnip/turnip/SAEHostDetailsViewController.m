@@ -39,6 +39,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventWasUpdated:) name:TurnipPartyUpdateNotification object:nil];
+    
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30.0f, 30.0f)];
     
     UIImage *backImage = [self imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
@@ -55,12 +57,10 @@
     // Set up the content size of the scroll view
     
     [self queryForAcceptedUsers];
-    [self updateUI];
-
-}
-
-
-- (void) viewDidAppear:(BOOL)animated {
+    [self updateUI: self.event];
+    
+    [self.scrollView layoutIfNeeded];
+    [self.scrollView setNeedsLayout];
     [self drawImages];
 }
 
@@ -69,7 +69,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateUI {
+- (void) updateUI: (NSArray *) event {
     
     CALayer *borderLayer = [CALayer layer];
     CGRect borderFrame = CGRectMake(-5, -5, (self.profileImage.frame.size.width + 10), (self.profileImage.frame.size.height + 10));
@@ -93,28 +93,32 @@
     
     [self.nameLabel setAttributedText:string];
 
+    self.addressLabel.numberOfLines = 0;
+    self.addressLabel.text = [event valueForKey:@"location"];
+    [self.addressLabel sizeToFit];
     
     self.aboutLabel.numberOfLines = 0;
-    self.aboutLabel.text = [self.event valueForKey:TurnipParsePostTextKey];
+    self.aboutLabel.text = [event valueForKey:TurnipParsePostTextKey];
     [self.aboutLabel sizeToFit];
-    self.neighbourhoodLabel.text = [self.event valueForKey:@"neighbourhood"];
     
-    self.dateLabel.text = [self convertDate:[self.event valueForKey:TurnipParsePostDateKey]];
+    self.neighbourhoodLabel.text = [event valueForKey:@"neighbourhood"];
+    
+    self.dateLabel.text = [self convertDate:[event valueForKey:TurnipParsePostDateKey]];
     
     
     NSString *price = @"";
     NSString *open = @"";
     
-    if ([[self.event valueForKey:TurnipParsePostPrivateKey] boolValue]) {
+    if ([[event valueForKey:TurnipParsePostPrivateKey] boolValue]) {
         open  = @"Private";
     } else {
         open = @"Public";
     }
     
-    if ([[self.event valueForKey:TurnipParsePostPaidKey] boolValue]) {
+    if ([[event valueForKey:TurnipParsePostPaidKey] boolValue]) {
         price = @"Free";
     } else {
-        price = [NSString stringWithFormat:@"$%@",[self.event valueForKey:TurnipParsePostPriceKey]];
+        price = [NSString stringWithFormat:@"$%@",[event valueForKey:TurnipParsePostPriceKey]];
     }
     
     self.privateLabel.text = [NSString stringWithFormat:@"%@, %@", open, price];
@@ -216,7 +220,6 @@
                     } else {
                         self.accepted = [[NSArray alloc] initWithArray:objects];
                         [[self tableView] reloadData];
-                        
                         [self.goingButton setTitle:@([self.accepted count]).stringValue forState:UIControlStateNormal];
                     }
                 }];
@@ -295,16 +298,60 @@
 #pragma mark utils
 
 - (NSString *) convertDate: (NSDate *) date {
+    
+    NSString *dateString = nil;
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
     
-    NSLocale *locale = [NSLocale currentLocale];
-    [dateFormatter setLocale:locale];
+    NSUInteger units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:units fromDate:[NSDate date]];
+    comps.day = comps.day + 1;
+    NSDate *tomorrowMidnight = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
-    [dateFormatter setDoesRelativeDateFormatting:YES];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setLocale:currentLocale];
     
-    NSString *dateString = [dateFormatter stringFromDate:date];
+    NSString *eventDate = [dateFormatter stringFromDate:date];
+    
+    NSDate *eventDay = [dateFormatter dateFromString:eventDate];
+    
+    NSInteger differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate: eventDay] -
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:tomorrowMidnight];
+    
+    
+    switch (differenceInDays) {
+        case -1:
+            NSLog(@"Yesterday");
+        case 0:
+            NSLog(@"Today");
+        case 1:
+            
+            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            
+            [dateFormatter setLocale:currentLocale];
+            
+            [dateFormatter setDoesRelativeDateFormatting:YES];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            break;
+        default: {
+            // Set the date components you want
+            NSString *dateComponents = @"EEEEMMMMd, h:mm a";
+            
+            // The components will be reordered according to the locale
+            NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:dateComponents options:0 locale:currentLocale];
+            
+            [dateFormatter setDateFormat:dateFormat];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            
+            break;
+        }
+    }
     
     return dateString;
 }
@@ -355,7 +402,6 @@
 
 - (void) deleteFromCoreData {
 
-    
     NSArray *temp = [[NSArray alloc] initWithObjects:self.event, nil];
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -494,6 +540,35 @@
      }];
 
     return cell;
+}
+
+#pragma mark - Notifications
+
+- (void) eventWasUpdated: (NSNotification *) note {
+    NSArray *event = [[NSArray alloc] initWithArray:[self loadCoreData]];
+    
+    [self updateUI: [event objectAtIndex:0]];
+}
+
+#pragma mark - Core Data
+
+- (NSArray *) loadCoreData {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"YourEvents" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObjects = [[NSArray alloc] initWithArray:[context executeFetchRequest:fetchRequest error: &error]];
+    
+    if ([fetchedObjects count] == 0) {
+        return nil;
+    } else {
+        
+        return fetchedObjects;
+    }
 }
 
 

@@ -7,7 +7,6 @@
 //
 
 #import "ParseErrorHandlingController.h"
-#import "LoginViewController.h"
 #import <Parse/Parse.h>
 
 @implementation ParseErrorHandlingController
@@ -22,12 +21,13 @@
             [self _handleInvalidSessionTokenError];
             break;
         }
+
          //   ... // Other Parse API Errors that you want to explicitly handle.
     }
 }
 
 + (void)_handleInvalidSessionTokenError {
-    NSLog(@"invalid Session");
+    [PFUser logOut];
 
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     

@@ -92,7 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "AMBubbleTableViewController/AMBubbleTableViewController/Resources/messageBubbleHighlighted@2x.png"
   install_resource "AMBubbleTableViewController/AMBubbleTableViewController/Resources/messageBubbleTyping.png"
   install_resource "AMBubbleTableViewController/AMBubbleTableViewController/Resources/messageBubbleTyping@2x.png"
-  install_resource "Google-Maps-iOS-SDK/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"
+  install_resource "GoogleMaps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"
   install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -130,7 +130,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMBubbleTableViewController/AMBubbleTableViewController/Resources/messageBubbleHighlighted@2x.png"
   install_resource "AMBubbleTableViewController/AMBubbleTableViewController/Resources/messageBubbleTyping.png"
   install_resource "AMBubbleTableViewController/AMBubbleTableViewController/Resources/messageBubbleTyping@2x.png"
-  install_resource "Google-Maps-iOS-SDK/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"
+  install_resource "GoogleMaps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"
   install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
 fi
 

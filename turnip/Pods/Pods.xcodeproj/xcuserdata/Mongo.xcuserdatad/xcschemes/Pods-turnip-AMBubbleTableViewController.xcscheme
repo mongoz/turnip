@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "67BE7FBAB610C9881B20941E"
+               BlueprintIdentifier = "6A67307FE910E4D3C3CFC743"
                BuildableName = "libPods-turnip-AMBubbleTableViewController.a"
                BlueprintName = "Pods-turnip-AMBubbleTableViewController"
                ReferencedContainer = "container:Pods.xcodeproj">

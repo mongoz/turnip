@@ -35,6 +35,15 @@
         topController = topController.presentedViewController;
     }
     
+    UIAlertView *alertView =
+    [[UIAlertView alloc] initWithTitle:@"Error: Session Invalid"
+                               message:@"Your session is invalid, please login again"
+                              delegate:self
+                     cancelButtonTitle:nil
+                     otherButtonTitles:@"Ok", nil];
+    [alertView show];
+
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UIViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
     [topController presentViewController:lvc animated:YES completion:nil];

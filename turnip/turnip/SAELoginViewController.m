@@ -63,7 +63,7 @@
     self.activityView.hidden = NO;
     [self.activityView startAnimating];
     
-     NSArray *permissionsArray = @[ @"user_about_me", @"user_birthday", @"user_location", @"user_photos"];
+    NSArray *permissionsArray = @[ @"user_about_me", @"user_birthday", @"user_location", @"user_photos"];
     
     [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         if (!user) {
@@ -83,10 +83,10 @@
                     
                     if ([result objectForKey:@"birthday"] == nil) {
                         birthday = @"0";
+                        //[PFUser currentUser][@"birthdayPermissions"] = false;
                     } else {
                         birthday = [result objectForKey:@"birthday"];
                     }
-                    
                     
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
@@ -128,28 +128,28 @@
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
                     [[PFInstallation currentInstallation] saveInBackground];
                     
-                        [PFUser currentUser][@"gender"] = [result objectForKey:@"gender"];
-                        [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
-                        [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
-                        
-                        if ([result objectForKey:@"birthday"] != nil) {
-                            [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
-                        }
-                        
-                        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            if(error) {
-                                [ParseErrorHandlingController handleParseError:error];
-                            } else if(succeeded){
-                                if ([[PFUser currentUser][@"birthday"] isEqualToString:@"0"]) {
-                                    [self presentBirthdayViewController];
-                                } else if ([[PFUser currentUser][@"TOS"] isEqualToString:@"False"]) {
-                                    [self presentTosView];
-                                } else {
-                                    [self presentMapView];
-                                }
-
+                    [PFUser currentUser][@"gender"] = [result objectForKey:@"gender"];
+                    [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
+                    [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
+                    
+                    if ([result objectForKey:@"birthday"] != nil) {
+                        [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];
+                    }
+                    
+                    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if(error) {
+                            [ParseErrorHandlingController handleParseError:error];
+                        } else if(succeeded){
+                            if ([[PFUser currentUser][@"birthday"] isEqualToString:@"0"]) {
+                                [self presentBirthdayViewController];
+                            } else if ([[PFUser currentUser][@"TOS"] isEqualToString:@"False"]) {
+                                [self presentTosView];
+                            } else {
+                                [self presentMapView];
                             }
-                        }];
+                            
+                        }
+                    }];
                 }
             }];
         }

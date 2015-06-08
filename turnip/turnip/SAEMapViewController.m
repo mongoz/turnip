@@ -8,7 +8,7 @@
 
 #import "ParseErrorHandlingController.h"
 #import "SAEMapViewController.h"
-#import "ThrowViewController.h"
+#import "SAEThrowViewController.h"
 #import "SAEEventDetailsViewController.h"
 #import "SAEFindViewController.h"
 #import "Constants.h"
@@ -18,7 +18,12 @@
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+
 @interface SAEMapViewController ()
+
+<SAEThrowViewControllerDataSource>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
@@ -35,11 +40,25 @@
 @property (nonatomic, assign) BOOL queryPublicEvents;
 
 @property (nonatomic, strong) NSArray *currentEvent;
+@property (nonatomic, strong) CLPlacemark *placemark;
+
+@property (nonatomic, strong) GMSPlacesClient *placesClient;
 
 
 @end
 
 @implementation SAEMapViewController
+
+- (void)presentThrowViewController {
+    UINavigationController *navController = [self.tabBarController.viewControllers objectAtIndex: 2];
+    SAEThrowViewController *viewController = [navController.viewControllers objectAtIndex:0];
+    viewController.dataSource = self;
+    
+}
+
+- (CLLocation *) currentLocationForThrowViewController:(SAEThrowViewController *)controller {
+    return self.currentLocation;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -304,6 +323,21 @@
 #pragma mark CLLocationManagerDelegate methods and helpers
 
 
+//- (void)reverseGeocode:(CLLocation *)location {
+//    NSLog(@"location :%@", location);
+//    
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+//    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+//        if (error) {
+//            NSLog(@"Error %@", error.description);
+//        } else {
+//            self.placemark = [placemarks lastObject];
+//            NSLog(@"Locality: %@", self.placemark.locality);
+//            NSLog(@"placemark: %@", self.placemark.subAdministrativeArea);
+//        }
+//    }];
+//}
+
 // The CoreLocation object CLLocationManager, has a delegate method that is called
 // when the location changes. This is where we will post the notification
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -313,6 +347,8 @@
     
     if (self.firstTimeLocation == YES) {
         self.firstTimeLocation = NO;
+        
+        [self presentThrowViewController];
         [self queryForAllEventsNearLocation:self.currentLocation];
         [self.mapView animateWithCameraUpdate:updateCamera];
     }
@@ -349,6 +385,8 @@
             break;
     }
 }
+
+
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError: %@", error);
@@ -480,19 +518,7 @@
     _currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
     
     if ([_currentEvent count] != 0) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-        
-        NSString *string = [dateFormatter stringFromDate:[[_currentEvent valueForKey:@"date"] objectAtIndex:0]];
-        
-        NSString *endDate = [NSString stringWithFormat:@"%@ %@", string, [[_currentEvent valueForKey:@"endTime"] objectAtIndex:0]];
-        
-        NSDate *newDate = [formatter dateFromString:endDate];
-        if ([newDate timeIntervalSinceNow] < 0.0) {
+        if ([[[_currentEvent valueForKey:@"endDate"] objectAtIndex:0] timeIntervalSinceNow] < 0.0) {
             //Delete core data
             [self deleteFromCoreData];
         }
@@ -513,5 +539,6 @@
         }];
     }
 }
+
 
 @end

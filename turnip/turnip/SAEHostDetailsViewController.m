@@ -15,6 +15,7 @@
 #import "TeammateViewController.h"
 #import "ScannerViewController.h"
 #import "EditViewController.h"
+#import "SAEUtilityFunctions.h"
 
 @interface SAEHostDetailsViewController ()
 
@@ -43,7 +44,7 @@
     
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30.0f, 30.0f)];
     
-    UIImage *backImage = [self imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
+    UIImage *backImage = [SAEUtilityFunctions imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
     [backButton setBackgroundImage:backImage  forState:UIControlStateNormal];
     [backButton setTitle:@"" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backNavigation) forControlEvents:UIControlEventTouchUpInside];
@@ -80,7 +81,7 @@
     [self.profileImage.layer addSublayer:borderLayer];
     
     NSArray *name = [[[PFUser currentUser] objectForKey:@"name"] componentsSeparatedByString: @" "];
-    NSString *age = @([self calculateAge:[[PFUser currentUser] objectForKey:@"birthday"]]).stringValue;
+    NSString *age = @([SAEUtilityFunctions calculateAge: [[PFUser currentUser] objectForKey:@"birthday"]]).stringValue;
     [[PFUser currentUser] objectForKey:@"birthday"];
     
     NSString *nameAge = [NSString stringWithFormat:@"%@ - %@", [name objectAtIndex:0], age];
@@ -103,7 +104,7 @@
     
     self.neighbourhoodLabel.text = [event valueForKey:@"neighbourhood"];
     
-    self.dateLabel.text = [self convertDate:[event valueForKey:TurnipParsePostDateKey]];
+    self.dateLabel.text = [SAEUtilityFunctions convertDate: [event valueForKey:TurnipParsePostDateKey]];
     
     
     NSString *price = @"";
@@ -294,92 +295,7 @@
     [self presentViewController:mvc animated:YES completion:nil];
 }
 
-#pragma mark -
-#pragma mark utils
 
-- (NSString *) convertDate: (NSDate *) date {
-    
-    NSString *dateString = nil;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *currentLocale = [NSLocale currentLocale];
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    
-    NSUInteger units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    NSDateComponents *comps = [[NSCalendar currentCalendar] components:units fromDate:[NSDate date]];
-    comps.day = comps.day + 1;
-    NSDate *tomorrowMidnight = [[NSCalendar currentCalendar] dateFromComponents:comps];
-    
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    [dateFormatter setLocale:currentLocale];
-    
-    NSString *eventDate = [dateFormatter stringFromDate:date];
-    
-    NSDate *eventDay = [dateFormatter dateFromString:eventDate];
-    
-    NSInteger differenceInDays =
-    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate: eventDay] -
-    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:tomorrowMidnight];
-    
-    
-    switch (differenceInDays) {
-        case -1:
-            NSLog(@"Yesterday");
-        case 0:
-            NSLog(@"Today");
-        case 1:
-            
-            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-            
-            [dateFormatter setLocale:currentLocale];
-            
-            [dateFormatter setDoesRelativeDateFormatting:YES];
-            
-            dateString = [dateFormatter stringFromDate:date];
-            break;
-        default: {
-            // Set the date components you want
-            NSString *dateComponents = @"EEEEMMMMd, h:mm a";
-            
-            // The components will be reordered according to the locale
-            NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:dateComponents options:0 locale:currentLocale];
-            
-            [dateFormatter setDateFormat:dateFormat];
-            
-            dateString = [dateFormatter stringFromDate:date];
-            
-            break;
-        }
-    }
-    
-    return dateString;
-}
-
-- (NSInteger) calculateAge: (NSString *) birthday {
-    
-    NSDate *todayDate = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthday]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-    int years = (allDays-days)/365;
-    
-    return  years;
-}
-
-- (UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize
-{
-    CGFloat scale = [[UIScreen mainScreen]scale];
-    /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
-    //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-    [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0){

@@ -7,14 +7,14 @@ pod 'Parse'
 pod 'ParseFacebookUtilsV4'
 pod 'ParseCrashReporting'
 pod 'ParseUI'
-pod 'Google-Maps-iOS-SDK', '~> 1.9'
+pod 'GoogleMaps'
 pod 'MCSwipeTableViewCell', '~> 2.1.2'
 pod 'Reachability'
 pod 'AMBubbleTableViewController'
 pod 'AFNetworking', '~> 2.0'
-pod 'FBSDKCoreKit', '~> 4.1.0'
-pod 'FBSDKShareKit', '~> 4.1.0'
-pod 'FBSDKLoginKit', '~> 4.1.0'
+pod 'FBSDKCoreKit', '~> 4.2.0'
+pod 'FBSDKShareKit', '~> 4.2.0'
+pod 'FBSDKLoginKit', '~> 4.2.0'
 
 
 end

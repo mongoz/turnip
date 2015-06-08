@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5AC52324433956FDCCB701D3"
+               BlueprintIdentifier = "2A160A0781A877BBC08A1A6C"
                BuildableName = "libPods-turnip-FBSDKShareKit.a"
                BlueprintName = "Pods-turnip-FBSDKShareKit"
                ReferencedContainer = "container:Pods.xcodeproj">

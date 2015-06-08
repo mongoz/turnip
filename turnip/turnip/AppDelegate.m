@@ -123,6 +123,7 @@
         }
     } else {
         [self presentLoginViewController];
+        //[self presentAddressViewController];
     }
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }

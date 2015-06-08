@@ -14,6 +14,7 @@
 #import <UIImageView+AFNetworking.h>
 #import "Constants.h"
 #import <Parse/Parse.h>
+#import "SAEUtilityFunctions.h"
 
 @interface SAEEventDetailsViewController ()
 
@@ -37,7 +38,7 @@
     
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30.0f, 30.0f)];
     
-    UIImage *backImage = [self imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
+    UIImage *backImage = [SAEUtilityFunctions imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
     [backButton setBackgroundImage:backImage  forState:UIControlStateNormal];
     [backButton setTitle:@"" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backNavigation) forControlEvents:UIControlEventTouchUpInside];
@@ -294,7 +295,7 @@
     [self.profileImage.layer addSublayer:borderLayer];
     
     NSArray *name = [[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"name"] componentsSeparatedByString: @" "];
-    NSString *age = @([self calculateAge:[[data objectForKey:TurnipParsePostUserKey] valueForKey:@"birthday"]]).stringValue;
+    NSString *age = @([SAEUtilityFunctions calculateAge: [[data objectForKey:TurnipParsePostUserKey] valueForKey:@"birthday"]]).stringValue;
     [[data objectForKey:TurnipParsePostUserKey] valueForKey:@"birthday"];
     NSString *nameAge = [NSString stringWithFormat:@"%@ - %@", [name objectAtIndex:0], age];
     
@@ -312,7 +313,7 @@
     [self.aboutLabel sizeToFit];
     self.neighbourhoodLabel.text = [[data objectForKey:@"neighbourhood"] valueForKey:@"name"];
     
-    self.dateLabel.text = [self convertDate:[data objectForKey:TurnipParsePostDateKey]];
+    self.dateLabel.text = [SAEUtilityFunctions convertDate: [data objectForKey:TurnipParsePostDateKey]];
    
     NSString *price = @"";
     NSString *open = @"";
@@ -360,90 +361,6 @@
      }];
 }
 
-#pragma mark -
-#pragma mark utils
-
-- (NSString *) convertDate: (NSDate *) date {
-    
-    NSString *dateString = nil;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *currentLocale = [NSLocale currentLocale];
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    
-    NSUInteger units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    NSDateComponents *comps = [[NSCalendar currentCalendar] components:units fromDate:[NSDate date]];
-    comps.day = comps.day + 1;
-    NSDate *tomorrowMidnight = [[NSCalendar currentCalendar] dateFromComponents:comps];
-    
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    [dateFormatter setLocale:currentLocale];
-    
-    NSString *eventDate = [dateFormatter stringFromDate:date];
-    
-    NSDate *eventDay = [dateFormatter dateFromString:eventDate];
-    
-    NSInteger differenceInDays =
-    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate: eventDay] -
-    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:tomorrowMidnight];
-  
-    
-    switch (differenceInDays) {
-        case -1:
-        case 0:
-        case 1:
-            
-            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-            
-            [dateFormatter setLocale:currentLocale];
-            
-            [dateFormatter setDoesRelativeDateFormatting:YES];
-            
-            dateString = [dateFormatter stringFromDate:date];
-            break;
-        default: {
-            // Set the date components you want
-            NSString *dateComponents = @"EEEEMMMMd, h:mm a";
-            
-            // The components will be reordered according to the locale
-            NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:dateComponents options:0 locale:currentLocale];
-            
-            [dateFormatter setDateFormat:dateFormat];
-            
-            dateString = [dateFormatter stringFromDate:date];
-            
-            break;
-        }
-    }
-    
-    return dateString;
-}
-
-- (NSInteger) calculateAge: (NSString *) birthday {
-    
-    NSDate *todayDate = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthday]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-    int years = (allDays-days)/365;
-    
-    return  years;
-}
-
-- (UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize
-{
-    CGFloat scale = [[UIScreen mainScreen]scale];
-    /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
-    //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-    [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
 
 
 #pragma mark - Navigation
@@ -652,7 +569,7 @@
     }
     
     NSArray *name = [[[self.accepted valueForKey:@"name"] objectAtIndex:indexPath.row] componentsSeparatedByString: @" "];
-    NSString *age = @([self calculateAge:[[self.accepted valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
+    NSString *age = @([SAEUtilityFunctions calculateAge: [[self.accepted valueForKey:@"birthday"] objectAtIndex:indexPath.row]]).stringValue;
     [[self.accepted valueForKey:@"birthday"] objectAtIndex:indexPath.row];
     NSString *nameAge = [NSString stringWithFormat:@"%@ - %@", [name objectAtIndex:0], age];
 
@@ -686,15 +603,12 @@
         [dateComponents setHour:-2];
         
         NSDate *showDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:[[self.data valueForKey:TurnipParsePostDateKey] objectAtIndex:0] options:0];
-        
-        NSLog(@"showDate: %@", showDate);
-        NSLog(@"currDate :%@", [NSDate date]);
 
         self.addressLabel.numberOfLines = 0;
         if(showDate >= [NSDate date]) {
             self.addressLabel.text = [[self.data valueForKey:TurnipParsePostAddressKey] objectAtIndex:0];
         } else {
-           NSString *address = [NSString stringWithFormat:@"Address will be shown %@", [self convertDate:showDate]];
+           NSString *address = [NSString stringWithFormat:@"Address will be shown %@", [SAEUtilityFunctions convertDate: showDate]];
             self.addressLabel.text = address;
         }
         

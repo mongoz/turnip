@@ -9,7 +9,7 @@
 #import "TeammateViewController.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
-
+#import "SAEUtilityFunctions.h"
 #import "TeammateTableViewCell.h"
 
 @interface TeammateViewController () <TeammateCellDelegate>
@@ -35,7 +35,7 @@
     self.navigationItem.title = @"Add a Teammate";
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30.0f, 30.0f)];
     
-    UIImage *backImage = [self imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
+    UIImage *backImage = [SAEUtilityFunctions imageResize: [UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
     [backButton setBackgroundImage:backImage  forState:UIControlStateNormal];
     [backButton setTitle:@"" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backNavigation) forControlEvents:UIControlEventTouchUpInside];
@@ -232,17 +232,6 @@
 
 #pragma mark - utils
 
-- (UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize
-{
-    CGFloat scale = [[UIScreen mainScreen]scale];
-    /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
-    //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-    [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
 
 - (void) buildUsersArray {
     NSString *image;

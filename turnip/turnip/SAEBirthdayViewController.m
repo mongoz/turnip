@@ -25,8 +25,6 @@
 
 - (void) viewDidLoad {
     
-    NSLog(@"user :%@", [PFUser currentUser]);
-    
     [self.submitButton setEnabled:NO];
     self.submitButton.layer.borderColor = [UIColor blackColor].CGColor;
     self.submitButton.layer.borderWidth = 1.0;

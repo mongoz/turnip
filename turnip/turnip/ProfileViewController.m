@@ -15,6 +15,7 @@
 #import "SWRevealViewController.h"
 #import "SAEMessagingViewController.h"
 #import "ProfileImageCollectionViewController.h"
+#import "SAEUtilityFunctions.h"
 
 @interface ProfileViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -84,7 +85,7 @@
                 NSArray *name = [userData[@"name"] componentsSeparatedByString:@" "];
                 NSString *birthday = [[PFUser currentUser] valueForKey:@"birthday"];
                 
-                NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([self calculateAge:birthday]).stringValue];
+                NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([SAEUtilityFunctions calculateAge:birthday]).stringValue];
                 
                 self.navigationItem.title = navigationTitle;
                 
@@ -128,7 +129,7 @@
     
     NSArray *name = [[user valueForKey:@"name"] componentsSeparatedByString: @" "];
     
-    NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([self calculateAge:[user valueForKey:@"birthday"]]).stringValue];
+    NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([SAEUtilityFunctions calculateAge:[user valueForKey:@"birthday"]]).stringValue];
     
     self.bioLabel.numberOfLines = 0;
     self.bioLabel.text = [user valueForKey:@"bio"];
@@ -158,19 +159,6 @@
              }
          }];
     }
-}
-
-- (int) calculateAge: (NSString *) birthday {
-
-    NSDate *todayDate = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    int time = [todayDate timeIntervalSinceDate:[dateFormatter dateFromString:birthday]];
-    int allDays = (((time/60)/60)/24);
-    int days = allDays%365;
-    int years = (allDays-days)/365;
-    
-    return  years;
 }
 
 #pragma mark - parse queries

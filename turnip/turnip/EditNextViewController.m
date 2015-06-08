@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "DateTimePicker.h"
 #import <Parse/Parse.h>
+#import "SAEUtilityFunctions.h"
 
 @interface EditNextViewController ()
 
@@ -35,8 +36,6 @@
     [self initView];
     [self initPickerViews];
     [self setupViews];
-    
-    NSLog(@"navCOntrollers : %@", self.navigationController.viewControllers);
     
 }
 
@@ -102,10 +101,8 @@
 - (void) setupViews {
     self.imageOne.image = [self.currentEvent valueForKey:@"image1"] ;
     if ([self.currentEvent valueForKey:@"image2"] != [NSNull null]) {
-        NSLog(@"???");
         self.imageTwo.image = [self.currentEvent valueForKey:@"image2"];
     } else {
-        NSLog(@"?");
         self.imageTwo.image = [UIImage imageNamed:@"camera placeholder.png"];
     }
     if ([self.currentEvent valueForKey:@"image3"] != [NSNull null]) {
@@ -118,8 +115,8 @@
     dateFormatter.dateFormat = @"MM/dd hh:mm a";
     
     self.selectedDate = [self.currentEvent valueForKey:@"date"];
-    self.dateInputField.text = [dateFormatter stringFromDate: [self.currentEvent valueForKey:@"date"] ];
-    self.endTimeDate.text = [self.currentEvent valueForKey:@"endTime"];
+    self.dateInputField.text = [SAEUtilityFunctions convertDate: [self.currentEvent valueForKey:@"date"] ];
+    self.endTimeDate.text = [SAEUtilityFunctions convertDate: [self.currentEvent valueForKey:@"endDate"]];
 }
 
 
@@ -284,7 +281,7 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"MM/dd hh:mm a";
         
-        self.dateInputField.text = [dateFormatter stringFromDate: self.selectedDate];
+        self.dateInputField.text = [SAEUtilityFunctions convertDate: self.selectedDate];
         
         if (self.dateInputField.layer.borderColor == [[UIColor redColor] CGColor]) {
             self.dateInputField.layer.borderColor = [[UIColor clearColor] CGColor];
@@ -299,7 +296,7 @@
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
         dateFormatter.dateFormat = @"hh:mm a";
         
-        self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
+        self.endTimeDate.text = [SAEUtilityFunctions convertDate: self.selectedTime];
         
         if (self.endTimeDate.layer.borderColor == [[UIColor redColor] CGColor]) {
             self.endTimeDate.layer.borderColor = [[UIColor clearColor] CGColor];
@@ -312,12 +309,15 @@
     
     if (textField == self.dateInputField) {
         self.datePicker.hidden = YES;
+        [self.endTimePicker minimumDate:self.selectedDate];
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 2;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        NSDate *maxDate = [theCalendar dateByAddingComponents:dayComponent toDate:self.selectedDate options:0];
+        [self.endTimePicker maximumDate:maxDate];
         [self.dateInputField resignFirstResponder];
     }
     else if (textField == self.endTimeDate) {
-        if (self.endTimeDate.layer.borderColor == [[UIColor redColor] CGColor]) {
-            self.endTimeDate.layer.borderColor = [[UIColor clearColor] CGColor];
-        }
         self.endTimePicker.hidden = YES;
         [self.endTimePicker resignFirstResponder];
     }
@@ -331,23 +331,22 @@
     dateFormatter.dateFormat = @"MM/dd hh:mm a";
     self.selectedDate = [sender date];
     
-    self.dateInputField.text = [dateFormatter stringFromDate: self.selectedDate];
+    self.dateInputField.text = [SAEUtilityFunctions convertDate: self.selectedDate];
 }
 
 - (void) timePickerChanged: (id) sender {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     dateFormatter.dateFormat = @"hh:mm a";
+    
     self.selectedTime = [sender date];
-    self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
-    
-    self.selectedTime = [dateFormatter dateFromString: self.endTimeDate.text];
-    
+    //self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
+    self.endTimeDate.text = [SAEUtilityFunctions convertDate: self.selectedTime];
 }
 
 - (void) timeDonePressed {
     self.endTimePicker.hidden = YES;
-    [self.endTimePicker resignFirstResponder];
+    [self.endTimeDate resignFirstResponder];
 }
 
 - (void) timeCancelPressed {
@@ -464,7 +463,12 @@
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     self.lastImagePressed.image = chosenImage;
     
-    [self.images addObject:chosenImage];
+    if([self.images containsObject:self.lastImagePressed]) {
+        NSInteger index = [self.images indexOfObject:self.lastImagePressed];
+        [self.images replaceObjectAtIndex:index withObject:self.lastImagePressed];
+    } else {
+        [self.images addObject:self.lastImagePressed];
+    }
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
@@ -525,9 +529,15 @@
         [self.currentEvent setValue: self.location forKey:@"location"];
         [self.currentEvent setValue: self.selectedDate forKey:@"date"];
         [self.currentEvent setValue: self.endTimeDate.text forKey:@"endTime"];
-        [self.currentEvent setValue: self.imageOne.image forKey:@"image1"];
-        [self.currentEvent setValue: self.imageTwo.image forKey:@"image2"];
-        [self.currentEvent setValue: self.imageThree.image forKey:@"image3"];
+
+    int imageCount = 1;
+    for (UIImage *image in self.images) {
+        NSString *imageName = [NSString stringWithFormat:@"image%d",imageCount];
+        
+        [self.currentEvent setValue:[image valueForKey:@"image"] forKey:imageName];
+        
+        imageCount++;
+    }
         
         NSNumber *privateAsNumber = [NSNumber numberWithBool: self.isPrivate];
         [self.currentEvent setValue: privateAsNumber forKey:@"private"];
@@ -549,7 +559,7 @@
 - (BOOL) checkInput {
     
     return ([self.dateInputField.text isEqual: @""] ||
-            [self.endTimeDate.text isEqual: @"About..."] ||
+            [self.endTimeDate.text isEqual: @""] ||
             self.imageOne.image == nil);
 }
 

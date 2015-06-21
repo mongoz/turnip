@@ -106,7 +106,7 @@
         [self.endTimePicker addTargetForCancelButton:self action:@selector(timeCancelPressed)];
         [self.view.window addSubview: self.endTimePicker];
         self.endTimePicker.hidden = YES;
-        [self.endTimePicker setMode: UIDatePickerModeTime];
+        [self.endTimePicker setMode: UIDatePickerModeDateAndTime];
         [self.endTimePicker.picker addTarget:self action:@selector(timePickerChanged:) forControlEvents:UIControlEventValueChanged];
         
         self.endTimeDate.delegate = self;
@@ -122,25 +122,27 @@
     if (textField == self.dateInputField) {
         self.selectedDate = [NSDate new];
         self.datePicker.hidden = NO;
-//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//        dateFormatter.dateFormat = @"MM/dd hh:mm a";
         
-        self.dateInputField.text = [self convertDate:self.selectedDate];
+        self.dateInputField.text = [SAEUtilityFunctions convertDate:self.selectedDate];
         
         if (self.dateInputField.layer.borderColor == [[UIColor redColor] CGColor]) {
             self.dateInputField.layer.borderColor = [[UIColor clearColor] CGColor];
         }
     }
     else if (textField == self.endTimeDate) {
+       
+        [self.scrollView scrollRectToVisible:textField.superview.frame animated:YES];
         self.endTimePicker.hidden = NO;
+
         
-        self.selectedTime = [NSDate date];
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 1;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        NSDate *newDate = [theCalendar dateByAddingComponents:dayComponent toDate:self.selectedDate options:0];
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        dateFormatter.dateFormat = @"hh:mm a";
+        self.selectedTime = newDate;
         
-        self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
+        self.endTimeDate.text = [SAEUtilityFunctions convertDate: self.selectedTime];
         
         if (self.endTimeDate.layer.borderColor == [[UIColor redColor] CGColor]) {
             self.endTimeDate.layer.borderColor = [[UIColor clearColor] CGColor];
@@ -153,11 +155,12 @@
     if (textField == self.dateInputField) {
         self.datePicker.hidden = YES;
         [self.endTimePicker minimumDate:self.selectedDate];
-        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-        dayComponent.day = 2;
-        NSCalendar *theCalendar = [NSCalendar currentCalendar];
-        NSDate *maxDate = [theCalendar dateByAddingComponents:dayComponent toDate:self.selectedDate options:0];
-        [self.endTimePicker maximumDate:maxDate];
+//        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+//        dayComponent.day = 30;
+//        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+//        NSDate *maxDate = [theCalendar dateByAddingComponents:dayComponent toDate:self.selectedDate options:0];
+//        
+       // [self.endTimePicker maximumDate:maxDate];
         [self.dateInputField resignFirstResponder];
     }
     else if (textField == self.endTimeDate) {
@@ -166,6 +169,7 @@
             self.endTimeDate.layer.borderColor = [[UIColor clearColor] CGColor];
         }
         [self.endTimeDate resignFirstResponder];
+        [self.scrollView setContentOffset:CGPointZero animated:YES];
     }
 }
 
@@ -179,12 +183,9 @@
 }
 
 - (void) timePickerChanged: (id) sender {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    dateFormatter.dateFormat = @"hh:mm a";
     
     self.selectedTime = [sender date];
-    //self.endTimeDate.text = [dateFormatter stringFromDate: self.selectedTime];
+    NSLog(@"selectedTIme :%@", self.selectedTime);
     self.endTimeDate.text = [SAEUtilityFunctions convertDate:self.selectedTime];
 }
 
@@ -295,6 +296,7 @@
         controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         controller.allowsEditing = YES;
         controller.delegate = self;
+
         [self.tabBarController presentViewController: controller animated: YES completion: nil];
         
     }
@@ -446,7 +448,7 @@
             }
             
             [PFCloud callFunctionInBackground:@"getNeighbourhood"
-                               withParameters:@{@"neighbourhood": self.neighbourhood, @"adminArea": self.adminArea, @"isPrivate": (self.isPrivate) ? @"True" : @"False"}
+                               withParameters:@{@"neighbourhood": self.neighbourhood, @"adminArea": self.adminArea, @"locality": self.locality , @"isPrivate": (self.isPrivate) ? @"True" : @"False"}
                                         block:^(PFObject *neighbourhood, NSError *error) {
                                             if (!error) {
                                                 postObject[@"neighbourhood"] = neighbourhood;
@@ -538,10 +540,7 @@
 - (void) saveToCoreData:(PFObject *) postObject {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = [delegate managedObjectContext];
-    
-    NSLog(@"postobject: %@", [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"]);
-    
-        
+            
         NSManagedObject *dataRecord = [NSEntityDescription
                                        insertNewObjectForEntityForName:@"YourEvents"
                                        inManagedObjectContext: context];

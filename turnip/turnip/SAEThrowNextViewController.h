@@ -9,12 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 
-@interface SAEThrowNextViewController : UIViewController <UITextViewDelegate,
-UITextFieldDelegate,
+
+@interface SAEThrowNextViewController : UIViewController <UITextFieldDelegate,
 UIActionSheetDelegate,
 UINavigationControllerDelegate,
 UIImagePickerControllerDelegate,
-MBProgressHUDDelegate>
+MBProgressHUDDelegate,
+UIScrollViewDelegate>
+
+
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) CLLocation *coordinates;
@@ -23,6 +27,8 @@ MBProgressHUDDelegate>
 @property (strong, nonatomic) NSString *about;
 @property (strong, nonatomic) NSString *neighbourhood;
 @property (strong, nonatomic) NSString *adminArea;
+@property (strong, nonatomic) NSString *locality;
+
 @property (strong, nonatomic) NSNumber *cost;
 @property (assign, nonatomic) BOOL isPrivate;
 @property (assign, nonatomic) BOOL isFree;

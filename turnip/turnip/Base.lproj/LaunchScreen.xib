@@ -16,8 +16,12 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="oDT-N0-Sip">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Untitled-1.png" translatesAutoresizingMaskIntoConstraints="NO" id="oDT-N0-Sip">
                     <rect key="frame" x="150" y="150" width="180" height="180"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="Y8O-ZI-fYz"/>
+                        <constraint firstAttribute="height" constant="180" id="neJ-4F-chP"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.54901960780000003" green="0.0" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
@@ -34,6 +38,6 @@
         </view>
     </objects>
     <resources>
-        <image name="logo.png" width="180" height="180"/>
+        <image name="Untitled-1.png" width="1800" height="1800"/>
     </resources>
 </document>

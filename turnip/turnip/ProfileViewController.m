@@ -93,10 +93,13 @@
                 self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
                 [self.bioLabel sizeToFit];
                 
+                NSLog(@"derp");
+                
                 if ([[PFUser currentUser] valueForKey:@"profileImage"] != nil) {
                     NSURL *url = [NSURL URLWithString: [[PFUser currentUser] valueForKey:@"profileImage"]];
                     NSData *data = [NSData dataWithContentsOfURL:url];
                     self.profileImage.image = [UIImage imageWithData:data];
+                      NSLog(@"herp");
                 } else {
                     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
                     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
@@ -113,6 +116,7 @@
                              self.profileImage.image = [UIImage imageWithData:data];
                          }
                      }];
+                      NSLog(@"merp");
                 }
             }
             
@@ -297,6 +301,17 @@
 //    return 160;
 //}
 
+- (void) editEventImage {
+    for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
+        UIImageView *image = (UIImageView *) [cell viewWithTag:102];
+        if ([image isHidden]) {
+            image.hidden = NO;
+        } else {
+            image.hidden = YES;
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark Notification center
 
@@ -307,6 +322,7 @@
         self.bioTextView.text = self.bioLabel.text;
         self.bioTextView.hidden = NO;
         self.bioLabel.hidden = YES;
+        [self editEventImage];
         [self.sideMenuButton setImage:[UIImage imageNamed:@"editprofile"] forState:UIControlStateNormal];
     }
 }
@@ -364,6 +380,7 @@
         self.bioTextView.hidden = YES;
         self.bioLabel.text = self.bioTextView.text;
         self.bioLabel.hidden = NO;
+        [self editEventImage];
         [self.sideMenuButton setImage:[UIImage imageNamed:@"gearWhite"] forState:UIControlStateNormal];
         self.editProfile = NO;
     } else if (self.messageActive) {
@@ -412,6 +429,12 @@
     if (self.editProfile) {
         [self performSegueWithIdentifier:@"profileImageSegue" sender:nil];
     }
+    
+}
+
+- (IBAction)eventCellXTap:(UITapGestureRecognizer *)sender {
+    
+    NSLog(@"index: %ld", (long)sender.view.tag);
     
 }
 @end

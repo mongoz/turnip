@@ -35,4 +35,5 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *profileImageTap;
 - (IBAction)profileImageTap:(UITapGestureRecognizer *)sender;
 
+- (IBAction)eventCellXTap:(UITapGestureRecognizer *)sender;
 @end

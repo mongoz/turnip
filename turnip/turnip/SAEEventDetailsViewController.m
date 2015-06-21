@@ -318,6 +318,8 @@
     NSString *price = @"";
     NSString *open = @"";
     
+    NSArray *address = [[data objectForKey:TurnipParsePostAddressKey] componentsSeparatedByString:@","];
+    
     self.addressLabel.numberOfLines = 0;
     
     if ([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"True"]) {
@@ -327,7 +329,7 @@
 
     } else if([[data objectForKey:TurnipParsePostPrivateKey] isEqual:@"False"]) {
         open = @"Public";
-        self.addressLabel.text = [data objectForKey:TurnipParsePostAddressKey];
+        self.addressLabel.text = [address objectAtIndex:0];
     }
     [self.addressLabel sizeToFit];
     

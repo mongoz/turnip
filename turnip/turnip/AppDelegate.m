@@ -18,6 +18,7 @@
 #import <Reachability.h>
 #import "ReachabilityManager.h"
 #import "SAEHostDetailsViewController.h"
+#import "SAEUtilityFunctions.h"
 
 @interface AppDelegate ()
 
@@ -96,6 +97,8 @@
             [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
+//    UIImage *backImage = [SAEUtilityFunctions imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
+//    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:backImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
@@ -177,7 +180,6 @@
     UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
     
     // Create empty photo object
-    //    NSString *userId = [userInfo objectForKey:@"fromUser"];
     NSString *type = [userInfo objectForKey:@"type"];
     
     if ([type isEqualToString:@"eventRequest"]) {
@@ -186,6 +188,7 @@
          object:self];
         
         self.notificationCount += 1;
+        NSLog(@"%ld", (long)self.notificationCount);
         
         [[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
@@ -203,6 +206,7 @@
     if ([type isEqualToString:@"messagePush"]) {
         
         self.messageCount +=1;
+        NSLog(@"%ld", (long)self.notificationCount);
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipMessagePushNotification object:userInfo];
         
         [[tabController.viewControllers objectAtIndex:TurnipTabMessage] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.messageCount];
@@ -291,6 +295,13 @@
 - (void)presentAcceptTosViewController {
     // Go to the welcome screen and have them log in or create an account.
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"acceptTosView"];
+    self.window.rootViewController = viewController;
+    [self.window makeKeyAndVisible];
+}
+
+- (void)presentSwipeViewController {
+    // Go to the welcome screen and have them log in or create an account.
+    UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"swipeView"];
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
 }

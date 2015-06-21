@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MBProgressHUD.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @class SAEThrowViewController;
 
@@ -24,7 +25,7 @@
 
 @property (nonatomic, weak) id<SAEThrowViewControllerDataSource> dataSource;
 
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView  *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
 @property (strong, nonatomic) IBOutlet UITextField *titleField;

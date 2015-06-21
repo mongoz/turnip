@@ -15,6 +15,8 @@ pod 'AFNetworking', '~> 2.0'
 pod 'FBSDKCoreKit', '~> 4.2.0'
 pod 'FBSDKShareKit', '~> 4.2.0'
 pod 'FBSDKLoginKit', '~> 4.2.0'
+pod 'TPKeyboardAvoiding', :git => 'https://github.com/darrenallen7/TPKeyboardAvoiding'
+pod 'MDCSwipeToChoose'
 
 
 end

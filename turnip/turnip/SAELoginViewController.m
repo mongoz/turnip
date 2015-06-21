@@ -93,7 +93,7 @@
                     [[PFInstallation currentInstallation] saveEventually];
                     
                     [PFUser currentUser][@"gender"] = [result objectForKey:@"gender"];
-                    [PFUser currentUser][@"bio"] = @"Hi, I really like to party";
+                    [PFUser currentUser][@"bio"] = @"";
                     [PFUser currentUser][@"name"] = [result objectForKey:@"name"];
                     [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
                     [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];

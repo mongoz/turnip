@@ -83,15 +83,17 @@
                                 if (error != nil) {
                                     NSLog(@"Autocomplete error %@", [error localizedDescription]);
                                 } else {
-                                    [self.addresses removeAllObjects];
-                                    for (GMSAutocompletePrediction *result in results) {
-                                        
-                                        [self.activityIndicator stopAnimating];
-                                        [self.addresses addObject:result.attributedFullText.string];
-                                     //   NSLog(@"results: %@", result.types);
-                                        
+                                    if ([results count] != 0) {
+                                        [self.addresses removeAllObjects];
+                                        for (GMSAutocompletePrediction *result in results) {
+                                            
+                                            [self.activityIndicator stopAnimating];
+                                            [self.addresses addObject:result.attributedFullText.string];
+                                            //   NSLog(@"results: %@", result.types);
+                                            
+                                        }
+                                        [self.tableView reloadData];
                                     }
-                                    [self.tableView reloadData];
                                 }
         
     }];
@@ -104,7 +106,7 @@
     
     if (searchText != nil) {
         [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(placeAutocomplete) object:nil];
-        [self performSelector:@selector(placeAutocomplete) withObject:nil afterDelay:1];
+        [self performSelector:@selector(placeAutocomplete) withObject:nil afterDelay:0.5];
 
     }
     

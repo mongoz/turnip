@@ -35,8 +35,11 @@
 @property (nonatomic, strong) UITextField *activeField;
 @property (nonatomic, strong) UITextView *activeTextView;
 
+
+//Should probably make this into a custom object;
 @property (nonatomic, strong) NSString *neighbourhood;
 @property (nonatomic, strong) NSString *adminArea;
+@property (nonatomic, strong) NSString *locality;
 
 @end
 
@@ -51,18 +54,6 @@
         [self performSegueWithIdentifier:@"hostDetailsSegue" sender:self];
     }
 
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardDidHideNotification object:nil];
-}
-
-- (void) viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 
 - (void)viewDidLoad {
@@ -238,6 +229,9 @@
 
 - (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.addressField) {
+        if ([self.titleField isFirstResponder]) {
+            [self.titleField resignFirstResponder];
+        }
         [self.addressField resignFirstResponder];
         [self performSegueWithIdentifier:@"showAddressView" sender:nil];
         return NO;
@@ -308,16 +302,14 @@
             NSError *localError;
              NSMutableArray *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&localError];
             
-            NSString *locality;
             NSString *neighbourhood;
             
            NSArray *coords = [[[[jsonDict valueForKey:@"results"] valueForKey:@"geometry"] valueForKey:@"location"] objectAtIndex:0];
-            
             self.eventLocation = [[CLLocation alloc] initWithLatitude:[[coords valueForKey:@"lat"] doubleValue] longitude:[[coords valueForKey:@"lng"] doubleValue]];
             
             for (NSArray *data in [[[jsonDict valueForKey:@"results"] valueForKey:@"address_components"] objectAtIndex:0]) {
                 if ([[[data valueForKey:@"types"] objectAtIndex:0] isEqualToString:@"locality"]) {
-                    locality = [data valueForKey:@"long_name"];
+                    self.locality = [data valueForKey:@"long_name"];
                 }
                 
                 if ([[[data valueForKey:@"types"] objectAtIndex:0] isEqualToString:@"neighborhood"]) {
@@ -333,16 +325,18 @@
             }
 //            NSLog(@"----------------------------------");
 //            NSLog(@"neigbourhood: %@", neighbourhood);
-//            NSLog(@"locality: %@", locality);
+//            NSLog(@"locality: %@", self.locality);
 //            NSLog(@"adminArea: %@", self.adminArea);
 //            NSLog(@"----------------------------------");
             
-            if([locality isEqualToString:@"Los Angeles"] && [locality isEqualToString:localityString]) {
+            if([self.locality isEqualToString:@"Los Angeles"] && [self.locality isEqualToString:localityString]) {
                 self.neighbourhood = neighbourhood;
             } else if ([neighbourhood isEqualToString:localityString]) {
                 self.neighbourhood = neighbourhood;
             } else if([self.adminArea isEqualToString: @"Los Angeles County"]) {
-                self.neighbourhood = locality;
+                self.neighbourhood = self.locality;
+            } else if(neighbourhood == nil) {
+                self.neighbourhood = self.locality;
             } else {
                 self.neighbourhood = neighbourhood;
             }
@@ -368,6 +362,7 @@
                 self.nextViewController.coordinates = self.eventLocation;
                 self.nextViewController.neighbourhood = self.neighbourhood;
                 self.nextViewController.adminArea = self.adminArea;
+                self.nextViewController.locality = self.locality;
                 
                 NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
                 if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
@@ -435,6 +430,7 @@
         self.nextViewController.coordinates = self.eventLocation;
         self.nextViewController.neighbourhood = self.neighbourhood;
         self.nextViewController.adminArea = self.adminArea;
+        self.nextViewController.locality = self.locality;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
@@ -472,7 +468,6 @@
         [self.titleField resignFirstResponder];
     }
     
-    
     [self queryGoogleApi:address];
     
 }
@@ -483,45 +478,8 @@
 - (void) scrollViewToBottom {
     
      CGPoint bottomOffset = CGPointMake(0, self.scrollView.contentSize.height - self.scrollView.bounds.size.height + self.scrollView.contentInset.bottom);
-    NSLog(@"offset: %f", bottomOffset.y);
-    
     [self.scrollView setContentOffset:bottomOffset animated:YES];
     
-}
-
-- (void) keyboardWasShown: (NSNotification *) note {
-    NSDictionary *info = [note userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-//    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0, 0, kbSize.height, 0);
-//    self.scrollView.contentInset = contentInsets;
-//    self.scrollView.scrollIndicatorInsets = contentInsets;
-//    
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= kbSize.height;
-//    
-//    // Get orgin from active inputField
-//    
-    CGRect activeInputOrigin;
-    
-    if (self.activeTextView != nil) {
-        activeInputOrigin = self.activeTextView.frame;
-    } else {
-        activeInputOrigin = self.activeField.frame;
-    }
-    
-    NSLog(@"active: %f", activeInputOrigin.origin.y);
-    
-    if (!CGRectContainsPoint(aRect, activeInputOrigin.origin)) {
-        NSLog(@"visible!");
-        [self.scrollView scrollRectToVisible:activeInputOrigin animated:YES];
-    }
-    
-    
-}
-
-- (void) keyboardWillBeHidden: (NSNotification *) note {
-
 }
 
 

@@ -94,8 +94,10 @@
     
     [self.nameLabel setAttributedText:string];
 
+    NSArray *address = [[event valueForKey:@"location"] componentsSeparatedByString:@", "];
+    
     self.addressLabel.numberOfLines = 0;
-    self.addressLabel.text = [event valueForKey:@"location"];
+    self.addressLabel.text = [address objectAtIndex:0];
     [self.addressLabel sizeToFit];
     
     self.aboutLabel.numberOfLines = 0;

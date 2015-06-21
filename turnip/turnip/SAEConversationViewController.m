@@ -75,6 +75,7 @@
         if (!error) {
             if ([objects count] != 0) {
             __block NSInteger counter = 0;
+                NSLog(@"objects");
                 
                 for (PFObject *object in objects) {
                     PFRelation *relation = [object relationForKey:@"messages"];

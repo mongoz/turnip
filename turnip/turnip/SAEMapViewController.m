@@ -11,6 +11,7 @@
 #import "SAEThrowViewController.h"
 #import "SAEEventDetailsViewController.h"
 #import "SAEFindViewController.h"
+#import "SAESwipeViewController.h"
 #import "Constants.h"
 #import "SAEMapMarker.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -411,6 +412,11 @@
         destViewController.neighbourhoodId = [sender valueForKey:@"userData"];
         destViewController.neighbourhoodName = [sender valueForKey:@"title"];
     }
+    
+    if ([segue.identifier isEqualToString:@"swipeViewSegue"]) {
+        SAESwipeViewController *destViewConteroller = [segue destinationViewController];
+        destViewConteroller.currentLocation = self.currentLocation;
+    }
 
 }
 
@@ -495,7 +501,6 @@
     [dataRecord setValue: imageOne forKey:@"image1"];
     [dataRecord setValue: imageTwo forKey:@"image2"];
     [dataRecord setValue: imageThree forKey:@"image3"];
-    [dataRecord setValue: [postObject objectForKey:TurnipParsePostCapacityKey] forKey:@"capacity"];
     [dataRecord setValue: [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"] forKey:@"neighbourhood"];
     
     BOOL privateBool = [[postObject objectForKey:TurnipParsePostPrivateKey] boolValue];

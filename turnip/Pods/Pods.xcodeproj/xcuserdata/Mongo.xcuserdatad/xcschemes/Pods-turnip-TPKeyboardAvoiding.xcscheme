@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A11FBCCB570B75C017766778"
+               BlueprintIdentifier = "89780F8B9173576E0F523F6E"
                BuildableName = "libPods-turnip-TPKeyboardAvoiding.a"
                BlueprintName = "Pods-turnip-TPKeyboardAvoiding"
                ReferencedContainer = "container:Pods.xcodeproj">

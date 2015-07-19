@@ -17,7 +17,7 @@ pod 'FBSDKShareKit', '~> 4.2.0'
 pod 'FBSDKLoginKit', '~> 4.2.0'
 pod 'TPKeyboardAvoiding', :git => 'https://github.com/darrenallen7/TPKeyboardAvoiding'
 pod 'MDCSwipeToChoose'
-
+pod 'Stripe', :git => 'https://github.com/stripe/stripe-ios.git'
 
 end
 

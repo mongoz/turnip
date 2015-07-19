@@ -36,10 +36,14 @@ static int errorCount = 0;
         //Must check authorizationStatus before initiating a CLLocationManager
         CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
         if (status == kCLAuthorizationStatusRestricted && status == kCLAuthorizationStatusDenied) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Error" message:@"To use this app you need to allow it to use your current Location." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alertView show];
+
         } else {
             _manager = [[CLLocationManager alloc] init];
             _manager.delegate = self;
             _manager.desiredAccuracy = kCLLocationAccuracyBest;
+            _manager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
         }
         if (status == kCLAuthorizationStatusNotDetermined) {
             //Must check if selector exists before messaging it
@@ -85,37 +89,14 @@ static int errorCount = 0;
     }
 }
 
-//- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-//    switch (status) {
-//        case kCLAuthorizationStatusAuthorizedAlways:
-//        {
-//            [_locationManager startUpdatingLocation];
-//        }
-//            break;
-//        case kCLAuthorizationStatusDenied:
-//            NSLog(@"kCLAuthorizationStatusDenied");
-//        {
-//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Add text here" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//            [alertView show];
-//        }
-//            break;
-//        case kCLAuthorizationStatusNotDetermined:
-//        {
-//            NSLog(@"kCLAuthorizationStatusNotDetermined");
-//        }
-//            break;
-//        case kCLAuthorizationStatusRestricted:
-//        {
-//            NSLog(@"kCLAuthorizationStatusRestricted");
-//        }
-//            break;
-//        case kCLAuthorizationStatusAuthorizedWhenInUse:
-//        {
-//            [_locationManager startUpdatingLocation];
-//        }
-//            break;
-//    }
-//}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
 
 
 @end

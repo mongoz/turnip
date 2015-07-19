@@ -74,7 +74,7 @@
         self.datePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
         [self.datePicker addTargetForDoneButton:self action:@selector(donePressed)];
         [self.datePicker addTargetForCancelButton:self action:@selector(cancelPressed)];
-        [self.view addSubview: self.datePicker];
+        [self.view.window addSubview: self.datePicker];
         self.datePicker.hidden = YES;
         [self.datePicker setMode: UIDatePickerModeDateAndTime];
         [self.datePicker.picker addTarget:self action:@selector(pickerChanged:) forControlEvents:UIControlEventValueChanged];
@@ -87,9 +87,9 @@
         self.endTimePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
         [self.endTimePicker addTargetForDoneButton:self action:@selector(timeDonePressed)];
         [self.endTimePicker addTargetForCancelButton:self action:@selector(timeCancelPressed)];
-        [self.view addSubview: self.endTimePicker];
+        [self.view.window addSubview: self.endTimePicker];
         self.endTimePicker.hidden = YES;
-        [self.endTimePicker setMode: UIDatePickerModeTime];
+        [self.endTimePicker setMode: UIDatePickerModeDateAndTime];
         [self.endTimePicker.picker addTarget:self action:@selector(timePickerChanged:) forControlEvents:UIControlEventValueChanged];
         
         self.endTimeDate.delegate = self;

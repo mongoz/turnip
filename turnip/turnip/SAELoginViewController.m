@@ -90,7 +90,7 @@
                     
                     // Save the name on Parse
                     [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
-                    [[PFInstallation currentInstallation] saveEventually];
+                    [[PFInstallation currentInstallation] saveInBackground];
                     
                     [PFUser currentUser][@"gender"] = [result objectForKey:@"gender"];
                     [PFUser currentUser][@"bio"] = @"";

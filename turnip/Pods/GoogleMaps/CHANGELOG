@@ -1,3 +1,9 @@
+Version 1.10.1 - June 2015
+=============================
+Resolved Issues:
+  - Fixed an issue where instantiating GMSPlacesClient triggered a request to enable Bluetooth.
+  - Miscellaneous improvements to the GMSPlacePicker UI.
+
 Version 1.10.0 - May 2015
 =========================
 Major Feature:

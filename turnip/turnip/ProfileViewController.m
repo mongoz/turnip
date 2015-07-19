@@ -16,6 +16,7 @@
 #import "SAEMessagingViewController.h"
 #import "ProfileImageCollectionViewController.h"
 #import "SAEUtilityFunctions.h"
+#import "SAERatingViewController.h"
 
 @interface ProfileViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -142,7 +143,6 @@
     self.navigationItem.title = navigationTitle;
     
     if ([user valueForKey:@"profileImage"] != nil) {
-        NSLog(@"parse profile image;");
         NSURL *url = [NSURL URLWithString: [user valueForKey:@"profileImage"]];
         NSData *data = [NSData dataWithContentsOfURL:url];
         self.profileImage.image = [UIImage imageWithData:data];
@@ -288,6 +288,19 @@
     return cell;
 }
 
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (!self.editProfile) {
+        if (self.thrownPressed) {
+            [self performSegueWithIdentifier:@"ratingViewSegue" sender:indexPath];
+        } else  {
+            [self performSegueWithIdentifier:@"ratingViewSegue" sender:indexPath];
+        }
+        
+    }
+   
+}
+
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 1;
 }
@@ -322,7 +335,7 @@
         self.bioTextView.text = self.bioLabel.text;
         self.bioTextView.hidden = NO;
         self.bioLabel.hidden = YES;
-        [self editEventImage];
+    //    [self editEventImage];
         [self.sideMenuButton setImage:[UIImage imageNamed:@"editprofile"] forState:UIControlStateNormal];
     }
 }
@@ -380,7 +393,7 @@
         self.bioTextView.hidden = YES;
         self.bioLabel.text = self.bioTextView.text;
         self.bioLabel.hidden = NO;
-        [self editEventImage];
+       // [self editEventImage];
         [self.sideMenuButton setImage:[UIImage imageNamed:@"gearWhite"] forState:UIControlStateNormal];
         self.editProfile = NO;
     } else if (self.messageActive) {
@@ -422,6 +435,18 @@
         SAEMessagingViewController *destViewController = segue.destinationViewController;
         destViewController.user = user;
     }
+    
+    if([segue.identifier isEqualToString:@"ratingViewSegue"]) {
+        NSIndexPath *path = sender;
+        SAERatingViewController *destViewController = segue.destinationViewController;
+        if (self.thrownPressed) {
+            destViewController.name = [[self.thrown valueForKey:@"title"] objectAtIndex: path.row];
+            destViewController.objectId = [[self.thrown valueForKey:@"objectId"] objectAtIndex:path.row];
+        } else {
+            destViewController.name = [[self.attended valueForKey:@"title"] objectAtIndex: path.row];
+            destViewController.objectId = [[self.attended valueForKey:@"objectId"] objectAtIndex:path.row];
+        }
+    }
 }
 
 - (IBAction)profileImageTap:(UITapGestureRecognizer *)sender {
@@ -434,7 +459,7 @@
 
 - (IBAction)eventCellXTap:(UITapGestureRecognizer *)sender {
     
-    NSLog(@"index: %ld", (long)sender.view.tag);
+    NSLog(@"view: %@", sender.view.superview.superview);
     
 }
 @end

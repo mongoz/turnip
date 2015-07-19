@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GoogleMaps/GoogleMaps.h"
 #import <CoreLocation/CoreLocation.h>
+#import "SAELocationManager.h"
 
-@interface SAEMapViewController : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+@interface SAEMapViewController : UIViewController <GMSMapViewDelegate, SAELocationMangerDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *updateButton;
 

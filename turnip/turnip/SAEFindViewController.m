@@ -193,7 +193,7 @@
 - (void)groupEventsIntoDays {
 
     for (NSArray *data in self.events) {
-        NSString *date = [SAEUtilityFunctions convertDate:[data valueForKey:@"date"]];
+        NSString *date = [self convertDate:[data valueForKey:@"date"]];
         
         if (![self.days containsObject:date])
         {
@@ -225,5 +225,61 @@
         
         destViewController.event = [sectionItems objectAtIndex:indexPath.row];
     }
+}
+
+
+- (NSString *) convertDate: (NSDate *) date {
+    
+    NSString *dateString = nil;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    
+    NSUInteger units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:units fromDate:[NSDate date]];
+    // comps.day = comps.day + 1;
+    NSDate *tomorrowMidnight = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setLocale:currentLocale];
+    
+    NSString *eventDate = [dateFormatter stringFromDate:date];
+    
+    NSDate *eventDay = [dateFormatter dateFromString:eventDate];
+    
+    NSInteger differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate: eventDay] -
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:tomorrowMidnight];
+    
+    switch (differenceInDays) {
+        case -1:
+        case 0:
+        case 1:
+            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            
+            [dateFormatter setLocale:currentLocale];
+            
+            [dateFormatter setDoesRelativeDateFormatting:YES];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            break;
+        default: {
+            // Set the date components you want
+            NSString *dateComponents = @"EEEEMMMMd";
+            
+            // The components will be reordered according to the locale
+            NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:dateComponents options:0 locale:currentLocale];
+            
+            [dateFormatter setDateFormat:dateFormat];
+            
+            dateString = [dateFormatter stringFromDate:date];
+            
+            break;
+        }
+    }
+    
+    return dateString;
 }
 @end

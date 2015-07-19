@@ -69,8 +69,6 @@
 
 - (void) placeAutocomplete {
     
-    [self.activityIndicator startAnimating];
-    
     GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
     filter.type = kGMSPlacesAutocompleteTypeFilterAddress;
     
@@ -86,8 +84,7 @@
                                     if ([results count] != 0) {
                                         [self.addresses removeAllObjects];
                                         for (GMSAutocompletePrediction *result in results) {
-                                            
-                                            [self.activityIndicator stopAnimating];
+                                        
                                             [self.addresses addObject:result.attributedFullText.string];
                                             //   NSLog(@"results: %@", result.types);
                                             
@@ -133,10 +130,14 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
+    NSLog(@"address :%@", self.addresses);
+    
     NSArray *address = [[self.addresses objectAtIndex:indexPath.row] componentsSeparatedByString:@","];
     
     cell.textLabel.text = address[0];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", address[1], address[2]];
+    if (address[1] != nil && address[2] != nil) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", address[1], address[2]];
+    }
     return cell;
 }
 

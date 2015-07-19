@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Stupidest App Ever. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 

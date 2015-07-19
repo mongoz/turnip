@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A07C3581B26CB8700BB4FC2 /* SAESwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A07C3571B26CB8700BB4FC2 /* SAESwipeViewController.m */; };
+		1A0EA3B81B5896DE0021EDB0 /* SAERatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0EA3B71B5896DE0021EDB0 /* SAERatingViewController.m */; };
+		1A0EA3BB1B58BFF00021EDB0 /* SAERatingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0EA3BA1B58BFF00021EDB0 /* SAERatingViewCell.m */; };
 		1A1B32161A9E76490096F2DF /* SAETabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32151A9E76490096F2DF /* SAETabBarViewController.m */; };
 		1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */; };
 		1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A28E2251A8EF46B00067C9C /* ScannerShapeView.m */; };
@@ -60,9 +61,6 @@
 		1ADB3F761B1E5BA30002B466 /* SAEAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB3F751B1E5BA30002B466 /* SAEAddressViewController.m */; };
 		1ADBC4751B3209450038DD17 /* Untitled-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ADBC4741B3209450038DD17 /* Untitled-1.png */; };
 		1ADBC4781B3216BC0038DD17 /* SAELocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADBC4771B3216BC0038DD17 /* SAELocationManager.m */; };
-		1ADBC47B1B33B5BD0038DD17 /* SAEChooseEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADBC47A1B33B5BD0038DD17 /* SAEChooseEventView.m */; };
-		1ADBC4811B33B7400038DD17 /* SAEImageLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADBC4801B33B7400038DD17 /* SAEImageLabelView.m */; };
-		1ADBC4841B362B170038DD17 /* SAESwipeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADBC4831B362B170038DD17 /* SAESwipeEvent.m */; };
 		1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF2E1AAE5AA90054197C /* EditViewController.m */; };
 		1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */; };
 		1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF361AB346880054197C /* ReachabilityManager.m */; };
@@ -103,8 +101,10 @@
 
 /* Begin PBXFileReference section */
 		128F4766B166E2108280E1E6 /* Pods-turnip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-turnip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-turnip/Pods-turnip.debug.xcconfig"; sourceTree = "<group>"; };
-		1A07C3561B26CB8700BB4FC2 /* SAESwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAESwipeViewController.h; sourceTree = "<group>"; };
-		1A07C3571B26CB8700BB4FC2 /* SAESwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAESwipeViewController.m; sourceTree = "<group>"; };
+		1A0EA3B61B5896DE0021EDB0 /* SAERatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAERatingViewController.h; sourceTree = "<group>"; };
+		1A0EA3B71B5896DE0021EDB0 /* SAERatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAERatingViewController.m; sourceTree = "<group>"; };
+		1A0EA3B91B58BFF00021EDB0 /* SAERatingViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAERatingViewCell.h; sourceTree = "<group>"; };
+		1A0EA3BA1B58BFF00021EDB0 /* SAERatingViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAERatingViewCell.m; sourceTree = "<group>"; };
 		1A1B32151A9E76490096F2DF /* SAETabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAETabBarViewController.m; sourceTree = "<group>"; };
 		1A1B32171AA05E090096F2DF /* NotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTableViewCell.h; sourceTree = "<group>"; };
 		1A1B32181AA05E090096F2DF /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
@@ -188,12 +188,6 @@
 		1ADBC4741B3209450038DD17 /* Untitled-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Untitled-1.png"; sourceTree = "<group>"; };
 		1ADBC4761B3216BC0038DD17 /* SAELocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAELocationManager.h; sourceTree = "<group>"; };
 		1ADBC4771B3216BC0038DD17 /* SAELocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAELocationManager.m; sourceTree = "<group>"; };
-		1ADBC4791B33B5BD0038DD17 /* SAEChooseEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEChooseEventView.h; sourceTree = "<group>"; };
-		1ADBC47A1B33B5BD0038DD17 /* SAEChooseEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEChooseEventView.m; sourceTree = "<group>"; };
-		1ADBC47F1B33B7400038DD17 /* SAEImageLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEImageLabelView.h; sourceTree = "<group>"; };
-		1ADBC4801B33B7400038DD17 /* SAEImageLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEImageLabelView.m; sourceTree = "<group>"; };
-		1ADBC4821B362B170038DD17 /* SAESwipeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAESwipeEvent.h; sourceTree = "<group>"; };
-		1ADBC4831B362B170038DD17 /* SAESwipeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAESwipeEvent.m; sourceTree = "<group>"; };
 		1ADEBF2D1AAE5AA90054197C /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		1ADEBF2E1AAE5AA90054197C /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		1ADEBF301AAF9F1C0054197C /* EditNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNextViewController.h; sourceTree = "<group>"; };
@@ -276,21 +270,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		1A07C3551B26CB4400BB4FC2 /* SwipeStyle */ = {
-			isa = PBXGroup;
-			children = (
-				1A07C3561B26CB8700BB4FC2 /* SAESwipeViewController.h */,
-				1A07C3571B26CB8700BB4FC2 /* SAESwipeViewController.m */,
-				1ADBC4791B33B5BD0038DD17 /* SAEChooseEventView.h */,
-				1ADBC47A1B33B5BD0038DD17 /* SAEChooseEventView.m */,
-				1ADBC47F1B33B7400038DD17 /* SAEImageLabelView.h */,
-				1ADBC4801B33B7400038DD17 /* SAEImageLabelView.m */,
-				1ADBC4821B362B170038DD17 /* SAESwipeEvent.h */,
-				1ADBC4831B362B170038DD17 /* SAESwipeEvent.m */,
-			);
-			name = SwipeStyle;
-			sourceTree = "<group>";
-		};
 		1A2AA2C51B01DF74007010E9 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +309,10 @@
 				1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */,
 				1A9FD9D21AB6DAB2000BF15C /* ToSViewController.h */,
 				1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */,
+				1A0EA3B61B5896DE0021EDB0 /* SAERatingViewController.h */,
+				1A0EA3B71B5896DE0021EDB0 /* SAERatingViewController.m */,
+				1A0EA3B91B58BFF00021EDB0 /* SAERatingViewCell.h */,
+				1A0EA3BA1B58BFF00021EDB0 /* SAERatingViewCell.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -494,7 +477,6 @@
 				1AFD3FB71A74ED9E00B2EABE /* Base.lproj */,
 				1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */,
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
-				1A07C3551B26CB4400BB4FC2 /* SwipeStyle */,
 				1A2AA2C91B01E010007010E9 /* Details */,
 				1A2AA2C61B01DFA1007010E9 /* Message */,
 				1A2AA2CB1B01E0A9007010E9 /* Find */,
@@ -783,21 +765,21 @@
 				1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */,
 				1ADBC4781B3216BC0038DD17 /* SAELocationManager.m in Sources */,
 				1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */,
+				1A0EA3BB1B58BFF00021EDB0 /* SAERatingViewCell.m in Sources */,
 				1AD082EB1B13C08B00D0B0F0 /* SAEBirthdayViewController.m in Sources */,
 				1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */,
 				1AA179F41A74E3D30061CA3E /* main.m in Sources */,
+				1A0EA3B81B5896DE0021EDB0 /* SAERatingViewController.m in Sources */,
 				1AA011991AD1E4ED003E7B76 /* ProfileImageCollectionViewController.m in Sources */,
 				1AA0668F1AC1045B008A5A11 /* SAEConversationViewController.m in Sources */,
 				1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */,
 				1A9D0D331A9D25020082550C /* TeammateViewController.m in Sources */,
-				1ADBC4841B362B170038DD17 /* SAESwipeEvent.m in Sources */,
 				1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* SAEFindTableCell.m in Sources */,
 				1AA066921AC3D0A7008A5A11 /* SAEConversationTableViewCell.m in Sources */,
 				1AA0119C1AD22906003E7B76 /* profileAlbumCollectionViewCell.m in Sources */,
 				1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* SAEThrowNextViewController.m in Sources */,
-				1A07C3581B26CB8700BB4FC2 /* SAESwipeViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
 				1AFD3FEA1A74ED9E00B2EABE /* SAEMapViewController.m in Sources */,
@@ -811,7 +793,6 @@
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
 				1A9AE4CF1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld in Sources */,
 				1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */,
-				1ADBC47B1B33B5BD0038DD17 /* SAEChooseEventView.m in Sources */,
 				1A2AA2C01AFF3BE3007010E9 /* FXBlurView.m in Sources */,
 				1A1B32161A9E76490096F2DF /* SAETabBarViewController.m in Sources */,
 				1AFD40491A751F2200B2EABE /* MBProgressHUD.m in Sources */,
@@ -821,7 +802,6 @@
 				1AFD3FEE1A74ED9E00B2EABE /* ProfileViewController.m in Sources */,
 				1AD8BA121AC5C3610018C383 /* SAEAcceptToSViewController.m in Sources */,
 				1AD082EE1B1AF68000D0B0F0 /* SAEUtilityFunctions.m in Sources */,
-				1ADBC4811B33B7400038DD17 /* SAEImageLabelView.m in Sources */,
 				1AA469E31AE9B03400D5BA08 /* SAEEventDetailsViewController.m in Sources */,
 				1AFD3FEF1A74ED9E00B2EABE /* SAEThrowViewController.m in Sources */,
 			);

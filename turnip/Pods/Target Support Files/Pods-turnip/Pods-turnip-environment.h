@@ -57,20 +57,20 @@
 // Bolts
 #define COCOAPODS_POD_AVAILABLE_Bolts
 #define COCOAPODS_VERSION_MAJOR_Bolts 1
-#define COCOAPODS_VERSION_MINOR_Bolts 1
-#define COCOAPODS_VERSION_PATCH_Bolts 5
+#define COCOAPODS_VERSION_MINOR_Bolts 2
+#define COCOAPODS_VERSION_PATCH_Bolts 0
 
 // Bolts/AppLinks
 #define COCOAPODS_POD_AVAILABLE_Bolts_AppLinks
 #define COCOAPODS_VERSION_MAJOR_Bolts_AppLinks 1
-#define COCOAPODS_VERSION_MINOR_Bolts_AppLinks 1
-#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 5
+#define COCOAPODS_VERSION_MINOR_Bolts_AppLinks 2
+#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 0
 
 // Bolts/Tasks
 #define COCOAPODS_POD_AVAILABLE_Bolts_Tasks
 #define COCOAPODS_VERSION_MAJOR_Bolts_Tasks 1
-#define COCOAPODS_VERSION_MINOR_Bolts_Tasks 1
-#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 5
+#define COCOAPODS_VERSION_MINOR_Bolts_Tasks 2
+#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 0
 
 // FBSDKCoreKit
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit
@@ -106,7 +106,7 @@
 #define COCOAPODS_POD_AVAILABLE_GoogleMaps
 #define COCOAPODS_VERSION_MAJOR_GoogleMaps 1
 #define COCOAPODS_VERSION_MINOR_GoogleMaps 10
-#define COCOAPODS_VERSION_PATCH_GoogleMaps 0
+#define COCOAPODS_VERSION_PATCH_GoogleMaps 1
 
 // MCSwipeTableViewCell
 #define COCOAPODS_POD_AVAILABLE_MCSwipeTableViewCell
@@ -124,19 +124,19 @@
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1
 #define COCOAPODS_VERSION_MINOR_Parse 7
-#define COCOAPODS_VERSION_PATCH_Parse 4
+#define COCOAPODS_VERSION_PATCH_Parse 5
 
 // ParseCrashReporting
 #define COCOAPODS_POD_AVAILABLE_ParseCrashReporting
 #define COCOAPODS_VERSION_MAJOR_ParseCrashReporting 1
 #define COCOAPODS_VERSION_MINOR_ParseCrashReporting 7
-#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 4
+#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 5
 
 // ParseFacebookUtilsV4
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
 #define COCOAPODS_VERSION_MAJOR_ParseFacebookUtilsV4 1
 #define COCOAPODS_VERSION_MINOR_ParseFacebookUtilsV4 7
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 4
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 5
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI
@@ -149,6 +149,24 @@
 #define COCOAPODS_VERSION_MAJOR_Reachability 3
 #define COCOAPODS_VERSION_MINOR_Reachability 2
 #define COCOAPODS_VERSION_PATCH_Reachability 0
+
+// Stripe
+#define COCOAPODS_POD_AVAILABLE_Stripe
+#define COCOAPODS_VERSION_MAJOR_Stripe 4
+#define COCOAPODS_VERSION_MINOR_Stripe 0
+#define COCOAPODS_VERSION_PATCH_Stripe 3
+
+// Stripe/Checkout
+#define COCOAPODS_POD_AVAILABLE_Stripe_Checkout
+#define COCOAPODS_VERSION_MAJOR_Stripe_Checkout 4
+#define COCOAPODS_VERSION_MINOR_Stripe_Checkout 0
+#define COCOAPODS_VERSION_PATCH_Stripe_Checkout 3
+
+// Stripe/Core
+#define COCOAPODS_POD_AVAILABLE_Stripe_Core
+#define COCOAPODS_VERSION_MAJOR_Stripe_Core 4
+#define COCOAPODS_VERSION_MINOR_Stripe_Core 0
+#define COCOAPODS_VERSION_PATCH_Stripe_Core 3
 
 // TPKeyboardAvoiding
 #define COCOAPODS_POD_AVAILABLE_TPKeyboardAvoiding

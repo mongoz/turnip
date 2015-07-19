@@ -12,8 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (weak, nonatomic) NSTimer *searchDelayer;

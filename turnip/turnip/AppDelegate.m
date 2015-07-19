@@ -179,7 +179,6 @@
     
     UITabBarController *tabController = (UITabBarController *) self.window.rootViewController;
     
-    // Create empty photo object
     NSString *type = [userInfo objectForKey:@"type"];
     
     if ([type isEqualToString:@"eventRequest"]) {
@@ -187,8 +186,11 @@
          postNotificationName:TurnipPartyRequestPushNotification
          object:self];
         
+        if ([[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue != nil) {
+            self.notificationCount = [[[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue intValue];
+        }
+
         self.notificationCount += 1;
-        NSLog(@"%ld", (long)self.notificationCount);
         
         [[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     }
@@ -198,6 +200,10 @@
          postNotificationName: TurnipAcceptedRequestNotification
          object:self];
         
+        if ([[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue != nil) {
+            self.notificationCount = [[[tabController.viewControllers objectAtIndex: TurnipTabNotification] tabBarItem].badgeValue intValue];
+        }
+        
         self.notificationCount += 1;
         
         [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
@@ -205,8 +211,11 @@
     
     if ([type isEqualToString:@"messagePush"]) {
         
+        if ([[tabController.viewControllers objectAtIndex: TurnipTabMessage] tabBarItem].badgeValue != nil) {
+            self.messageCount = [[[tabController.viewControllers objectAtIndex: TurnipTabMessage] tabBarItem].badgeValue intValue];
+        }
+        
         self.messageCount +=1;
-        NSLog(@"%ld", (long)self.notificationCount);
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipMessagePushNotification object:userInfo];
         
         [[tabController.viewControllers objectAtIndex:TurnipTabMessage] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.messageCount];
@@ -250,6 +259,9 @@
     [[[[tabController tabBar] items] objectAtIndex: TurnipTabNotification] setBadgeValue:0];
     
     self.notificationCount = 0;
+    
+    [[PFUser currentUser] setObject:[NSNumber numberWithInt:0] forKey:@"nrOfNotifications"];
+    [[PFUser currentUser] saveInBackground];
 }
 
 - (void) notificationCounter:(NSNotification *)note {
@@ -258,6 +270,9 @@
     
     self.notificationCount += 1;
     [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
+    
+    [PFUser currentUser][@"nrOfNotifications"] = 0;
+    
 }
 
 - (void) resetMessageCount:(NSNotification *) note {
@@ -265,6 +280,10 @@
     [[[[tabController tabBar] items] objectAtIndex: TurnipTabMessage] setBadgeValue:0];
 
     self.messageCount = 0;
+    NSLog(@"derp");
+    
+    [[PFUser currentUser] setObject:[NSNumber numberWithInt:0] forKey:@"nrOfMessages"];
+    [[PFUser currentUser] saveInBackground];
 }
 
 #pragma mark facebook url open

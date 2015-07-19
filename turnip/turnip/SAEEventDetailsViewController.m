@@ -506,8 +506,7 @@
                         self.requestButton.hidden = NO;
                         
                         NSInteger index = [self.accepted indexOfObject:[PFUser currentUser]];
-                        
-                        NSLog(@"accepted: %lu", (unsigned long)index);
+ 
                     }
                 }];
             }

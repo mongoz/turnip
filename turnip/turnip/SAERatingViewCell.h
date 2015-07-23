@@ -25,7 +25,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *rating;
 @property (strong, nonatomic) IBOutlet UIButton *downVoteButton;
 @property (strong, nonatomic) IBOutlet UIButton *upVoteButton;
-- (IBAction)upVoteButton:(id)sender;
 
+- (IBAction)upVoteButton:(id)sender;
 - (IBAction)downVoteButton:(id)sender;
 @end

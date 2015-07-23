@@ -41,18 +41,18 @@ PODS:
   - FBSDKShareKit (4.2.0):
     - FBSDKCoreKit
   - GoogleMaps (1.10.1)
-  - MCSwipeTableViewCell (2.1.2)
+  - MCSwipeTableViewCell (2.1.4)
   - MDCSwipeToChoose (0.2.2)
-  - Parse (1.7.5):
+  - Parse (1.7.5.3):
     - Bolts/Tasks (>= 1.2.0)
-  - ParseCrashReporting (1.7.5):
+  - ParseCrashReporting (1.7.5.3):
     - Bolts/Tasks (>= 1.2.0)
-    - Parse (~> 1.7.5)
-  - ParseFacebookUtilsV4 (1.7.5):
+    - Parse (~> 1.7.5.3)
+  - ParseFacebookUtilsV4 (1.7.5.3):
     - Bolts/Tasks (>= 1.2.0)
     - FBSDKCoreKit (~> 4.0)
     - FBSDKLoginKit (~> 4.0)
-    - Parse (~> 1.7.5)
+    - Parse (~> 1.7.5.3)
   - ParseUI (1.1.4):
     - Parse (~> 1.7)
   - Reachability (3.2)
@@ -103,11 +103,11 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 57e37106af12c9e264e473dcb75d7decdbb07fe4
   FBSDKShareKit: 931746fdf8fb95efd6e12310ec14b2b3295e2aec
   GoogleMaps: ebf08677f181d9c2dcdbd1721d206f02beccc9b1
-  MCSwipeTableViewCell: 0fc22bd3635b9b5f4ce08675218b0a7278b6440f
+  MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
   MDCSwipeToChoose: 715aefacd3cc884c448fcdc70638c04a3056408c
-  Parse: 7c0f115eff3e0cea3fac08d50bda47154edb8832
-  ParseCrashReporting: 504b77a57d0619f8099061c11d323877e681a184
-  ParseFacebookUtilsV4: 3107725c6f2b69e3a03afe9c3aff35d6ee3e9ba5
+  Parse: 373adbb1ad2e34d383542c3b28f678c49ebe4881
+  ParseCrashReporting: 36d2e2770d7502d943b81c013acd5193946ced46
+  ParseFacebookUtilsV4: ea5db22e87b91cbf99b9d156642e2b97a4db7d51
   ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Stripe: 43a4307dc789483a61668d187c4a917d1348b0b6

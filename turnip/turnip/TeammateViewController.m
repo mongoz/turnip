@@ -232,7 +232,6 @@
 
 #pragma mark - utils
 
-
 - (void) buildUsersArray {
     NSString *image;
     

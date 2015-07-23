@@ -105,7 +105,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    NSLog(@"coutn:%lu",(unsigned long)[self.users count]);
     return [self.users count];
 }
 
@@ -117,8 +116,6 @@
     if (cell == nil) {
         cell = [[SAERatingViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
-    
-    NSLog(@"%@", [self.users objectAtIndex:indexPath.row]);
     
     cell.nameLabel.text = [[self.users valueForKey:@"firstName"] objectAtIndex:indexPath.row];
     
@@ -152,23 +149,32 @@
          }];
     }
     
+    cell.delegate = self;
     return cell;
     
 }
 
 - (void)backNavigation {
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 #pragma mark - Cell Delegates
 
 - (void) ratingViewCellDownVoteTapped:(SAERatingViewCell *)cell {
     
+//    [PFCloud callFunctionInBackground:@"upVoteCloudCode"
+//                       withParameters:@{@"movie": @"The Matrix"}
+//                                block:^(NSNumber *ratings, NSError *error) {
+//                                    if (!error) {
+//                                        // ratings is 4.5
+//                                    }
+//                                }];
+    
+    NSLog(@"downVote");
 }
 
 - (void) ratingViewCellUpVoteTapped:(SAERatingViewCell *)cell {
-    
+    NSLog(@"upVote");
 }
 
 @end

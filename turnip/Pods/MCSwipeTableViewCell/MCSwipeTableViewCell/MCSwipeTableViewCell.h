@@ -12,7 +12,7 @@
 
 /** Describes the state that has been triggered by the user. */
 typedef NS_OPTIONS(NSUInteger, MCSwipeTableViewCellState) {
-    
+
     /** No state has been triggered. */
     MCSwipeTableViewCellStateNone = 0,
     
@@ -21,7 +21,7 @@ typedef NS_OPTIONS(NSUInteger, MCSwipeTableViewCellState) {
     
     /** 2nd state triggered during a Left -> Right swipe. */
     MCSwipeTableViewCellState2 = (1 << 1),
-    
+
     /** 1st state triggered during a Right -> Left swipe. */
     MCSwipeTableViewCellState3 = (1 << 2),
     
@@ -33,10 +33,10 @@ typedef NS_OPTIONS(NSUInteger, MCSwipeTableViewCellState) {
 typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellMode) {
     /** Disabled swipe.  */
     MCSwipeTableViewCellModeNone = 0,
-    
+
     /** Upon swipe the cell if exited from the view. Useful for destructive actions. */
     MCSwipeTableViewCellModeExit,
-    
+
     /** Upon swipe the cell if automatically swiped back to it's initial position. */
     MCSwipeTableViewCellModeSwitch
 };
@@ -67,9 +67,9 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 /** Delegate of `MCSwipeTableViewCell` */
 @property (nonatomic, assign) id <MCSwipeTableViewCellDelegate> delegate;
 
-/**
+/** 
  * Damping of the physical spring animation. Expressed in percent.
- *
+ * 
  * @discussion Only applied for version of iOS > 7.
  */
 @property (nonatomic, assign, readwrite) CGFloat damping;
@@ -77,7 +77,8 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
 /**
  * Velocity of the spring animation. Expressed in points per second (pts/s).
  *
- * @discussion Only applied for version of iOS > 7.
+ * @discussion Only applied for version of
+ iOS > 7.
  */
 @property (nonatomic, assign, readwrite) CGFloat velocity;
 
@@ -203,6 +204,7 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
  */
 - (void)swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell;
 
+
 /**
  * called when the user tap the denied button
  *
@@ -217,7 +219,6 @@ typedef void (^MCSwipeCompletionBlock)(MCSwipeTableViewCell *cell, MCSwipeTableV
  * @param button 'accept' tapped
  */
 - (void) acceptButtonWasTapped:(MCSwipeTableViewCell *) cell;
-
 
 /**
  *  Called during a swipe.

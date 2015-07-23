@@ -222,6 +222,7 @@
             AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
             
             op.responseSerializer = [AFImageResponseSerializer serializer];
+            op.responseSerializer.acceptableContentTypes = [op.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
             
             [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [self.pageImages addObject: responseObject];
@@ -505,7 +506,7 @@
                         self.unattendButton.hidden = YES;
                         self.requestButton.hidden = NO;
                         
-                        NSInteger index = [self.accepted indexOfObject:[PFUser currentUser]];
+                    //    NSInteger index = [self.accepted indexOfObject:[PFUser currentUser]];
  
                     }
                 }];

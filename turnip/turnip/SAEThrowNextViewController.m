@@ -400,7 +400,7 @@
                 NSString *imageName = [NSString stringWithFormat:@"%@.jpg", filtered];
                 imageName = [imageName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
                 
-                PFFile *file = [PFFile fileWithName: imageName  data:imageData];
+                PFFile *file = [PFFile fileWithName: imageName  data:imageData contentType:@"image/jpeg"];
                 
                 [image addObject:file];
             }

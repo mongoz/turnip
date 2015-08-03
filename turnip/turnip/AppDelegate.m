@@ -280,7 +280,6 @@
     [[[[tabController tabBar] items] objectAtIndex: TurnipTabMessage] setBadgeValue:0];
 
     self.messageCount = 0;
-    NSLog(@"derp");
     
     [[PFUser currentUser] setObject:[NSNumber numberWithInt:0] forKey:@"nrOfMessages"];
     [[PFUser currentUser] saveInBackground];

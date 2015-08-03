@@ -22,9 +22,13 @@
 
 @implementation SAERatingViewController
 
+
+
 - (void) viewDidLoad {
     [super viewDidLoad];
     [super setTitle:self.name];
+    
+    self.users = [[NSMutableArray alloc] init];
     
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30.0f, 30.0f)];
     
@@ -51,11 +55,16 @@
     
     [query whereKey:@"objectId" equalTo:self.objectId];
     
+    [query includeKey:@"user"];
+    [query selectKeys:@[@"objectId", @"attended", @"user"]];
+    
     [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
         if (!error) {
+            
+            [self.users addObject:[object objectForKey:@"user"]];
             PFRelation *relation = [object relationForKey:@"attended"];
             PFQuery *query = [relation query];
-            [query selectKeys:@[@"objectId", @"firstName", @"profileImage", @"rating", @"facebookId"]];
+            [query selectKeys:@[@"objectId", @"firstName", @"profileImage", @"rating", @"facebookId", @"upVoted", @"downVoted"]];
             
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
@@ -65,9 +74,9 @@
                     }
                     if ([objects count] > 0) {
                         
-                        self.users = [[NSMutableArray alloc] initWithArray:objects];
-                        [self.tableView reloadData];
+                        [self.users addObjectsFromArray:objects];
                     }
+                    [self.tableView reloadData];
                 } else {
                     [ParseErrorHandlingController handleParseError:error];
                 }
@@ -83,14 +92,13 @@
     // Return the number of sections.
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     
-    if([self.users count] > 0) {
-        NSLog(@"sections");
+    if([self.users count] > 1) {
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.backgroundView = nil;
         return 1;
     } else if(![self.activityIndicator isAnimating]){
         // Display a message when the table is empty
-        messageLabel.text = @"Noone attended this party :(";
+        messageLabel.text = @"Nobody attended this party :(";
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
@@ -117,6 +125,11 @@
         cell = [[SAERatingViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
+    if(![[self.users valueForKey:@"objectId"] containsObject:[[PFUser currentUser] objectId]]) {
+        cell.upVoteButton.enabled = NO;
+        cell.downVoteButton.enabled = NO;
+    }
+    
     cell.nameLabel.text = [[self.users valueForKey:@"firstName"] objectAtIndex:indexPath.row];
     
     NSNumber *rating = [[self.users valueForKey:@"rating"] objectAtIndex:indexPath.row];
@@ -125,6 +138,12 @@
         cell.rating.text = @"0";
     } else {
        cell.rating.text = [rating stringValue];
+    }
+    
+    if (![[[self.users valueForKey:@"upVoted"] objectAtIndex:indexPath.row] isEqual:[NSNull null] ] && [[[self.users valueForKey:@"upVoted"] objectAtIndex:indexPath.row] containsObject:[[PFUser currentUser] objectId]]) {
+        cell.upVoteButton.enabled = NO;
+    } else if (![[[self.users valueForKey:@"downVoted"] objectAtIndex:indexPath.row] isEqual:[NSNull null] ] && [[[self.users valueForKey:@"downVoted"] objectAtIndex:indexPath.row] containsObject:[[PFUser currentUser] objectId]]) {
+        cell.downVoteButton.enabled = NO;
     }
 
     if (![[[self.users valueForKey:@"profileImage"] objectAtIndex:indexPath.row] isEqual:[NSNull null]] ) {
@@ -160,21 +179,55 @@
 
 #pragma mark - Cell Delegates
 
-- (void) ratingViewCellDownVoteTapped:(SAERatingViewCell *)cell {
+- (void) ratingViewCellUpVoteTapped:(SAERatingViewCell *)cell {
     
-//    [PFCloud callFunctionInBackground:@"upVoteCloudCode"
-//                       withParameters:@{@"movie": @"The Matrix"}
-//                                block:^(NSNumber *ratings, NSError *error) {
-//                                    if (!error) {
-//                                        // ratings is 4.5
-//                                    }
-//                                }];
+    [self rateUserInCell:cell andDirection:@"up"];
     
-    NSLog(@"downVote");
 }
 
-- (void) ratingViewCellUpVoteTapped:(SAERatingViewCell *)cell {
-    NSLog(@"upVote");
+- (void) ratingViewCellDownVoteTapped:(SAERatingViewCell *)cell {
+    [self rateUserInCell:cell andDirection:@"down"];
+    
+}
+
+
+- (void) rateUserInCell: (SAERatingViewCell *) cell andDirection:(NSString *) direction {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    PFUser *user = [PFUser objectWithoutDataWithClassName:@"_User" objectId:[[self.users valueForKey:@"objectId"] objectAtIndex:indexPath.row]];
+    
+    NSInteger rating = [cell.rating.text integerValue];
+    
+    if ([direction isEqualToString:@"up"]) {
+        cell.upVoteButton.enabled = NO;
+        cell.downVoteButton.enabled = YES;
+        rating++;
+        
+        [PFCloud callFunctionInBackground:@"rateUser"
+                           withParameters:@{@"userId": user.objectId, @"direction": @"up"}
+                                    block:^(NSString *success, NSError *error) {
+                                        if (error) {
+                                            [ParseErrorHandlingController handleParseError:error];
+                                        }
+                                    }];
+        
+    } else if([direction isEqualToString:@"down"]) {
+        cell.downVoteButton.enabled = NO;
+        cell.upVoteButton.enabled = YES;
+        
+        rating--;
+        
+        [PFCloud callFunctionInBackground:@"rateUser"
+                           withParameters:@{@"userId": user.objectId, @"direction": @"down"}
+                                    block:^(NSString *success, NSError *error) {
+                                        if (error) {
+                                            [ParseErrorHandlingController handleParseError:error];
+                                        }
+                                    }];
+    }
+    
+    cell.rating.text = [NSString stringWithFormat:@"%ld", (long)rating];
+    
 }
 
 @end

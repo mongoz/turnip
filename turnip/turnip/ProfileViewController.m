@@ -94,13 +94,11 @@
                 self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
                 [self.bioLabel sizeToFit];
                 
-                NSLog(@"derp");
-                
+                // Should change this to background thread
                 if ([[PFUser currentUser] valueForKey:@"profileImage"] != nil) {
                     NSURL *url = [NSURL URLWithString: [[PFUser currentUser] valueForKey:@"profileImage"]];
                     NSData *data = [NSData dataWithContentsOfURL:url];
                     self.profileImage.image = [UIImage imageWithData:data];
-                      NSLog(@"herp");
                 } else {
                     // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
                     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
@@ -117,7 +115,6 @@
                              self.profileImage.image = [UIImage imageWithData:data];
                          }
                      }];
-                      NSLog(@"merp");
                 }
             }
             

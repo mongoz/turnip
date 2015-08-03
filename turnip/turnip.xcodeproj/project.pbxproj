@@ -309,10 +309,7 @@
 				1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */,
 				1A9FD9D21AB6DAB2000BF15C /* ToSViewController.h */,
 				1A9FD9D31AB6DAB2000BF15C /* ToSViewController.m */,
-				1A0EA3B61B5896DE0021EDB0 /* SAERatingViewController.h */,
-				1A0EA3B71B5896DE0021EDB0 /* SAERatingViewController.m */,
-				1A0EA3B91B58BFF00021EDB0 /* SAERatingViewCell.h */,
-				1A0EA3BA1B58BFF00021EDB0 /* SAERatingViewCell.m */,
+				1A4CB8F01B6FF1C10045BA7A /* Rating */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -447,6 +444,17 @@
 				1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */,
 			);
 			name = Edit;
+			sourceTree = "<group>";
+		};
+		1A4CB8F01B6FF1C10045BA7A /* Rating */ = {
+			isa = PBXGroup;
+			children = (
+				1A0EA3B61B5896DE0021EDB0 /* SAERatingViewController.h */,
+				1A0EA3B71B5896DE0021EDB0 /* SAERatingViewController.m */,
+				1A0EA3B91B58BFF00021EDB0 /* SAERatingViewCell.h */,
+				1A0EA3BA1B58BFF00021EDB0 /* SAERatingViewCell.m */,
+			);
+			name = Rating;
 			sourceTree = "<group>";
 		};
 		1AA179E51A74E3D30061CA3E = {
@@ -720,7 +728,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\n\nparse symbols Turnip --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

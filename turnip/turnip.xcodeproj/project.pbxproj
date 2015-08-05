@@ -18,6 +18,10 @@
 		1A2AA2D01B0315BC007010E9 /* unattend.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2CF1B0315BC007010E9 /* unattend.png */; };
 		1A2AA2E11B0B3AE5007010E9 /* PUBLIC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2E01B0B3AE5007010E9 /* PUBLIC.png */; };
 		1A2AA2E31B0B3AF5007010E9 /* PRIVATE.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A2AA2E21B0B3AF5007010E9 /* PRIVATE.png */; };
+		1A4CB8F71B70DE310045BA7A /* SAEEventFeedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CB8F61B70DE310045BA7A /* SAEEventFeedViewCell.m */; };
+		1A4CB8FA1B70DE5B0045BA7A /* SAEEventFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CB8F91B70DE5B0045BA7A /* SAEEventFeedViewController.m */; };
+		1A4CB8FC1B70EA3B0045BA7A /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4CB8FB1B70EA3B0045BA7A /* down.png */; };
+		1A4CB8FE1B7202C50045BA7A /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4CB8FD1B7202C50045BA7A /* up.png */; };
 		1A5241AB1A9AF6EE008E2B72 /* SAEThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* SAEThrowNextViewController.m */; };
 		1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */; };
 		1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC41AA67836004F55B4 /* ScannerViewController.m */; };
@@ -117,6 +121,12 @@
 		1A2AA2CF1B0315BC007010E9 /* unattend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unattend.png; sourceTree = "<group>"; };
 		1A2AA2E01B0B3AE5007010E9 /* PUBLIC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PUBLIC.png; sourceTree = "<group>"; };
 		1A2AA2E21B0B3AF5007010E9 /* PRIVATE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PRIVATE.png; sourceTree = "<group>"; };
+		1A4CB8F51B70DE310045BA7A /* SAEEventFeedViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEEventFeedViewCell.h; sourceTree = "<group>"; };
+		1A4CB8F61B70DE310045BA7A /* SAEEventFeedViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEEventFeedViewCell.m; sourceTree = "<group>"; };
+		1A4CB8F81B70DE5B0045BA7A /* SAEEventFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEEventFeedViewController.h; sourceTree = "<group>"; };
+		1A4CB8F91B70DE5B0045BA7A /* SAEEventFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEEventFeedViewController.m; sourceTree = "<group>"; };
+		1A4CB8FB1B70EA3B0045BA7A /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
+		1A4CB8FD1B7202C50045BA7A /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
 		1A5241A91A9AF6EE008E2B72 /* SAEThrowNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEThrowNextViewController.h; sourceTree = "<group>"; };
 		1A5241AA1A9AF6EE008E2B72 /* SAEThrowNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEThrowNextViewController.m; sourceTree = "<group>"; };
 		1A54AEC01AA67826004F55B4 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarTableViewController.h; sourceTree = "<group>"; };
@@ -457,6 +467,17 @@
 			name = Rating;
 			sourceTree = "<group>";
 		};
+		1A4CB8F11B70DDBE0045BA7A /* EventFeed */ = {
+			isa = PBXGroup;
+			children = (
+				1A4CB8F51B70DE310045BA7A /* SAEEventFeedViewCell.h */,
+				1A4CB8F61B70DE310045BA7A /* SAEEventFeedViewCell.m */,
+				1A4CB8F81B70DE5B0045BA7A /* SAEEventFeedViewController.h */,
+				1A4CB8F91B70DE5B0045BA7A /* SAEEventFeedViewController.m */,
+			);
+			name = EventFeed;
+			sourceTree = "<group>";
+		};
 		1AA179E51A74E3D30061CA3E = {
 			isa = PBXGroup;
 			children = (
@@ -485,6 +506,7 @@
 				1AFD3FB71A74ED9E00B2EABE /* Base.lproj */,
 				1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */,
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
+				1A4CB8F11B70DDBE0045BA7A /* EventFeed */,
 				1A2AA2C91B01E010007010E9 /* Details */,
 				1A2AA2C61B01DFA1007010E9 /* Message */,
 				1A2AA2CB1B01E0A9007010E9 /* Find */,
@@ -565,6 +587,8 @@
 				1ADB35A61AFEAD8F0075984F /* turnip.png */,
 				1A9FD9CD1AB3D992000BF15C /* LemonMilk.otf */,
 				1A8A84841AF489E9002A75AF /* qrcircle.png */,
+				1A4CB8FB1B70EA3B0045BA7A /* down.png */,
+				1A4CB8FD1B7202C50045BA7A /* up.png */,
 				1A2AA2CF1B0315BC007010E9 /* unattend.png */,
 				1A2AA2AC1AFF192D007010E9 /* camera placeholder.png */,
 				1A8626251A7B15B400AF63B9 /* ZW4QC.png */,
@@ -680,6 +704,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A4CB8FE1B7202C50045BA7A /* up.png in Resources */,
+				1A4CB8FC1B70EA3B0045BA7A /* down.png in Resources */,
 				1ADBC4751B3209450038DD17 /* Untitled-1.png in Resources */,
 				1A9FD9CE1AB3D9C1000BF15C /* LemonMilk.otf in Resources */,
 				1AFD3FFE1A74EEC700B2EABE /* Main.storyboard in Resources */,
@@ -788,9 +814,11 @@
 				1AA0119C1AD22906003E7B76 /* profileAlbumCollectionViewCell.m in Sources */,
 				1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */,
 				1A5241AB1A9AF6EE008E2B72 /* SAEThrowNextViewController.m in Sources */,
+				1A4CB8FA1B70DE5B0045BA7A /* SAEEventFeedViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
 				1AFD3FEA1A74ED9E00B2EABE /* SAEMapViewController.m in Sources */,
+				1A4CB8F71B70DE310045BA7A /* SAEEventFeedViewCell.m in Sources */,
 				1AFD3FE51A74ED9E00B2EABE /* SAEFindViewController.m in Sources */,
 				1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */,
 				1ADB3F761B1E5BA30002B466 /* SAEAddressViewController.m in Sources */,

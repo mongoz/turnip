@@ -317,9 +317,9 @@
     [self.window makeKeyAndVisible];
 }
 
-- (void)presentSwipeViewController {
+- (void)presentEventFeedViewController {
     // Go to the welcome screen and have them log in or create an account.
-    UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"swipeView"];
+    UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventFeedView"];
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
 }

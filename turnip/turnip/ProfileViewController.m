@@ -77,6 +77,18 @@
 
 - (void) loadFacebookData {
     if ([FBSDKAccessToken currentAccessToken]) {
+        
+        [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if(!error) {
+                self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %@" , [[[PFUser currentUser] valueForKey:@"rating"] stringValue]];
+                self.bioLabel.numberOfLines = 0;
+                self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
+                [self.bioLabel sizeToFit];
+            } else {
+                [ParseErrorHandlingController handleParseError:error];
+            }
+        }];
+        
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (!error) {
                 // result is a dictionary with the user's Facebook data
@@ -89,10 +101,6 @@
                 NSString *navigationTitle = [NSString stringWithFormat:@"%@, %@", [name objectAtIndex:0], @([SAEUtilityFunctions calculateAge:birthday]).stringValue];
                 
                 self.navigationItem.title = navigationTitle;
-                
-                self.bioLabel.numberOfLines = 0;
-                self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
-                [self.bioLabel sizeToFit];
                 
                 // Should change this to background thread
                 if ([[PFUser currentUser] valueForKey:@"profileImage"] != nil) {
@@ -136,6 +144,8 @@
     self.bioLabel.numberOfLines = 0;
     self.bioLabel.text = [user valueForKey:@"bio"];
     [self.bioLabel sizeToFit];
+    
+    self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %@" , [[user valueForKey:@"rating"] stringValue]];
     
     self.navigationItem.title = navigationTitle;
     

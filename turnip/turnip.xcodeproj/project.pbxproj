@@ -68,6 +68,7 @@
 		1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF2E1AAE5AA90054197C /* EditViewController.m */; };
 		1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */; };
 		1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF361AB346880054197C /* ReachabilityManager.m */; };
+		1AE1218E1B74B38100BEC3C4 /* SAEFeedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
 		1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB81A74ED9E00B2EABE /* LaunchScreen.xib */; };
 		1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */; };
@@ -205,6 +206,8 @@
 		1ADEBF331AB265480054197C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1ADEBF351AB346880054197C /* ReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityManager.h; sourceTree = "<group>"; };
 		1ADEBF361AB346880054197C /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
+		1AE1218C1B74B37B00BEC3C4 /* SAEFeedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEFeedEvent.h; sourceTree = "<group>"; };
+		1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEFeedEvent.m; sourceTree = "<group>"; };
 		1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1AFD3FB91A74ED9E00B2EABE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -474,6 +477,8 @@
 				1A4CB8F61B70DE310045BA7A /* SAEEventFeedViewCell.m */,
 				1A4CB8F81B70DE5B0045BA7A /* SAEEventFeedViewController.h */,
 				1A4CB8F91B70DE5B0045BA7A /* SAEEventFeedViewController.m */,
+				1AE1218C1B74B37B00BEC3C4 /* SAEFeedEvent.h */,
+				1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */,
 			);
 			name = EventFeed;
 			sourceTree = "<group>";
@@ -516,8 +521,8 @@
 				1A2AA2C71B01DFB8007010E9 /* Profile */,
 				1A2AA2CA1B01E07A007010E9 /* Host */,
 				1A2AA2C81B01DFC8007010E9 /* Notification */,
-				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1A2AA2D11B048D0E007010E9 /* Utils */,
+				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
 			);
 			path = turnip;
@@ -817,6 +822,7 @@
 				1A4CB8FA1B70DE5B0045BA7A /* SAEEventFeedViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
+				1AE1218E1B74B38100BEC3C4 /* SAEFeedEvent.m in Sources */,
 				1AFD3FEA1A74ED9E00B2EABE /* SAEMapViewController.m in Sources */,
 				1A4CB8F71B70DE310045BA7A /* SAEEventFeedViewCell.m in Sources */,
 				1AFD3FE51A74ED9E00B2EABE /* SAEFindViewController.m in Sources */,

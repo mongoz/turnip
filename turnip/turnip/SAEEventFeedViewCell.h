@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ParseUI/ParseUI.h>
 
 @interface SAEEventFeedViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *attendingLabel;
 
-@property (strong, nonatomic) IBOutlet UIImageView *eventImage;
+@property (strong, nonatomic) IBOutlet PFImageView *eventImage;
 @end

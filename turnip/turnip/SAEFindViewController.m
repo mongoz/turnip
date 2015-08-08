@@ -255,6 +255,7 @@
     switch (differenceInDays) {
         case -1:
         case 0:
+            NSLog(@"today");
         case 1:
             [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
             [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

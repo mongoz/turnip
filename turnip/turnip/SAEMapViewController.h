@@ -17,6 +17,7 @@
 
 - (IBAction)updateButtonHandler:(id)sender;
 
+- (IBAction)feedButtonHandler:(id)sender;
 
 
 @end

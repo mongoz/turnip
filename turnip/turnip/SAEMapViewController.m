@@ -346,6 +346,10 @@
     [self queryForAllEventsNearLocation: self.currentLocation];
 }
 
+- (IBAction)feedButtonHandler:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma mark Notifications
 - (void)eventWasChanged:(NSNotification *)note {

@@ -21,7 +21,7 @@
 
 @interface SAEEventFeedViewController ()
 
-@property (nonatomic, strong) NSMutableArray *events;
+@property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, assign) BOOL firstTime;
 @property (nonatomic, strong) NSArray *currentEvent;
@@ -98,7 +98,7 @@
             self.activityIndicator.hidden = YES;
             
             if ([objects count] != 0) {
-                self.events = [[NSMutableArray alloc] initWithCapacity:[objects count]];
+                NSMutableArray *events = [[NSMutableArray alloc] init];
                 
                 for (PFObject *event in objects) {
                     
@@ -106,14 +106,19 @@
                     PFQuery *query2 = [relation query];
                     [query2 findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
                         if (!error) {
-                            [self.events addObject:@{ @"event": event,
-                                                      @"users": users
-                                                      }];
+                            
+                            //Change to Event Object when i have the new event Details page
+                            
+                            
+                            [events addObject:@{ @"event": event,
+                                                 @"date": [event valueForKey:@"date"],
+                                                 @"users": users
+                                                }];
                             counter++;
                             if ([objects count] == counter) {
                                 
                                 // Sort array
-                                [self sortEventArray];
+                                [self sortEventArray: events];
                                 [self.tableView reloadData];
                             }
                         } else {
@@ -126,17 +131,13 @@
     }];
 }
 
-- (void) sortEventArray {
-    NSLog(@"events :%@", self.events);
-    
+- (void) sortEventArray:(NSArray *) events {    
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date"
                                                  ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    NSArray *sortedArray;
-    sortedArray = [self.events sortedArrayUsingDescriptors:sortDescriptors];
-    NSLog(@"-0------------");
-    NSLog(@"sorted :%@", sortedArray);
+
+    self.events = [events sortedArrayUsingDescriptors:sortDescriptors];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

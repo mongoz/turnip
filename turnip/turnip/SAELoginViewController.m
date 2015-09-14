@@ -63,7 +63,7 @@
     self.activityView.hidden = NO;
     [self.activityView startAnimating];
     
-    NSArray *permissionsArray = @[ @"user_about_me", @"user_birthday", @"user_location", @"user_photos"];
+    NSArray *permissionsArray = @[ @"user_about_me", @"user_birthday", @"user_location", @"user_photos", @"email"];
     
     [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         if (!user) {
@@ -100,6 +100,7 @@
                     [PFUser currentUser][@"facebookId"] = [result objectForKey:@"id"];
                     [PFUser currentUser][@"TOS"] = @"False";
                     [PFUser currentUser][@"birthday"] = birthday;
+                    [PFUser currentUser][@"email"] = [result objectForKey:@"email"];
                     
                     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (error) {
@@ -131,6 +132,7 @@
                     [PFUser currentUser][@"gender"] = [result objectForKey:@"gender"];
                     [PFUser currentUser][@"firstName"] = [result objectForKey:@"first_name"];
                     [PFUser currentUser][@"lastName"] = [result objectForKey:@"last_name"];
+                    [PFUser currentUser][@"email"] = [result objectForKey:@"email"];
                     
                     if ([result objectForKey:@"birthday"] != nil) {
                         [PFUser currentUser][@"birthday"] = [result objectForKey:@"birthday"];

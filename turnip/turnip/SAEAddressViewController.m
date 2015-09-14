@@ -130,8 +130,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
-    NSLog(@"address :%@", self.addresses);
-    
     NSArray *address = [[self.addresses objectAtIndex:indexPath.row] componentsSeparatedByString:@","];
     
     cell.textLabel.text = address[0];

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DFA5AC2AA6003CB71ED5D75D"
+               BlueprintIdentifier = "079FA05FA3F19A0234A29F1F"
                BuildableName = "libPods-turnip-Bolts.a"
                BlueprintName = "Pods-turnip-Bolts"
                ReferencedContainer = "container:Pods.xcodeproj">

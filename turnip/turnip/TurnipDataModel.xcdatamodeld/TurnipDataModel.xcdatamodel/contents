@@ -35,9 +35,9 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RequesterInfo" positionX="23317" positionY="-2403" width="128" height="133"/>
-        <element name="TicketInfo" positionX="23292" positionY="-2340" width="128" height="105"/>
         <element name="UserSettings" positionX="23560" positionY="-2403" width="128" height="58"/>
         <element name="YourEvents" positionX="23083" positionY="-2403" width="128" height="270"/>
+        <element name="TicketInfo" positionX="23301" positionY="-2313" width="128" height="105"/>
+        <element name="RequesterInfo" positionX="23310" positionY="-2322" width="128" height="135"/>
     </elements>
 </model>

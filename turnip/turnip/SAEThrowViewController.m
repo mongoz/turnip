@@ -164,7 +164,7 @@
 }
 
 - (IBAction) nextButtonHandler:(id)sender {
-    //[self performSegueWithIdentifier:@"nextThrowSegue" sender:nil];
+    [self performSegueWithIdentifier:@"hostImageSegue" sender:nil];
 }
 
 - (BOOL) checkInput {
@@ -378,6 +378,9 @@
                 return YES;
             }  
         }
+        if([identifier isEqualToString:@"hostImageSegue"]) {
+            
+        }
     }
     else {
         if (self.neighbourhood == nil) {
@@ -441,6 +444,10 @@
             NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
              self.nextViewController.cost = price;
         }
+    }
+    
+    if([segue.identifier isEqualToString:@"hostImageSegue"]) {
+        self.nextViewController = segue.destinationViewController;
     }
 }
 

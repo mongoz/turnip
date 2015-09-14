@@ -80,7 +80,14 @@
         
         [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             if(!error) {
-                self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %@" , [[[PFUser currentUser] valueForKey:@"rating"] stringValue]];
+                NSNumber *rating = [[PFUser currentUser] valueForKey:@"rating"];
+                
+                if ([rating isEqual:[NSNull null]]) {
+                    self.ratingLabel.text = [NSString stringWithFormat:@"Rating: 0"];
+                } else {
+                    self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %@", [rating stringValue]];
+                }
+                
                 self.bioLabel.numberOfLines = 0;
                 self.bioLabel.text = [[PFUser currentUser] valueForKey:@"bio"];
                 [self.bioLabel sizeToFit];
@@ -145,7 +152,13 @@
     self.bioLabel.text = [user valueForKey:@"bio"];
     [self.bioLabel sizeToFit];
     
-    self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %@" , [[user valueForKey:@"rating"] stringValue]];
+    NSNumber *rating = [[PFUser currentUser] valueForKey:@"rating"];
+    
+    if ([rating isEqual:[NSNull null]]) {
+        self.ratingLabel.text = [NSString stringWithFormat:@"Rating: 0"];
+    } else {
+        self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %@",[rating stringValue]];
+    }
     
     self.navigationItem.title = navigationTitle;
     

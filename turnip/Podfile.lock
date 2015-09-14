@@ -1,32 +1,32 @@
 PODS:
-  - AFNetworking (2.5.4):
-    - AFNetworking/NSURLConnection (= 2.5.4)
-    - AFNetworking/NSURLSession (= 2.5.4)
-    - AFNetworking/Reachability (= 2.5.4)
-    - AFNetworking/Security (= 2.5.4)
-    - AFNetworking/Serialization (= 2.5.4)
-    - AFNetworking/UIKit (= 2.5.4)
-  - AFNetworking/NSURLConnection (2.5.4):
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.4):
+  - AFNetworking/NSURLSession (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.4)
-  - AFNetworking/Security (2.5.4)
-  - AFNetworking/Serialization (2.5.4)
-  - AFNetworking/UIKit (2.5.4):
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AMBubbleTableViewController (0.5.4)
-  - Bolts (1.2.0):
-    - Bolts/AppLinks (= 1.2.0)
-    - Bolts/Tasks (= 1.2.0)
-  - Bolts/AppLinks (1.2.0):
+  - Bolts (1.2.2):
+    - Bolts/AppLinks (= 1.2.2)
+    - Bolts/Tasks (= 1.2.2)
+  - Bolts/AppLinks (1.2.2):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.0)
+  - Bolts/Tasks (1.2.2)
   - FBSDKCoreKit (4.2.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.2.0)
@@ -40,28 +40,25 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.2.0):
     - FBSDKCoreKit
-  - GoogleMaps (1.10.1)
+  - GoogleMaps (1.10.2)
   - MCSwipeTableViewCell (2.1.4)
-  - MDCSwipeToChoose (0.2.2)
-  - Parse (1.7.5.3):
-    - Bolts/Tasks (>= 1.2.0)
-  - ParseCrashReporting (1.7.5.3):
-    - Bolts/Tasks (>= 1.2.0)
-    - Parse (~> 1.7.5.3)
-  - ParseFacebookUtilsV4 (1.7.5.3):
-    - Bolts/Tasks (>= 1.2.0)
+  - Parse (1.8.3):
+    - Bolts/Tasks (>= 1.2.2)
+  - ParseCrashReporting (1.8.3):
+    - Bolts/Tasks (>= 1.2.2)
+    - Parse (~> 1.8.3)
+  - ParseFacebookUtilsV4 (1.8.3):
+    - Bolts/Tasks (>= 1.2.2)
     - FBSDKCoreKit (~> 4.0)
     - FBSDKLoginKit (~> 4.0)
-    - Parse (~> 1.7.5.3)
-  - ParseUI (1.1.4):
-    - Parse (~> 1.7)
+    - Parse (~> 1.8.3)
+  - ParseUI (1.1.6):
+    - Bolts/Tasks (~> 1.2)
+    - Parse (~> 1.8)
   - Reachability (3.2)
-  - Stripe (4.0.3):
-    - Stripe/Checkout (= 4.0.3)
-    - Stripe/Core (= 4.0.3)
-  - Stripe/Checkout (4.0.3):
-    - Stripe/Core
-  - Stripe/Core (4.0.3)
+  - Stripe (5.1.2):
+    - Stripe/Core (= 5.1.2)
+  - Stripe/Core (5.1.2)
   - TPKeyboardAvoiding (1.2.7)
 
 DEPENDENCIES:
@@ -71,46 +68,39 @@ DEPENDENCIES:
   - FBSDKLoginKit (~> 4.2.0)
   - FBSDKShareKit (~> 4.2.0)
   - GoogleMaps
-  - MCSwipeTableViewCell (~> 2.1.2)
-  - MDCSwipeToChoose
+  - MCSwipeTableViewCell (~> 2.1.4)
   - Parse
   - ParseCrashReporting
   - ParseFacebookUtilsV4
   - ParseUI
   - Reachability
-  - Stripe (from `https://github.com/stripe/stripe-ios.git`)
-  - TPKeyboardAvoiding (from `https://github.com/darrenallen7/TPKeyboardAvoiding`)
+  - Stripe
+  - TPKeyboardAvoiding (from `https://github.com/darrenallen7/TPKeyboardAvoiding/`)
 
 EXTERNAL SOURCES:
-  Stripe:
-    :git: https://github.com/stripe/stripe-ios.git
   TPKeyboardAvoiding:
-    :git: https://github.com/darrenallen7/TPKeyboardAvoiding
+    :git: https://github.com/darrenallen7/TPKeyboardAvoiding/
 
 CHECKOUT OPTIONS:
-  Stripe:
-    :commit: 5995c2e14013264b8d3a806a9abd4d0c5ec5ffcf
-    :git: https://github.com/stripe/stripe-ios.git
   TPKeyboardAvoiding:
-    :commit: babf8802f04e40236d0450acbf3b6f6957ad0a08
-    :git: https://github.com/darrenallen7/TPKeyboardAvoiding
+    :commit: 400aca0433c443cc9637cec196d656f9703fa53e
+    :git: https://github.com/darrenallen7/TPKeyboardAvoiding/
 
 SPEC CHECKSUMS:
-  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   AMBubbleTableViewController: f4426cd8d646fbe4ec5f0d821857cca62c2792b2
-  Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
   FBSDKCoreKit: 84b3616a361801f190e43a9909caead7bb6087c7
   FBSDKLoginKit: 57e37106af12c9e264e473dcb75d7decdbb07fe4
   FBSDKShareKit: 931746fdf8fb95efd6e12310ec14b2b3295e2aec
-  GoogleMaps: ebf08677f181d9c2dcdbd1721d206f02beccc9b1
+  GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
   MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
-  MDCSwipeToChoose: 715aefacd3cc884c448fcdc70638c04a3056408c
-  Parse: 373adbb1ad2e34d383542c3b28f678c49ebe4881
-  ParseCrashReporting: 36d2e2770d7502d943b81c013acd5193946ced46
-  ParseFacebookUtilsV4: ea5db22e87b91cbf99b9d156642e2b97a4db7d51
-  ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
+  Parse: 4b251ac63b76d12b334a32579cc3b174446f0c39
+  ParseCrashReporting: a75141b43e244e32ddb2a6a89c7b3d82d6590fda
+  ParseFacebookUtilsV4: 603b78d4122642f3cdff5eee5b7b90e8d81b1e0c
+  ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Stripe: 43a4307dc789483a61668d187c4a917d1348b0b6
+  Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
   TPKeyboardAvoiding: 3f2ebfd58cb5fa9888cc612527970a3ee1735031
 
 COCOAPODS: 0.37.1

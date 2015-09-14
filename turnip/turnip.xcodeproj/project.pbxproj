@@ -25,6 +25,9 @@
 		1A5241AB1A9AF6EE008E2B72 /* SAEThrowNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5241AA1A9AF6EE008E2B72 /* SAEThrowNextViewController.m */; };
 		1A54AEC21AA67826004F55B4 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */; };
 		1A54AEC51AA67836004F55B4 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A54AEC41AA67836004F55B4 /* ScannerViewController.m */; };
+		1A61BD2A1B839DEE002EB908 /* SAEPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A61BD291B839DEE002EB908 /* SAEPaymentViewController.m */; };
+		1A61BD2D1B84DEEC002EB908 /* SAEStripeCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A61BD2C1B84DEEB002EB908 /* SAEStripeCard.m */; };
+		1A61BD381BA39F80002EB908 /* SAEHostImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A61BD371BA39F80002EB908 /* SAEHostImageViewController.m */; };
 		1A8626271A7B15B400AF63B9 /* ZW4QC.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8626251A7B15B400AF63B9 /* ZW4QC.png */; };
 		1A8A84851AF489E9002A75AF /* qrcircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84841AF489E9002A75AF /* qrcircle.png */; };
 		1A8A84871AF718AC002A75AF /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A8A84861AF718AC002A75AF /* add.png */; };
@@ -69,6 +72,7 @@
 		1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */; };
 		1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF361AB346880054197C /* ReachabilityManager.m */; };
 		1AE1218E1B74B38100BEC3C4 /* SAEFeedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */; };
+		1AE121931B82326100BEC3C4 /* SAEAddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE121921B82326100BEC3C4 /* SAEAddCardViewController.m */; };
 		1AFD3FDB1A74ED9E00B2EABE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */; };
 		1AFD3FDC1A74ED9E00B2EABE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD3FB81A74ED9E00B2EABE /* LaunchScreen.xib */; };
 		1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFD3FC01A74ED9E00B2EABE /* DateTimePicker.m */; };
@@ -134,6 +138,13 @@
 		1A54AEC11AA67826004F55B4 /* SidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarTableViewController.m; sourceTree = "<group>"; };
 		1A54AEC31AA67836004F55B4 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewController.h; sourceTree = "<group>"; };
 		1A54AEC41AA67836004F55B4 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewController.m; sourceTree = "<group>"; };
+		1A61BD281B839DEE002EB908 /* SAEPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEPaymentViewController.h; sourceTree = "<group>"; };
+		1A61BD291B839DEE002EB908 /* SAEPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEPaymentViewController.m; sourceTree = "<group>"; };
+		1A61BD2B1B84DEEB002EB908 /* SAEStripeCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEStripeCard.h; sourceTree = "<group>"; };
+		1A61BD2C1B84DEEB002EB908 /* SAEStripeCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEStripeCard.m; sourceTree = "<group>"; };
+		1A61BD2E1B861667002EB908 /* TurnipDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TurnipDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		1A61BD361BA39F80002EB908 /* SAEHostImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEHostImageViewController.h; sourceTree = "<group>"; };
+		1A61BD371BA39F80002EB908 /* SAEHostImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEHostImageViewController.m; sourceTree = "<group>"; };
 		1A8626251A7B15B400AF63B9 /* ZW4QC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZW4QC.png; sourceTree = "<group>"; };
 		1A8A84841AF489E9002A75AF /* qrcircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcircle.png; sourceTree = "<group>"; };
 		1A8A84861AF718AC002A75AF /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
@@ -208,6 +219,8 @@
 		1ADEBF361AB346880054197C /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
 		1AE1218C1B74B37B00BEC3C4 /* SAEFeedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEFeedEvent.h; sourceTree = "<group>"; };
 		1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEFeedEvent.m; sourceTree = "<group>"; };
+		1AE121911B82326100BEC3C4 /* SAEAddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEAddCardViewController.h; sourceTree = "<group>"; };
+		1AE121921B82326100BEC3C4 /* SAEAddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEAddCardViewController.m; sourceTree = "<group>"; };
 		1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1AFD3FB91A74ED9E00B2EABE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -354,6 +367,7 @@
 		1A2AA2CA1B01E07A007010E9 /* Host */ = {
 			isa = PBXGroup;
 			children = (
+				1A61BD2F1BA39155002EB908 /* New */,
 				1A2AA2D31B05522F007010E9 /* Scanner */,
 				1A2AA2D21B055222007010E9 /* Teammate */,
 				1A2AA2D41B055237007010E9 /* Edit */,
@@ -483,6 +497,15 @@
 			name = EventFeed;
 			sourceTree = "<group>";
 		};
+		1A61BD2F1BA39155002EB908 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				1A61BD361BA39F80002EB908 /* SAEHostImageViewController.h */,
+				1A61BD371BA39F80002EB908 /* SAEHostImageViewController.m */,
+			);
+			name = New;
+			sourceTree = "<group>";
+		};
 		1AA179E51A74E3D30061CA3E = {
 			isa = PBXGroup;
 			children = (
@@ -521,6 +544,7 @@
 				1A2AA2C71B01DFB8007010E9 /* Profile */,
 				1A2AA2CA1B01E07A007010E9 /* Host */,
 				1A2AA2C81B01DFC8007010E9 /* Notification */,
+				1AE121901B82321300BEC3C4 /* Stripe */,
 				1A2AA2D11B048D0E007010E9 /* Utils */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
@@ -553,6 +577,19 @@
 				1AA17A0F1A74E3D30061CA3E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1AE121901B82321300BEC3C4 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				1AE121911B82326100BEC3C4 /* SAEAddCardViewController.h */,
+				1AE121921B82326100BEC3C4 /* SAEAddCardViewController.m */,
+				1A61BD281B839DEE002EB908 /* SAEPaymentViewController.h */,
+				1A61BD291B839DEE002EB908 /* SAEPaymentViewController.m */,
+				1A61BD2B1B84DEEB002EB908 /* SAEStripeCard.h */,
+				1A61BD2C1B84DEEB002EB908 /* SAEStripeCard.m */,
+			);
+			name = Stripe;
 			sourceTree = "<group>";
 		};
 		1AFD3FB71A74ED9E00B2EABE /* Base.lproj */ = {
@@ -759,7 +796,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/Mongo/Documents/turnip/turnip/parse\n\nparse symbols Turnip --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "";
 		};
 		B030D2EC6D371AC3CA18D9DE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -799,6 +836,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A1B32191AA05E090096F2DF /* NotificationTableViewCell.m in Sources */,
+				1A61BD2D1B84DEEC002EB908 /* SAEStripeCard.m in Sources */,
 				1ADB359C1AF9804D0075984F /* SWRevealViewController.m in Sources */,
 				1ADB35991AF976EA0075984F /* ParseErrorHandlingController.m in Sources */,
 				1A9FD9D41AB6DAB2000BF15C /* ToSViewController.m in Sources */,
@@ -814,6 +852,7 @@
 				1ADEBF2F1AAE5AA90054197C /* EditViewController.m in Sources */,
 				1A9D0D331A9D25020082550C /* TeammateViewController.m in Sources */,
 				1A9F1DAD1AE0FD0200CC4E6A /* ShareViewController.m in Sources */,
+				1AE121931B82326100BEC3C4 /* SAEAddCardViewController.m in Sources */,
 				1AFD3FE41A74ED9E00B2EABE /* SAEFindTableCell.m in Sources */,
 				1AA066921AC3D0A7008A5A11 /* SAEConversationTableViewCell.m in Sources */,
 				1AA0119C1AD22906003E7B76 /* profileAlbumCollectionViewCell.m in Sources */,
@@ -824,12 +863,14 @@
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
 				1AE1218E1B74B38100BEC3C4 /* SAEFeedEvent.m in Sources */,
 				1AFD3FEA1A74ED9E00B2EABE /* SAEMapViewController.m in Sources */,
+				1A61BD381BA39F80002EB908 /* SAEHostImageViewController.m in Sources */,
 				1A4CB8F71B70DE310045BA7A /* SAEEventFeedViewCell.m in Sources */,
 				1AFD3FE51A74ED9E00B2EABE /* SAEFindViewController.m in Sources */,
 				1A28E2261A8EF46B00067C9C /* ScannerShapeView.m in Sources */,
 				1ADB3F761B1E5BA30002B466 /* SAEAddressViewController.m in Sources */,
 				1AFD3FED1A74ED9E00B2EABE /* SAEMapMarker.m in Sources */,
 				1A9FD9D11AB6BEAF000BF15C /* SAEMessagingViewController.m in Sources */,
+				1A61BD2A1B839DEE002EB908 /* SAEPaymentViewController.m in Sources */,
 				1ABABC1B1A839BFB00C0A617 /* NotificationViewController.m in Sources */,
 				1AFD3FE81A74ED9E00B2EABE /* SAELoginViewController.m in Sources */,
 				1AFD3FE11A74ED9E00B2EABE /* DateTimePicker.m in Sources */,
@@ -1103,9 +1144,10 @@
 		1A9AE4CD1A7F787F00AADDAA /* TurnipDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1A61BD2E1B861667002EB908 /* TurnipDataModel 2.xcdatamodel */,
 				1A9AE4CE1A7F787F00AADDAA /* TurnipDataModel.xcdatamodel */,
 			);
-			currentVersion = 1A9AE4CE1A7F787F00AADDAA /* TurnipDataModel.xcdatamodel */;
+			currentVersion = 1A61BD2E1B861667002EB908 /* TurnipDataModel 2.xcdatamodel */;
 			path = TurnipDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

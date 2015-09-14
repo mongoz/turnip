@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E860DF374E06F238ADFB6076"
+               BlueprintIdentifier = "C21A19C2D4DAB36AA1B1F573"
                BuildableName = "libPods-turnip-AFNetworking.a"
                BlueprintName = "Pods-turnip-AFNetworking"
                ReferencedContainer = "container:Pods.xcodeproj">

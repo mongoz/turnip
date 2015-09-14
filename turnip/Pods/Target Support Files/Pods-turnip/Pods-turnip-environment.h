@@ -9,44 +9,44 @@
 // AFNetworking
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking 5
-#define COCOAPODS_VERSION_PATCH_AFNetworking 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking 6
+#define COCOAPODS_VERSION_PATCH_AFNetworking 0
 
 // AFNetworking/NSURLConnection
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_NSURLConnection
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_NSURLConnection 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLConnection 5
-#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLConnection 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLConnection 6
+#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLConnection 0
 
 // AFNetworking/NSURLSession
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_NSURLSession
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_NSURLSession 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLSession 5
-#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLSession 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLSession 6
+#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLSession 0
 
 // AFNetworking/Reachability
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_Reachability
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_Reachability 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_Reachability 5
-#define COCOAPODS_VERSION_PATCH_AFNetworking_Reachability 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_Reachability 6
+#define COCOAPODS_VERSION_PATCH_AFNetworking_Reachability 0
 
 // AFNetworking/Security
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_Security
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_Security 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_Security 5
-#define COCOAPODS_VERSION_PATCH_AFNetworking_Security 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_Security 6
+#define COCOAPODS_VERSION_PATCH_AFNetworking_Security 0
 
 // AFNetworking/Serialization
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_Serialization
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_Serialization 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_Serialization 5
-#define COCOAPODS_VERSION_PATCH_AFNetworking_Serialization 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_Serialization 6
+#define COCOAPODS_VERSION_PATCH_AFNetworking_Serialization 0
 
 // AFNetworking/UIKit
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_UIKit
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_UIKit 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
-#define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 6
+#define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 0
 
 // AMBubbleTableViewController
 #define COCOAPODS_POD_AVAILABLE_AMBubbleTableViewController
@@ -58,19 +58,19 @@
 #define COCOAPODS_POD_AVAILABLE_Bolts
 #define COCOAPODS_VERSION_MAJOR_Bolts 1
 #define COCOAPODS_VERSION_MINOR_Bolts 2
-#define COCOAPODS_VERSION_PATCH_Bolts 0
+#define COCOAPODS_VERSION_PATCH_Bolts 2
 
 // Bolts/AppLinks
 #define COCOAPODS_POD_AVAILABLE_Bolts_AppLinks
 #define COCOAPODS_VERSION_MAJOR_Bolts_AppLinks 1
 #define COCOAPODS_VERSION_MINOR_Bolts_AppLinks 2
-#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 0
+#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 2
 
 // Bolts/Tasks
 #define COCOAPODS_POD_AVAILABLE_Bolts_Tasks
 #define COCOAPODS_VERSION_MAJOR_Bolts_Tasks 1
 #define COCOAPODS_VERSION_MINOR_Bolts_Tasks 2
-#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 0
+#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 2
 
 // FBSDKCoreKit
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit
@@ -106,7 +106,7 @@
 #define COCOAPODS_POD_AVAILABLE_GoogleMaps
 #define COCOAPODS_VERSION_MAJOR_GoogleMaps 1
 #define COCOAPODS_VERSION_MINOR_GoogleMaps 10
-#define COCOAPODS_VERSION_PATCH_GoogleMaps 1
+#define COCOAPODS_VERSION_PATCH_GoogleMaps 2
 
 // MCSwipeTableViewCell
 #define COCOAPODS_POD_AVAILABLE_MCSwipeTableViewCell
@@ -114,38 +114,29 @@
 #define COCOAPODS_VERSION_MINOR_MCSwipeTableViewCell 1
 #define COCOAPODS_VERSION_PATCH_MCSwipeTableViewCell 4
 
-// MDCSwipeToChoose
-#define COCOAPODS_POD_AVAILABLE_MDCSwipeToChoose
-#define COCOAPODS_VERSION_MAJOR_MDCSwipeToChoose 0
-#define COCOAPODS_VERSION_MINOR_MDCSwipeToChoose 2
-#define COCOAPODS_VERSION_PATCH_MDCSwipeToChoose 2
-
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.7.5.3.
+#define COCOAPODS_VERSION_MAJOR_Parse 1
+#define COCOAPODS_VERSION_MINOR_Parse 8
+#define COCOAPODS_VERSION_PATCH_Parse 3
 
 // ParseCrashReporting
 #define COCOAPODS_POD_AVAILABLE_ParseCrashReporting
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.7.5.3.
+#define COCOAPODS_VERSION_MAJOR_ParseCrashReporting 1
+#define COCOAPODS_VERSION_MINOR_ParseCrashReporting 8
+#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 3
 
 // ParseFacebookUtilsV4
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.7.5.3.
+#define COCOAPODS_VERSION_MAJOR_ParseFacebookUtilsV4 1
+#define COCOAPODS_VERSION_MINOR_ParseFacebookUtilsV4 8
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 3
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI
 #define COCOAPODS_VERSION_MAJOR_ParseUI 1
 #define COCOAPODS_VERSION_MINOR_ParseUI 1
-#define COCOAPODS_VERSION_PATCH_ParseUI 4
+#define COCOAPODS_VERSION_PATCH_ParseUI 6
 
 // Reachability
 #define COCOAPODS_POD_AVAILABLE_Reachability
@@ -155,21 +146,15 @@
 
 // Stripe
 #define COCOAPODS_POD_AVAILABLE_Stripe
-#define COCOAPODS_VERSION_MAJOR_Stripe 4
-#define COCOAPODS_VERSION_MINOR_Stripe 0
-#define COCOAPODS_VERSION_PATCH_Stripe 3
-
-// Stripe/Checkout
-#define COCOAPODS_POD_AVAILABLE_Stripe_Checkout
-#define COCOAPODS_VERSION_MAJOR_Stripe_Checkout 4
-#define COCOAPODS_VERSION_MINOR_Stripe_Checkout 0
-#define COCOAPODS_VERSION_PATCH_Stripe_Checkout 3
+#define COCOAPODS_VERSION_MAJOR_Stripe 5
+#define COCOAPODS_VERSION_MINOR_Stripe 1
+#define COCOAPODS_VERSION_PATCH_Stripe 2
 
 // Stripe/Core
 #define COCOAPODS_POD_AVAILABLE_Stripe_Core
-#define COCOAPODS_VERSION_MAJOR_Stripe_Core 4
-#define COCOAPODS_VERSION_MINOR_Stripe_Core 0
-#define COCOAPODS_VERSION_PATCH_Stripe_Core 3
+#define COCOAPODS_VERSION_MAJOR_Stripe_Core 5
+#define COCOAPODS_VERSION_MINOR_Stripe_Core 1
+#define COCOAPODS_VERSION_PATCH_Stripe_Core 2
 
 // TPKeyboardAvoiding
 #define COCOAPODS_POD_AVAILABLE_TPKeyboardAvoiding

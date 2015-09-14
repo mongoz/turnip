@@ -20,6 +20,10 @@
 #import "SAEHostDetailsViewController.h"
 #import "SAEUtilityFunctions.h"
 
+#import <Stripe/Stripe.h>
+
+#define  STRIPE_TEST_PUBLIC_KEY @"pk_test_DbMmTlz56j1vq6YhfoCZiXBS"
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) UIStoryboard *storyboard;
@@ -67,6 +71,7 @@
                  clientKey:@"UWt8D4lmGKO6Yr2axtpq68aJitE4Iy4ceH7A10GW"];
     
     
+    [Stripe setDefaultPublishableKey: STRIPE_TEST_PUBLIC_KEY];
     //Dev client of Parse
      //[Parse setApplicationId:@"SfQvQqR6vQvkluA56LfqKl2qrkd32xKWcfoMoWng"
        //           clientKey:@"8hG06KY34D9hH8Ll079cQZPhVHWdC3dCBuiFPwiN"];
@@ -271,7 +276,7 @@
     self.notificationCount += 1;
     [[tabController.viewControllers objectAtIndex:TurnipTabNotification] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long) self.notificationCount];
     
-    [PFUser currentUser][@"nrOfNotifications"] = 0;
+    [PFUser currentUser][@"nrOfNotifications"] = @"0";
     
 }
 
@@ -396,7 +401,10 @@
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption : @(YES),
+                               NSInferMappingModelAutomaticallyOption : @(YES) };
+    
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
 
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();

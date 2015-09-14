@@ -19,7 +19,7 @@
 #import <CoreData/CoreData.h>
 #import "Constants.h"
 
-@interface SAEEventFeedViewController ()
+@interface SAEEventFeedViewController () <SAEEventFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
@@ -64,13 +64,13 @@
     self.tableView.backgroundView = self.activityIndicator;
     
     [self checkLocalEvent];
+    
+    [self.activityIndicator startAnimating];
     [self queryEvents];
 }
 
 
 - (void) queryEvents {
-    
-    [self.activityIndicator startAnimating];
     
     PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude
                                                longitude:self.currentLocation.coordinate.longitude];
@@ -148,7 +148,7 @@
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.backgroundView = nil;
         return 1;
-    } else if(![self.activityIndicator isAnimating]){
+    } else {
         // Display a message when the table is empty
         messageLabel.text = @"No events nearby";
         messageLabel.textColor = [UIColor blackColor];
@@ -245,7 +245,7 @@
     
     NSInteger attendingCount = [[[self.events valueForKey:@"users"] objectAtIndex:indexPath.row] count];
     
-    cell.attendingLabel.text = [NSString stringWithFormat:@"%ld attending", (long)attendingCount];
+    cell.attendingLabel.text = [NSString stringWithFormat:@"%ld going", (long)attendingCount];
     cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
     cell.profileImage.clipsToBounds = YES;
     
@@ -400,6 +400,58 @@
         NSLog(@"Error:%@", error);
     }
     NSLog(@"Event Deleted");
+    
+}
+
+#pragma mark - EventFeedViewCellDelegate
+
+- (void) eventFeedViewCellAttendButton:(SAEEventFeedViewCell *)cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    NSString *eventId = [[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:TurnipParsePostIdKey];
+    BOOL isPrivate = [[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:TurnipParsePostPrivateKey] boolValue];
+    
+    
+    
+    if (isPrivate) {
+        //send request
+        NSString *host = [[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:@"user"] objectForKey:@"firstName"];
+        NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [[PFUser currentUser] objectForKey:@"firstName"]];
+        
+        [PFCloud callFunctionInBackground:@"requestEventPush"
+                           withParameters:@{@"recipientId": host, @"message": message, @"eventId": eventId }
+                                    block:^(NSString *success, NSError *error) {
+                                        if (!error) {
+                                            NSLog(@"push sent");
+                                        }
+                                    }];
+        
+    } else {
+        //get a ticket
+        PFObject *object = [PFObject objectWithoutDataWithClassName:TurnipParsePostClassName objectId:eventId];
+        
+        PFRelation *relation = [object relationForKey:@"accepted"];
+        [relation addObject:[PFUser currentUser]];
+        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                NSLog(@"could not add to acceptedL %@", error);
+            } else if(succeeded) {
+                //add to notification class
+                NSString *message = [NSString stringWithFormat:@"Your ticket for %@ (tap to view ticket)", self.navigationItem.title];
+                
+                PFObject *notification = [PFObject objectWithClassName:@"Notifications"];
+                notification[@"type"] = @"ticket";
+                notification[@"notification"] = message;
+                notification[@"event"] = object;
+                notification[@"user"] = [PFUser currentUser];
+                notification[@"eventTitle"] = self.navigationItem.title;
+                
+                [notification saveInBackground];
+            }
+        }];
+    }
+    
+    cell.attendButton.enabled = NO;
     
 }
 

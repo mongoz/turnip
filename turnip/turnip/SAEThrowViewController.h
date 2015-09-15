@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MBProgressHUD.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "SAEHostSingleton.h"
 
 @class SAEThrowViewController;
 

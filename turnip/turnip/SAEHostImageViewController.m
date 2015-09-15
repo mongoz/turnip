@@ -6,10 +6,13 @@
 //
 //
 
+#import "SAEHostSingleton.h"
 #import "SAEHostImageViewController.h"
+#import "SAEHostAccessoriesViewController.h"
 
 @interface SAEHostImageViewController ()
 
+@property (nonatomic, strong) SAEHostSingleton *event;
 @property (nonatomic, strong) NSArray *imageArray;
 @property (nonatomic, strong) NSArray *colorArray;
 @property (nonatomic, assign) BOOL drawImages;
@@ -26,10 +29,13 @@
     self.title = @"Host";
     
     self.drawImages = YES;
+    self.event = [SAEHostSingleton sharedInstance];
     self.imageArray = [[NSArray alloc] init];
     self.colorArray = [[NSArray alloc] initWithArray:[self createColorArray]];
     
-    NSLog(@"color: %@", self.colorArray);
+    if (self.event.eventImage != nil) {
+        [self.hostImage setImage: self.event.eventImage];
+    }
     
     NSMutableArray *collector = [[NSMutableArray alloc] initWithCapacity:0];
     ALAssetsLibrary *assetsLibrary = [SAEHostImageViewController defaultAssetsLibrary];
@@ -43,7 +49,6 @@
                      }
                  }];
                 [self setPhotos: collector];
-                //[self.imageCollectionView reloadData];
             
         } failureBlock:^(NSError *error) {
             NSLog(@"Error Description %@",[error description]);
@@ -82,6 +87,17 @@
     return colors;
 }
 
+- (UIImage *)imageFromColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -92,7 +108,11 @@
 #pragma mark - Collection view data source
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.imageArray count] + 1;
+    if (self.drawImages) {
+        return [self.imageArray count] + 1;
+    } else {
+        return [self.colorArray count];
+    }
 }
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -111,9 +131,11 @@
     } else {
         [imageView setImage:nil];
         if (indexPath.row == 0) {
-            cell.backgroundColor = [UIColor blueColor];
+            cell.backgroundColor = [UIColor blackColor];
+            ALAsset *asset = [self.imageArray objectAtIndex:0];
+            [imageView setImage:[UIImage imageWithCGImage:[asset thumbnail]]];
         } else {
-            cell.backgroundColor = [UIColor greenColor];
+            cell.backgroundColor = [self.colorArray objectAtIndex:indexPath.row];
         }
     }
     
@@ -130,14 +152,17 @@
             ALAsset *asset = [self.imageArray objectAtIndex:indexPath.row - 1];
             ALAssetRepresentation *defaultRep = [asset defaultRepresentation];
             UIImage *image = [UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:UIImageOrientationUp];
+            self.event.eventImage = image;
             [self.hostImage setImage:image];
+            
         }
     } else {
         if (indexPath.row == 0) {
             self.drawImages = YES;
             [self.imageCollectionView reloadData];
         } else {
-            NSLog(@"indexPath: %ld", (long)indexPath.row);
+            self.event.eventImage = [self imageFromColor:[self.colorArray objectAtIndex:indexPath.row]];
+            [self.hostImage setImage: [self imageFromColor:[self.colorArray objectAtIndex:indexPath.row]]];
         }
     }
 }
@@ -164,19 +189,27 @@
     return library;
 }
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqualToString:@"hostImageFinalSegue"]) {
+         
+         SAEHostAccessoriesViewController *destViewController = (SAEHostAccessoriesViewController *) segue.destinationViewController;
+         
+         destViewController.hostImage = [self.hostImage image];
+     }
  }
- */
+ 
 
 - (IBAction)backButtonHandler:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)nextButtonHandler:(id)sender {
+    [self performSegueWithIdentifier:@"hostImageFinalSegue" sender:nil];
 }
 @end

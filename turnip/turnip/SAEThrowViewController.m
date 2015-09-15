@@ -20,6 +20,9 @@
 @interface SAEThrowViewController ()
 
 @property (nonatomic, strong) SAEThrowNextViewController *nextViewController;
+
+@property (nonatomic, strong) SAEHostSingleton *event;
+
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) CLLocation *eventLocation;
 @property (nonatomic, strong) CLPlacemark *placemark;
@@ -68,6 +71,8 @@
     [self setupView];
     self.isPrivate = YES;
     self.isFree = YES;
+    
+    self.event = [SAEHostSingleton sharedInstance];
     
 }
 
@@ -164,7 +169,57 @@
 }
 
 - (IBAction) nextButtonHandler:(id)sender {
-    [self performSegueWithIdentifier:@"hostImageSegue" sender:nil];
+    if (![self checkInput]) {
+        self.event.title = self.titleField.text;
+        self.event.address = self.addressField.text;
+        self.event.text = self.aboutField.text;
+        self.event.isPrivate = self.isPrivate;
+        self.event.isFree = self.isFree;
+        self.event.coordinates = self.eventLocation;
+        self.event.neighbourhood = self.neighbourhood;
+        self.event.host = [PFUser currentUser];
+        
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
+            NSNumber *price = [numberFormatter numberFromString: @"0"];
+            self.event.price = price;
+            
+        } else {
+            NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
+            self.event.price = price;
+        }
+
+        [self performSegueWithIdentifier:@"hostImageSegue" sender:nil];
+    }
+    else {
+        if (self.neighbourhood == nil) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid address"
+                                                            message:@"The address you entered is invalid please double check it."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        if (self.titleField.text.length == 0) {
+            self.titleField.layer.cornerRadius = 8.0f;
+            self.titleField.layer.masksToBounds = YES;
+            self.titleField.layer.borderWidth = 1.0f;
+            self.titleField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        if(self.addressField.text.length == 0) {
+            self.addressField.layer.cornerRadius = 8.0f;
+            self.addressField.layer.masksToBounds = YES;
+            self.addressField.layer.borderWidth = 1.0f;
+            self.addressField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        if ([self.aboutField.text isEqualToString:@"About..."]) {
+            self.aboutField.layer.cornerRadius = 8.0f;
+            self.aboutField.layer.masksToBounds = YES;
+            self.aboutField.layer.borderWidth = 1.0f;
+            self.aboutField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+    }
 }
 
 - (BOOL) checkInput {
@@ -246,10 +301,6 @@
     if (textField == self.titleField && self.titleField.layer.borderColor == [[UIColor redColor] CGColor]) {
         self.titleField.layer.borderColor = [[UIColor clearColor] CGColor];
     }
-    
-//    if (textField == self.locationField && self.locationField.layer.borderColor == [[UIColor redColor] CGColor]) {
-//        self.locationField.layer.borderColor = [[UIColor clearColor] CGColor];
-//    }
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
@@ -349,71 +400,6 @@
 
 #pragma mark - navigation
 
-- (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    
-    if (![self checkInput]) {
-        if ([identifier isEqualToString:@"nextThrowSegue"]) {
-            if (self.nextViewController) {
-                self.nextViewController.name = self.titleField.text;
-                self.nextViewController.location = self.addressField.text;
-                self.nextViewController.about = self.aboutField.text;
-                self.nextViewController.isPrivate = self.isPrivate;
-                self.nextViewController.isFree = self.isFree;
-                self.nextViewController.coordinates = self.eventLocation;
-                self.nextViewController.neighbourhood = self.neighbourhood;
-                self.nextViewController.adminArea = self.adminArea;
-                self.nextViewController.locality = self.locality;
-                
-                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-                if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
-                    NSNumber *price = [numberFormatter numberFromString: @"0"];
-                    self.nextViewController.cost = price;
-                } else {
-                    NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
-                    self.nextViewController.cost = price;
-                }
-                [self.navigationController pushViewController:self.nextViewController animated:YES];
-                return NO;
-            } else {
-                return YES;
-            }  
-        }
-        if([identifier isEqualToString:@"hostImageSegue"]) {
-            
-        }
-    }
-    else {
-        if (self.neighbourhood == nil) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid address"
-                                                            message:@"The address you entered is invalid please double check it."
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }
-        
-        if (self.titleField.text.length == 0) {
-            self.titleField.layer.cornerRadius = 8.0f;
-            self.titleField.layer.masksToBounds = YES;
-            self.titleField.layer.borderWidth = 1.0f;
-            self.titleField.layer.borderColor = [[UIColor redColor] CGColor];
-        }
-        if(self.addressField.text.length == 0) {
-            self.addressField.layer.cornerRadius = 8.0f;
-            self.addressField.layer.masksToBounds = YES;
-            self.addressField.layer.borderWidth = 1.0f;
-            self.addressField.layer.borderColor = [[UIColor redColor] CGColor];
-        }
-        if ([self.aboutField.text isEqualToString:@"About..."]) {
-            self.aboutField.layer.cornerRadius = 8.0f;
-            self.aboutField.layer.masksToBounds = YES;
-            self.aboutField.layer.borderWidth = 1.0f;
-            self.aboutField.layer.borderColor = [[UIColor redColor] CGColor];
-        }
-    }
-    return NO;
-}
-
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"hostDetailsSegue"]) {
@@ -423,32 +409,10 @@
         destViewController.event = [self.currentEvent objectAtIndex:0];
     }
     
-    if ([segue.identifier isEqualToString:@"nextThrowSegue"]) {
-        self.nextViewController = segue.destinationViewController;
-        self.nextViewController.name = self.titleField.text;
-        self.nextViewController.location = self.addressField.text;
-        self.nextViewController.about = self.aboutField.text;
-        self.nextViewController.isPrivate = self.isPrivate;
-        self.nextViewController.isFree = self.isFree;
-        self.nextViewController.coordinates = self.eventLocation;
-        self.nextViewController.neighbourhood = self.neighbourhood;
-        self.nextViewController.adminArea = self.adminArea;
-        self.nextViewController.locality = self.locality;
-        
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
-            NSNumber *price = [numberFormatter numberFromString: @"0"];
-             self.nextViewController.cost = price;
-
-        } else {
-            NSNumber *price = [numberFormatter numberFromString: self.cashAmountField.text];
-             self.nextViewController.cost = price;
-        }
-    }
-    
     if([segue.identifier isEqualToString:@"hostImageSegue"]) {
         self.nextViewController = segue.destinationViewController;
-    }
+        
+        }
 }
 
 - (IBAction)unwindToThrow:(UIStoryboardSegue*)sender
@@ -479,7 +443,6 @@
     
 }
 
-
 #pragma mark - scrollView
 
 - (void) scrollViewToBottom {
@@ -488,7 +451,6 @@
     [self.scrollView setContentOffset:bottomOffset animated:YES];
     
 }
-
 
 - (void) touch {
     

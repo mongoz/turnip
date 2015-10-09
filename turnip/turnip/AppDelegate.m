@@ -376,7 +376,7 @@
         __managedObjectContext = [[NSManagedObjectContext alloc] init];
         [__managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
-    return __managedObjectContext;
+    return __managedObjectContext;		
 }
 
 // Returns the managed object model for the application.

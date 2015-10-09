@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.7.4</string>
+	<string>0.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>0.7.4</string>
+	<string>0.9</string>
 	<key>FacebookAppID</key>
 	<string>855911711138571</string>
 	<key>FacebookDisplayName</key>
@@ -43,6 +43,12 @@
 	<string>Turnip tracks your position to search for nearby Parties</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Biko_Regular.otf</string>
+		<string>gunplay rg.ttf</string>
+		<string>HAMBH___.TTF</string>
+		<string>Neon.ttf</string>
+		<string>Quicksand_Book.otf</string>
+		<string>TypoSlab_demo.otf</string>
 		<string>LemonMilk.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

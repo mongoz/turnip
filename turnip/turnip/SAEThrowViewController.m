@@ -14,6 +14,8 @@
 #import "SWRevealViewController.h"
 #import "SAEThrowNextViewController.h"
 #import "SAEHostDetailsViewController.h"
+#import "DateTimePicker.h"
+#import "SAEUtilityFunctions.h"
 
 #define API_KEY @"AIzaSyCuVECTfnjZxMh8OdQgzOV4rClLfROUpOU"
 
@@ -37,6 +39,11 @@
 
 @property (nonatomic, strong) UITextField *activeField;
 @property (nonatomic, strong) UITextView *activeTextView;
+
+@property (nonatomic, strong) NSDate *selectedDate;
+@property (nonatomic, strong) NSDate *selectedTime;
+@property (nonatomic, strong) DateTimePicker *datePicker;
+@property (nonatomic, strong) DateTimePicker *endTimePicker;
 
 
 //Should probably make this into a custom object;
@@ -69,6 +76,7 @@
     self.currentLocation = [self.dataSource currentLocationForThrowViewController:self];
     
     [self setupView];
+    [self setupPickerViews];
     self.isPrivate = YES;
     self.isFree = YES;
     
@@ -93,6 +101,8 @@
 
 - (void) setupView {
     
+    self.selectedDate = [NSDate new];
+    
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touch)];
     
     [recognizer setNumberOfTapsRequired:1];
@@ -113,14 +123,92 @@
     self.cashAmountField.keyboardType = UIKeyboardTypeNumberPad;
     
     UIToolbar *numberToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    numberToolBar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolBar.barStyle = UIBarStyleDefault;
     numberToolBar.items = [NSArray arrayWithObjects: [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelNumberPad)],
                            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)], nil];
+    numberToolBar.tintColor = [UIColor redColor];
     [numberToolBar sizeToFit];
     self.cashAmountField.inputAccessoryView = numberToolBar;
-
 }
+
+- (void) setupPickerViews {
+    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+    dayComponent.day = 30;
+    NSCalendar *theCalendar = [NSCalendar currentCalendar];
+    NSDate *maxDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.datePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
+        [self.datePicker addTargetForDoneButton:self action:@selector(donePressed)];
+        [self.datePicker addTargetForCancelButton:self action:@selector(cancelPressed)];
+        [self.view.window addSubview: self.datePicker];
+        self.datePicker.hidden = YES;
+        [self.datePicker setMode: UIDatePickerModeDateAndTime];
+        [self.datePicker.picker addTarget:self action:@selector(pickerChanged:) forControlEvents:UIControlEventValueChanged];
+        [self.datePicker minimumDate: self.selectedDate];
+        [self.datePicker maximumDate: maxDate];
+        
+        self.startDate.delegate = self;
+        self.startDate.inputView = dummyView;
+        
+        self.endTimePicker = [[DateTimePicker alloc] initWithFrame:CGRectMake(0, screenHeight/2 + 60, screenWidth, screenHeight/2 + 60)];
+        [self.endTimePicker addTargetForDoneButton:self action:@selector(timeDonePressed)];
+        [self.endTimePicker addTargetForCancelButton:self action:@selector(timeCancelPressed)];
+        [self.view.window addSubview: self.endTimePicker];
+        self.endTimePicker.hidden = YES;
+        [self.endTimePicker setMode: UIDatePickerModeDateAndTime];
+        [self.endTimePicker.picker addTarget:self action:@selector(timePickerChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        self.endDate.delegate = self;
+        self.endDate.inputView = dummyView;
+        
+    });
+}
+
+#pragma mark - Date/Time picker delegates
+
+-(void)pickerChanged:(id)sender {
+    self.selectedDate = [sender date];
+    
+    self.startDate.text = [SAEUtilityFunctions convertDate:self.selectedDate];
+}
+
+- (void) timePickerChanged: (id) sender {
+    
+    self.selectedTime = [sender date];
+    self.endDate.text = [SAEUtilityFunctions convertDate:self.selectedTime];
+}
+
+- (void) timeDonePressed {
+    self.endTimePicker.hidden = YES;
+    [self.endDate resignFirstResponder];
+}
+
+- (void) timeCancelPressed {
+    self.endTimePicker.hidden = YES;
+    self.endDate.text = @"";
+    [self.endDate resignFirstResponder];
+}
+
+-(void)donePressed {
+    self.datePicker.hidden = YES;
+    [self.startDate resignFirstResponder];
+}
+
+-(void)cancelPressed {
+    self.datePicker.hidden = YES;
+    self.startDate.text = @"";
+    [self.startDate resignFirstResponder];
+}
+
 
 - (void) cancelNumberPad {
     [self.cashAmountField resignFirstResponder];
@@ -178,6 +266,10 @@
         self.event.coordinates = self.eventLocation;
         self.event.neighbourhood = self.neighbourhood;
         self.event.host = [PFUser currentUser];
+        self.event.startDate = self.selectedDate;
+        self.event.endDate = self.selectedTime;
+        self.event.adminArea = self.adminArea;
+        self.event.locality = self.locality;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         if ([numberFormatter numberFromString: self.cashAmountField.text] == nil) {
@@ -301,10 +393,54 @@
     if (textField == self.titleField && self.titleField.layer.borderColor == [[UIColor redColor] CGColor]) {
         self.titleField.layer.borderColor = [[UIColor clearColor] CGColor];
     }
+    
+    if (textField == self.startDate) {
+        self.selectedDate = [NSDate new];
+        self.datePicker.hidden = NO;
+        
+        self.startDate.text = [SAEUtilityFunctions convertDate:self.selectedDate];
+        
+        if (self.startDate.layer.borderColor == [[UIColor redColor] CGColor]) {
+            self.startDate.layer.borderColor = [[UIColor clearColor] CGColor];
+        }
+    }
+    else if (textField == self.endDate) {
+        
+        [self.scrollView scrollRectToVisible:textField.superview.frame animated:YES];
+        self.endTimePicker.hidden = NO;
+        
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 1;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        NSDate *newDate = [theCalendar dateByAddingComponents:dayComponent toDate:self.selectedDate options:0];
+        
+        self.selectedTime = newDate;
+        
+        self.endDate.text = [SAEUtilityFunctions convertDate: self.selectedTime];
+        
+        if (self.endDate.layer.borderColor == [[UIColor redColor] CGColor]) {
+            self.endDate.layer.borderColor = [[UIColor clearColor] CGColor];
+        }
+    }
+
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
     self.activeField = nil;
+    
+    if (textField == self.startDate) {
+        self.datePicker.hidden = YES;
+        [self.endTimePicker minimumDate:self.selectedDate];
+        [self.startDate resignFirstResponder];
+    }
+    else if (textField == self.endDate) {
+        self.endTimePicker.hidden = YES;
+        if (self.endDate.layer.borderColor == [[UIColor redColor] CGColor]) {
+            self.endDate.layer.borderColor = [[UIColor clearColor] CGColor];
+        }
+        [self.endDate resignFirstResponder];
+        [self.scrollView setContentOffset:CGPointZero animated:YES];
+    }
 }
 
 #pragma mark - UITextView delegate
@@ -458,6 +594,8 @@
     [self.aboutField resignFirstResponder];
     [self.addressField resignFirstResponder];
     [self.cashAmountField resignFirstResponder];
+    [self.endDate resignFirstResponder];
+    [self.startDate resignFirstResponder];
     
 }
 

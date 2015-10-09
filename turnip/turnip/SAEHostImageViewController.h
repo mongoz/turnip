@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface SAEHostImageViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-
-+ (ALAssetsLibrary *)defaultAssetsLibrary;
+@interface SAEHostImageViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIActionSheetDelegate,
+UINavigationControllerDelegate,
+UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *hostImage;
 @property (strong, nonatomic) IBOutlet UICollectionView *imageCollectionView;

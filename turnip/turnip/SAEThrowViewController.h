@@ -41,6 +41,8 @@
 @property (strong, nonatomic) IBOutlet UISwitch *privateSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *freeSwitch;
 
+@property (strong, nonatomic) IBOutlet UITextField *startDate;
+@property (strong, nonatomic) IBOutlet UITextField *endDate;
 
 @property (strong, nonatomic) IBOutlet UILabel *cashLabel;
 @property (strong, nonatomic) IBOutlet UITextField *cashAmountField;

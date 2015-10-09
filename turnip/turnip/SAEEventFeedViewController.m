@@ -191,7 +191,7 @@
     
     CGSize imageSize = cell.imageView.frame.size;
     
-    return imageSize.height + 55.0f; // Add 1.0f for the cell separator height
+    return imageSize.height + 125.0f; // Add 1.0f for the cell separator height
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

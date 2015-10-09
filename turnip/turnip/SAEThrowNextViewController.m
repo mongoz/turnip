@@ -155,12 +155,6 @@
     if (textField == self.dateInputField) {
         self.datePicker.hidden = YES;
         [self.endTimePicker minimumDate:self.selectedDate];
-//        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-//        dayComponent.day = 30;
-//        NSCalendar *theCalendar = [NSCalendar currentCalendar];
-//        NSDate *maxDate = [theCalendar dateByAddingComponents:dayComponent toDate:self.selectedDate options:0];
-//        
-       // [self.endTimePicker maximumDate:maxDate];
         [self.dateInputField resignFirstResponder];
     }
     else if (textField == self.endTimeDate) {
@@ -185,7 +179,6 @@
 - (void) timePickerChanged: (id) sender {
     
     self.selectedTime = [sender date];
-    NSLog(@"selectedTIme :%@", self.selectedTime);
     self.endTimeDate.text = [SAEUtilityFunctions convertDate:self.selectedTime];
 }
 

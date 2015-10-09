@@ -16,8 +16,11 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *objectId;
 @property (nonatomic, strong) NSString *text;
+
 @property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *adminArea;
 @property (nonatomic, strong) NSString *neighbourhood;
+@property (nonatomic, strong) NSString *locality;
 
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;

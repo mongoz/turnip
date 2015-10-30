@@ -7,7 +7,7 @@
 //
 
 #import "SAEFindViewController.h"
-#import "SAEEventDetailsViewController.h"
+#import "SAEDetailsViewController.h"
 #import "SAEFindTableCell.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
@@ -221,7 +221,7 @@
         id key = [self.days objectAtIndex:indexPath.section];
         NSArray *sectionItems = [[NSArray alloc] initWithArray:[self.groupedEvents objectForKey:key]];
         
-        SAEEventDetailsViewController *destViewController = segue.destinationViewController;
+        SAEDetailsViewController *destViewController = segue.destinationViewController;
         
         destViewController.event = [sectionItems objectAtIndex:indexPath.row];
     }

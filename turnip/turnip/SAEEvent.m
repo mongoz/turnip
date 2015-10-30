@@ -27,8 +27,8 @@
                      attendees:(NSArray *)attendees
                           text:(NSString *)text
                        address:(NSString *)address
-                        isFree:(BOOL *)isFree
-                     isPrivate:(BOOL *)isPrivate
+                        isFree:(BOOL)isFree
+                     isPrivate:(BOOL)isPrivate
                  neighbourhood:(PFObject *)neighbourhood {
     self = [super init];
     if (self) {
@@ -37,12 +37,13 @@
     return self;
 }
 
-- (instancetype) initWithImage:(UIImage *)eventImage
+- (instancetype) initWithImage:(PFFile *)eventImage
                       objectId:(NSString *)objectId
                          title:(NSString *)title
                           date:(NSDate *)date
                           host:(PFUser *)host
-                     attendees:(NSArray *)attendees {
+                     attendees:(NSArray *)attendees
+                     isPrivate:(BOOL)isPrivate{
     self = [super init];
     
     if (self) {
@@ -52,6 +53,7 @@
         self.date = date;
         self.host = host;
         self.attendees = attendees;
+        self.isPrivate = isPrivate;
     }
     return self;
 }
@@ -62,8 +64,8 @@
                          price:(NSInteger)price
                           date:(NSDate *)date
                        endDate:(NSDate *)endDate
-                     isPrivate:(BOOL *)isPrivate
-                        isFree:(BOOL *)isFree
+                     isPrivate:(BOOL)isPrivate
+                        isFree:(BOOL)isFree
                  neighbourhood:(PFObject *)neighbourhood
                           host:(PFUser *)host {
     self = [super init];

@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Per. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
 #ifndef turnip_Constants_h
 #define turnip_Constants_h
 
@@ -20,6 +23,7 @@ static int const TurnipTabProfile = 4;
 
 
 // Parse API key constants:
+
 static NSString * const TurnipParsePostClassName = @"Events";
 static NSString * const TurnipParsePostUserKey = @"user";
 static NSString * const TurnipParsePostUsernameKey = @"username";

@@ -11,7 +11,7 @@
 @interface TeammateViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSString *eventId;
-@property (nonatomic, strong) NSMutableArray *accepted;
+@property (nonatomic, strong) NSArray *attending;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 

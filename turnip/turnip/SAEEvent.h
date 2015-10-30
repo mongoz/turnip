@@ -12,7 +12,7 @@
 
 @interface SAEEvent : NSObject
 
-@property (nonatomic, strong) UIImage *eventImage;
+@property (nonatomic, strong) PFFile *eventImage;
 
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSString *objectId;
@@ -27,8 +27,8 @@
 @property (nonatomic, strong) PFUser *host;
 @property (nonatomic, strong) NSArray *attendees;
 
-@property (nonatomic, assign) BOOL *isFree;
-@property (nonatomic, assign) BOOL *isPrivate;
+@property (nonatomic, assign) BOOL isFree;
+@property (nonatomic, assign) BOOL isPrivate;
 @property (nonatomic, strong) PFObject *neighbourhood;
 
 
@@ -40,8 +40,8 @@
                      attendees:(NSArray *) attendees
                           text:(NSString *) text
                        address:(NSString *) address
-                        isFree:(BOOL *) isFree
-                     isPrivate:(BOOL *) isPrivate
+                        isFree:(BOOL) isFree
+                     isPrivate:(BOOL) isPrivate
                  neighbourhood:(PFObject *) neighbourhood;
 
 
@@ -51,7 +51,8 @@
                          title:(NSString *) title
                           date:(NSDate *) date
                           host:(PFUser *) host
-                     attendees:(NSArray *) attendees;
+                     attendees:(NSArray *) attendees
+                     isPrivate:(BOOL) isPrivate;
 
 - (instancetype) initWithTitle:(NSString *) title
                           text:(NSString *) text
@@ -59,8 +60,8 @@
                          price:(NSInteger) price
                           date:(NSDate *) date
                        endDate:(NSDate *) endDate
-                     isPrivate:(BOOL *) isPrivate
-                        isFree:(BOOL *) isFree
+                     isPrivate:(BOOL) isPrivate
+                        isFree:(BOOL) isFree
                  neighbourhood:(PFObject *) neighbourhood
                           host:(PFUser *) host;
 

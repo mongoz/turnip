@@ -41,7 +41,6 @@ NSArray *fetchedObjects;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     if ([[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabNotification] badgeValue] > 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:TurnipResetBadgeCountNotification object:nil];

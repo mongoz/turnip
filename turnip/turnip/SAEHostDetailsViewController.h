@@ -1,39 +1,26 @@
 //
-//  HostDetailsViewController.h
+//  SAEHostDetailsViewController.h
 //  turnip
 //
-//  Created by Per on 4/21/15.
-//  Copyright (c) 2015 Per. All rights reserved.
+//  Created by Per on 10/10/15.
+//  Copyright (c) 2015 Stupidest App Ever. All rights reserved.
 //
 
+#import "SAEEvent.h"
 #import <UIKit/UIKit.h>
 
-@interface SAEHostDetailsViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SAEHostDetailsViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *event;
-@property (nonatomic, strong) NSArray *data;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
-@property (strong, nonatomic) IBOutlet UIImageView *profileImage;
+@property (strong, nonatomic) IBOutlet UIButton *attendingButton;
 
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)backNavigation:(id)sender;
 
-
-@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *privateLabel;
-@property (strong, nonatomic) IBOutlet UILabel *neighbourhoodLabel;
-@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
-@property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
-@property (strong, nonatomic) IBOutlet UILabel *goingLabel;
-@property (strong, nonatomic) IBOutlet UIButton *goingButton;
-@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
-
-- (IBAction)deleteButton:(id)sender;
-- (IBAction)editButton:(id)sender;
-- (IBAction)teammateButton:(id)sender;
 - (IBAction)scannerButton:(id)sender;
-- (IBAction)nextImageButton:(id)sender;
+- (IBAction)teammateButton:(id)sender;
+- (IBAction)editButton:(id)sender;
+- (IBAction)requestButton:(id)sender;
 
-
+- (IBAction)attendingButton:(id)sender;
 @end

@@ -13,4 +13,5 @@
 - (IBAction)attendButton:(id)sender {
     [self.delegate eventFeedViewCellAttendButton:self];
 }
+
 @end

@@ -67,14 +67,14 @@
     [ParseCrashReporting enable];
     
     // Initialize Parse.
-    [Parse setApplicationId:@"CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64"
-                 clientKey:@"UWt8D4lmGKO6Yr2axtpq68aJitE4Iy4ceH7A10GW"];
+//    [Parse setApplicationId:@"CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64"
+//                 clientKey:@"UWt8D4lmGKO6Yr2axtpq68aJitE4Iy4ceH7A10GW"];
     
     
     [Stripe setDefaultPublishableKey: STRIPE_TEST_PUBLIC_KEY];
     //Dev client of Parse
-     //[Parse setApplicationId:@"SfQvQqR6vQvkluA56LfqKl2qrkd32xKWcfoMoWng"
-       //           clientKey:@"8hG06KY34D9hH8Ll079cQZPhVHWdC3dCBuiFPwiN"];
+    [Parse setApplicationId:@"fu8WMJoYJNKc57R4EDXVbHrRG0KF5o6hzbGJJwyd"
+                  clientKey:@"hagNkvSebwEPuWqTCpO0yizSJRN3cinS98RKdkL6"];
     
     [PFUser enableRevocableSessionInBackground];
     
@@ -102,8 +102,6 @@
             [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
-//    UIImage *backImage = [SAEUtilityFunctions imageResize:[UIImage imageNamed:@"backNav"] andResizeTo:CGSizeMake(30, 30)];
-//    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:backImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];

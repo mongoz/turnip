@@ -9,7 +9,7 @@
 #import "ParseErrorHandlingController.h"
 #import "SAEMapViewController.h"
 #import "SAEThrowViewController.h"
-#import "SAEEventDetailsViewController.h"
+#import "SAEDetailsViewController.h"
 #import "SAEFindViewController.h"
 #import "Constants.h"
 #import "SAEMapMarker.h"
@@ -326,8 +326,8 @@
         
         NSString *objectId = [sender valueForKey:@"objectId"];
         
-        SAEEventDetailsViewController *destViewController = segue.destinationViewController;
-        destViewController.objectId = objectId;
+        SAEDetailsViewController *destViewController = segue.destinationViewController;
+       // destViewController.objectId = objectId;
         destViewController.title = [sender valueForKey:@"title"];
     }
     

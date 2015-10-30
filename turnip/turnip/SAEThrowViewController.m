@@ -12,7 +12,6 @@
 #import <Parse/Parse.h>
 #import "Constants.h"
 #import "SWRevealViewController.h"
-#import "SAEThrowNextViewController.h"
 #import "SAEHostDetailsViewController.h"
 #import "DateTimePicker.h"
 #import "SAEUtilityFunctions.h"
@@ -20,8 +19,6 @@
 #define API_KEY @"AIzaSyCuVECTfnjZxMh8OdQgzOV4rClLfROUpOU"
 
 @interface SAEThrowViewController ()
-
-@property (nonatomic, strong) SAEThrowNextViewController *nextViewController;
 
 @property (nonatomic, strong) SAEHostSingleton *event;
 
@@ -55,16 +52,6 @@
 
 @implementation SAEThrowViewController
 
-- (void) viewWillAppear:(BOOL)animated {
-    
-    if ([self.currentEvent count] == 0) {
-        self.currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
-    }
-    if ([self.currentEvent count] > 0) {
-        [self performSegueWithIdentifier:@"hostDetailsSegue" sender:self];
-    }
-
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -540,15 +527,10 @@
     
     if ([segue.identifier isEqualToString:@"hostDetailsSegue"]) {
         
-        SAEHostDetailsViewController *destViewController = (SAEHostDetailsViewController *) segue.destinationViewController;
-        
-        destViewController.event = [self.currentEvent objectAtIndex:0];
+//        SAEHostDetailsViewController *destViewController = (SAEHostDetailsViewController *) segue.destinationViewController;
+//        
+//        destViewController.event = [self.currentEvent objectAtIndex:0];
     }
-    
-    if([segue.identifier isEqualToString:@"hostImageSegue"]) {
-        self.nextViewController = segue.destinationViewController;
-        
-        }
 }
 
 - (IBAction)unwindToThrow:(UIStoryboardSegue*)sender

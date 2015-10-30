@@ -31,6 +31,7 @@
 
 @property (nonatomic, assign) BOOL isFree;
 @property (nonatomic, assign) BOOL isPrivate;
+@property (nonatomic, assign) BOOL saved;
 
 @property (nonatomic, strong) CLLocation *coordinates;
 

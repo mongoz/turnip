@@ -43,7 +43,7 @@
     self.navigationItem.leftBarButtonItem = backButtonItem;
     
     self.currentTeammate = [[NSMutableArray alloc] init];
-    self.users = [[NSMutableArray alloc] initWithCapacity:[self.accepted count]];
+    self.users = [[NSMutableArray alloc] initWithCapacity:[self.attending count]];
     
     // Initialize the refresh control.
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
@@ -151,7 +151,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
     
-    if ([self.accepted count] == 0) {
+    if ([self.attending count] == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
     
@@ -235,7 +235,7 @@
 - (void) buildUsersArray {
     NSString *image;
     
-    for (NSString *user in self.accepted) {
+    for (NSString *user in self.attending) {
         
         if([user valueForKey:@"profileImage"] == nil) {
             image = @"nil";

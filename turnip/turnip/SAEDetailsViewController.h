@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SAEEvent.h"
 
 @interface SAEDetailsViewController : UIViewController
+
+@property (nonatomic, strong) SAEEvent *event;
 
 @property (strong, nonatomic) IBOutlet UIButton *messageButton;
 @property (strong, nonatomic) IBOutlet UIButton *attendButton;

@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 Stupidest App Ever. All rights reserved.
 //
 
+#import "SAEHostSingleton.h"
+#import "ProfileViewController.h"
 #import "SAEEventFeedViewController.h"
-#import "SAEEventDetailsViewController.h"
 #import "SAEEventFeedViewCell.h"
+#import "SAEDetailsViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
 #import "SAEUtilityFunctions.h"
@@ -18,13 +20,14 @@
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
 #import "Constants.h"
+#import "SAEEvent.h"
 
 @interface SAEEventFeedViewController () <SAEEventFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, assign) BOOL firstTime;
-@property (nonatomic, strong) NSArray *currentEvent;
+@property (nonatomic, strong) SAEHostSingleton *hostedEvent;
 
 @end
 
@@ -98,7 +101,7 @@
             self.activityIndicator.hidden = YES;
             
             if ([objects count] != 0) {
-                NSMutableArray *events = [[NSMutableArray alloc] init];
+                 NSMutableArray *tempArray = [[NSMutableArray alloc] init];
                 
                 for (PFObject *event in objects) {
                     
@@ -107,18 +110,22 @@
                     [query2 findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
                         if (!error) {
                             
-                            //Change to Event Object when i have the new event Details page
                             
+                            SAEEvent *newEvent = [[SAEEvent alloc] initWithImage:[event valueForKey:@"image1"]
+                                                                        objectId:[event objectId]
+                                                                           title:[event valueForKey:@"title"]
+                                                                            date:[event valueForKey:@"date"]
+                                                                            host:[event valueForKey:@"user"]
+                                                                       attendees:users
+                                                                       isPrivate:[[event valueForKey:@"private"] boolValue]];
                             
-                            [events addObject:@{ @"event": event,
-                                                 @"date": [event valueForKey:@"date"],
-                                                 @"users": users
-                                                }];
+                           
+                            [tempArray addObject:newEvent];
+                            
                             counter++;
                             if ([objects count] == counter) {
-                                
                                 // Sort array
-                                [self sortEventArray: events];
+                                [self sortEventArray:tempArray];
                                 [self.tableView reloadData];
                             }
                         } else {
@@ -131,12 +138,11 @@
     }];
 }
 
-- (void) sortEventArray:(NSArray *) events {    
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date"
-                                                 ascending:YES];
+- (void) sortEventArray:(NSArray *) events {
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date"
+                                                                   ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-
     self.events = [events sortedArrayUsingDescriptors:sortDescriptors];
 }
 
@@ -161,10 +167,6 @@
     }
     return 0;
     
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"showEventDetailsSeque" sender:self];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -207,15 +209,16 @@
         cell = [[SAEEventFeedViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableIdentifier];
     }
     
+    cell.delegate = self;
     
     // Configure the cell
-    PFFile *thumbnail = [[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:TurnipParsePostImageOneKey];
+    PFFile *thumbnail = [[self.events objectAtIndex:indexPath.row] valueForKey:@"eventImage"];
     
     //Use a placeholder image before we have downloaded the real one.
     cell.eventImage.file = thumbnail;
     
-    if ([[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:@"user"] objectForKey:@"profileImage"] != nil) {
-        NSURL *url = [NSURL URLWithString: [[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:@"user"] objectForKey:@"profileImage"]];
+    if ([[[self.events objectAtIndex:indexPath.row] valueForKey:@"host"] objectForKey:@"profileImage"] != nil) {
+        NSURL *url = [NSURL URLWithString: [[[self.events objectAtIndex:indexPath.row] valueForKey:@"host"] objectForKey:@"profileImage"]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -238,14 +241,14 @@
                                               
                                           }];
     } else {
-        [self downloadFacebookProfilePicture:[[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:@"user"] objectForKey:@"facebookId"] andForCell:cell];
+        [self downloadFacebookProfilePicture:[[[self.events objectAtIndex:indexPath.row] valueForKey:@"host"] objectForKey:@"facebookId"] andForCell:cell];
     }
     
-    cell.nameLabel.text = [[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:@"user"] objectForKey:@"firstName"];
+    cell.nameLabel.text = [[[self.events objectAtIndex:indexPath.row] valueForKey:@"host"] objectForKey:@"firstName"];
     
-    NSInteger attendingCount = [[[self.events valueForKey:@"users"] objectAtIndex:indexPath.row] count];
+    NSInteger attendingCount = [[[self.events valueForKey:@"attendees"] objectAtIndex:indexPath.row] count];
     
-    cell.attendingLabel.text = [NSString stringWithFormat:@"%ld going", (long)attendingCount];
+    cell.attendingLabel.text = [NSString stringWithFormat:@"Attending %ld", (long)attendingCount];
     cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
     cell.profileImage.clipsToBounds = YES;
     
@@ -277,19 +280,32 @@
 #pragma mark - core Data
 
 - (void) checkLocalEvent {
-    _currentEvent = [[NSArray alloc] initWithArray:[self loadCoreData]];
+    self.hostedEvent = [SAEHostSingleton sharedInstance];
     
-    if ([_currentEvent count] != 0 ) {
-        NSDate *endDate = [[_currentEvent valueForKey:@"endDate"] objectAtIndex:0];
-        if([endDate isEqual:[NSNull null]]) {
-            [self deleteFromCoreData];
+    NSArray *tempArray = [[NSArray alloc] initWithArray:[self loadCoreData]];
+    
+    if ([tempArray count] != 0 ) {
+        
+        self.hostedEvent.title = [[tempArray valueForKey:@"title"] objectAtIndex:0];
+        self.hostedEvent.address = [[tempArray valueForKey:@"location"] objectAtIndex:0];
+        self.hostedEvent.text = [[tempArray valueForKey:@"text"] objectAtIndex:0];
+        self.hostedEvent.isPrivate = [[[tempArray valueForKey:@"private"] objectAtIndex:0] boolValue];
+        self.hostedEvent.isFree = [[[tempArray valueForKey:@"free"] objectAtIndex:0] boolValue];
+        self.hostedEvent.neighbourhood = [[tempArray valueForKey:@"neighbourhood"] objectAtIndex:0];
+        self.hostedEvent.host = [PFUser currentUser];
+        self.hostedEvent.startDate = [[tempArray valueForKey:@"date"] objectAtIndex:0];
+        self.hostedEvent.endDate = [[tempArray valueForKey:@"endDate"] objectAtIndex:0];
+        self.hostedEvent.saved = YES;
+        self.hostedEvent.price = [[tempArray valueForKey:@"price"] objectAtIndex:0];
+        self.hostedEvent.objectId = [[tempArray valueForKey:@"objectId"] objectAtIndex:0];
+        self.hostedEvent.eventImage = [[tempArray valueForKey:@"image"] objectAtIndex:0];
+        
+        if([self.hostedEvent.endDate isEqual:[NSNull null]]) {
+            [self deleteFromCoreData: tempArray];
             
             PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
-            
             [query whereKey:@"user" equalTo:[PFUser currentUser]];
-            
             [query includeKey:@"neighbourhood"];
-            
             [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 if(!error && ![object isEqual:[NSNull null]]) {
                     //Save to core data
@@ -299,9 +315,9 @@
                 }
             }];
         }
-        else if ([[[_currentEvent valueForKey:@"endDate"] objectAtIndex:0] timeIntervalSinceNow] < 0.0) {
+        else if ([self.hostedEvent.endDate timeIntervalSinceNow] < 0.0) {
             //Delete core data
-            [self deleteFromCoreData];
+            [self deleteFromCoreData: tempArray];
         }
     } else {
         PFQuery *query = [PFQuery queryWithClassName:TurnipParsePostClassName];
@@ -311,7 +327,30 @@
         [query includeKey:@"neighbourhood"];
         
         [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            
             if(!error && ![object isEqual:[NSNull null]]) {
+                
+                self.hostedEvent.title = [object objectForKey:TurnipParsePostTitleKey];
+                self.hostedEvent.address = [object objectForKey:TurnipParsePostAddressKey];
+                self.hostedEvent.text = [object objectForKey:TurnipParsePostTextKey];
+                self.hostedEvent.isPrivate = [[object objectForKey:TurnipParsePostPrivateKey] boolValue];
+                self.hostedEvent.isFree = [[object objectForKey:TurnipParsePostPaidKey] boolValue];
+                self.hostedEvent.neighbourhood = [[object objectForKey:@"neighbourhood"] valueForKey:@"name"];
+                self.hostedEvent.host = [PFUser currentUser];
+                self.hostedEvent.startDate = [object objectForKey:TurnipParsePostDateKey];
+                self.hostedEvent.endDate = [object objectForKey:TurnipParsePostendDateKey];
+                self.hostedEvent.saved = YES;
+                self.hostedEvent.price = [object objectForKey:TurnipParsePostPriceKey];
+                self.hostedEvent.objectId = [object objectId];
+                
+                PFFile *imageFile = [object objectForKey:TurnipParsePostImageOneKey];
+                
+                [imageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+                    if (!error) {
+                        self.hostedEvent.eventImage = [UIImage imageWithData:imageData];
+                    }
+                }];
+
                 //Save to core data
                 [self saveToCoreData:object];
             } else {
@@ -329,14 +368,6 @@
     NSData *data = [NSData dataWithContentsOfURL:url];
     UIImage *imageOne = [UIImage imageWithData:data];
     
-    url = [NSURL URLWithString: [[postObject objectForKey:@"image2"] valueForKey:@"url"]];
-    data = [NSData dataWithContentsOfURL:url];
-    UIImage *imageTwo = [UIImage imageWithData:data];
-    
-    url = [NSURL URLWithString: [[postObject objectForKey:@"image3"] valueForKey:@"url"]];
-    data = [NSData dataWithContentsOfURL:url];
-    UIImage *imageThree = [UIImage imageWithData:data];
-    
     NSManagedObject *dataRecord = [NSEntityDescription
                                    insertNewObjectForEntityForName:@"YourEvents"
                                    inManagedObjectContext: context];
@@ -348,9 +379,7 @@
     [dataRecord setValue: [postObject objectForKey:TurnipParsePostPriceKey] forKey:@"price"];
     [dataRecord setValue: [postObject objectForKey:TurnipParsePostDateKey] forKey:@"date"];
     [dataRecord setValue: [postObject objectForKey:@"endDate"] forKey:@"endDate"];
-    [dataRecord setValue: imageOne forKey:@"image1"];
-    [dataRecord setValue: imageTwo forKey:@"image2"];
-    [dataRecord setValue: imageThree forKey:@"image3"];
+    [dataRecord setValue: imageOne forKey:@"image"];
     [dataRecord setValue: [[postObject objectForKey:@"neighbourhood"] valueForKey:@"name"] forKey:@"neighbourhood"];
     
     BOOL privateBool = [[postObject objectForKey:TurnipParsePostPrivateKey] boolValue];
@@ -366,7 +395,6 @@
         NSLog(@"Error:%@", error);
     }
     NSLog(@"Event saved");
-    
 }
 
 - (NSArray *) loadCoreData {
@@ -387,18 +415,20 @@
     }
 }
 
-- (void) deleteFromCoreData {
+- (void) deleteFromCoreData: (NSArray *) event {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = [delegate managedObjectContext];
     
     NSError *error;
-    for (NSManagedObject *managedObject in self.currentEvent) {
+    for (NSManagedObject *managedObject in event) {
+        NSLog(@"event: %@", managedObject);
         [context deleteObject:managedObject];
     }
     
     if (![context save:&error]) {
         NSLog(@"Error:%@", error);
     }
+    self.hostedEvent.saved = NO;
     NSLog(@"Event Deleted");
     
 }
@@ -406,16 +436,17 @@
 #pragma mark - EventFeedViewCellDelegate
 
 - (void) eventFeedViewCellAttendButton:(SAEEventFeedViewCell *)cell {
+    
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    NSString *eventId = [[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:TurnipParsePostIdKey];
-    BOOL isPrivate = [[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:TurnipParsePostPrivateKey] boolValue];
+    NSString *eventId = [[self.events objectAtIndex:indexPath.row] valueForKey:TurnipParsePostIdKey];
+    BOOL isPrivate = [[[self.events objectAtIndex:indexPath.row] valueForKey:TurnipParsePostPrivateKey] boolValue];
     
     
     
     if (isPrivate) {
         //send request
-        NSString *host = [[[[self.events valueForKey:@"event"] objectAtIndex:indexPath.row] valueForKey:@"user"] objectForKey:@"firstName"];
+        NSString *host = [[[self.events objectAtIndex:indexPath.row] valueForKey:@"host"] objectForKey:@"firstName"];
         NSString *message = [NSString stringWithFormat:@"%@ Wants to go to your party", [[PFUser currentUser] objectForKey:@"firstName"]];
         
         [PFCloud callFunctionInBackground:@"requestEventPush"
@@ -458,14 +489,29 @@
 #pragma mark - Navigation
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showEventDetailsSeque"]) {
+    if ([segue.identifier isEqualToString:@"showDetailsSegue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
-        SAEEventDetailsViewController *destViewController = segue.destinationViewController;
+        SAEDetailsViewController *destViewController = segue.destinationViewController;
         
-        destViewController.event = [[self.events valueForKey:@"event"] objectAtIndex:indexPath.row];
+        destViewController.event = [self.events objectAtIndex:indexPath.row];
 
+    }
+    
+    if ([segue.identifier isEqualToString:@"profileViewSegue"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        ProfileViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.user = [[self.events objectAtIndex:indexPath.row] valueForKey:@"host"];
     }
 }
 
+- (IBAction)imageTapRecognizer:(UITapGestureRecognizer *)sender {
+    [self performSegueWithIdentifier:@"showDetailsSegue" sender:self];
+}
+
+- (IBAction)profileImageTapRecognizer:(UITapGestureRecognizer *)sender {
+    [self performSegueWithIdentifier:@"profileViewSegue" sender:self];
+}
 @end

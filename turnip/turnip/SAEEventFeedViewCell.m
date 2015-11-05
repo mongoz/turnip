@@ -10,6 +10,10 @@
 
 @implementation SAEEventFeedViewCell
 
+- (IBAction)attendingButton:(id)sender {
+    [self.delegate eventFeedViewCellAttendingButton:self];
+}
+
 - (IBAction)attendButton:(id)sender {
     [self.delegate eventFeedViewCellAttendButton:self];
 }

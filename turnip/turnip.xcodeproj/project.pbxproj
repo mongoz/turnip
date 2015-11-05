@@ -69,7 +69,6 @@
 		1ADEBF321AAF9F1C0054197C /* EditNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF311AAF9F1C0054197C /* EditNextViewController.m */; };
 		1ADEBF371AB346880054197C /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBF361AB346880054197C /* ReachabilityManager.m */; };
 		1ADF8AED1BE41C7C0053EDD3 /* SAEAttendingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADF8AEC1BE41C7C0053EDD3 /* SAEAttendingTableViewController.m */; };
-		1AE1218E1B74B38100BEC3C4 /* SAEFeedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */; };
 		1AE121931B82326100BEC3C4 /* SAEAddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE121921B82326100BEC3C4 /* SAEAddCardViewController.m */; };
 		1AE66D381BAA0601002C5235 /* borders.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66D341BAA0601002C5235 /* borders.png */; };
 		1AE66D391BAA0601002C5235 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE66D351BAA0601002C5235 /* map.png */; };
@@ -252,8 +251,6 @@
 		1ADEBF361AB346880054197C /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
 		1ADF8AEB1BE41C7C0053EDD3 /* SAEAttendingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEAttendingTableViewController.h; sourceTree = "<group>"; };
 		1ADF8AEC1BE41C7C0053EDD3 /* SAEAttendingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEAttendingTableViewController.m; sourceTree = "<group>"; };
-		1AE1218C1B74B37B00BEC3C4 /* SAEFeedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEFeedEvent.h; sourceTree = "<group>"; };
-		1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEFeedEvent.m; sourceTree = "<group>"; };
 		1AE121911B82326100BEC3C4 /* SAEAddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEAddCardViewController.h; sourceTree = "<group>"; };
 		1AE121921B82326100BEC3C4 /* SAEAddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEAddCardViewController.m; sourceTree = "<group>"; };
 		1AE66D341BAA0601002C5235 /* borders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = borders.png; sourceTree = "<group>"; };
@@ -574,8 +571,6 @@
 				1A4CB8F61B70DE310045BA7A /* SAEEventFeedViewCell.m */,
 				1A4CB8F81B70DE5B0045BA7A /* SAEEventFeedViewController.h */,
 				1A4CB8F91B70DE5B0045BA7A /* SAEEventFeedViewController.m */,
-				1AE1218C1B74B37B00BEC3C4 /* SAEFeedEvent.h */,
-				1AE1218D1B74B37B00BEC3C4 /* SAEFeedEvent.m */,
 			);
 			name = EventFeed;
 			sourceTree = "<group>";
@@ -619,6 +614,8 @@
 				1AFD3FB71A74ED9E00B2EABE /* Base.lproj */,
 				1AFD3FB51A74ED9E00B2EABE /* AppDelegate.h */,
 				1AFD3FB61A74ED9E00B2EABE /* AppDelegate.m */,
+				1ADF8AEB1BE41C7C0053EDD3 /* SAEAttendingTableViewController.h */,
+				1ADF8AEC1BE41C7C0053EDD3 /* SAEAttendingTableViewController.m */,
 				1AE692C51BC9E33C008CA2AD /* Models */,
 				1A4CB8F11B70DDBE0045BA7A /* EventFeed */,
 				1A2AA2C91B01E010007010E9 /* Details */,
@@ -634,8 +631,6 @@
 				1A2AA2D11B048D0E007010E9 /* Utils */,
 				1AFD3FCA1A74ED9E00B2EABE /* Images.xcassets */,
 				1AA179F11A74E3D30061CA3E /* Supporting Files */,
-				1ADF8AEB1BE41C7C0053EDD3 /* SAEAttendingTableViewController.h */,
-				1ADF8AEC1BE41C7C0053EDD3 /* SAEAttendingTableViewController.m */,
 			);
 			path = turnip;
 			sourceTree = "<group>";
@@ -1094,7 +1089,6 @@
 				1A4CB8FA1B70DE5B0045BA7A /* SAEEventFeedViewController.m in Sources */,
 				1A9D0D361A9DC7780082550C /* TeammateTableViewCell.m in Sources */,
 				1A9AE4D91A80C2D700AADDAA /* RequestViewController.m in Sources */,
-				1AE1218E1B74B38100BEC3C4 /* SAEFeedEvent.m in Sources */,
 				1AFD3FEA1A74ED9E00B2EABE /* SAEMapViewController.m in Sources */,
 				1AEB22C01BA67A3F00895534 /* SAEHostSingleton.m in Sources */,
 				1A61BD381BA39F80002EB908 /* SAEHostImageViewController.m in Sources */,

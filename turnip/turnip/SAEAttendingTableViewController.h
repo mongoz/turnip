@@ -10,4 +10,6 @@
 
 @interface SAEAttendingTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSArray *attendees;
+
 @end

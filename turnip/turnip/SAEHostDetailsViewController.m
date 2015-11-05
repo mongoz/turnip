@@ -16,6 +16,7 @@
 #import "RequestViewController.h"
 #import "SAEEventFeedViewController.h"
 #import "SAETabBarViewController.h"
+#import "SAEAttendingTableViewController.h"
 
 @interface SAEHostDetailsViewController ()
 
@@ -65,7 +66,10 @@
                         [self.attendingButton setTitle:@"0" forState:UIControlStateNormal];
                     } else {
                         self.attendees = [[NSArray alloc] initWithArray:objects];
-                        [self.attendingButton setTitle:@([self.attendees count]).stringValue forState:UIControlStateNormal];
+                        NSInteger attendingCount = [self.attendees count];
+                        NSString *string = [NSString stringWithFormat:@"Attending %ld", (long)attendingCount];
+                        
+                        [self.attendingButton setTitle:string forState:UIControlStateNormal];
                     }
                 }];
             });
@@ -93,6 +97,11 @@
     if ([segue.identifier isEqualToString:@"editEventSegue"]) {
         EditViewController *editController = segue.destinationViewController;
        // editController.currentEvent = self.event;
+    }
+    
+    if ([segue.identifier isEqualToString:@"attendingSegue"]) {
+        SAEAttendingTableViewController *attendingController = segue.destinationViewController;
+        attendingController.attendees = self.attendees;
     }
 }
 
@@ -126,5 +135,6 @@
 }
 
 - (IBAction)attendingButton:(id)sender {
+    [self performSegueWithIdentifier:@"attendingSegue" sender:nil];
 }
 @end

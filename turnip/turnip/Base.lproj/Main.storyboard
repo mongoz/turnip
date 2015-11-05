@@ -78,15 +78,26 @@
         <scene sceneID="6pW-GT-ccU">
             <objects>
                 <tableViewController id="xI9-dT-sIE" customClass="SAEAttendingTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="G9U-0w-wkc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="G9U-0w-wkc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="IqE-Dx-COs">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="attendingCell" textLabel="FSC-jt-1tB" imageView="ukm-o8-XQg" style="IBUITableViewCellStyleDefault" id="IqE-Dx-COs">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IqE-Dx-COs" id="vZx-Ec-ysl">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FSC-jt-1tB">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="profile" id="ukm-o8-XQg">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -95,6 +106,9 @@
                             <outlet property="delegate" destination="xI9-dT-sIE" id="OTn-Xn-jKH"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="qJi-dl-hfz" kind="show" identifier="profileSegue" id="GcM-jU-xxZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQF-Je-jvr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1149,10 +1163,10 @@
                         <viewControllerLayoutGuide type="bottom" id="1x6-mD-Joa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eiW-6c-dzg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPU-T2-caV" userLabel="SeparatorView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lPU-T2-caV" userLabel="SeparatorView">
                                 <rect key="frame" x="0.0" y="260" width="600" height="42"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B0J-gF-H2b" userLabel="left">
@@ -1219,7 +1233,7 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WlW-RF-FaI" userLabel="topView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="214"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vh-Xd-V2R" userLabel="bio">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vh-Xd-V2R" userLabel="bio">
                                         <rect key="frame" x="192" y="50" width="395" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1228,7 +1242,7 @@
                                             <rect key="frame" x="234" y="161" width="26" height="21"/>
                                         </variation>
                                     </label>
-                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24T-XW-7rC">
+                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24T-XW-7rC">
                                         <rect key="frame" x="189" y="22" width="400" height="76"/>
                                         <color key="backgroundColor" white="0.86493499087591252" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1240,7 +1254,7 @@
                                             <rect key="frame" x="234" y="127" width="322" height="76"/>
                                         </variation>
                                     </textView>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wXv-nR-DQ6">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wXv-nR-DQ6">
                                         <rect key="frame" x="8" y="37" width="150" height="150"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -1253,14 +1267,14 @@
                                             <outletCollection property="gestureRecognizers" destination="aCu-nR-00G" appends="YES" id="T4q-yF-ANU"/>
                                         </connections>
                                     </imageView>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ex.png" translatesAutoresizingMaskIntoConstraints="NO" id="qxb-Xw-WF0">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ex.png" translatesAutoresizingMaskIntoConstraints="NO" id="qxb-Xw-WF0">
                                         <rect key="frame" x="127" y="37" width="31" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="IpY-aA-Upw"/>
                                             <constraint firstAttribute="width" constant="31" id="JPx-HF-pFd"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ul-Wk-3Vm">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ul-Wk-3Vm">
                                         <rect key="frame" x="192" y="40" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1287,7 +1301,7 @@
                                     <rect key="frame" x="0.0" y="-3" width="600" height="222"/>
                                 </variation>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yzM-2u-vhu">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yzM-2u-vhu">
                                 <rect key="frame" x="0.0" y="302" width="600" height="298"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="V1f-wg-Q17">
@@ -2269,19 +2283,9 @@ If you are a qualified public educational or government institution and any part
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88 people attending" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23i-ZH-dok" userLabel="attending">
-                                            <rect key="frame" x="14" y="357" width="572" height="30"/>
-                                            <color key="backgroundColor" red="0.76813412410000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="Xrf-uQ-jIm"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="LemonMilk" family="Lemon/Milk" pointSize="14"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wod-aN-rfE">
-                                            <rect key="frame" x="505" y="392" width="81" height="26"/>
-                                            <color key="backgroundColor" red="0.74509803919999995" green="0.1176470588" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="511" y="391" width="81" height="26"/>
+                                            <color key="backgroundColor" red="0.76813412410000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="81" id="TzK-GG-kHI"/>
                                             </constraints>
@@ -2300,26 +2304,38 @@ If you are a qualified public educational or government institution and any part
                                                 <outletCollection property="gestureRecognizers" destination="lC4-dU-ehX" appends="YES" id="xtR-lI-lpx"/>
                                             </connections>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1o-n9-TwC">
+                                            <rect key="frame" x="8" y="357" width="584" height="28"/>
+                                            <color key="backgroundColor" red="0.76813412410000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="LemonMilk" family="Lemon/Milk" pointSize="15"/>
+                                            <state key="normal" title="Attending 0">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="attendingButton:" destination="HkX-Jt-9uk" eventType="touchUpInside" id="UMF-Nq-hVk"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="RMT-4b-h3D" firstAttribute="top" secondItem="sVr-Kz-VSV" secondAttribute="topMargin" id="1Uk-j0-kV3"/>
+                                        <constraint firstItem="Wod-aN-rfE" firstAttribute="top" secondItem="R1o-n9-TwC" secondAttribute="bottom" constant="6" id="8pO-U3-qab"/>
+                                        <constraint firstItem="R1o-n9-TwC" firstAttribute="leading" secondItem="sVr-Kz-VSV" secondAttribute="leading" constant="8" id="9M8-ZC-622"/>
                                         <constraint firstAttribute="bottom" secondItem="V7Z-jO-6ye" secondAttribute="bottom" constant="70" id="B12-lM-4Po"/>
                                         <constraint firstItem="RMT-4b-h3D" firstAttribute="leading" secondItem="sVr-Kz-VSV" secondAttribute="leading" constant="8" id="BMd-uO-I2k"/>
                                         <constraint firstItem="V7Z-jO-6ye" firstAttribute="top" secondItem="RMT-4b-h3D" secondAttribute="bottom" constant="8" id="Gge-1M-Et4"/>
-                                        <constraint firstItem="23i-ZH-dok" firstAttribute="leading" secondItem="sVr-Kz-VSV" secondAttribute="leadingMargin" constant="6" id="Hck-2r-e9Z"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="V7Z-jO-6ye" secondAttribute="trailing" constant="-8" id="Nlk-Ac-NaE"/>
                                         <constraint firstItem="rdH-Z0-86D" firstAttribute="leading" secondItem="RMT-4b-h3D" secondAttribute="trailing" constant="8" id="Zhj-ht-brT"/>
-                                        <constraint firstItem="23i-ZH-dok" firstAttribute="top" secondItem="V7Z-jO-6ye" secondAttribute="bottom" constant="4" id="cqH-I8-eFy"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Wod-aN-rfE" secondAttribute="trailing" constant="6" id="izx-uS-amL"/>
-                                        <constraint firstItem="Wod-aN-rfE" firstAttribute="top" secondItem="23i-ZH-dok" secondAttribute="bottom" constant="5" id="mkv-mQ-7T4"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="23i-ZH-dok" secondAttribute="trailing" constant="6" id="p0C-bg-bZX"/>
+                                        <constraint firstItem="R1o-n9-TwC" firstAttribute="top" secondItem="V7Z-jO-6ye" secondAttribute="bottom" constant="4" id="gUG-ne-cG1"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Wod-aN-rfE" secondAttribute="trailing" id="izx-uS-amL"/>
                                         <constraint firstItem="V7Z-jO-6ye" firstAttribute="leading" secondItem="sVr-Kz-VSV" secondAttribute="leadingMargin" constant="-8" id="sgo-JG-pBK"/>
                                         <constraint firstItem="rdH-Z0-86D" firstAttribute="top" secondItem="sVr-Kz-VSV" secondAttribute="topMargin" constant="8" id="ssk-SF-RmM"/>
+                                        <constraint firstAttribute="trailing" secondItem="R1o-n9-TwC" secondAttribute="trailing" constant="8" id="xrR-8t-74U"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="attendButton" destination="Wod-aN-rfE" id="CmU-pw-unB"/>
-                                    <outlet property="attendingLabel" destination="23i-ZH-dok" id="0OM-ky-uOD"/>
+                                    <outlet property="attendingButton" destination="R1o-n9-TwC" id="SLR-Mm-GHM"/>
                                     <outlet property="eventImage" destination="V7Z-jO-6ye" id="m16-Vl-kHe"/>
                                     <outlet property="nameLabel" destination="rdH-Z0-86D" id="AI6-dc-5SR"/>
                                     <outlet property="profileImage" destination="RMT-4b-h3D" id="Y1x-FY-Llm"/>
@@ -2353,6 +2369,7 @@ If you are a qualified public educational or government institution and any part
                         <outlet property="profileImageTapRecognizer" destination="Bqw-gv-Itj" id="2Yn-po-51G"/>
                         <segue destination="kr5-de-2UD" kind="show" identifier="showDetailsSegue" id="VJO-pD-hzv"/>
                         <segue destination="qJi-dl-hfz" kind="show" identifier="profileViewSegue" id="oLv-p0-GWa"/>
+                        <segue destination="xI9-dT-sIE" kind="show" identifier="attendingSegue" id="QEe-34-064"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RFb-iT-RtO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2367,7 +2384,7 @@ If you are a qualified public educational or government institution and any part
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1332" y="-201"/>
+            <point key="canvasLocation" x="-1470" y="-201"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nlf-qm-eh6">
@@ -3827,7 +3844,7 @@ If you are a qualified public educational or government institution and any part
                                                     <constraint firstAttribute="width" secondItem="6Fx-7r-gUb" secondAttribute="height" multiplier="1:1" id="hGC-Cb-I6M"/>
                                                 </constraints>
                                             </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9E7-uC-T8X">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9E7-uC-T8X">
                                                 <rect key="frame" x="150" y="134" width="300" height="268"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to share this flyer?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L17-ZQ-ijR">
@@ -4363,6 +4380,7 @@ If you are a qualified public educational or government institution and any part
                         <segue destination="d8A-2l-Y3n" kind="show" identifier="addTeammateSegue" id="Uk0-cx-moz"/>
                         <segue destination="AUY-QM-v0n" kind="show" identifier="scannerSegue" id="NFb-Xz-5eW"/>
                         <segue destination="3af-Xu-aWX" kind="show" identifier="requestViewSegue" id="arC-Wj-ug2"/>
+                        <segue destination="xI9-dT-sIE" kind="show" identifier="attendingSegue" id="HeV-ws-eXv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rkN-Q2-YlY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4432,11 +4450,12 @@ If you are a qualified public educational or government institution and any part
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sfu-Oh-zd7"/>
-        <segue reference="PIr-2X-eBa"/>
-        <segue reference="oLv-p0-GWa"/>
+        <segue reference="eao-1b-FNy"/>
         <segue reference="eIC-kc-UIr"/>
         <segue reference="TyK-Zu-X3h"/>
-        <segue reference="Uk0-cx-moz"/>
+        <segue reference="HeV-ws-eXv"/>
         <segue reference="NFb-Xz-5eW"/>
+        <segue reference="Uk0-cx-moz"/>
+        <segue reference="GcM-jU-xxZ"/>
     </inferredMetricsTieBreakers>
 </document>

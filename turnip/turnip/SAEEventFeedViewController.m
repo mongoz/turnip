@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Stupidest App Ever. All rights reserved.
 //
 
+#import "SAEAttendingTableViewController.h"
 #import "SAEHostSingleton.h"
 #import "ProfileViewController.h"
 #import "SAEEventFeedViewController.h"
@@ -109,7 +110,6 @@
                     PFQuery *query2 = [relation query];
                     [query2 findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
                         if (!error) {
-                            
                             
                             SAEEvent *newEvent = [[SAEEvent alloc] initWithImage:[event valueForKey:@"image1"]
                                                                         objectId:[event objectId]
@@ -247,8 +247,9 @@
     cell.nameLabel.text = [[[self.events objectAtIndex:indexPath.row] valueForKey:@"host"] objectForKey:@"firstName"];
     
     NSInteger attendingCount = [[[self.events valueForKey:@"attendees"] objectAtIndex:indexPath.row] count];
+    NSString *string = [NSString stringWithFormat:@"Attending %ld", (long)attendingCount];
     
-    cell.attendingLabel.text = [NSString stringWithFormat:@"Attending %ld", (long)attendingCount];
+    [cell.attendingButton setTitle:string forState:UIControlStateNormal];
     cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
     cell.profileImage.clipsToBounds = YES;
     
@@ -421,7 +422,6 @@
     
     NSError *error;
     for (NSManagedObject *managedObject in event) {
-        NSLog(@"event: %@", managedObject);
         [context deleteObject:managedObject];
     }
     
@@ -441,8 +441,6 @@
     
     NSString *eventId = [[self.events objectAtIndex:indexPath.row] valueForKey:TurnipParsePostIdKey];
     BOOL isPrivate = [[[self.events objectAtIndex:indexPath.row] valueForKey:TurnipParsePostPrivateKey] boolValue];
-    
-    
     
     if (isPrivate) {
         //send request
@@ -486,12 +484,16 @@
     
 }
 
+- (void) eventFeedViewCellAttendingButton:(SAEEventFeedViewCell *)cell {
+    [self performSegueWithIdentifier:@"attendingSegue" sender:nil];
+}
+
 #pragma mark - Navigation
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    
     if ([segue.identifier isEqualToString:@"showDetailsSegue"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        
         SAEDetailsViewController *destViewController = segue.destinationViewController;
         
         destViewController.event = [self.events objectAtIndex:indexPath.row];
@@ -499,13 +501,19 @@
     }
     
     if ([segue.identifier isEqualToString:@"profileViewSegue"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        
         ProfileViewController *destViewController = segue.destinationViewController;
         
         destViewController.user = [[self.events objectAtIndex:indexPath.row] valueForKey:@"host"];
     }
+    
+    if([segue.identifier isEqualToString:@"attendingSegue"]) {
+        SAEAttendingTableViewController *destViewController = segue.destinationViewController;
+        destViewController.attendees = [[self.events objectAtIndex:indexPath.row] valueForKey:@"attendees"];
+        
+    }
 }
+
+#pragma mark - gestureRecognizer
 
 - (IBAction)imageTapRecognizer:(UITapGestureRecognizer *)sender {
     [self performSegueWithIdentifier:@"showDetailsSegue" sender:self];

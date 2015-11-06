@@ -11,6 +11,7 @@
 #import "SAEDetailsViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
+#import "SAEAttendingTableViewController.h"
 
 @interface SAEDetailsViewController ()
 
@@ -62,7 +63,7 @@
     }
 
     self.hostLabel.text = [self.event.host valueForKey:@"firstName"];
-    self.goingLabel.text = [NSString stringWithFormat:@"Attending %lu", (unsigned long)[self.event.attendees count]];
+    [self.attendingButton setTitle:[NSString stringWithFormat:@"Attending %lu", (unsigned long)[self.event.attendees count]] forState:UIControlStateNormal];
     
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touch)];
     
@@ -77,7 +78,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (IBAction)attendButton:(id)sender {
     
     if (self.event.isPrivate) {
@@ -87,6 +87,9 @@
     }
 }
 
+- (IBAction)attendingButton:(id)sender {
+    [self performSegueWithIdentifier:@"attendingSegue" sender:nil];
+}
 
 - (IBAction)messageButton:(id)sender {
     [self performSegueWithIdentifier:@"messageSegue" sender:nil];
@@ -167,6 +170,12 @@
          SAEMessagingViewController *destViewController = segue.destinationViewController;
          destViewController.user = [self.event valueForKey:@"host"];
      }
+     
+     if ([segue.identifier isEqualToString:@"attendingSegue"]) {
+         SAEAttendingTableViewController *destViewController = segue.destinationViewController;
+         destViewController.attendees = self.event.attendees;
+     }
+     
  }
 
 - (IBAction)backNavigationButton:(id)sender {
@@ -175,7 +184,6 @@
 
 #pragma mark - Utils
 - (void) touch {
-    NSLog(@"derp");
     [self performSegueWithIdentifier:@"profileSegue" sender:nil];
 }
 @end

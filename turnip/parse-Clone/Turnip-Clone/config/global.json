@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "latest"
+  },
+  "applications": {
+    "Turnip-Clone": {
+      "applicationId": "fu8WMJoYJNKc57R4EDXVbHrRG0KF5o6hzbGJJwyd",
+      "masterKey": "FBTg73ZmGG2EKu1J9A1F95oTyBF7HlRMOB13RwbF"
+    },
+    "_default": {
+      "link": "Turnip-Clone"
+    }
+  }
+}

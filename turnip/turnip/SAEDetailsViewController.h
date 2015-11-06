@@ -19,9 +19,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *hostLabel;
-@property (strong, nonatomic) IBOutlet UILabel *goingLabel;
-@property (strong, nonatomic) IBOutlet UILabel *friendsLabel;
+@property (strong, nonatomic) IBOutlet UIButton *attendingButton;
 
+- (IBAction)attendingButton:(id)sender;
 - (IBAction)messageButton:(id)sender;
 - (IBAction)attendButton:(id)sender;
 - (IBAction)backNavigationButton:(id)sender;

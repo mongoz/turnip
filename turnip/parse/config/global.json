@@ -1,11 +1,11 @@
 {
     "applications": {
         "Turnip": {
-            "applicationId": "CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64", 
-            "masterKey": "ktPhpqaxlsf2xUUgnjUEOzV92J0mEdDXTNh0rHBy"
+            "applicationId": "fu8WMJoYJNKc57R4EDXVbHrRG0KF5o6hzbGJJwyd", 
+            "masterKey": "FBTg73ZmGG2EKu1J9A1F95oTyBF7HlRMOB13RwbF"
         }, 
         "_default": {
-            "link": "Turnip"
+            "link": "Turnip-Clone“
         }
     }
 }

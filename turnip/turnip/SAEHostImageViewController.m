@@ -116,7 +116,7 @@
     UIImage *image = [UIImage imageNamed:imageName];
     [self.imageArray addObject:image];
     
-    for (int i = 1; i <=10; i++) {
+    for (int i = 1; i <=11; i++) {
         NSString *imageName = [NSString stringWithFormat:@"stock%d.jpg", i];
         UIImage *image = [UIImage imageNamed:imageName];
         [self.imageArray addObject:image];

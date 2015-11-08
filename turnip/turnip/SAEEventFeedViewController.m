@@ -68,6 +68,7 @@
     self.tableView.backgroundView = self.activityIndicator;
     
     [self checkLocalEvent];
+    [self checkNotificationCount];
     
     [self.activityIndicator startAnimating];
     [self queryEvents];
@@ -522,4 +523,37 @@
 - (IBAction)profileImageTapRecognizer:(UITapGestureRecognizer *)sender {
     [self performSegueWithIdentifier:@"profileViewSegue" sender:self];
 }
+
+
+#pragma mark - notificationsCount
+
+#pragma mark - Parse
+
+- (void) checkNotificationCount {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    
+    //[query whereKey:@"objectId" equalTo:[PFUser currentUser]];
+    
+    [query selectKeys:@[@"nrOfNotifications", @"nrOfMessages"]];
+    
+    [query getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *object, NSError *error) {
+        if(!error) {
+            NSString *notes = [[object objectForKey:@"nrOfNotifications"] stringValue];
+            NSString *messages = [[object objectForKey:@"nrOfMessages"] stringValue];
+            
+            if (![notes isEqualToString:@"0"]) {
+                [[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabNotification] setBadgeValue:notes];
+            }
+            
+            if (![messages isEqualToString:@"0"]) {
+                [[[[[self tabBarController] tabBar] items] objectAtIndex: TurnipTabMessage] setBadgeValue:messages];
+            }
+            
+        } else {
+            [ParseErrorHandlingController handleParseError:error];
+        }
+    }];
+}
+
 @end

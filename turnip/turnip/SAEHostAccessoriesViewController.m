@@ -145,8 +145,8 @@
 - (void) buildFrameArray {
     
     [self.frames addObject:[NSNull null]];
-    for (int i = 1; i <=7; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"frame%d.png", i];
+    for (int i = 1; i <= 5; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"border%d.png", i];
         UIImage *frame = [UIImage imageNamed:imageName];
         [self.frames addObject:frame];
     }

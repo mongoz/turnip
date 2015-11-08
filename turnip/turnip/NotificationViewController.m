@@ -102,7 +102,7 @@ NSArray *fetchedObjects;
     [cell.noteTextLabel setAttributedText:string];
 
     
-    PFFile *file = [[[self.notifications valueForKey:@"event"] valueForKey:@"thumbnail"] objectAtIndex:indexPath.row];
+    PFFile *file = [[[self.notifications valueForKey:@"event"] valueForKey:@"image1"] objectAtIndex:indexPath.row];
     
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {

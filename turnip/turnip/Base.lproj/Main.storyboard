@@ -3553,7 +3553,7 @@ If you are a qualified public educational or government institution and any part
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mmh-mv-nIl" userLabel="request">
                                                         <rect key="frame" x="95" y="15" width="50" height="120"/>
-                                                        <state key="normal" backgroundImage="add.png">
+                                                        <state key="normal" backgroundImage="requests.png">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -3706,6 +3706,7 @@ If you are a qualified public educational or government institution and any part
         <image name="profile" width="30" height="30"/>
         <image name="qrcircle.png" width="200" height="200"/>
         <image name="refreshWhite" width="55" height="60"/>
+        <image name="requests.png" width="50" height="50"/>
         <image name="scanner.png" width="50" height="50"/>
         <image name="sms" width="50" height="50"/>
         <image name="tabbar_selected" width="66" height="50"/>
@@ -3715,10 +3716,10 @@ If you are a qualified public educational or government institution and any part
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sfu-Oh-zd7"/>
+        <segue reference="Dl2-Ci-fg9"/>
         <segue reference="eao-1b-FNy"/>
         <segue reference="QEe-34-064"/>
         <segue reference="oLv-p0-GWa"/>
         <segue reference="xH8-4C-0nt"/>
-        <segue reference="NFb-Xz-5eW"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,7 +22,7 @@
 
 #import <Stripe/Stripe.h>
 
-#define  STRIPE_TEST_PUBLIC_KEY @"pk_test_DbMmTlz56j1vq6YhfoCZiXBS"
+#define  STRIPE_TEST_PUBLIC_KEY @"INSERT KEY HERE"
 
 @interface AppDelegate ()
 
@@ -58,7 +58,7 @@
     self.storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     // Google Maps Api Key
-    [GMSServices provideAPIKey:@"AIzaSyA4QJU6IPnOSOdPoc0CA1No1Ng0GukJn-8"];
+    [GMSServices provideAPIKey:@"INSERT KEY HERE"];
     
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS
@@ -66,15 +66,11 @@
     
     [ParseCrashReporting enable];
     
-    // Initialize Parse.
-//    [Parse setApplicationId:@"CJ2nRu0kVksgPXZjE38Cyhksns2PFckOwq6c9c64"
-//                 clientKey:@"UWt8D4lmGKO6Yr2axtpq68aJitE4Iy4ceH7A10GW"];
-    
-    
     [Stripe setDefaultPublishableKey: STRIPE_TEST_PUBLIC_KEY];
-    //Dev client of Parse
-    [Parse setApplicationId:@"fu8WMJoYJNKc57R4EDXVbHrRG0KF5o6hzbGJJwyd"
-                  clientKey:@"hagNkvSebwEPuWqTCpO0yizSJRN3cinS98RKdkL6"];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"INSERT KEY HERE"
+                  clientKey:@"INSERT KEY HERE"];
     
     [PFUser enableRevocableSessionInBackground];
     
